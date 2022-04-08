@@ -1,0 +1,41 @@
+<ion-content id="content" [fullscreen]="true">
+  <div class="container">
+    <ion-card >
+     <ion-card-header>
+       <ion-card-subtitle></ion-card-subtitle>
+       <ion-card-title class="title"><i><b><u>{{title}}</u></b></i></ion-card-title>
+     </ion-card-header>
+     <ion-card-content class="center" >
+       <form [formGroup]="formData" (ngSubmit)="onSubmit()" > 
+         <ion-row >
+           <ion-item >
+            <ion-icon name="mail-outline"></ion-icon>
+             <ion-input class="input" formControlName="email" placeholder="Correo Electrónico"></ion-input>
+            </ion-item >
+         </ion-row>
+         <ion-row>
+          <div class="error-message" *ngIf="email.invalid && (email.dirty||email.touched)">
+            <div class="error-message" *ngIf="email.errors.required && isSubmited">*Correo Electrónico obligatorio*</div>
+            <div class="error-message" *ngIf="email.errors.minlength && isSubmited">*Email No es valido*</div>
+            <div class="error-message" *ngIf="email.errors.pattern && isSubmited">*El formato no es valido.*</div>
+          </div>
+         </ion-row>
+         <ion-row >
+           <ion-item >  
+            <ion-icon name="lock-closed-outline"></ion-icon>
+             <ion-input name="password" formControlName="password" placeholder="Password" [type]="showPassword ? 'text':'password'"  ></ion-input>
+             <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+            </ion-item>         
+         </ion-row>
+         <ion-row>
+            <div class="error-message"  *ngIf="password.invalid && (password.dirty||password.touched )" >
+            <div  *ngIf="password.errors.required  && isSubmited">*Contraseña obligatoria*</div>
+            </div>
+         </ion-row>
+         <ion-button type="submit" expand="default" shape="round" (click)="formData" >Iniciar Sesión</ion-button>
+         </form>
+     </ion-card-content>
+         <ion-button [routerLink]="['/detail']" type="submit" fill="clear" expand="small" color="medium" ><u>Registrarme</u></ion-button>
+   </ion-card>
+ </div>
+ </ion-content>
