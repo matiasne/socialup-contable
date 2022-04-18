@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegisterPage implements OnInit {
   public title : "REGISTRATE";
-  public priority: string;
+  //public priority: string;
   public formData: FormGroup;
   public dbData: any;
   errorMessage:"La Contraseña no coincide"
@@ -20,17 +20,15 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
-      this.priority = this.route.snapshot.paramMap.get('priority');
-      console.log("sdfsdf")
-      this.formData = new FormGroup({
-        name: new FormControl("",[Validators.required, Validators.minLength(5)]),
-        surname: new FormControl("",[Validators.required, Validators.minLength(5)]),
-        email: new FormControl ("",[Validators.required,Validators.maxLength(30), Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)]),
-        password: new FormControl("",Validators.compose([Validators.required, Validators.minLength(5)])),
-        validpassword: new FormControl("",Validators.compose ([Validators.required])),
-      
-        
-  })
+     // this.priority = this.route.snapshot.paramMap.get('priority');
+    console.log("sdfsdf")
+    this.formData = new FormGroup({
+      name: new FormControl("",[Validators.required, Validators.minLength(5)]),
+      surname: new FormControl("",[Validators.required, Validators.minLength(5)]),
+      email: new FormControl ("",[Validators.required,Validators.maxLength(30), Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)]),
+      password: new FormControl("",Validators.compose([Validators.required, Validators.minLength(5)])),
+      validpassword: new FormControl("",Validators.compose ([Validators.required])),
+    })
 
   
   }
@@ -53,6 +51,8 @@ export class RegisterPage implements OnInit {
   isMatching(){
     let password = this.formData.controls.password.value
     let validpassword = this.formData.controls.validpassword.value
+
+    
 
     if(password != validpassword){
       return true
