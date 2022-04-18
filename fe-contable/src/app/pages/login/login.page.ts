@@ -73,8 +73,7 @@ validation_messages = {
     this.isSubmited=true;
     
     if(this.formData.valid){
-      this.dbData.saveMessage(this.formData.value);
-      this.onSubmit();
+  
       console.log('valid')
     }else{
       console.log('not  valid')
@@ -86,7 +85,7 @@ validation_messages = {
 
   }
   navigate(){
-    this.router.navigate(['/detail'])
+    this.router.navigate(['/register'])
   }
 
     
@@ -95,10 +94,4 @@ validation_messages = {
  }
 
 
- /*mostrar.addEventListener("mousedown",()=>{
-    password.removeAttribute("type");
-  });
-
-  mostrar.addEventListener("mouseup", () =>{
-    password.setAtribute("type", "password");
-  });*/
+ 
