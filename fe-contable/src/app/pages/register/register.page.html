@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container" style="height: 100%; display:flex; align-items: center; justify-content: center">
+    <ion-card class="register-Form">
+      
+      <ion-card-header>
+        <ion-card-subtitle></ion-card-subtitle>
+        <ion-card-title>REGISTRATE</ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="text-align: center">
+        <form [formGroup]="formData" (ngSubmit)="onSubmit()" action="formData">
+            <ion-row>
+              <ion-item>
+                <ion-icon name="person-outline"></ion-icon>
+                <ion-input type="text" required formControlName="name" placeholder="Nombre"></ion-input> 
+              </ion-item>
+            </ion-row> 
+              <ion-row class="error">
+                <div class="alert-damger" *ngIf="!name.valid  && isSumited">
+                  <div calss="container-error-message" *ngIf="name.errors.required">
+                    <strong>Campo Obligatorio</strong> 
+                  </div>
+                  <div class="container-error-message" *ngIf="name.errors.minlength">
+                   <strong>Al menos 5 caracteres </strong> 
+                  </div>
+                </div> 
+            </ion-row> 
+        <br>
+          <ion-row>
+            <ion-item>
+              <ion-icon name="person-outline"></ion-icon>
+              <ion-input type="text" required formControlName="surname" placeholder="Apellido" ></ion-input>
+            </ion-item> 
+          </ion-row> 
+          <ion-row class="error">
+              <div class="alert-damger" *ngIf="!surname.valid && isSumited">
+                <div calss="container-error-message" *ngIf="surname.errors.required">
+                  <strong>Campo Obligatorio</strong>
+                </div>
+                <div class="container-error-message" *ngIf="surname.errors.minlength">
+                  <strong>Al menos 5 caracteres</strong>
+                </div>
+              </div>
+          </ion-row>
+          <br>
+          <ion-row>
+            <ion-item>
+              <ion-icon name="mail-outline"></ion-icon>
+              <ion-input type="email" required formControlName="email" placeholder="Email"> </ion-input>
+            </ion-item>
+          </ion-row> 
+            <ion-row class="error">
+                <div class="alert-danger" *ngIf="!email.valid && isSumited">
+                 <div calss="container-error-message" *ngIf="email.errors.required">
+                    <strong>Campo Obligatorio</strong> 
+                  </div>
+                  <div class="container-error-message" from *ngIf="email.invalid && email.errors.pattern">
+                    <strong>Ingerese un Email valido</strong>
+                  </div>
+               </div> 
+            </ion-row>
+          <br> 
+          <ion-row>
+            <ion-item>
+              <ion-icon name="bag-outline" aria-placeholder=""></ion-icon>
+              <ion-input type="password" required formControlName="password" placeholder="Contraseña"></ion-input>
+            </ion-item>
+          </ion-row> 
+          <ion-row class="error">
+            <div class="alert-danger" *ngIf="!password.valid  && isSumited">
+                <div calss="container-error-message" *ngIf="password.errors.required">
+                  <strong>Campo Obligatorio</strong> 
+                </div>
+                <br>
+                <div class="container-error-message" *ngIf="password.errors.minlength">
+                  <strong>Al menos 5 caracteres</strong>
+                </div>
+            </div>
+        </ion-row>
+          <br>
+          <ion-row>
+            <ion-item>
+              <ion-icon name="bag-outline"></ion-icon>
+              <ion-input type="password" required formControlName="validpassword" placeholder="Confirmar Contraseña"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row class="error"> 
+            <div class="alert-danger" *ngIf="!validpassword.valid  && isSumited">
+              <div calss="container-error-message" *ngIf="validpassword.errors.required">
+                <strong>Campo Obligatorio</strong> 
+              </div>
+            </div>          
+          </ion-row>
+            <ion-row class="error">
+              <div class="alert-danger" *ngIf="!validpassword.valid  && isSumited" >
+              <div calss="container-error-message" *ngIf="isMatching()">
+                <strong>Las Contraseñas no coinciden</strong> 
+              </div>
+              </div>
+          </ion-row>
+        
+          <br>
+          
+          <ion-button type="submit"    color="success">Registrarme</ion-button>
+
+          </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
