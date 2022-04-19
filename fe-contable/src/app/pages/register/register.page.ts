@@ -9,19 +9,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegisterPage implements OnInit {
   public title : "REGISTRATE";
-  //public priority: string;
   public formData: FormGroup;
-  public dbData: any;
-  errorMessage:"La Contraseña no coincide"
-  public isSumited= false;
- 
+  public isSubmitted: boolean;
+  public showPassword : boolean;
+  public passwordToggleIcon='eye';
+
+
   constructor(private route: ActivatedRoute) { 
     
+  }
+  togglePassword(): void {
+    this.showPassword = !this.showPassword
+    if(this.passwordToggleIcon == 'eye'){
+      this.passwordToggleIcon= 'eye-off';
+    }else{
+      this.passwordToggleIcon='eye';
+    }
+
   }
 
   ngOnInit() {
      // this.priority = this.route.snapshot.paramMap.get('priority');
-    console.log("sdfsdf")
+    
     this.formData = new FormGroup({
       name: new FormControl("",[Validators.required, Validators.minLength(5)]),
       surname: new FormControl("",[Validators.required, Validators.minLength(5)]),
@@ -32,16 +41,15 @@ export class RegisterPage implements OnInit {
 
   
   }
-
-
+ 
 
   onSubmit (){
-    this.isSumited=true;
+    this.isSubmitted=true;
     if(this.formData.valid){
      
-      console.log('valid');
+      
     }else{
-      console.log('Not Valid')
+      
     }
   }
   onResetForm() {
@@ -52,8 +60,6 @@ export class RegisterPage implements OnInit {
     let password = this.formData.controls.password.value
     let validpassword = this.formData.controls.validpassword.value
 
-    
-
     if(password != validpassword){
       return true
     }
@@ -61,7 +67,7 @@ export class RegisterPage implements OnInit {
       return false
   }
 
-userRegister(formRegister: NgForm){
+  userRegister(formRegister: NgForm){
   
 }
 get name(){return this.formData.get('name');}
