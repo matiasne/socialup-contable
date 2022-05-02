@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-icon class="icon"  name="person-outline"></ion-icon>
+       <ion-title>MI PERFIL</ion-title> 
+    </ion-row>
+        
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form class="form"[formGroup]="formProfile" (ngSubmit)="onSubmit()"  action="formProfile">
+        <ion-row>
+          <div  class="avatar">
+           <ion-item >
+           <div>
+             <ion-avatar class="image-avatar"(click)="imageClick()" (click)="submitImage()" *ngIf="!mostrar">
+               <ion-img src="https://i.pinimg.com/564x/a5/6d/35/a56d3517bb1323832680fbe7eb342da0.jpg"></ion-img>
+             </ion-avatar>
+             <ion-avatar class="image-avatar" (click)="imageClick()" *ngIf="mostrar">
+               <ion-img [src]="imagePreview"></ion-img>
+             </ion-avatar>
+             <input type="file" id="selectedFile" (change)="handleImageChange($event)" style="display:none">
+           </div>
+          </ion-item>
+         </div>
+         </ion-row> 
+         <br>
+            <ion-row>
+                <ion-input type="text" required formControlName="name" >Nombre:</ion-input> 
+            </ion-row> 
+            <ion-row class="error">
+              <div class="alert-danger" *ngIf="!name.valid  && isSubmitted">
+                <div calss="container-error-message" *ngIf="name.errors.required ">
+                  <strong>Campo Obligatorio</strong> 
+                </div>
+                <div class="container-error-message" *ngIf="name.errors.minlength ">
+                 <strong>Al menos 3 caracteres </strong> 
+                </div>
+              </div> 
+            </ion-row>
+            <br>
+            <ion-row>
+              <ion-input type="text" required formControlName="surname" >Apellido:</ion-input> 
+          </ion-row> 
+          <ion-row class="error">
+            <div class="alert-danger" *ngIf="!surname.valid && isSubmitted">
+              <div calss="container-error-message" *ngIf="surname.errors.required">
+                <strong>Campo Obligatorio</strong> 
+              </div>
+              <div class="container-error-message" *ngIf="surname.errors.minlength">
+               <strong>Al menos 3 caracteres </strong> 
+              </div>
+            </div> 
+          </ion-row>
+          <br>
+          <ion-row>
+            <ion-input type="text" required formControlName="gender" >Género:</ion-input> 
+          </ion-row> 
+        <br>
+        <ion-row>
+          <ion-input type="text" required formControlName="direction" >Dirección:</ion-input> 
+        </ion-row> 
+          <ion-row class="error">
+            <div class="alert-danger" *ngIf="!direction.valid && isSubmitted">
+              <div calss="container-error-message" *ngIf="direction.errors.required">
+                <strong>Campo Obligatorio</strong> 
+              </div>
+              <div class="container-error-message" *ngIf="direction.errors.minlength">
+              <strong>Al menos 3 caracteres </strong> 
+              </div>
+            </div> 
+          </ion-row>
+                 <br>
+        <ion-row>
+          <ion-input name="password" formControlName="password" [type]="showPassword ? 'text': 'password'">Contraseña: </ion-input> 
+          <ion-icon  slot="end" [name]="passwordToggleIcon"(click)="togglePassword()"></ion-icon>
+        </ion-row> 
+        <ion-row class="error">
+          <div class="alert-danger" *ngIf="!password.valid && isSubmitted">
+            <div calss="container-error-message" *ngIf="password.errors.required">
+              <strong>Campo Obligatorio</strong> 
+            </div>
+            <div class="container-error-message" *ngIf="password.errors.minlength">
+            <strong>Al menos 3 caracteres </strong> 
+            </div>
+          </div> 
+        </ion-row>
+        <ion-button type="submit" color="success " expand="block width" (click)="formProfile">Guardar</ion-button>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>
