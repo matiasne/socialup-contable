@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+       <ion-title class="title">MI PERFIL</ion-title> 
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <form class="form"[formGroup]="formProfile" (ngSubmit)="onSubmit()"  action="formProfile">
+        <ion-row>
+          <div  class="avatar">
+           <ion-item >
+           <div>
+             <ion-avatar class="image-avatar"(click)="imageClick()" (click)="submitImage()" *ngIf="!mostrar">
+               <ion-img src="https://i.pinimg.com/564x/a5/6d/35/a56d3517bb1323832680fbe7eb342da0.jpg"></ion-img>
+             </ion-avatar>
+             <ion-avatar class="image-avatar" (click)="imageClick()" *ngIf="mostrar">
+               <ion-img [src]="imagePreview"></ion-img>
+             </ion-avatar>
+             <input type="file" id="selectedFile" (change)="handleImageChange($event)" style="display:none">
+           </div>
+          </ion-item>
+         </div>
+         </ion-row> 
+            <ion-row>
+              <ion-item>
+                <ion-icon name="person-outline"></ion-icon>
+                <ion-label ></ion-label>
+                <ion-input type="text" required formControlName="name" placeholder="Nombre"></ion-input> 
+              </ion-item>
+            </ion-row> 
+            <ion-row >
+              <div class="error-message" *ngIf="!name.valid  && isSubmitted">
+                <div calss="error-message" *ngIf="name.errors.required ">
+                  <strong>*Campo Obligatorio*</strong> 
+                </div>
+                <div class="error-message" *ngIf="name.errors.minlength ">
+                 <strong>*Al menos 3 caracteres* </strong> 
+                </div>
+              </div> 
+            </ion-row>
+            <ion-row>
+            <ion-item>
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-label ></ion-label>
+              <ion-input type="text" required formControlName="surname" placeholder="Apellido"></ion-input> 
+            </ion-item>          
+            </ion-row> 
+          <ion-row >
+            <div class="error-message" *ngIf="!surname.valid && isSubmitted">
+              <div calss="error-message" *ngIf="surname.errors.required">
+                <strong>*Campo Obligatorio*</strong> 
+              </div>
+              <div class="error-message" *ngIf="surname.errors.minlength">
+               <strong>*Al menos 3 caracteres* </strong> 
+              </div>
+            </div> 
+          </ion-row>
+          <ion-row>
+          <ion-item>
+            <ion-icon name="transgender-outline"></ion-icon>
+            <ion-label ></ion-label>
+            <ion-input type="text" required formControlName="gender" placeholder="Género"></ion-input> 
+          </ion-item>
+          </ion-row> 
+        <ion-row>
+        <ion-item>
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-label ></ion-label>
+          <ion-input type="text" required formControlName="direction" placeholder="Dirección" ></ion-input> 
+        </ion-item>
+        </ion-row> 
+          <ion-row >
+            <div class="error-message" *ngIf="!direction.valid && isSubmitted">
+              <div calss="error-message" *ngIf="direction.errors.required">
+                <strong>*Campo Obligatorio*</strong> 
+              </div>
+              <div class="error-message" *ngIf="direction.errors.minlength">
+              <strong>*Al menos 3 caracteres* </strong> 
+              </div>
+            </div> 
+          </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-label ></ion-label>
+          <ion-input placeholder="Contraseña" name="password" formControlName="password" [type]="showPassword ? 'text': 'password'"> </ion-input> 
+          <ion-icon  slot="end" [name]="passwordToggleIcon"(click)="togglePassword()"></ion-icon>
+        </ion-item>
+        </ion-row> 
+        <ion-row >
+          <div class="error-message" *ngIf="!password.valid && isSubmitted">
+            <div calss="error-message" *ngIf="password.errors.required">
+              <strong>*Campo Obligatorio*</strong> 
+            </div>
+            <div class="error-message" *ngIf="password.errors.minlength">
+            <strong>*Al menos 3 caracteres *</strong> 
+            </div>
+          </div> 
+        </ion-row><br>
+        <ion-button type="submit" expand="default"  shape="round" (click)="formProfile" >Actualizar mis datos</ion-button>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>
