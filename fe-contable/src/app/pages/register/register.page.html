@@ -1,114 +1,105 @@
-<ion-header>
-  <ion-toolbar>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <div id="container" style="height: 100%; display:flex; align-items: center; justify-content: center">
-    <ion-card class="register-Form">
+  <div class="container" >
+    <ion-card class="form">
       
       <ion-card-header>
         <ion-card-subtitle></ion-card-subtitle>
         <ion-card-title>REGISTRATE</ion-card-title>
       </ion-card-header>
-      <ion-card-content style="text-align: center">
+      <ion-card-content class="card">
         <form [formGroup]="formData" (ngSubmit)="onSubmit()" action="formData">
             <ion-row>
               <ion-item>
                 <ion-icon name="person-outline"></ion-icon>
+                <ion-label ></ion-label>
                 <ion-input type="text" required formControlName="name" placeholder="Nombre"></ion-input> 
               </ion-item>
             </ion-row> 
-              <ion-row isSubmitted>
-                <div class="alert-danger" *ngIf="!name.valid  && isSubmitted">
-                  <div calss="container-error-message" *ngIf="name.errors.required">
-                    <strong>Campo Obligatorio</strong> 
+              <ion-row >
+                <div class="error-message" *ngIf="!name.valid  && isSubmitted">
+                  <div  class="error-message" *ngIf="name.errors.required">
+                    *Campo Obligatorio*
                   </div>
-                  <div class="container-error-message" *ngIf="name.errors.minlength">
-                   <strong>Al menos 5 caracteres </strong> 
+                  <div class="error-message" *ngIf="name.errors.minlength">
+                   *Al menos 5 caracteres* 
                   </div>
                 </div> 
             </ion-row> 
-        <br>
           <ion-row>
             <ion-item>
               <ion-icon name="person-outline"></ion-icon>
+              <ion-label ></ion-label>
               <ion-input type="text" required formControlName="surname" placeholder="Apellido" ></ion-input>
             </ion-item> 
           </ion-row> 
           <ion-row isSubmitted>
-              <div class="alert-danger" *ngIf="!surname.valid && isSubmitted">
-                <div calss="container-error-message" *ngIf="surname.errors.required">
-                  <strong>Campo Obligatorio</strong>
+              <div  class="error-message" *ngIf="!surname.valid && isSubmitted">
+                <div  class="error-message" *ngIf="surname.errors.required">
+                  *Campo Obligatorio*
                 </div>
-                <div class="container-error-message" *ngIf="surname.errors.minlength">
-                  <strong>Al menos 5 caracteres</strong>
+                <div  class="error-message" *ngIf="surname.errors.minlength">
+                  *Al menos 5 caracteres*
                 </div>
               </div>
           </ion-row>
-          <br>
           <ion-row>
             <ion-item>
               <ion-icon name="mail-outline"></ion-icon>
+              <ion-label ></ion-label>
               <ion-input type="email" required formControlName="email" placeholder="Email"> </ion-input>
             </ion-item>
           </ion-row> 
             <ion-row isSubmitted>
-                <div class="alert-danger" *ngIf="!email.valid && isSubmitted">
-                 <div calss="container-error-message" *ngIf="email.errors.required">
-                    <strong>Campo Obligatorio</strong> 
+                <div  class="error-message" *ngIf="!email.valid && isSubmitted">
+                 <div  class="error-message" *ngIf="email.errors.required">
+                    *Campo Obligatorio* 
                   </div>
-                  <div class="container-error-message" from *ngIf="email.invalid && email.errors.pattern">
-                    <strong>Ingerese un Email valido</strong>
+                  <div  class="error-message" from *ngIf="email.invalid && email.errors.pattern">
+                    *Ingerese un Email valido*
                   </div>
                </div> 
             </ion-row>
-          <br> 
           <ion-row>
             <ion-item>
               <ion-icon name="bag-outline" aria-placeholder=""></ion-icon>
+              <ion-label ></ion-label>
               <ion-input [type]="showPassword ? 'text':'password'"  required formControlName="password" placeholder="Contraseña"></ion-input>
               <ion-icon slto="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
             </ion-item>
           </ion-row> 
           <ion-row isSubmitted>
-            <div class="alert-danger" *ngIf="!password.valid  && isSubmitted">
-                <div calss="container-error-message" *ngIf="password.errors.required">
-                  <strong>Campo Obligatorio</strong> 
+            <div  class="error-message" *ngIf="!password.valid  && isSubmitted">
+                <div  class="error-message" *ngIf="password.errors.required">
+                  *Campo Obligatorio*
                 </div>
-                <br>
-                <div class="container-error-message" *ngIf="password.errors.minlength">
-                  <strong>Al menos 5 caracteres</strong>
+                <div  class="error-message"*ngIf="password.errors.minlength">
+                  *Al menos 5 caracteres*
                 </div>
             </div>
         </ion-row>
-          <br>
           <ion-row>
             <ion-item>
               <ion-icon name="bag-outline"></ion-icon>
+              <ion-label ></ion-label>
               <ion-input [type]="showPassword ? 'text':'password'" required formControlName="validpassword" placeholder="Confirmar Contraseña"></ion-input>
               
             </ion-item> 
           </ion-row>
           <ion-row isSubmitted> 
-            <div class="alert-danger" *ngIf="!validpassword.valid  && isSubmitted">
-              <div calss="container-error-message" *ngIf="validpassword.errors.required">
-                <strong>Campo Obligatorio</strong> 
+            <div  class="error-message" *ngIf="!validpassword.valid  && isSubmitted">
+              <div  class="error-message" *ngIf="validpassword.errors.required">
+                *Campo Obligatorio*
               </div>
             </div>          
           </ion-row>
             <ion-row isSubmitted>
-              <div class="alert-danger" *ngIf="!validpassword.valid  && isSubmitted" >
-              <div calss="container-error-message" *ngIf="isMatching()">
-                <strong>Las Contraseñas no coinciden</strong> 
+              <div  class="error-message" *ngIf="!validpassword.valid  && isSubmitted" >
+              <div  class="error-message" *ngIf="isMatching()">
+                *Las Contraseñas no coinciden*
               </div>
               </div>
           </ion-row>
-        
-          <br>
-          
-          <ion-button type="submit"  color="success">Registrarme</ion-button>
-
+          <ion-button type="submit" expand="default"  shape="round" (click)="formData" >Registrarme</ion-button>
           </form>
       </ion-card-content>
     </ion-card>

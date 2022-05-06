@@ -1,14 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-row>
-      <ion-icon class="icon"  name="person-outline"></ion-icon>
-       <ion-title>MI PERFIL</ion-title> 
-    </ion-row>
-        
+       <ion-title class="title">MI PERFIL</ion-title> 
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-content>
       <form class="form"[formGroup]="formProfile" (ngSubmit)="onSubmit()"  action="formProfile">
@@ -27,68 +22,83 @@
           </ion-item>
          </div>
          </ion-row> 
-         <br>
             <ion-row>
-                <ion-input type="text" required formControlName="name" >Nombre:</ion-input> 
+              <ion-item>
+                <ion-icon name="person-outline"></ion-icon>
+                <ion-label ></ion-label>
+                <ion-input type="text" required formControlName="name" placeholder="Nombre"></ion-input> 
+              </ion-item>
             </ion-row> 
-            <ion-row class="error">
-              <div class="alert-danger" *ngIf="!name.valid  && isSubmitted">
-                <div calss="container-error-message" *ngIf="name.errors.required ">
-                  <strong>Campo Obligatorio</strong> 
+            <ion-row >
+              <div class="error-message" *ngIf="!name.valid  && isSubmitted">
+                <div calss="error-message" *ngIf="name.errors.required ">
+                  <strong>*Campo Obligatorio*</strong> 
                 </div>
-                <div class="container-error-message" *ngIf="name.errors.minlength ">
-                 <strong>Al menos 3 caracteres </strong> 
+                <div class="error-message" *ngIf="name.errors.minlength ">
+                 <strong>*Al menos 3 caracteres* </strong> 
                 </div>
               </div> 
             </ion-row>
-            <br>
             <ion-row>
-              <ion-input type="text" required formControlName="surname" >Apellido:</ion-input> 
-          </ion-row> 
-          <ion-row class="error">
-            <div class="alert-danger" *ngIf="!surname.valid && isSubmitted">
-              <div calss="container-error-message" *ngIf="surname.errors.required">
-                <strong>Campo Obligatorio</strong> 
+            <ion-item>
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-label ></ion-label>
+              <ion-input type="text" required formControlName="surname" placeholder="Apellido"></ion-input> 
+            </ion-item>          
+            </ion-row> 
+          <ion-row >
+            <div class="error-message" *ngIf="!surname.valid && isSubmitted">
+              <div calss="error-message" *ngIf="surname.errors.required">
+                <strong>*Campo Obligatorio*</strong> 
               </div>
-              <div class="container-error-message" *ngIf="surname.errors.minlength">
-               <strong>Al menos 3 caracteres </strong> 
+              <div class="error-message" *ngIf="surname.errors.minlength">
+               <strong>*Al menos 3 caracteres* </strong> 
               </div>
             </div> 
           </ion-row>
-          <br>
           <ion-row>
-            <ion-input type="text" required formControlName="gender" >Género:</ion-input> 
+          <ion-item>
+            <ion-icon name="transgender-outline"></ion-icon>
+            <ion-label ></ion-label>
+            <ion-input type="text" required formControlName="gender" placeholder="Género"></ion-input> 
+          </ion-item>
           </ion-row> 
-        <br>
         <ion-row>
-          <ion-input type="text" required formControlName="direction" >Dirección:</ion-input> 
+        <ion-item>
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-label ></ion-label>
+          <ion-input type="text" required formControlName="direction" placeholder="Dirección" ></ion-input> 
+        </ion-item>
         </ion-row> 
-          <ion-row class="error">
-            <div class="alert-danger" *ngIf="!direction.valid && isSubmitted">
-              <div calss="container-error-message" *ngIf="direction.errors.required">
-                <strong>Campo Obligatorio</strong> 
+          <ion-row >
+            <div class="error-message" *ngIf="!direction.valid && isSubmitted">
+              <div calss="error-message" *ngIf="direction.errors.required">
+                <strong>*Campo Obligatorio*</strong> 
               </div>
-              <div class="container-error-message" *ngIf="direction.errors.minlength">
-              <strong>Al menos 3 caracteres </strong> 
+              <div class="error-message" *ngIf="direction.errors.minlength">
+              <strong>*Al menos 3 caracteres* </strong> 
               </div>
             </div> 
           </ion-row>
-                 <br>
         <ion-row>
-          <ion-input name="password" formControlName="password" [type]="showPassword ? 'text': 'password'">Contraseña: </ion-input> 
+          <ion-item>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-label ></ion-label>
+          <ion-input placeholder="Contraseña" name="password" formControlName="password" [type]="showPassword ? 'text': 'password'"> </ion-input> 
           <ion-icon  slot="end" [name]="passwordToggleIcon"(click)="togglePassword()"></ion-icon>
+        </ion-item>
         </ion-row> 
-        <ion-row class="error">
-          <div class="alert-danger" *ngIf="!password.valid && isSubmitted">
-            <div calss="container-error-message" *ngIf="password.errors.required">
-              <strong>Campo Obligatorio</strong> 
+        <ion-row >
+          <div class="error-message" *ngIf="!password.valid && isSubmitted">
+            <div calss="error-message" *ngIf="password.errors.required">
+              <strong>*Campo Obligatorio*</strong> 
             </div>
-            <div class="container-error-message" *ngIf="password.errors.minlength">
-            <strong>Al menos 3 caracteres </strong> 
+            <div class="error-message" *ngIf="password.errors.minlength">
+            <strong>*Al menos 3 caracteres *</strong> 
             </div>
           </div> 
-        </ion-row>
-        <ion-button type="submit" color="success " expand="block width" (click)="formProfile">Guardar</ion-button>
+        </ion-row><br>
+        <ion-button type="submit" expand="default"  shape="round" (click)="formProfile" >Actualizar mis datos</ion-button>
       </form>
       
     </ion-card-content>
