@@ -24,3 +24,40 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+//<ion-button type="submit" expand="default"  shape="round" (click)="formData" >Registrarme</ion-button>
+.container{
+    text-align: center;
+    height: 100%;
+     display:flex; 
+     align-items: center;
+    justify-content: center;
+}
+.error-message{
+    color:rgb(181, 55, 55);
+    border-color:#f5c6cb;
+    margin-bottom:5px;
+}
+.form{
+    text-align: center;
+}
+.title{
+    color: white;
+    text-align: center;
+}
+.card{ 
+    display: flex;
+     justify-content: center;
+}
+
+.avatar{
+    margin: auto;
+}
+.icon{
+    margin-left: 30px;
+    top:100px;
+}
+.image-avatar{
+    width: 200px;
+    height: 200px;
+}

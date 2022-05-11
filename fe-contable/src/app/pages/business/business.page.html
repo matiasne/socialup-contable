@@ -3,24 +3,19 @@
     <ion-title class="title">BUSINESS</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <div>
-    <ion-card class="form-business">
-     <ion-card-header >
-       <ion-card-subtitle></ion-card-subtitle>
-       <ion-card-title ></ion-card-title>
-     </ion-card-header>
+    <ion-card >
      <ion-card-content>
-      <form class="formule" [formGroup]="formBusiness" (ngSubmit)="onSubmit()" action="formBusiness"> 
+      <form class="form" [formGroup]="formBusiness" (ngSubmit)="onSubmit()" action="formBusiness"> 
         <ion-row>
          <div  class="avatar">
           <ion-item >
           <div>
-            <ion-avatar (click)="imageClick()" (click)="submitImage()" *ngIf="!mostrar">
+            <ion-avatar class="image-avatar" (click)="imageClick()" (click)="submitImage()" *ngIf="!mostrar">
               <ion-img src="https://i.pinimg.com/564x/a5/6d/35/a56d3517bb1323832680fbe7eb342da0.jpg"></ion-img>
             </ion-avatar>
-            <ion-avatar (click)="imageClick()" *ngIf="mostrar">
+            <ion-avatar class="image-avatar" (click)="imageClick()" *ngIf="mostrar">
               <ion-img [src]="imagePreview"></ion-img>
             </ion-avatar>
             <input type="file" id="selectedFile" (change)="handleImageChange($event)" style="display:none">
@@ -31,7 +26,7 @@
          <ion-row> 
            <ion-item>
             <ion-icon name="storefront-outline"></ion-icon>
-            <ion-label></ion-label>
+            <ion-label ></ion-label>
              <ion-input type="text" formControlName="name" placeholder="Nombre"></ion-input>
            </ion-item>
          </ion-row>
@@ -91,7 +86,7 @@
         <div class="error-message" *ngIf="phone.invalid && isSubmitted">
           <strong class="error-message" *ngIf="phone.errors.required && isSubmitted">*Campo Obligatorio*</strong>
         </div>
-       </ion-row>
+       </ion-row><br>
          <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" >Actualizar mis datos</ion-button>
          </form>
      </ion-card-content>

@@ -1,16 +1,17 @@
 <ion-content id="content" [fullscreen]="true">
-  <div id="container" style="height: 100%; display:flex; align-items: center; justify-content: center">
-    <ion-card class="login-form">
+  <div class="container">
+    <ion-card class="form">
      <ion-card-header>
        <ion-card-subtitle></ion-card-subtitle>
        <ion-card-title >INICIO SESIÓN</ion-card-title>
      </ion-card-header>
-     <ion-card-content class="center" >
+     <ion-card-content class="card" >
        <form [formGroup]="formData" (ngSubmit)="onSubmit()" action="formData"> 
          <ion-row >
            <ion-item >
-            <ion-icon name="mail-outline"></ion-icon>
-             <ion-input class="input" formControlName="email" placeholder="Correo Electrónico" ></ion-input>
+            <ion-icon name="mail-outline" ></ion-icon>
+            <ion-label ></ion-label>
+             <ion-input formControlName="email" placeholder="Correo Electrónico"></ion-input>
             </ion-item >
          </ion-row>
          <ion-row>
@@ -23,19 +24,20 @@
          <ion-row >
            <ion-item >  
             <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-label ></ion-label>
              <ion-input name="password" formControlName="password" placeholder="Password" [type]="showPassword ? 'text':'password'"  ></ion-input>
              <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
             </ion-item>         
          </ion-row>
          <ion-row>
             <div class="error-message"  *ngIf="password.invalid && isSubmited" >
-            <div  *ngIf="password.errors.required  && isSubmited">*Contraseña obligatoria*</div>
+             <div  *ngIf="password.errors.required  && isSubmited">*Contraseña obligatoria*</div>
             </div>
          </ion-row>
          <ion-button type="submit" expand="default"  shape="round" (click)="formData" >Iniciar Sesión</ion-button>
          </form>
      </ion-card-content>
-         <ion-button  [routerLink]="['/register']" type="submit" fill="clear" expand="default" color="medium" ><u>Registrarme</u></ion-button>
+         <ion-button  [routerLink]="['/register']" type="submit"  expand="default" color="medium" ><u>Registrarme</u></ion-button>
    </ion-card>
  </div>
  </ion-content>
