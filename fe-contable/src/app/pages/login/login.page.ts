@@ -1,23 +1,20 @@
 import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
-import { EmptyError } from 'rxjs';
-
-import { User } from './models';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
- 
+  providers: [UserService]
 })
 
 
 
 export class LoginPage implements OnInit{
  public title="Inicio De Sesion"
- public user:User;
  public identity:any;
  public token:any;
  public priority:string;
@@ -31,9 +28,9 @@ export class LoginPage implements OnInit{
   
  
  constructor(
+  private _userService : UserService,
     public route:ActivatedRoute
     ){ 
-   this.user = new User('','','','','','ROLE_USER','');
    }
 togglePassword():void{
    this.showPassword =!this.showPassword
@@ -47,12 +44,13 @@ togglePassword():void{
 
   ngOnInit() {
    
+    
      
     this.priority=this.route.snapshot.paramMap.get('priority')
 
     this.formData= new FormGroup({
-         email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
-         password: new FormControl('',([Validators.required,Validators.minLength(5),])),
+         email: new FormControl('',Validators.compose([Validators.required,Validators.email,/*Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)*/])),
+         password: new FormControl('',([Validators.required])),
         
     });
 
@@ -68,16 +66,40 @@ validation_messages = {
     ],
     }
   
+   public onSubmit(){
     
-  onSubmit(){
+      
     this.isSubmited=true;
     
+    
     if(this.formData.valid){
-  
+      let email = this.formData.controls['email'].value
+      let password = this.formData.controls['password'].value
+      this._userService.singnup(email,password).subscribe(
+        {
+          next: (data)=>{
+            console.log(data)
+          },
+          error:(err)=>{
+            console.log(err)
+            if(err.status == 400){
+              alert(err.error.message)
+            }
+          },
+          complete:()=>{
+            console.log("Completo")
+            localStorage.setItem('identity', JSON.stringify(this.identity));
+
+          }
+        }
+      
+        )
       console.log('valid')
     }else{
       console.log('not  valid')
     }
+
+  
   }
 
   onResetForm(){
