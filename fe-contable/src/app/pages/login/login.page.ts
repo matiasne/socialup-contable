@@ -2,16 +2,16 @@ import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
 import { UserService } from '../../services/user.service';
-
+import { User } from 'src/app/models/user';
+import { Session } from 'src/app/models/session';
+import { StorageSessionService } from 'src/app/services/storage-session.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [UserService]
+  providers: [UserService,StorageSessionService]
 })
-
-
 
 export class LoginPage implements OnInit{
  public title="Inicio De Sesion"
@@ -22,6 +22,7 @@ export class LoginPage implements OnInit{
  public dbData:any;
  public router: any;
  public isSubmited=false;
+ public user:User;
  showPassword =false;
  passwordToggleIcon = 'eye';
  
@@ -29,8 +30,9 @@ export class LoginPage implements OnInit{
  
  constructor(
   private _userService : UserService,
+    private _storageSessionService: StorageSessionService, 
     public route:ActivatedRoute
-    ){ 
+    ){ this.user = new User('','','','','ROLE_USER','');
    }
 togglePassword():void{
    this.showPassword =!this.showPassword
@@ -77,8 +79,20 @@ validation_messages = {
       let password = this.formData.controls['password'].value
       this._userService.singnup(email,password).subscribe(
         {
-          next: (data)=>{
-            console.log(data)
+          next: (data:any)=>{
+          //  let session:Session = new Session(data.token, data.user)
+            let user:User = new User(
+              data.user._id,
+              data.user.name,
+              data.user.surname, 
+              data.user.email,
+              data.user.role,
+              data.user.image);
+
+              let session:Session = new Session(data.token, user)
+
+            this._storageSessionService.setSession(session);
+
           },
           error:(err)=>{
             console.log(err)
