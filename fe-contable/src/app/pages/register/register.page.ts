@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators,FormBuilder  } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  providers: [UserService]
 })
 export class RegisterPage implements OnInit {
   public title : "REGISTRATE";
@@ -13,9 +16,13 @@ export class RegisterPage implements OnInit {
   public isSubmitted: boolean;
   public showPassword : boolean;
   public passwordToggleIcon='eye';
+ public user_register:User
+  
 
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(
+    private _userService : UserService,
+    private route: ActivatedRoute) { 
     
   }
   togglePassword(): void {
@@ -46,11 +53,34 @@ export class RegisterPage implements OnInit {
   onSubmit (){
     this.isSubmitted=true;
     if(this.formData.valid){
-     
+      let email = this.formData.controls['email'].value
+      let password = this.formData.controls['password'].value
+      let name= this.formData.controls['name'].value
+      let surname= this.formData.controls['surname'].value
+      this._userService.register(name,surname,email,password).subscribe(
+        {
+          next: (data:any)=>{
+            let user:User = data.user;
+            this.user_register=user
+            
+          },
+          error:(err)=>{
+            console.log(err)
+            if(err.status == 400){
+              alert(err.error.message)
+            }
+          },
+          complete:()=>{
+            console.log("Completo")
+          }
+        }
       
+        )
+      console.log('valid')
     }else{
-      
+      console.log('not  valid')
     }
+
   }
   onResetForm() {
     throw new Error('Method not implemented.');

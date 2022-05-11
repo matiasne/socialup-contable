@@ -19,18 +19,19 @@ function getUser(req,res){
 
 async function saveUser(req,res){
     var params = req.body;
+    
 
     bcrypt.hash(params.password, null, null, async function(err,hash){
         try{
             if(err){
-                res.status(400).send({message: error});    
+                res.status(400).send({message: err});    
             }else{
                 params.password = hash;
                 
                 let userRepo = new userRepository();
     
                 let user = await userRepo.create(params);
-
+                
                 res.status(200).send({user: user});
             }
         }catch(error){
@@ -78,11 +79,11 @@ async function loginUser(req,res){
 
     try{
         let userRepo = new userRepository();
-    
+        
         let user = await userRepo.getUserEmail(email);
 
         bcrypt.compare(password, user.password, function(err,check){
-        
+            console.log(check)
         if(check){
             res.status(200).send({user: user});   
         }else{
