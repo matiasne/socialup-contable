@@ -6,6 +6,7 @@ var userRepository = require('../repositories/user');
 //var User = require('../models/user');
 var createUserSchema = require('../validationSchema/userRegister');
 const Joi = require('joi'); 
+var jwt = require('../middlewares/jwt');
 
 function getUser(req,res){
     let userRepo = new userRepository();
@@ -83,9 +84,11 @@ async function loginUser(req,res){
         let user = await userRepo.getUserEmail(email);
 
         bcrypt.compare(password, user.password, function(err,check){
-            console.log(check)
+            
         if(check){
-            res.status(200).send({user: user});   
+            let token = jwt.createToken(user);
+            
+            res.status(200).send({user: user, token: token});   
         }else{
             res.status(400).send({message: err});
         }
