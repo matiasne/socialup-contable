@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators,FormBuilder  } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from '../../services/user.service';
 
@@ -22,8 +22,9 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private _userService : UserService,
-    private route: ActivatedRoute) { 
-    
+    private route: ActivatedRoute,
+    private router:Router) { 
+  
   }
   togglePassword(): void {
     this.showPassword = !this.showPassword
@@ -63,6 +64,7 @@ export class RegisterPage implements OnInit {
             let user:User = data.user;
             this.user_register=user
             
+
           },
           error:(err)=>{
             console.log(err)
@@ -72,6 +74,7 @@ export class RegisterPage implements OnInit {
           },
           complete:()=>{
             console.log("Completo")
+            this.router.navigate(['/login']);
           }
         }
       

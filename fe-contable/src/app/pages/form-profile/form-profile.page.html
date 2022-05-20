@@ -6,7 +6,7 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-content>
-      <form class="form"[formGroup]="formProfile" (ngSubmit)="onSubmit()"  action="formProfile">
+      <form class="form"[formGroup]="formProfile"   action="formProfile">
         <ion-row>
           <div  class="avatar">
            <ion-item >
@@ -67,39 +67,37 @@
         <ion-item>
           <ion-icon name="location-outline"></ion-icon>
           <ion-label ></ion-label>
-          <ion-input type="text" required formControlName="direction" placeholder="Dirección" ></ion-input> 
+          <ion-input type="text" required formControlName="address" placeholder="Dirección" ></ion-input> 
         </ion-item>
         </ion-row> 
           <ion-row >
-            <div class="error-message" *ngIf="!direction.valid && isSubmitted">
-              <div calss="error-message" *ngIf="direction.errors.required">
+            <div class="error-message" *ngIf="!address.valid && isSubmitted">
+              <div calss="error-message" *ngIf="address.errors.required">
                 <strong>*Campo Obligatorio*</strong> 
               </div>
-              <div class="error-message" *ngIf="direction.errors.minlength">
+              <div class="error-message" *ngIf="address.errors.minlength">
               <strong>*Al menos 3 caracteres* </strong> 
               </div>
             </div> 
-          </ion-row>
-        <ion-row>
-          <ion-item>
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <ion-label ></ion-label>
-          <ion-input placeholder="Contraseña" name="password" formControlName="password" [type]="showPassword ? 'text': 'password'"> </ion-input> 
-          <ion-icon  slot="end" [name]="passwordToggleIcon"(click)="togglePassword()"></ion-icon>
-        </ion-item>
-        </ion-row> 
-        <ion-row >
-          <div class="error-message" *ngIf="!password.valid && isSubmitted">
-            <div calss="error-message" *ngIf="password.errors.required">
-              <strong>*Campo Obligatorio*</strong> 
-            </div>
-            <div class="error-message" *ngIf="password.errors.minlength">
-            <strong>*Al menos 3 caracteres *</strong> 
-            </div>
-          </div> 
-        </ion-row><br>
-        <ion-button type="submit" expand="default"  shape="round" (click)="formProfile" >Actualizar mis datos</ion-button>
+          </ion-row> 
+          <ion-row>
+            <ion-item>
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+              <ion-label ></ion-label>
+              <ion-input type="text" required formControlName="phone" placeholder="Teléfono" ></ion-input> 
+            </ion-item>
+            </ion-row> 
+              <ion-row >
+                <div class="error-message" *ngIf="!phone.valid && isSubmitted">
+                  <div calss="error-message" *ngIf="phone.errors.required">
+                    <strong>*Campo Obligatorio*</strong> 
+                  </div>
+                </div>
+              </ion-row >
+          <br>
+        <ion-button type="submit" expand="default"  shape="round" (click)="updateProfile()" >Actualizar mis datos</ion-button><br>
       </form>
+      <ion-button class="delete-button"type="clear" expand="default"  shape="round" color="danger" (click)="doAlert()">Eliminar Cuenta</ion-button>
       
     </ion-card-content>
   </ion-card>

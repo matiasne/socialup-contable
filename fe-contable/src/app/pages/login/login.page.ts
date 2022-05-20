@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
 import { Session } from 'src/app/models/session';
@@ -20,7 +20,7 @@ export class LoginPage implements OnInit{
  public priority:string;
  public formData:FormGroup;
  public dbData:any;
- public router: any;
+ //public router: any;
  public isSubmited=false;
  public user:User;
  showPassword =false;
@@ -31,8 +31,8 @@ export class LoginPage implements OnInit{
  constructor(
   private _userService : UserService,
     private _storageSessionService: StorageSessionService, 
-    public route:ActivatedRoute
-    ){ this.user = new User('','','','','ROLE_USER','');
+    public router:Router
+    ){ this.user = new User('','','','','ROLE_USER','','','','');
    }
 togglePassword():void{
    this.showPassword =!this.showPassword
@@ -46,10 +46,6 @@ togglePassword():void{
 
   ngOnInit() {
    
-    
-     
-    this.priority=this.route.snapshot.paramMap.get('priority')
-
     this.formData= new FormGroup({
          email: new FormControl('',Validators.compose([Validators.required,Validators.email,/*Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)*/])),
          password: new FormControl('',([Validators.required])),
@@ -77,6 +73,7 @@ validation_messages = {
     if(this.formData.valid){
       let email = this.formData.controls['email'].value
       let password = this.formData.controls['password'].value
+      console.log('y vamos de nuevo')
       this._userService.singnup(email,password).subscribe(
         {
           next: (data:any)=>{
@@ -87,12 +84,15 @@ validation_messages = {
               data.user.surname, 
               data.user.email,
               data.user.role,
-              data.user.image);
+              data.user.image,
+              data.user.gender,
+              data.user.address,
+              data.user.phone);
 
               let session:Session = new Session(data.token, user)
 
             this._storageSessionService.setSession(session);
-
+            console.log(session.token);
           },
           error:(err)=>{
             console.log(err)
@@ -102,7 +102,7 @@ validation_messages = {
           },
           complete:()=>{
             console.log("Completo")
-            localStorage.setItem('identity', JSON.stringify(this.identity));
+            
 
           }
         }
@@ -120,8 +120,9 @@ validation_messages = {
   this.formData.reset();    
 
   }
-  navigate(){
-    this.router.navigate(['/register'])
+  navigate(destination:string){
+    this.router.navigate([destination])
+    // this.router.navigate(['items'], { relativeTo: this.route });
   }
 
     

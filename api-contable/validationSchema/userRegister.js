@@ -21,13 +21,16 @@ const createUserSchema = Joi.object({
 }); 
 
 const updateUserSchema = Joi.object({
-  id: Joi.string(),
-  name: Joi.string().min(1).max(30).required(),
-  surname: Joi.string().min(1).max(30).required(),
-  direccion: Joi.string().min(1).max(50).required(),
-  password: passwordComplexity(complexityOptions),
-  role: Joi.string(),
-  image: Joi.string()
+  _id: Joi.string(),
+  name: Joi.string().min(1).max(30),
+  surname: Joi.string().min(1).max(30),
+  address:Joi.allow(),
+  gender:Joi.allow(),
+  email:Joi.allow(),
+  phone:Joi.allow(),
+  password:Joi.allow(),
+  role: Joi.allow(),
+  image:Joi.allow()
 }); 
 
 const getUserLogin = Joi.object({

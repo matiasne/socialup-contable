@@ -5,11 +5,12 @@ var moment = require('moment');
 var secret = 'SocialUp';
 
 exports.ensureAuth = function(req,res, next){
+    console.log(req.headers.authorization)
     if(!req.headers.authorization){
         return res.status(403).send({message: 'La petición no tiene la cabecera  de autenticación'})
     }
 
-    var token = req.headers.authorization.replace(/['"]+/g,'');
+    var token = req.headers.authorization;
 
     try{
         var payload = jwt.decode(token, secret);
