@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>FORM-PRODUCTO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="content" [fullscreen]="true">
+  <div id="container" style="height: 100%; display:flex; align-items: center; justify-content: center">
+    <ion-card class="login-form">
+      <form (ngSubmit)="onSubmit()" action="formData"> 
+        <ion-row >
+          <ion-item >
+            <ion-label position="floating"> <ion-icon name="cart-outline"></ion-icon>Producto</ion-label>
+            <ion-input class="input"  placeholder="Producto"></ion-input>
+          </ion-item >
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating"> <ion-icon name="barcode-outline"></ion-icon>Código del producto</ion-label>
+            <ion-input class="input" placeholder="Código del producto"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating"><ion-icon name="create-outline"></ion-icon>Descripción</ion-label>
+            <ion-input class="input" placeholder="Describe el producto"></ion-input>
+          </ion-item>   
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating"><ion-icon name="cash-outline"></ion-icon>Precio de costo</ion-label>
+            <ion-input class="input" type="number" placeholder="$"></ion-input>
+          </ion-item> 
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating"><ion-icon name="cash-outline"></ion-icon>Precio de venta</ion-label>
+            <ion-input class="input" type="number" placeholder="$"></ion-input>
+          </ion-item>   
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-button><ion-icon name="bag-add-outline"  (click)="formData"></ion-icon>Subir Producto</ion-button>
+          </ion-item>
+        </ion-row>
+      </form>
+    </ion-card>
+  </div>
+</ion-content>
