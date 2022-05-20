@@ -25,6 +25,7 @@ async function saveUser(req,res){
     bcrypt.hash(params.password, null, null, async function(err,hash){
         try{
             if(err){
+               
                 res.status(400).send({message: err});    
             }else{
                 params.password = hash;
@@ -36,22 +37,22 @@ async function saveUser(req,res){
                 res.status(200).send({user: user});
             }
         }catch(error){
+           
             res.status(400).send({message: error});
         }
     });
 }
 
 async function updateUser(req,res){
-    var userId = req.params.id;
+    var userId = req.params._id;
     var update = req.body;
-
     try{
         // Guardar el usuario
         let userRepo = new userRepository();
     
-        let user = await userRepo.update(userId, update);
+        let u = await userRepo.update(userId, update)
 
-        res.status(200).send({user: user});
+        res.status(200).send({user: u});
     }catch(error){
         res.status(400).send({message: error});
     }
@@ -77,12 +78,14 @@ async function loginUser(req,res){
 
     var email = params.email;
     var password = params.password;
+    console.log('Aca estamos APi')
 
     try{
         let userRepo = new userRepository();
         
         let user = await userRepo.getUserEmail(email);
-
+        console.log(password)
+        console.log(user.password)
         bcrypt.compare(password, user.password, function(err,check){
             
         if(check){
@@ -90,6 +93,7 @@ async function loginUser(req,res){
             
             res.status(200).send({user: user, token: token});   
         }else{
+            console.log(err)
             res.status(400).send({message: err});
         }
         })
