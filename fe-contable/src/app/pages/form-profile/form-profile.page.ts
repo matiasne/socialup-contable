@@ -136,8 +136,8 @@ export class FormProfilePage implements OnInit {
      
        const formData = new FormData()
        //.append('type', 'file');
-       .append('image', this.selectedFile, this.selectedFile.name);
-       
+       formData.append('image', this.selectedFile, this.selectedFile.name);
+       console.log(formData)
        
        this.http.post(this.url+'upload-image-user/' + this.session.user._id,formData).subscribe({
          next:(data)=>{
