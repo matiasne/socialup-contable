@@ -5,6 +5,9 @@ var path = require('path');
 var mongoose = require('mongoose');
 var app = require('./app');
 
+
+
+
 dotenv.config({
     path: path.resolve(__dirname, process.env.NODE_ENV + '.env')
   });

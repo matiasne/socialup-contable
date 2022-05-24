@@ -100,10 +100,16 @@ async function loginUser(req,res){
     }
 }
 async function uploadImage(req, res){ 
-    var userId= req.params._id;
-    var file_name = 'No subido...';
+    /*var userId= req.params._id;
+    var file_name = 'No subido...';*/
 
-    console.log(req)
+    const file = req.file
+    
+    if (!file) {
+        res.status(402).send({message: 'Please upload a file'});
+    }
+    res.status(200).send({data: file});
+    /*console.log(req.f)
     if(req.files){
         console.log(req.params.image)
         var file_path = req.files.image.path;
@@ -131,12 +137,12 @@ async function uploadImage(req, res){
 
     }else{
         res.status(200).send({message: 'No se ha subido ninguna imagen '});
-    }
-
+    }*/
 }
+
 function getImageFile(req,res){
     var imageFile = req.params.imageFile;
-    var path_file='./uploads/user/'+imageFile;
+    var path_file='./uploads/'+imageFile;
 
     fs.exists(path_file, function (exists){
         if(exists){
