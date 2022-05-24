@@ -6,6 +6,8 @@ import { StorageSessionService } from 'src/app/services/storage-session.service'
 import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { HttpClient } from '@angular/common/http';
+import { GLOBAL } from 'src/app/services/global';
 
 @Component({
   selector: 'app-form-profile',
@@ -21,14 +23,19 @@ export class FormProfilePage implements OnInit {
   mostrar= false;
   imagePreview: any="";
   public session:Session;
+  selectedFile: File = null;
+  public url: string;
+    
 
   constructor(
     private router:Router,
     private userService: UserService,
     public route: ActivatedRoute, 
     private storageSessionService:StorageSessionService,
-    public alertController: AlertController) { 
-       this.session= this.storageSessionService.getSession()
+    public alertController: AlertController,
+    private http:HttpClient) { 
+       this.session= this.storageSessionService.getSession(),
+       this.url = GLOBAL.url;
 
     }
 
@@ -90,18 +97,25 @@ export class FormProfilePage implements OnInit {
     })
   }
   updateProfile(){
+
+    let imageURl = this.submitImage()
+
+    
     let user= new User(
       this.session.user._id, 
       this.formProfile.controls['name'].value,
       this.formProfile.controls['surname'].value,
       this.session.user.email,
       this.session.user.role,
-      "Hola.jpg",
+      imageURl,
       this.formProfile.controls['gender'].value,
       this.formProfile.controls['address'].value,
       this.formProfile.controls['phone'].value)
 
       this.userService.update(user)
+    
+    
+      
   }
   
   get name (){return this.formProfile.get('name');}
@@ -115,16 +129,43 @@ export class FormProfilePage implements OnInit {
     let content = document.getElementById('selectedFile');
     content.click();
   }
- submitImage(){
-       if(this.mostrar=!this.mostrar){
-       }
+
+
+  submitImage():string{
+       
+     
+       const formData = new FormData()
+       //.append('type', 'file');
+       .append('image', this.selectedFile, this.selectedFile.name);
+       
+       
+       this.http.post(this.url+'upload-image-user/' + this.session.user._id,formData).subscribe({
+         next:(data)=>{
+           console.log("data")
+           return "url"
+         },
+         error:()=>{
+          console.log("error")
+            return ""
+         }
+        })
+        return "";
+        
     }
+
+
   handleImageChange(event:any):void{
+    this.mostrar=!this.mostrar;
     if (event.target.files && event.target.files[0]) {
+      
       const file = event.target.files[0];
+      this.selectedFile = file
+
       const reader = new FileReader();
       reader.onload = e => this.imagePreview = reader.result;
       reader.readAsDataURL(file);
+
+
     }
   }
 
