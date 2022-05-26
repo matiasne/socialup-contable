@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 
@@ -15,6 +16,7 @@ import { LoginPage } from './login.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     LoginPageRoutingModule,
     ReactiveFormsModule,
   ],

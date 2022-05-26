@@ -31,8 +31,11 @@ export class UserService extends BaseCRUDService{
         
     }
 
-    update(user:User){        
-        this.put(this.url+'/user/'+user._id,user).subscribe(
+    update(user:User){   
+        
+        let formData = this.toFormData(user)
+        
+        this.put(this.url+'/user/'+user._id,formData).subscribe(
             {
               next:(data)=>{
                 this.storageSessionService.updateUser(user)
@@ -63,5 +66,16 @@ export class UserService extends BaseCRUDService{
         console.log(this.url)
         return this.delete(this.url+'/user/'+id)
     }
+
+    toFormData<T>( formValue: T ) {
+        const formData = new FormData();
+      
+        for ( const key of Object.keys(formValue) ) {
+          const value = formValue[key];
+          formData.append(key, value);
+        }
+      
+        return formData;
+      }
 
 }

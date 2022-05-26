@@ -29,12 +29,14 @@ export class LoginPage implements OnInit{
   
  
  constructor(
-  private _userService : UserService,
+    private _userService : UserService,
     private _storageSessionService: StorageSessionService, 
     public router:Router
-    ){ this.user = new User('','','','','ROLE_USER','','','','');
-   }
-togglePassword():void{
+  ){ 
+      this.user = new User('','','','','ROLE_USER','','','','');
+  }
+  
+  togglePassword():void{
    this.showPassword =!this.showPassword
   
    if(this.passwordToggleIcon =='eye'){
@@ -42,18 +44,18 @@ togglePassword():void{
    }else{
      this.passwordToggleIcon='eye';
    }
-}
+  }
 
   ngOnInit() {
-   
+  
     this.formData= new FormGroup({
-         email: new FormControl('',Validators.compose([Validators.required,Validators.email,/*Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)*/])),
+         email: new FormControl('',Validators.compose([Validators.required,Validators.email])),
          password: new FormControl('',([Validators.required])),
-        
     });
 
     
   }
+
 validation_messages = {
     'email': [
       { type: 'required', message: 'Campo Obligatorio.' },
@@ -111,18 +113,20 @@ validation_messages = {
       console.log('valid')
     }else{
       console.log('not  valid')
-    }
-
-  
+    } 
   }
 
   onResetForm(){
-  this.formData.reset();    
+    this.formData.reset();    
 
   }
   navigate(destination:string){
     this.router.navigate([destination])
     // this.router.navigate(['items'], { relativeTo: this.route });
+  }
+
+  changeImage(event:any){
+
   }
 
     
