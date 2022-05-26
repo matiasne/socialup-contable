@@ -16,7 +16,7 @@ api.put('/user/:_id', [validationSchema(updateUserSchema), md_auth.ensureAuth], 
 api.delete('/user/:id', md_auth.ensureAuth, UserController.deleteUser);
 api.post('/login', validationSchema(getUserLogin), UserController.loginUser);
 api.post('/upload-image-user/:_id',[md_auth.ensureAuth,md_uploadFile.single('image')], UserController.uploadImage);
-api.get('/get-image-user/:imageFile',UserController.getImageFile);
+api.get('/file/:imageFile',UserController.getImageFile);
 
 module.exports = api;
 

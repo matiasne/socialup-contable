@@ -7,6 +7,7 @@ var userRepository = require('../repositories/user');
 var createUserSchema = require('../validationSchema/userRegister');
 const Joi = require('joi'); 
 var jwt = require('../middlewares/jwt');
+const path = require('path');
 
 function getUser(req,res){
     let userRepo = new userRepository();
@@ -107,8 +108,26 @@ async function uploadImage(req, res){
     
     if (!file) {
         res.status(402).send({message: 'Please upload a file'});
+    }else{
+        var fs = require('fs')
+        console.log(file);
+
+        var oldPath = file.path;
+
+        console.log (oldPath);
+        var newPath = './public/users/'+file.filename;
+
+        console.log (newPath);
+
+
+
+        fs.rename(oldPath, newPath, function (err) {
+            if (err) throw err
+                console.log('Successfully renamed - AKA moved!')
+})
     }
     res.status(200).send({data: file});
+    
     /*console.log(req.f)
     if(req.files){
         console.log(req.params.image)
@@ -141,13 +160,13 @@ async function uploadImage(req, res){
 }
 
 function getImageFile(req,res){
+    var fs = require('fs')
     var imageFile = req.params.imageFile;
-    var path_file='./uploads/'+imageFile;
+    var path_file='public/users/'+imageFile
 
-    fs.exists(path_file, function (exists){
-        if(exists){
-            res.sendFile(path.resolve(path_file));
-         
+    fs.exists(path_file, (exists) => {
+       if(exists){
+            res.sendFile(path.resolve(path_file));        
         }else{
             res.status(200).send({message: 'No existe la imagen...'});
         }
