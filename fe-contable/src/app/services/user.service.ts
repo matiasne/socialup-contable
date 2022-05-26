@@ -23,6 +23,11 @@ export class UserService extends BaseCRUDService{
         this.url = GLOBAL.url;
     }
 
+    get(id){
+        console.log(id)
+        return super.get(this.url+'/user/'+id)
+    }
+
     singnup(email:string,password:string):Observable<any>{ 
               
         let params = {
@@ -40,8 +45,8 @@ export class UserService extends BaseCRUDService{
         
         this.put(this.url+'/user/'+user._id,formData).subscribe(
             {
-              next:(data)=>{
-                this.storageSessionService.updateUser(user)
+              next:(data)=>{       
+                this.storageSessionService.updateUser(data.user)
                 console.log(data)
               },
               error:(err)=>{

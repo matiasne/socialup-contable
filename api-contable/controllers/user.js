@@ -20,8 +20,7 @@ function getUser(req,res){
 }
 
 async function saveUser(req,res){
-    var params = req.body;
-    
+    var params = req.body;   
 
     bcrypt.hash(params.password, null, null, async function(err,hash){
         try{
@@ -45,17 +44,36 @@ async function saveUser(req,res){
 }
 
 async function updateUser(req,res){
-    var userId = req.params._id;
-    var update = req.body;
+    let userId = req.params._id;
+    let update = req.body;
 
     try{
-        // Guardar el usuario
-        let userRepo = new userRepository();
-    
-        let u = await userRepo.update(userId, update)
+        // Guardar el usuario        
+        if (req.file) {       
+            let fs = require('fs')
+            let oldPath = req.file.path;
+            let newPath = 'public/users/'+req.file.filename; //poner directorio en una variable (env?)
+            update.image = 'http://localhost:3977/api/user/file/'+req.file.filename;
+            var ext_split = req.file.filename.split('.');
+            var file_ext= ext_split[1];
+            if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
+                fs.rename(oldPath, newPath, (err) => {
+                    if (err) {                        
+                        res.status(500).send({message: err})
+                    }                                 
+                });
+            }
+            else{
+                res.status(401).send({message: 'Not Allowed image extension'})
+            }
+        }
 
+        let userRepo = new userRepository();   
+        let u = await userRepo.update(userId, update)
         res.status(200).send({user: u});
+
     }catch(error){
+        console.log(error)
         res.status(400).send({message: error});
     }
 }
@@ -105,8 +123,7 @@ async function uploadImage(req, res){
     /*var userId= req.params._id;
     var file_name = 'No subido...';*/
 
-    const file = req.file
-    
+    const file = req.file    
     if (!file) {
         res.status(402).send({message: 'Please upload a file'});
     }else{
@@ -125,7 +142,7 @@ async function uploadImage(req, res){
         fs.rename(oldPath, newPath, function (err) {
             if (err) throw err
                 console.log('Successfully renamed - AKA moved!')
-})
+            })
     }
     res.status(200).send({data: file});
     
@@ -135,9 +152,7 @@ async function uploadImage(req, res){
         var file_path = req.files.image.path;
         
         var file_split = file_path.split('\\');
-        var file_name= file_split[2];
-        
-
+        var file_name= file_split[2];      
         var ext_split = file_name.split('\.');
         var file_ext= ext_split[1];
         console.log(file_ext)
@@ -174,6 +189,20 @@ function getImageFile(req,res){
     })
 }
 
+function getUserImageFile(req,res){
+    var fs = require('fs')
+    var imageFile = req.params.imageFile;
+    var path_file='public/users/'+imageFile
+
+    fs.exists(path_file, (exists) => {
+       if(exists){
+            res.sendFile(path.resolve(path_file));        
+        }else{
+            res.status(200).send({message: 'No existe la imagen...'});
+        }
+    })
+}
+
 module.exports = {
     getUser, 
     saveUser,
@@ -181,5 +210,5 @@ module.exports = {
     deleteUser,
     loginUser,
     uploadImage,
-    getImageFile
+    getUserImageFile
 } ; 

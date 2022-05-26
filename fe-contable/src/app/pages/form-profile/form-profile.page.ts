@@ -34,7 +34,7 @@ export class FormProfilePage implements OnInit {
     private storageSessionService:StorageSessionService,
     public alertController: AlertController) 
     { 
-       this.session= this.storageSessionService.getSession(),
+       this.session= this.storageSessionService.getSession();
        this.url = GLOBAL.url;
     }
 
@@ -87,13 +87,26 @@ export class FormProfilePage implements OnInit {
 
   ngOnInit() {
     this.formProfile = new FormGroup({
-      name: new FormControl(this.session.user.name,[Validators.required, Validators.minLength(3)]),
-      surname: new FormControl(this.session.user.surname,[Validators.required,Validators.minLength(3)]),
-      gender: new FormControl(this.session.user.gender,[]),
-      address: new FormControl(this.session.user.address,[Validators.required]),
-      phone:new FormControl (this.session.user.phone,[Validators.required]),
-      image: new FormControl(null, [Validators.required])     
+      name: new FormControl('',[Validators.required, Validators.minLength(3)]),
+      surname: new FormControl('',[Validators.required,Validators.minLength(3)]),
+      gender: new FormControl('',[]),
+      address: new FormControl('',[Validators.required]),
+      phone:new FormControl ('',[Validators.required]),
+      image: new FormControl('', [Validators.required])     
     })
+    this.userService.get(this.session.user._id).subscribe({
+      next:(data)=>{
+        this.formProfile.setValue({
+          name: data.user.name ,
+          surname:data.user.surname,
+          gender:data.user.gender,
+          address:data.user.address,
+          phone:data.user.phone,
+          image:data.user.image 
+        })
+      },
+    })
+    
   }
   updateProfile(){
 

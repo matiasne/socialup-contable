@@ -28,7 +28,7 @@ export class StorageSessionService{
         return session;
     }
 
-    updateUser(user:User){
+    updateUser(user:any){
       let storagedSession = this.getSession();
       let newSession = new Session(storagedSession.token, user)
       this.setSession(newSession)

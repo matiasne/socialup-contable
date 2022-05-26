@@ -15,7 +15,7 @@ api.post('/register',UserController.saveUser, validationSchema(createUserSchema)
 api.put('/user/:_id', [validationSchema(updateUserSchema), md_auth.ensureAuth, md_uploadFile.single('image')], UserController.updateUser);
 api.delete('/user/:id', md_auth.ensureAuth, UserController.deleteUser);
 api.post('/login', validationSchema(getUserLogin), UserController.loginUser);
-api.get('/file/:imageFile',UserController.getImageFile);
+api.get('/user/file/:imageFile',UserController.getUserImageFile);
 
 module.exports = api;
 

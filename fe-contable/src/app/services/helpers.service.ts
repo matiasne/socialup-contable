@@ -11,7 +11,7 @@ export class HelperService{
         const formData = new FormData();      
         for ( const key of Object.keys(formValue) ) {
           const value = formValue[key];
-          if(key == 'image')
+          if(key == 'image' && value)
             formData.append(key, this.DataURIToBlob(value), "imagen.jpg");
           else
             formData.append(key, value);

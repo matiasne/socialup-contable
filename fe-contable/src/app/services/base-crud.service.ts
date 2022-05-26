@@ -21,9 +21,6 @@ export class BaseCRUDService{
     //    console.log(token)
 
         let headers = new HttpHeaders()
-        .set('Contenent-Type', 'application/json')
-        .set('Access-Control-Allow-Origin','*')
-     //   .set('Authorization: ','Bearer '+token)
      
         return this._http.get(url,{headers : headers})
     }

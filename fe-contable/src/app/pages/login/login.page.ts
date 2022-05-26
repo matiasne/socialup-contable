@@ -5,12 +5,13 @@ import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
+import { HelperService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [UserService,StorageSessionService]
+  providers: [UserService,StorageSessionService,HelperService]
 })
 
 export class LoginPage implements OnInit{
