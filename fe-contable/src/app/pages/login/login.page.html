@@ -1,5 +1,12 @@
 <ion-content id="content" [fullscreen]="true">
   <div class="container">
+
+    <app-image-upload
+      [aspectRatio] = "1/1"
+      [croppedImage]= ""
+      (onSelectValue)=changeImage($event)>
+    </app-image-upload>    
+
     <ion-card class="form">
      <ion-card-header>
        <ion-card-subtitle></ion-card-subtitle>

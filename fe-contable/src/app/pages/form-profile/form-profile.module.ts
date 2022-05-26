@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { FormProfilePageRoutingModule } from './form-profile-routing.module';
 
 import { FormProfilePage } from './form-profile.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     FormProfilePageRoutingModule,
     ReactiveFormsModule
   ],

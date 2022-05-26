@@ -28,15 +28,13 @@ export class FormProfilePage implements OnInit {
     
 
   constructor(
-    private router:Router,
     private userService: UserService,
     public route: ActivatedRoute, 
     private storageSessionService:StorageSessionService,
-    public alertController: AlertController,
-    private http:HttpClient) { 
+    public alertController: AlertController) 
+    { 
        this.session= this.storageSessionService.getSession(),
        this.url = GLOBAL.url;
-
     }
 
     async doAlert(){
@@ -92,30 +90,23 @@ export class FormProfilePage implements OnInit {
       surname: new FormControl(this.session.user.surname,[Validators.required,Validators.minLength(3)]),
       gender: new FormControl(this.session.user.gender,[]),
       address: new FormControl(this.session.user.address,[Validators.required]),
-      phone:new FormControl (this.session.user.phone,[Validators.required])
-      
+      phone:new FormControl (this.session.user.phone,[Validators.required]),
+      image: new FormControl(null, [Validators.required])     
     })
   }
   updateProfile(){
 
-    let imageURl = this.submitImage()
-
-    
     let user= new User(
       this.session.user._id, 
       this.formProfile.controls['name'].value,
       this.formProfile.controls['surname'].value,
       this.session.user.email,
       this.session.user.role,
-      imageURl,
+      this.formProfile.controls['image'].value,
       this.formProfile.controls['gender'].value,
       this.formProfile.controls['address'].value,
-      this.formProfile.controls['phone'].value)
-
-      this.userService.update(user)
-    
-    
-      
+      this.formProfile.controls['phone'].value)      
+      this.userService.update(user)         
   }
   
   get name (){return this.formProfile.get('name');}
@@ -130,43 +121,14 @@ export class FormProfilePage implements OnInit {
     content.click();
   }
 
-
-  submitImage():string{
-       
-     
-       const formData = new FormData()
-       //.append('type', 'file');
-       formData.append('image', this.selectedFile, this.selectedFile.name);
-       console.log(formData)
-       
-       this.http.post(this.url+'upload-image-user/' + this.session.user._id,formData).subscribe({
-         next:(data)=>{
-           console.log("data")
-           return "url"
-         },
-         error:()=>{
-          console.log("error")
-            return ""
-         }
-        })
-        return "";
-        
-    }
-
-
-  handleImageChange(event:any):void{
-    this.mostrar=!this.mostrar;
-    if (event.target.files && event.target.files[0]) {
-      
-      const file = event.target.files[0];
-      this.selectedFile = file
-
-      const reader = new FileReader();
-      reader.onload = e => this.imagePreview = reader.result;
-      reader.readAsDataURL(file);
-
-
-    }
+  changeImage(event:any){
+    this.formProfile.patchValue({
+      iamge:event
+    })
   }
+
+  
+
+  
 
 }

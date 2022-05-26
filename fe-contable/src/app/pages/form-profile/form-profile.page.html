@@ -8,7 +8,7 @@
     <ion-card-content>
       <form class="form"[formGroup]="formProfile"   action="formProfile">
         <ion-row>
-          <div  class="avatar">
+          <!--div  class="avatar">
            <ion-item >
            <div>
              <ion-avatar class="image-avatar" (click)="imageClick()"  *ngIf="!mostrar">
@@ -20,8 +20,14 @@
              <input type="file" id="selectedFile" (change)="handleImageChange($event)" style="display:none">
            </div>
           </ion-item>
-         </div>
+         </div-->
+         
          </ion-row> 
+          <app-image-upload
+            [aspectRatio] = "1/1"
+            [croppedImage]= "user.image"
+            (onSelectValue)= changeImage($event)>
+          </app-image-upload>
             <ion-row>
               <ion-item>
                 <ion-icon name="person-outline"></ion-icon>
