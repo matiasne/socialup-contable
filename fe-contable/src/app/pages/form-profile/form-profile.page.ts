@@ -8,12 +8,13 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from 'src/app/services/global';
+import { HelperService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-form-profile',
   templateUrl: './form-profile.page.html',
   styleUrls: ['./form-profile.page.scss'],
-  providers:[UserService]
+  providers:[UserService,HelperService ]
 })
 export class FormProfilePage implements OnInit {
   public formProfile: FormGroup;
@@ -123,7 +124,7 @@ export class FormProfilePage implements OnInit {
 
   changeImage(event:any){
     this.formProfile.patchValue({
-      iamge:event
+      image:event
     })
   }
 

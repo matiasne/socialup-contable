@@ -46,6 +46,7 @@ async function saveUser(req,res){
 async function updateUser(req,res){
     var userId = req.params._id;
     var update = req.body;
+
     try{
         // Guardar el usuario
         let userRepo = new userRepository();

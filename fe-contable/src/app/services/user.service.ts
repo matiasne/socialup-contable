@@ -7,6 +7,7 @@ import { User } from "../models/user";
 import { BaseCRUDService } from "./base-crud.service";
 import { StorageSessionService } from "./storage-session.service";
 import { Session } from "../models/session";
+import { HelperService } from "./helpers.service";
 
 @Injectable()
 export class UserService extends BaseCRUDService{
@@ -14,7 +15,9 @@ export class UserService extends BaseCRUDService{
 
     constructor (
         public _http: HttpClient,
-        public storageSessionService: StorageSessionService){
+        public storageSessionService: StorageSessionService,
+        public helperService: HelperService    
+    ){
             
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
@@ -31,9 +34,9 @@ export class UserService extends BaseCRUDService{
         
     }
 
-    update(user:User){   
+    async update(user:User){   
         
-        let formData = this.toFormData(user)
+        let formData = await this.helperService.toFormData(user)
         
         this.put(this.url+'/user/'+user._id,formData).subscribe(
             {
@@ -67,15 +70,5 @@ export class UserService extends BaseCRUDService{
         return this.delete(this.url+'/user/'+id)
     }
 
-    toFormData<T>( formValue: T ) {
-        const formData = new FormData();
-      
-        for ( const key of Object.keys(formValue) ) {
-          const value = formValue[key];
-          formData.append(key, value);
-        }
-      
-        return formData;
-      }
-
+    
 }
