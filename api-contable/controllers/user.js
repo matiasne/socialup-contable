@@ -1,9 +1,7 @@
 'use strict'
 
 var bcrypt = require('bcrypt-nodejs');
-//var userRepository = require('../repositories/user')
 var userRepository = require('../repositories/user');
-//var User = require('../models/user');
 var createUserSchema = require('../validationSchema/userRegister');
 const Joi = require('joi'); 
 var jwt = require('../middlewares/jwt');
@@ -53,13 +51,16 @@ async function updateUser(req,res){
             let fs = require('fs')
             let oldPath = req.file.path;
             let newPath = 'public/users/'+req.file.filename; //poner directorio en una variable (env?)
-            update.image = 'http://localhost:3977/api/user/file/'+req.file.filename;
-            var ext_split = req.file.filename.split('.');
-            var file_ext= ext_split[1];
+            
+            let ext_split = req.file.filename.split('.');
+            let file_ext= ext_split[1];
             if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
                 fs.rename(oldPath, newPath, (err) => {
                     if (err) {                        
                         res.status(500).send({message: err})
+                    }
+                    else{
+                        update.image = 'http://localhost:3977/api/user/file/'+req.file.filename;
                     }                                 
                 });
             }
@@ -101,8 +102,7 @@ async function loginUser(req,res){
     
 
     try{
-        let userRepo = new userRepository();
-        
+        let userRepo = new userRepository();        
         let user = await userRepo.getUserEmail(email);
         bcrypt.compare(password, user.password, function(err,check){
             
@@ -119,75 +119,7 @@ async function loginUser(req,res){
         res.status(400).send({message: error});
     }
 }
-async function uploadImage(req, res){ 
-    /*var userId= req.params._id;
-    var file_name = 'No subido...';*/
 
-    const file = req.file    
-    if (!file) {
-        res.status(402).send({message: 'Please upload a file'});
-    }else{
-        var fs = require('fs')
-        console.log(file);
-
-        var oldPath = file.path;
-
-        console.log (oldPath);
-        var newPath = './public/users/'+file.filename;
-
-        console.log (newPath);
-
-
-
-        fs.rename(oldPath, newPath, function (err) {
-            if (err) throw err
-                console.log('Successfully renamed - AKA moved!')
-            })
-    }
-    res.status(200).send({data: file});
-    
-    /*console.log(req.f)
-    if(req.files){
-        console.log(req.params.image)
-        var file_path = req.files.image.path;
-        
-        var file_split = file_path.split('\\');
-        var file_name= file_split[2];      
-        var ext_split = file_name.split('\.');
-        var file_ext= ext_split[1];
-        console.log(file_ext)
-        if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
-            User.findByIdAndUpdate(userId,{image:file_name},(err,userUpdate)=>{
-               
-                if(!userUpdate){
-                    res.status(404).send({message: 'No se ha podido actualizar el usuario'});
-                }else{
-                    console.log(userUpdate);
-                    res.status(200).send({image: file_name,user: userUpdate});
-                }
-            });
-        }else{
-                res.status(200).send({message: 'Extension....'});
-        }
-
-    }else{
-        res.status(200).send({message: 'No se ha subido ninguna imagen '});
-    }*/
-}
-
-function getImageFile(req,res){
-    var fs = require('fs')
-    var imageFile = req.params.imageFile;
-    var path_file='public/users/'+imageFile
-
-    fs.exists(path_file, (exists) => {
-       if(exists){
-            res.sendFile(path.resolve(path_file));        
-        }else{
-            res.status(200).send({message: 'No existe la imagen...'});
-        }
-    })
-}
 
 function getUserImageFile(req,res){
     var fs = require('fs')
@@ -209,6 +141,5 @@ module.exports = {
     updateUser,
     deleteUser,
     loginUser,
-    uploadImage,
     getUserImageFile
 } ; 
