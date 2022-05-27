@@ -86,6 +86,7 @@ export class FormProfilePage implements OnInit {
   }
 
   ngOnInit() {
+
     this.formProfile = new FormGroup({
       name: new FormControl('',[Validators.required, Validators.minLength(3)]),
       surname: new FormControl('',[Validators.required,Validators.minLength(3)]),
@@ -94,8 +95,10 @@ export class FormProfilePage implements OnInit {
       phone:new FormControl ('',[Validators.required]),
       image: new FormControl('', [Validators.required])     
     })
+
     this.userService.get(this.session.user._id).subscribe({
       next:(data)=>{
+        
         this.formProfile.setValue({
           name: data.user.name ,
           surname:data.user.surname,
@@ -103,7 +106,10 @@ export class FormProfilePage implements OnInit {
           address:data.user.address,
           phone:data.user.phone,
           image:data.user.image 
-        })
+        }) 
+
+        let user = User.adapt(this.session.user);        
+        this.storageSessionService.updateUser(user)
       },
     })
     

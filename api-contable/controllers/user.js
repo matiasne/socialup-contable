@@ -55,12 +55,17 @@ async function updateUser(req,res){
             let ext_split = req.file.filename.split('.');
             let file_ext= ext_split[1];
             if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
-                fs.rename(oldPath, newPath, (err) => {
+                 fs.rename(oldPath, newPath, async (err) => {
+                    console.log(err)
                     if (err) {                        
                         res.status(500).send({message: err})
                     }
                     else{
                         update.image = 'http://localhost:3977/api/user/file/'+req.file.filename;
+                        
+                        let userRepo = new userRepository(); 
+                        let u = await userRepo.update(userId, update)
+                        res.status(200).send({user: u});
                     }                                 
                 });
             }
@@ -68,14 +73,20 @@ async function updateUser(req,res){
                 res.status(401).send({message: 'Not Allowed image extension'})
             }
         }
-
-        let userRepo = new userRepository();   
-        let u = await userRepo.update(userId, update)
-        res.status(200).send({user: u});
+        else{ 
+            let userRepo = new userRepository(); 
+            let u = await userRepo.update(userId, update)
+            res.status(200).send({user: u});
+        }
+        
+        
+        
+        
+       
 
     }catch(error){
         console.log(error)
-        res.status(400).send({message: error});
+       // res.status(400).send({message: error});
     }
 }
 
