@@ -10,7 +10,7 @@
         
          <div class="image-avatar" >
           <app-image-upload            
-            [aspectRatio] = "1/1"
+            [aspectRatio] = "'1'"
             [croppedImage]= "session.user.image"
             (onSelectValue)= changeImage($event)>
           </app-image-upload>
