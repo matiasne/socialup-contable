@@ -7,6 +7,7 @@ var app = express();
 
 // Cargar rutas
 var user_routes = require('./routes/user');
+var bussines_routes = require('./routes/bussines');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use((req,res,next) => {
 });
 
 app.use('/api', user_routes);
+app.use('/api', bussines_routes);
 
 module.exports = app;
 

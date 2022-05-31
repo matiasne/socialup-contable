@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { BussinesPageRoutingModule } from './bussines-routing.module';
 
 import { BussinesPage } from './bussines.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     ReactiveFormsModule,
     BussinesPageRoutingModule
   ],

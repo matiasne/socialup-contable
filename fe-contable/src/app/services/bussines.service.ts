@@ -50,10 +50,11 @@ export class BussinesService extends BaseCRUDService{
 
 
      register(bussines:Bussines):Observable<any>{
-        
+        delete bussines._id;
         let formData = this.helperService.toFormData(bussines)
+console.log('1')
 
-        return this.post(this.url+'/bussines/',bussines)
+        return this.post(this.url+'/bussines',formData)
     }
 
     _delete(id):Observable<any>{

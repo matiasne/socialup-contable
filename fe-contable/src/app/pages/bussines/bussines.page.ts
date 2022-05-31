@@ -1,10 +1,18 @@
-import { Component, Injectable, OnInit,  } from '@angular/core';
-import { inject } from '@angular/core/testing';
-import { ReactiveFormsModule,FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
-import { Bussines } from 'src/app/models/bussines';
-import { BussinesService } from 'src/app/services/bussines.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
+import { AlertController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { Bussines } from 'src/app/models/bussines';
+import { HttpClient } from '@angular/common/http';
+import { GLOBAL } from 'src/app/services/global';
+import { HelperService } from 'src/app/services/helpers.service';
+import { BussinesService } from 'src/app/services/bussines.service';
+
+
 
 
 
@@ -12,9 +20,10 @@ import { StorageSessionService } from 'src/app/services/storage-session.service'
   selector: 'app-bussines',
   templateUrl: './bussines.page.html',
   styleUrls: ['./bussines.page.scss'],
+  providers:[BussinesService,HelperService ]
 })
 export class BussinesPage implements OnInit {
-  public title:'Perfil BUSINESS'
+  public title:'Perfil BUSSINES'
   public bussines:any;
   public priority:string;
   public router: any;
@@ -28,31 +37,31 @@ export class BussinesPage implements OnInit {
   
 constructor(public route:ActivatedRoute,
     public storageSessionService:StorageSessionService,
-    private bussinesService:BussinesService){
+    public bussinesService:BussinesService){
  
 }
   ngOnInit() {
-    
-
-    this.formBussines= new FormGroup({
+ 
+   this.formBussines= new FormGroup({
          name: new FormControl('',Validators.compose([Validators.required,Validators.minLength(3)])),
          address: new FormControl('',Validators.compose([Validators.required,Validators.minLength(5),])),
          category:new FormControl('',Validators.required),
          email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
          phone:new FormControl('',Validators.compose([Validators.required])),
+         image: new FormControl('')
     });
   }
 
-  validation_messages = {
+  /*validation_messages = {
     'name': [
       { type: 'required', message: 'Campo Obligatorio.' },
       { type: 'minLength', message: 'El nombre es demasiado corto.' },	
     ],									
-    'adresse': [
+    'address': [
       { type: 'required', message: 'Campo Obligatorio.' },
       { type: 'minLength', message:'Escriba la dirección completa.'},
     ],
-    'heading':[
+    'category':[
       { type:'required', message:'Campo Obligatorio.'},
     ],
     'email':[
@@ -64,7 +73,7 @@ constructor(public route:ActivatedRoute,
       { type: 'required', message:'Campo Obligatorio.'},
       { type: 'pattern', message:'Ingrese un número de teléfono valido.'}
     ]
-    }
+    }*/
     
     
 
@@ -76,7 +85,7 @@ onSubmit(){
       let idUser = this.storageSessionService.getUSer()._id;
       let bussines = new Bussines("",
         this.formBussines.controls['name'].value,
-        "", //this.formBussines.controls['image'].value,
+        this.formBussines.controls['image'].value,
         this.formBussines.controls['category'].value,
         this.formBussines.controls['address'].value,
         this.formBussines.controls['email'].value,
@@ -98,12 +107,6 @@ onSubmit(){
     }
   }
 
-  imageClick(){
-
-    let content = document.getElementById('selectedFile');
-    
-    content.click();
-  }
 
 
  submitImage(){
@@ -132,41 +135,21 @@ onSubmit(){
 
   public filesToUpload: Array<File>
 
-  /*fileChangeEvent(fileInput:any){
-    this.filesToUpload = <Array<File>>fileInput.target.files;
-    
-  } 
-
-  makeFileRequest(url:string,params:Array<string>,files:Array<File>){
-    var token=this.token;
-
-      return new Promise(function(resolve,reject){
-        var formBussines:any = new formBussines();
-        var xhr = new XMLHttpRequest();
-
-        for(var i = 0;i<files.length;i++){
-          formBussines.append('image', files[i],files[i].name)
-        }
-        xhr.onreadystatechange =function(){
-          if(xhr.readyState ==4){
-            if(xhr.status == 200){
-              resolve(JSON.parse(xhr.response));    
-          }else{
-             reject(xhr.response);
-           }
-          }
-        }
-        xhr.open('POST',url,true);
-        xhr.setRequestHeader('Authotization',token);
-        xhr.send(formBussines);
-      });
-  }*/
-
-
 
   get name(){return this.formBussines.get('name');}
-  get adresse(){return this.formBussines.get ('adresse');}
-  get heading(){return this.formBussines.get('heading');}
+  get address(){return this.formBussines.get ('address');}
+  get category(){return this.formBussines.get('category');}
   get email(){return this.formBussines.get('email');}
   get phone(){return this.formBussines.get('phone');}
+
+  imageClick(){
+    let content = document.getElementById('selectedFile');
+    content.click();
+  }
+
+  changeImage(event:any){
+    this.formBussines.patchValue({
+      image:event
+    })
+  }
 }

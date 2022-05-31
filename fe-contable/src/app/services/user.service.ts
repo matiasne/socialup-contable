@@ -35,7 +35,7 @@ export class UserService extends BaseCRUDService{
             password:password
         }  
         
-        return this.post(this.url+'login',params)
+        return this.post(this.url+'/login',params)
         
     }
 
@@ -67,7 +67,7 @@ export class UserService extends BaseCRUDService{
             surname: surname,
             name: name,            
         }
-        return this.post(this.url+'register',params)
+        return this.post(this.url+'/register',params)
     }
 
     _delete(id):Observable<any>{
