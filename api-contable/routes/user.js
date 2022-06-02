@@ -17,5 +17,6 @@ api.delete('/user/:id', md_auth.ensureAuth, UserController.deleteUser);
 api.post('/login', validationSchema(getUserLogin), UserController.loginUser);
 api.get('/user/file/:imageFile',UserController.getUserImageFile);
 
+api.get('/user/:id/business',md_auth.ensureAuth,UserController.getUserBusinesses);
 module.exports = api;
 

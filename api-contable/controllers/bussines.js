@@ -16,8 +16,9 @@ function getBussines(req,res){
 }
 
 async function addBussines(req,res){
-    var params = req.body;   
 
+    var params = req.body;   
+console.log(params)
     let bussinesRepo = new bussinesRepository();
 
     let bussines = await bussinesRepo.create(params);

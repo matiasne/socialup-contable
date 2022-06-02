@@ -3,14 +3,14 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { GLOBAL } from "./global";
 import { LoginPage } from "../pages/login/login.page";
-import { User } from "../models/user";
+import { Bussines } from "../models/bussines";
 import { BaseCRUDService } from "./base-crud.service";
 import { StorageSessionService } from "./storage-session.service";
 import { Session } from "../models/session";
 import { HelperService } from "./helpers.service";
 
 @Injectable()
-export class UserService extends BaseCRUDService{
+export class BussinesService extends BaseCRUDService{
     public url: string;
 
     constructor (
@@ -25,28 +25,17 @@ export class UserService extends BaseCRUDService{
 
     get(id){
         console.log(id)
-        return super.get(this.url+'/user/'+id)
+        return super.get(this.url+'/bussines/'+id)
     }
 
-    singnup(email:string,password:string):Observable<any>{ 
-              
-        let params = {
-            email:email,
-            password:password
-        }  
+    async update(bussines:Bussines){   
         
-        return this.post(this.url+'/login',params)
+        let formData = await this.helperService.toFormData(bussines)
         
-    }
-
-    async update(user:User){   
-        
-        let formData = await this.helperService.toFormData(user)
-        
-        this.put(this.url+'/user/'+user._id,formData).subscribe(
+        this.put(this.url+'/bussines/'+bussines._id,formData).subscribe(
             {
               next:(data)=>{       
-                this.storageSessionService.updateUser(data.user)
+               // this.storageSessionService.updateUser(data.bussines)
                 console.log(data)
               },
               error:(err)=>{
@@ -60,26 +49,17 @@ export class UserService extends BaseCRUDService{
     }
 
 
-    register(name:string,  surname: string, email: string,password: string):Observable<any>{
-        let params = {
-            email:email,
-            password:password,
-            surname: surname,
-            name: name,            
-        }
-        return this.post(this.url+'/register',params)
+     register(bussines:Bussines):Observable<any>{
+        delete bussines._id;
+        let formData = this.helperService.toFormData(bussines)
+console.log('1')
+
+        return this.post(this.url+'/bussines',formData)
     }
 
     _delete(id):Observable<any>{
         console.log(this.url)
-        return this.delete(this.url+'/user/'+id)
-    }
-
-    resetPassword(email:string):Observable<any>{
-        let params = {
-            email : email,
-        }
-        return this.post(this.url+'/forgot-password'+params)        
+        return this.delete(this.url+'/bussines/'+id)
     }
 
     

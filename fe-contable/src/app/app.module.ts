@@ -9,11 +9,19 @@ import { StorageSessionService } from './services/storage-session.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule, 
+    ComponentsModule,
+    IonicModule.forRoot(), 
+    AppRoutingModule, 
+    FormsModule, 
+    HttpClientModule
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     StorageSessionService,{provide: HTTP_INTERCEPTORS,useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent],

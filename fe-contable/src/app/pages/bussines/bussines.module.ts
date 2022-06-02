@@ -4,20 +4,22 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 
 import { IonicModule } from '@ionic/angular';
 
-import { BusinessPageRoutingModule } from './business-routing.module';
+import { BussinesPageRoutingModule } from './bussines-routing.module';
 
-import { BusinessPage } from './business.page';
+import { BussinesPage } from './bussines.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     ReactiveFormsModule,
-    BusinessPageRoutingModule
+    BussinesPageRoutingModule
   ],
-  declarations: [BusinessPage]
+  declarations: [BussinesPage]
 })
-export class BusinessPageModule  {
+export class BussinesPageModule  {
  
 }
