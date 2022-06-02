@@ -75,8 +75,11 @@ export class UserService extends BaseCRUDService{
         return this.delete(this.url+'/user/'+id)
     }
 
-    resetPassword(){
-        
+    resetPassword(email:string):Observable<any>{
+        let params = {
+            email : email,
+        }
+        return this.post(this.url+'/forgot-password'+params)        
     }
 
     

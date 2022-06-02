@@ -146,11 +146,16 @@ function getUserImageFile(req,res){
     })
 }
 
+function getUserBusinesses(req,res){
+    res.status(200).send({message: 'Retornando array de business'});
+}
+
 module.exports = {
     getUser, 
     saveUser,
     updateUser,
     deleteUser,
     loginUser,
-    getUserImageFile
+    getUserImageFile,
+    getUserBusinesses
 } ; 
