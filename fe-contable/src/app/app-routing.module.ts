@@ -16,8 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'business',
-    loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
+    path: 'bussines',
+    loadChildren: () => import('./pages/bussines/bussines.module').then( m => m.BussinesPageModule)
   },
   {
     path: 'form-profile',

@@ -9,11 +9,7 @@ var BussinesSchema = Schema({
     category:String,
     email: String,
     image: String,
-    phone: String,
-    user :{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
-    }
+    phone: String
 },{
     timestamps: true
 })

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Login', url: '/login', icon: 'mail' },
     { title: 'Register', url: '/register', icon: 'paper-plane' },
-    { title: 'Business', url: '/business', icon: 'heart' },
+    { title: 'Bussines', url: '/bussines', icon: 'heart' },
     { title: 'Profile', url: '/form-profile', icon: 'archive' },
     { title: 'Recuperar Contraseña', url: '/form-forgotpassword', icon: 'trash' },
     { title: 'Cerrar Sesión', url: '/folder/Spam', icon: 'warning' },
