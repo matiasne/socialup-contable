@@ -18,7 +18,7 @@ function getBussines(req,res){
 async function addBussines(req,res){
 
     var params = req.body;   
-console.log(params)
+    console.log(params)
     let bussinesRepo = new bussinesRepository();
 
     let bussines = await bussinesRepo.create(params);
@@ -31,8 +31,7 @@ async function updateBussines(req,res){
     let bussinesId = req.params._id;
     let update = req.body;
 
-    try{
-        // Guardar el usuario        
+    try{      
         if (req.file) {       
             let fs = require('fs')
             let oldPath = req.file.path;

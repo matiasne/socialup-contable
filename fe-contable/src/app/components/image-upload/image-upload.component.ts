@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
@@ -22,9 +22,12 @@ export class ImageUploadComponent implements OnInit {
   @Input() public height=0;
   @Output() onSelectValue = new EventEmitter<any>();
 
+  public IsMobile = false;
 
   ngOnInit(): void {
-    
+    /*if(this.croppedImage == ""){
+      this.croppedImage = "../../../assets/img/add-image.fw.png"
+    }*/
   }
 
   imagePickerOptions = {
@@ -38,32 +41,48 @@ export class ImageUploadComponent implements OnInit {
     private camera: Camera,
     private deviceFile: File,
     public modalController: ModalController,
-    ) { }
+    private platform:Platform,
+    ) { 
+
+      if (this.platform.is('desktop')) {
+        this.IsMobile = false;
+      } else {
+        this.IsMobile = true;
+      } 
+
+    }
 
  
 
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
-      buttons: [{
-        text: 'Seleccionar de la Galería',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+  async selectImage(fileInput) {
+
+    if(this.IsMobile){
+      const actionSheet = await this.actionSheetController.create({
+        header: "Select Image source",
+        buttons: [{
+          text: 'Seleccionar de la Galería',
+          handler: () => {
+            this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        },
+        {
+          text: 'Sacar Foto',
+          handler: () => {
+            this.pickImage(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
         }
-      },
-      {
-        text: 'Sacar Foto',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
+        ]
+      });
+      await actionSheet.present();
+    }
+    else{
+      fileInput.click();
+    }
+    
   }
 
   pickImage(sourceType) {
