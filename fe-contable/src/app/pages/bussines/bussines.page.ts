@@ -52,6 +52,10 @@ constructor(public route:ActivatedRoute,
     });
   }
 
+  onDestroy(){
+    this.formBussines.reset();
+  }
+
   /*validation_messages = {
     'name': [
       { type: 'required', message: 'Campo Obligatorio.' },
@@ -82,16 +86,14 @@ onSubmit(){
 
      if(this.formBussines.valid){
       
-      let idUser = this.storageSessionService.getUSer()._id;
       let bussines = new Bussines("",
         this.formBussines.controls['name'].value,
         this.formBussines.controls['image'].value,
         this.formBussines.controls['category'].value,
         this.formBussines.controls['address'].value,
         this.formBussines.controls['email'].value,
-        this.formBussines.controls['phone'].value,
-        idUser)
-      this.bussinesService.register(bussines).subscribe({
+        this.formBussines.controls['phone'].value)
+      this.bussinesService.add(bussines).subscribe({
         next:(data)=>{
           console.log(data)
         }
@@ -107,6 +109,7 @@ onSubmit(){
     }
   }
 
+  
 
 
  submitImage(){

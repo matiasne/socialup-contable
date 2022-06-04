@@ -1,9 +1,10 @@
 'use strict'
 
-var bcrypt = require('bcrypt-nodejs');
+
 var bussinesRepository = require('../repositories/bussines');
-var jwt = require('../middlewares/jwt');
-const path = require('path');
+var jwtHanlder = require ('./jwtHanlder');
+const path = require('path'); 
+var imagesHandler = require('./imagesHandler');
 
 function getBussines(req,res){
     let bussinesRepo = new bussinesRepository();
@@ -18,13 +19,26 @@ function getBussines(req,res){
 async function addBussines(req,res){
 
     var params = req.body;   
-    console.log(params)
     let bussinesRepo = new bussinesRepository();
 
-    let bussines = await bussinesRepo.create(params);
+    try{ 
+             
+        if (req.file) {   
+            let imgHandler = new imagesHandler()
+            params.image = await imgHandler.processImage(req.file,'users')
+        }
 
-    res.status(200).send({bussines: bussines});
-           
+        var tokenPayload = jwtHanlder.getDataToken(req.headers.authorization);
+        params.userId = tokenPayload.sub;
+
+        let bussines = await bussinesRepo.create(params);       
+
+        res.status(200).send({bussines: bussines});
+
+    }catch(error){
+        console.log(error)
+        res.status(400).send({message: error});
+    }           
 }
 
 async function updateBussines(req,res){
@@ -32,40 +46,18 @@ async function updateBussines(req,res){
     let update = req.body;
 
     try{      
-        if (req.file) {       
-            let fs = require('fs')
-            let oldPath = req.file.path;
-            let newPath = 'public/bussines/'+req.file.filename; //poner directorio en una variable (env?)
-            
-            let ext_split = req.file.filename.split('.');
-            let file_ext= ext_split[1];
-            if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
-                 fs.rename(oldPath, newPath, async (err) => {
-                    console.log(err)
-                    if (err) {                        
-                        res.status(500).send({message: err})
-                    }
-                    else{
-                        update.image = 'http://localhost:3977/api/bussines/file/'+req.file.filename;
-                        
-                        let bussinesRepo = new bussinesRepository(); 
-                        let reponse = await bussinesRepo.update(bussinesId, update)
-                        res.status(200).send({bussines: reponse});
-                    }                                 
-                });
-            }
-            else{
-                res.status(401).send({message: 'Not Allowed image extension'})
-            }
+        if (req.file) {   
+            let imgHandler = new imagesHandler()
+            update.image = await imgHandler.processImage(req.file,'users')
         }
-        else{ 
-            let bussinesRepo = new bussinesRepository(); 
-            let reponse = await bussinesRepo.update(bussinesId, update)
-            res.status(200).send({bussines: reponse});
-        }
+
+        let bussinesRepo = new bussinesRepository(); 
+        let reponse = await bussinesRepo.update(bussinesId, update)
+        res.status(200).send({bussines: reponse});
+        
     }catch(error){
         console.log(error)
-       // res.status(400).send({message: error});
+        res.status(400).send({message: error});
     }
 }
 

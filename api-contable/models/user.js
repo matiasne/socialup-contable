@@ -13,9 +13,7 @@ var UserSchema = Schema({
     address: String,
     gender: String,
     phone: String,
-    bussines : [
-        {type: mongoose.Schema.Types.ObjectId,ref:'Bussines'}
-    ]
+    businesses : [{type: mongoose.Schema.Types.ObjectId,ref:'Bussines'}]
 },{
     timestamps: true
 })

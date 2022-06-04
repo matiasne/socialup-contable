@@ -50,6 +50,10 @@ export class RegisterPage implements OnInit {
 
   
   }
+
+  onDestroy(){
+    this.formData.reset();
+  }
  
 
   onSubmit (){
