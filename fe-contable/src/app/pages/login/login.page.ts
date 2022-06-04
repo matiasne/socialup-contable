@@ -57,6 +57,10 @@ export class LoginPage implements OnInit{
     
   }
 
+  onDestroy(){
+    this.formData.reset();
+  }
+
 validation_messages = {
     'email': [
       { type: 'required', message: 'Campo Obligatorio.' },
@@ -76,7 +80,7 @@ validation_messages = {
     if(this.formData.valid){
       let email = this.formData.controls['email'].value
       let password = this.formData.controls['password'].value
-      console.log('y vamos de nuevo')
+      
       this._userService.singnup(email,password).subscribe(
         {
           next: (data:any)=>{

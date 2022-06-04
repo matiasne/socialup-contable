@@ -1,6 +1,8 @@
 var jwt = require ('jwt-simple');
 var moment = require ('moment');
-var secret = 'SocialUp';exports.createToken = function(user){
+var secret = 'SocialUp';
+
+exports.createToken = function(user){
     var payload = {
         sub:user._id,
         name:user.name,
@@ -13,3 +15,8 @@ var secret = 'SocialUp';exports.createToken = function(user){
     
     return jwt.encode(payload, secret);
 };
+
+exports.getDataToken = function(token){
+    return jwt.decode(token, secret);    
+};
+

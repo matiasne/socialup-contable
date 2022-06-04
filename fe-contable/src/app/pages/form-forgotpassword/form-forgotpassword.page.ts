@@ -30,6 +30,10 @@ export class FormForgotpasswordPage implements OnInit {
 
     
   }
+
+  onDestroy(){
+    this.formForgotPassword.reset();
+  }
   onReset(){
     this.isSubmited=true;
    if(this.formForgotPassword.valid){

@@ -13,6 +13,10 @@ export class FormProductPage implements OnInit {
 
   ngOnInit() {
   }
+
+  onDestroy(){
+    this.formData.reset();
+  }
   
   onSubmit(){
     this.isSubmited=true;

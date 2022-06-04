@@ -91,21 +91,21 @@ export class FormProfilePage implements OnInit {
       name: new FormControl('',[Validators.required, Validators.minLength(3)]),
       surname: new FormControl('',[Validators.required,Validators.minLength(3)]),
       gender: new FormControl('',[]),
-      address: new FormControl('',[Validators.required]),
-      phone:new FormControl ('',[Validators.required]),
-      image: new FormControl('', [Validators.required])     
+      address: new FormControl('',[]),
+      phone:new FormControl ('',[]),
+      image: new FormControl('', [])     
     })
 
     this.userService.get(this.session.user._id).subscribe({
       next:(data)=>{
-        
+        console.log(data)
         this.formProfile.setValue({
-          name: data.user.name ,
+          name: data.user.name,
           surname:data.user.surname,
-          gender:data.user.gender,
-          address:data.user.address,
-          phone:data.user.phone,
-          image:data.user.image 
+          gender:data.user.gender?data.user.gender:"",
+          address:data.user.address?data.user.address:"",
+          phone:data.user.phone?data.user.phone:"",
+          image:data.user.image?data.user.image:""
         }) 
 
         let user = User.adapt(this.session.user);        
@@ -114,6 +114,11 @@ export class FormProfilePage implements OnInit {
     })
     
   }
+
+  onDestroy(){
+    this.formProfile.reset();
+  }
+  
   updateProfile(){
 
     let user= new User(
