@@ -22,12 +22,9 @@ export class ImageUploadComponent implements OnInit {
   @Input() public height=0;
   @Output() onSelectValue = new EventEmitter<any>();
 
-  public IsMobile = false;
 
   ngOnInit(): void {
-    /*if(this.croppedImage == ""){
-      this.croppedImage = "../../../assets/img/add-image.fw.png"
-    }*/
+ 
   }
 
   imagePickerOptions = {
@@ -44,11 +41,7 @@ export class ImageUploadComponent implements OnInit {
     private platform:Platform,
     ) { 
 
-      if (this.platform.is('desktop')) {
-        this.IsMobile = false;
-      } else {
-        this.IsMobile = true;
-      } 
+    
 
     }
 
@@ -56,7 +49,7 @@ export class ImageUploadComponent implements OnInit {
 
   async selectImage(fileInput) {
 
-    if(this.IsMobile){
+    if (!this.platform.is('desktop')) {
       const actionSheet = await this.actionSheetController.create({
         header: "Select Image source",
         buttons: [{
@@ -87,7 +80,7 @@ export class ImageUploadComponent implements OnInit {
 
   pickImage(sourceType) {
 
-    if(sourceType == 0){
+    if(sourceType == this.camera.PictureSourceType.PHOTOLIBRARY){
       this.imagePicker.getPictures(this.imagePickerOptions).then((results) => {
         for (var i = 0; i < results.length; i++) {
           console.log(results)
@@ -98,7 +91,7 @@ export class ImageUploadComponent implements OnInit {
       });
     }
 
-    if(sourceType == 1){
+    if(sourceType == this.camera.PictureSourceType.CAMERA){
       const options: CameraOptions = {
         quality: 5,
         sourceType: sourceType,

@@ -78,8 +78,7 @@ async function loginUser(req,res){
     var params = req.body;
 
     var email = params.email;
-    var password = params.password;
-    
+    var password = params.password;    
 
     try{
         let userRepo = new userRepository();        
