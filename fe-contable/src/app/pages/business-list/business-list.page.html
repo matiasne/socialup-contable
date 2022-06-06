@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis Empresas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="">
+  <ion-list  *ngFor="let business of listbusinesses">
+  <ion-item  >
+    <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+      <img src={{business.image}}>
+    </ion-avatar>
+    <ion-label [routerLink]="['/business']" >
+     <h1><b>{{business.name}}</b></h1>
+      <h3><strong><u>Email:</u></strong> {{business.email}}</h3> 
+      <h3><strong><u>Teléfono:</u></strong> {{business.phone}}</h3> 
+      <h3><strong><u>Rubro:</u></strong> {{business.category}}</h3>
+    </ion-label>
+    <div [routerLink]="['/register']">
+      <ion-icon name="create-outline" slot="end" ></ion-icon>
+    </div>
+    
+  </ion-item>
+   
+  </ion-list>
+
+</ion-content>

@@ -15,10 +15,11 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Login', url: '/login', icon: 'mail' },
     { title: 'Register', url: '/register', icon: 'paper-plane' },
-    { title: 'Bussines', url: '/bussines', icon: 'heart' },
+    { title: 'Business', url: '/business', icon: 'heart' },
     { title: 'Profile', url: '/form-profile', icon: 'archive' },
     { title: 'Recuperar Contraseña', url: '/form-forgotpassword', icon: 'trash' },
     { title: 'Cerrar Sesión', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Lista de Empresas', url: '/business-list', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 

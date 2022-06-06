@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 
 import { IonicModule } from '@ionic/angular';
 
-import { BussinesPageRoutingModule } from './bussines-routing.module';
+import { BusinessPageRoutingModule } from './business-routing.module';
 
-import { BussinesPage } from './bussines.page';
+import { BusinessPage } from './business.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -16,10 +16,10 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     ComponentsModule,
     ReactiveFormsModule,
-    BussinesPageRoutingModule
+    BusinessPageRoutingModule
   ],
-  declarations: [BussinesPage]
+  declarations: [BusinessPage]
 })
-export class BussinesPageModule  {
+export class BusinessPageModule  {
  
 }

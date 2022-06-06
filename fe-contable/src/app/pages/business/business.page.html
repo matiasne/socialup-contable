@@ -1,18 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="title">BUSSINES</ion-title>
+    <ion-title class="title">BUSINESS</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
   <div>
     <ion-card >
      <ion-card-content>
-      <form class="form" [formGroup]="formBussines" (ngSubmit)="onSubmit()" action="formBussines"> 
+      <form class="form" [formGroup]="formBusiness" (ngSubmit)="onSubmit()" action="formBusiness"> 
         
-        <div class="image-avatar" >
+        <div class="image-avatar">
           <app-image-upload            
             [aspectRatio] = "'1'"
-            [croppedImage]= "formBussines.controls['image'].value"
+            [croppedImage]= "formBusiness.controls['image'].value"
             (onSelectValue)= changeImage($event)>
           </app-image-upload>
         </div>
@@ -80,7 +80,8 @@
           <strong class="error-message" *ngIf="phone.errors.required && isSubmitted">*Campo Obligatorio*</strong>
         </div>
        </ion-row><br>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formBussines" >Actualizar mis datos</ion-button>
+         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="!formBusiness">Crear Empresa</ion-button>
+         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" >Actualizar mis datos</ion-button>
          </form>
      </ion-card-content>
    </ion-card>
