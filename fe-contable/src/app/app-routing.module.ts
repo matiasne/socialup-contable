@@ -32,12 +32,11 @@ const routes: Routes = [
   {
     path: 'form-forgotpassword',
     loadChildren: () => import('./pages/form-forgotpassword/form-forgotpassword.module').then( m => m.FormForgotpasswordPageModule)
-  },  {
-    path: 'business-list',
-    loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   }
-
-
 
 ];
 
