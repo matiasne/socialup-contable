@@ -1,4 +1,4 @@
-export class Bussines{
+export class Business{
     constructor (
         public _id:string,
         public name:string,
@@ -10,8 +10,8 @@ export class Bussines{
         public userID: string
     ){}
 
-    public static adapt(item:any):Bussines{
-        return new Bussines(
+    public static adapt(item:any):Business{
+        return new Business(
             item._id,
             item.name,
             item.email,

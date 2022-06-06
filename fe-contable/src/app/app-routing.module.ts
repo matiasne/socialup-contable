@@ -16,8 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'bussines',
-    loadChildren: () => import('./pages/bussines/bussines.module').then( m => m.BussinesPageModule)
+    path: 'business',
+    loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
   },
   {
     path: 'form-profile',
@@ -32,7 +32,11 @@ const routes: Routes = [
   {
     path: 'form-forgotpassword',
     loadChildren: () => import('./pages/form-forgotpassword/form-forgotpassword.module').then( m => m.FormForgotpasswordPageModule)
+  },  {
+    path: 'business-list',
+    loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule)
   }
+
 
 
 ];

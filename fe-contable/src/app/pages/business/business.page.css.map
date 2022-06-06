@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "bussines.page.scss"
+        "business.page.scss"
     ],
     "names": [],
-    "file": "bussines.page.css"
+    "file": "business.page.css"
 }

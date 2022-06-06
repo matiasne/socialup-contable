@@ -3,14 +3,14 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { GLOBAL } from "./global";
 import { LoginPage } from "../pages/login/login.page";
-import { Bussines } from "../models/bussines";
+import { Business } from "../models/business";
 import { BaseCRUDService } from "./base-crud.service";
 import { StorageSessionService } from "./storage-session.service";
 import { Session } from "../models/session";
 import { HelperService } from "./helpers.service";
 
 @Injectable()
-export class BussinesService extends BaseCRUDService{
+export class BusinessService extends BaseCRUDService{
     public url: string;
 
     constructor (
@@ -25,17 +25,17 @@ export class BussinesService extends BaseCRUDService{
 
     get(id){
         console.log(id)
-        return super.get(this.url+'/bussines/'+id)
+        return super.get(this.url+'/business/'+id)
     }
 
-    async update(bussines:Bussines){   
+    async update(business:Business){   
         
-        let formData = await this.helperService.toFormData(bussines)
+        let formData = await this.helperService.toFormData(business)
         
-        this.put(this.url+'/bussines/'+bussines._id,formData).subscribe(
+        this.put(this.url+'/business/'+business._id,formData).subscribe(
             {
               next:(data)=>{       
-               // this.storageSessionService.updateUser(data.bussines)
+               // this.storageSessionService.updateUser(data.business)
                 console.log(data)
               },
               error:(err)=>{
@@ -49,17 +49,17 @@ export class BussinesService extends BaseCRUDService{
     }
 
 
-     register(bussines:Bussines):Observable<any>{
-        delete bussines._id;
-        let formData = this.helperService.toFormData(bussines)
+     register(business:Business):Observable<any>{
+        delete business._id;
+        let formData = this.helperService.toFormData(business)
 console.log('1')
 
-        return this.post(this.url+'/bussines',formData)
+        return this.post(this.url+'/business',formData)
     }
 
     _delete(id):Observable<any>{
         console.log(this.url)
-        return this.delete(this.url+'/bussines/'+id)
+        return this.delete(this.url+'/business/'+id)
     }
 
     

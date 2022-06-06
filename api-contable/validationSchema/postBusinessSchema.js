@@ -1,6 +1,6 @@
 const Joi = require('joi'); 
 
-const postBussinesSchema = Joi.object({
+const postBusinessSchema = Joi.object({
     _id: Joi.string(),
     name: Joi.string().min(1).max(30),
     address:Joi.allow(),
@@ -11,5 +11,5 @@ const postBussinesSchema = Joi.object({
   }); 
 
 module.exports = {
-    postBussinesSchema
+    postBusinessSchema
 };

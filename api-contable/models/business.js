@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var BussinesSchema = Schema({
+var BusinessSchema = Schema({
     name: String,
     address: String,
     category:String,
@@ -14,4 +14,4 @@ var BussinesSchema = Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Bussines', BussinesSchema)
+module.exports = mongoose.model('Business', BusinessSchema)

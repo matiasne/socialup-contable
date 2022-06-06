@@ -1,34 +1,34 @@
 'use strict'
 
 var bcrypt = require('bcrypt-nodejs');
-var bussinesRepository = require('../repositories/bussines');
+var businessRepository = require('../repositories/business');
 var jwt = require('../middlewares/jwt');
 const path = require('path');
 
-function getBussines(req,res){
-    let bussinesRepo = new bussinesRepository();
+function getBusiness(req,res){
+    let businessRepo = new businessRepository();
 
-    let bussines =  bussinesRepo.get(req.params.id).then(bussines=>{
-        res.status(200).send({bussines: bussines});
+    let business=  businessRepo.get(req.params.id).then(business=>{
+        res.status(200).send({business: business});
     }).catch(err=>{
         res.status(404).send({message: 'no hay'});
     });
 }
 
-async function addBussines(req,res){
+async function addBusiness(req,res){
 
     var params = req.body;   
 console.log(params)
-    let bussinesRepo = new bussinesRepository();
+    let businessRepo = new businessRepository();
 
-    let bussines = await bussinesRepo.create(params);
+    let business= await businessRepo.create(params);
 
-    res.status(200).send({bussines: bussines});
+    res.status(200).send({business: business});
            
 }
 
-async function updateBussines(req,res){
-    let bussinesId = req.params._id;
+async function updateBusiness(req,res){
+    let businessId = req.params._id;
     let update = req.body;
 
     try{
@@ -36,7 +36,7 @@ async function updateBussines(req,res){
         if (req.file) {       
             let fs = require('fs')
             let oldPath = req.file.path;
-            let newPath = 'public/bussines/'+req.file.filename; //poner directorio en una variable (env?)
+            let newPath = 'public/business/'+req.file.filename; //poner directorio en una variable (env?)
             
             let ext_split = req.file.filename.split('.');
             let file_ext= ext_split[1];
@@ -47,11 +47,11 @@ async function updateBussines(req,res){
                         res.status(500).send({message: err})
                     }
                     else{
-                        update.image = 'http://localhost:3977/api/bussines/file/'+req.file.filename;
+                        update.image = 'http://localhost:3977/api/business/file/'+req.file.filename;
                         
-                        let bussinesRepo = new bussinesRepository(); 
-                        let reponse = await bussinesRepo.update(bussinesId, update)
-                        res.status(200).send({bussines: reponse});
+                        let businessRepo = new businessRepository(); 
+                        let reponse = await businessRepo.update(businessId, update)
+                        res.status(200).send({business: reponse});
                     }                                 
                 });
             }
@@ -60,9 +60,9 @@ async function updateBussines(req,res){
             }
         }
         else{ 
-            let bussinesRepo = new bussinesRepository(); 
-            let reponse = await bussinesRepo.update(bussinesId, update)
-            res.status(200).send({bussines: reponse});
+            let businessRepo = new businessRepository(); 
+            let reponse = await businessRepo.update(businessId, update)
+            res.status(200).send({business: reponse});
         }
     }catch(error){
         console.log(error)
@@ -70,26 +70,26 @@ async function updateBussines(req,res){
     }
 }
 
-async function deleteBussines(req,res){
-    var bussinesId = req.params.id;
+async function deleteBusiness(req,res){
+    var businessId = req.params.id;
 
     try{
         // Guardar el usuario
-        let bussinesRepo = new bussinesRepository();
+        let businessRepo = new businessRepository();
     
-        let bussines = await bussinesRepo.delete(bussinesId);
+        let business= await businessRepo.delete(businessId);
 
-        res.status(200).send({bussines: bussines});
+        res.status(200).send({business: business});
     }catch(error){
         res.status(400).send({message: error});
     }
 }
 
 
-function getBussinesImageFile(req,res){
+function getBusinessImageFile(req,res){
     var fs = require('fs')
     var imageFile = req.params.imageFile;
-    var path_file='public/bussines/'+imageFile
+    var path_file='public/business/'+imageFile
 
     fs.exists(path_file, (exists) => {
        if(exists){
@@ -101,9 +101,9 @@ function getBussinesImageFile(req,res){
 }
 
 module.exports = {
-    addBussines,
-    getBussines,
-    deleteBussines,
-    updateBussines,
-    getBussinesImageFile
+    addBusiness,
+    getBusiness,
+    deleteBusiness,
+    updateBusiness,
+    getBusinessImageFile
 } ; 

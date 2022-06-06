@@ -6,28 +6,28 @@ import { StorageSessionService } from 'src/app/services/storage-session.service'
 import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
-import { Bussines } from 'src/app/models/bussines';
+import { Business } from 'src/app/models/business';
 import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
-import { BussinesService } from 'src/app/services/bussines.service';
+import { BusinessService } from 'src/app/services/business.service';
 
 
 
 
 
 @Component({
-  selector: 'app-bussines',
-  templateUrl: './bussines.page.html',
-  styleUrls: ['./bussines.page.scss'],
-  providers:[BussinesService,HelperService ]
+  selector: 'app-business',
+  templateUrl: './business.page.html',
+  styleUrls: ['./business.page.scss'],
+  providers:[BusinessService,HelperService ]
 })
-export class BussinesPage implements OnInit {
-  public title:'Perfil BUSSINES'
-  public bussines:any;
+export class  BusinessPage implements OnInit {
+  public title:'Perfil BUSINESS'
+  public business:any;
   public priority:string;
   public router: any;
-  public formBussines:FormGroup;
+  public formBusiness:FormGroup;
   public dbData: any;
   public FormGroup:FormControl  ;
   public isSubmitted=false;
@@ -37,12 +37,12 @@ export class BussinesPage implements OnInit {
   
 constructor(public route:ActivatedRoute,
     public storageSessionService:StorageSessionService,
-    public bussinesService:BussinesService){
+    public businessService:BusinessService){
  
 }
   ngOnInit() {
  
-   this.formBussines= new FormGroup({
+   this.formBusiness= new FormGroup({
          name: new FormControl('',Validators.compose([Validators.required,Validators.minLength(3)])),
          address: new FormControl('',Validators.compose([Validators.required,Validators.minLength(5),])),
          category:new FormControl('',Validators.required),
@@ -80,18 +80,18 @@ constructor(public route:ActivatedRoute,
 onSubmit(){
  this.isSubmitted=true;
 
-     if(this.formBussines.valid){
+     if(this.formBusiness.valid){
       
       let idUser = this.storageSessionService.getUSer()._id;
-      let bussines = new Bussines("",
-        this.formBussines.controls['name'].value,
-        this.formBussines.controls['image'].value,
-        this.formBussines.controls['category'].value,
-        this.formBussines.controls['address'].value,
-        this.formBussines.controls['email'].value,
-        this.formBussines.controls['phone'].value,
+      let business= new Business("",
+        this.formBusiness.controls['name'].value,
+        this.formBusiness.controls['image'].value,
+        this.formBusiness.controls['category'].value,
+        this.formBusiness.controls['address'].value,
+        this.formBusiness.controls['email'].value,
+        this.formBusiness.controls['phone'].value,
         idUser)
-      this.bussinesService.register(bussines).subscribe({
+      this.businessService.register(business).subscribe({
         next:(data)=>{
           console.log(data)
         }
@@ -130,17 +130,17 @@ onSubmit(){
   }
 
   onResetForm(){
-    this.formBussines.reset();
+    this.formBusiness.reset();
   }
 
   public filesToUpload: Array<File>
 
 
-  get name(){return this.formBussines.get('name');}
-  get address(){return this.formBussines.get ('address');}
-  get category(){return this.formBussines.get('category');}
-  get email(){return this.formBussines.get('email');}
-  get phone(){return this.formBussines.get('phone');}
+  get name(){return this.formBusiness.get('name');}
+  get address(){return this.formBusiness.get ('address');}
+  get category(){return this.formBusiness.get('category');}
+  get email(){return this.formBusiness.get('email');}
+  get phone(){return this.formBusiness.get('phone');}
 
   imageClick(){
     let content = document.getElementById('selectedFile');
@@ -148,7 +148,7 @@ onSubmit(){
   }
 
   changeImage(event:any){
-    this.formBussines.patchValue({
+    this.formBusiness.patchValue({
       image:event
     })
   }
