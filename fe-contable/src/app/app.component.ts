@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     { title: 'Bussines', url: '/bussines', icon: 'heart' },
     { title: 'Profile', url: '/form-profile', icon: 'archive' },
     { title: 'Recuperar Contraseña', url: '/form-forgotpassword', icon: 'trash' },
-    { title: 'Cerrar Sesión', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Producto', url: '/product', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 

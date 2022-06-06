@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'form-forgotpassword',
     loadChildren: () => import('./pages/form-forgotpassword/form-forgotpassword.module').then( m => m.FormForgotpasswordPageModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   }
 
 
