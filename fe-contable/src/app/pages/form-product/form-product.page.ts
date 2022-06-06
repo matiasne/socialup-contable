@@ -11,7 +11,8 @@ export class FormProductPage implements OnInit {
   isSubmited=false;
   formProduct : FormGroup;
   FormGroup: FormControl
-  public bussines:any;
+  public business:any;
+  formData: any;
   constructor() { }
 
   ngOnInit() {

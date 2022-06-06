@@ -47,9 +47,8 @@ async function updateUser(req,res){
     try{      
         if (req.file) {   
             let imgHandler = new imagesHandler()
-            update.image = await imgHandler.processImage(req.file,'users')
+            update.image = await imgHandler.processImage(req.file,'user')
         }
-        
         let userRepo = new userRepository(); 
         let u = await userRepo.update(userId, update)
         res.status(200).send({user: u});
@@ -103,7 +102,7 @@ async function loginUser(req,res){
 function getUserImageFile(req,res){
     var fs = require('fs')
     var imageFile = req.params.imageFile;
-    var path_file='public/users/'+imageFile
+    var path_file='public/user/'+imageFile
 
     fs.exists(path_file, (exists) => {
        if(exists){

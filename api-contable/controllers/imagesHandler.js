@@ -1,5 +1,10 @@
 let fs = require('fs')
+let path = require('path');
 
+var dotenv = require('dotenv');
+dotenv.config({
+    path: path.resolve(__dirname, process.env.NODE_ENV + '.env')
+  });
 
 class imageHandler {
     constructor(){
@@ -8,7 +13,7 @@ class imageHandler {
 
     async processImage(file,objectType){
     
-        new Promise((resolve,reject)=>{
+       return  new Promise((resolve,reject)=>{
     
             let oldPath = file.path;
             let newPath = 'public/'+objectType+'/'+file.filename; //poner directorio en una variable (env?)
@@ -24,7 +29,7 @@ class imageHandler {
                         fs.unlink(oldPath, (err) => {
                             reject(err)
                         })
-                        resolve(process.env.APP_URL+':'+process.env.APP_PORT+'/api/bussines/file/'+file.filename);               
+                        resolve('http://localhost:'+process.env.APP_PORT+'/api/'+objectType+'/file/'+file.filename);               
                     }                                 
                 });
             }else{

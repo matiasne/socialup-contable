@@ -22,7 +22,7 @@ export class BusinessListPage implements OnInit {
     address: "string",
     email: "tomi@canario.com",
     phone: "25111847987",
-    userID: "string"
+    idUser: "string"
 
   },{
     _id:"string",
@@ -32,7 +32,7 @@ export class BusinessListPage implements OnInit {
     address: "string",
     email: "david@humo.com",
     phone: "514894654",
-    userID: "string"
+    idUser: "string"
   },{
     _id:"string",
     name:"Nahuel's",
@@ -41,7 +41,7 @@ export class BusinessListPage implements OnInit {
     address: "string",
     email: "nahuel@thc.com",
     phone: "1654984654",
-    userID: "string"
+    idUser: "string"
   },{
     _id:"string",
     name:"Diego's",
@@ -50,7 +50,7 @@ export class BusinessListPage implements OnInit {
     address: "string",
     email: "diego@nilovi.com",
     phone: "3248+465",
-    userID: "string"
+    idUser: "string"
   },{
     _id:"string",
     name:"Mati's",
@@ -59,7 +59,7 @@ export class BusinessListPage implements OnInit {
     address: "string",
     email: "diego@nilovi.com",
     phone: "3248+465",
-    userID: "string"
+    idUser: "string"
   }];
   constructor(
     

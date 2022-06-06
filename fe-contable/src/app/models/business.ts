@@ -6,7 +6,8 @@ export class Business{
         public category: string,
         public address: string,
         public email: string,
-        public phone: string
+        public phone: string,
+        public idUser: string
     ){}
 
     public static adapt(item:any):Business{
@@ -17,7 +18,8 @@ export class Business{
             item.image,
             item.category,
             item.address,
-            item.phone
+            item.phone,
+            item.idUser,
         )
     }
 }

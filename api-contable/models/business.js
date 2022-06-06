@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var BussinesSchema = Schema({
+var BusinessSchema = Schema({
     userId : {type: mongoose.Schema.Types.ObjectId,ref:'Users'},
     name: String,
     address: String,
@@ -15,4 +15,4 @@ var BussinesSchema = Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Bussines', BussinesSchema)
+module.exports = mongoose.model('Business', BusinessSchema)
