@@ -24,7 +24,7 @@ class imageHandler {
                     fs.rename(oldPath, newPath, async (err) => {
                     if (err) {                        
                         reject(err)
-                    }
+                    } 
                     else{
                         fs.unlink(oldPath, (err) => {
                             reject(err)

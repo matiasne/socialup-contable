@@ -15,5 +15,6 @@ api.put('/business/:_id', [validationSchema(updateBusinessSchema), md_auth.ensur
 api.delete('/business/:id', md_auth.ensureAuth, BusinessController.deleteBusiness);
 api.post('/business', validationSchema(postBusinessSchema),md_uploadFile.single('image'), BusinessController.addBusiness);
 api.get('/business/file/:imageFile',BusinessController.getBusinessImageFile);
+api.get('/user/:idUser/businesses',md_auth.ensureAuth,BusinessController.getBusinesses);
 
 module.exports = api;

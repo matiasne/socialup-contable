@@ -8,7 +8,9 @@ class BaseRepository{
     }
 
     async create(entity){
+        console.log(this.model)
         return await this.model.create(entity);
+        
     }
 
     async update(id, entity){

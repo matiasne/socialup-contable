@@ -11,10 +11,12 @@ import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
 
 @Component({
+  
   selector: 'app-form-profile',
   templateUrl: './form-profile.page.html',
   styleUrls: ['./form-profile.page.scss'],
   providers:[UserService,HelperService ]
+
 })
 export class FormProfilePage implements OnInit {
   public formProfile: FormGroup;

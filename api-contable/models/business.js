@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BusinessSchema = Schema({
-    userId : {type: mongoose.Schema.Types.ObjectId,ref:'Users'},
+    idUser : {type: mongoose.Schema.Types.ObjectId,ref:'Users'},
     name: String,
     address: String,
     category:String,

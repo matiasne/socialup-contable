@@ -5,6 +5,11 @@ class BusinessRepository extends BaseRepository{
     constructor(){
         super(Business);
     }
+
+   async getByUserId(id){
+       console.log(this.model)
+        return await this.model.find({}).exec();
+    }
 }
 
 module.exports = BusinessRepository;

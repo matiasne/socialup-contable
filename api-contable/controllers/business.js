@@ -16,6 +16,24 @@ function getBusiness(req,res){
     });
 }
 
+async function getBusinesses(req,res){
+   
+    var idUser = req.params.idUser
+    let businessRepo = new businessRepository();
+    
+try{
+    let businesses = await businessRepo.getByUserId(idUser)
+        if(!businesses){
+            res.status(404).send({message: 'no hay business'});
+        }else{
+            res.status(200).send({businesses:businesses});
+        }
+      
+}catch(error){
+    res.status(400).send({message: error});
+}
+}
+
 async function addBusiness(req,res){
 
     var params = req.body;   
@@ -96,5 +114,6 @@ module.exports = {
     getBusiness,
     deleteBusiness,
     updateBusiness,
-    getBusinessImageFile
+    getBusinessImageFile,
+    getBusinesses
 } ; 
