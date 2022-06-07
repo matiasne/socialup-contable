@@ -24,7 +24,6 @@ export class UserService extends BaseCRUDService{
     }
 
     get(id){
-        console.log(id)
         return super.get(this.url+'/user/'+id)
     }
 
@@ -71,7 +70,6 @@ export class UserService extends BaseCRUDService{
     }
 
     _delete(id):Observable<any>{
-        console.log(this.url)
         return this.delete(this.url+'/user/'+id)
     }
 

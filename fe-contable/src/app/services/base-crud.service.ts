@@ -39,7 +39,7 @@ export class BaseCRUDService{
 
     delete(url):Observable<any>{
         let token=  this.storageSessionService.getSession().token
-        console.log(token)
+        // console.log(token)
 
         let headers = new HttpHeaders()
         

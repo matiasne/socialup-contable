@@ -99,7 +99,7 @@ validation_messages = {
               let session:Session = new Session(data.token, user)
 
             this._storageSessionService.setSession(session);
-            console.log(session.token);
+            // console.log(session.token);
           },
           error:(err)=>{
             console.log(err)
@@ -108,16 +108,16 @@ validation_messages = {
             }
           },
           complete:()=>{
-            console.log("Completo")
+            // console.log("Completo")
             
 
           }
         }
       
         )
-      console.log('valid')
+      // console.log('valid')
     }else{
-      console.log('not  valid')
+      // console.log('not  valid')
     } 
   }
 

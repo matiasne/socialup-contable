@@ -8,11 +8,11 @@ var imagesHandler = require('./imagesHandler');
  
 function getUser(req,res){
     let userRepo = new userRepository();
-
     userRepo.get(req.params.id).then(user=>{
+        console.log(user)
         res.status(200).send({user: user});
     }).catch(err=>{
-        res.status(404).send({message: 'User does not exist'});
+        res.status(404).send({message: err});
     });
 }
 

@@ -5,10 +5,12 @@ class userRepository extends BaseRepository{
     constructor(){
         super(User);
     }
-
-    async get(id){
-        console.log("asdasdasd")
-        return await this.model.findById(id).populate('businesses');
+    async getUserEmail(email){
+        try{
+        return await this.model.findOne({email:email});
+        }catch(err){
+            console.log(err)
+        }
     }
 }
 

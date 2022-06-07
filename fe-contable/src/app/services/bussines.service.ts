@@ -24,7 +24,6 @@ export class BusinessService extends BaseCRUDService{
     }
 
     get(id){
-        console.log(id)
         return super.get(this.url+'/business/'+id)
     }
 
@@ -54,7 +53,7 @@ export class BusinessService extends BaseCRUDService{
      add(business:Business):Observable<any>{
         delete business._id;
         let formData = this.helperService.toFormData(business)
-console.log('1')
+
 
         return this.post(this.url+'/business',formData)
     }

@@ -100,7 +100,7 @@ export class FormProfilePage implements OnInit {
 
     this.userService.get(this.session.user._id).subscribe({
       next:(data)=>{
-        console.log(data)
+        // console.log(data)
         this.formProfile.setValue({
           name: data.user.name,
           surname:data.user.surname,

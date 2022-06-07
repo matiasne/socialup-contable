@@ -38,7 +38,7 @@ export class FormForgotpasswordPage implements OnInit {
     this.isSubmited=true;
    if(this.formForgotPassword.valid){
      let email = this.formForgotPassword.controls['email'].value
-     console.log(this.onReset)
+     //console.log(this.onReset)
      this._userService.resetPassword(email).subscribe(
        {
          next: (data:any)=>{
@@ -51,16 +51,16 @@ export class FormForgotpasswordPage implements OnInit {
            }
          },
          complete:()=>{
-           console.log("Completo")
+         //  console.log("Completo")
            
 
          }
        }
      
        )
-     console.log('valid')
+     //console.log('valid')
    }else{
-     console.log('not  valid')
+    //  console.log('not  valid')
    } 
  }
  get email(){return this.formForgotPassword.get('email');}

@@ -42,9 +42,9 @@ export class FormProductPage implements OnInit {
         this.formProduct.controls['salePrice'].value,
         ''
         /*idBusiness*/)
-      console.log('valid')
+      // console.log('valid')
     }else{
-      console.log('not  valid')
+      // console.log('not  valid')
     }
   }
 }

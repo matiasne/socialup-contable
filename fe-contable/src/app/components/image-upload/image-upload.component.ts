@@ -83,7 +83,7 @@ export class ImageUploadComponent implements OnInit {
     if(sourceType == this.camera.PictureSourceType.PHOTOLIBRARY){
       this.imagePicker.getPictures(this.imagePickerOptions).then((results) => {
         for (var i = 0; i < results.length; i++) {
-          console.log(results)
+         // console.log(results)
           this.showImage(results[0]);        
         }
       }, (err) => {

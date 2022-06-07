@@ -78,15 +78,15 @@ export class RegisterPage implements OnInit {
             }
           },
           complete:()=>{
-            console.log("Completo")
+            // console.log("Completo")
             this.router.navigate(['/login']);
           }
         }
       
         )
-      console.log('valid')
+      // console.log('valid')
     }else{
-      console.log('not  valid')
+      // console.log('not  valid')
     }
 
   }
