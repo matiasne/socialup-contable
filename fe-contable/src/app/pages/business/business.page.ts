@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsMo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavParams } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { Business } from 'src/app/models/business';
@@ -34,47 +34,60 @@ export class  BusinessPage implements OnInit {
   public token: any;
   public imagePreview:any=""
   public mostrar=false;
+  public isEditing:boolean=false;
+  session: Session;
   
-constructor(public route:ActivatedRoute,
+constructor(public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
     public businessService:BusinessService){
- 
+  
+
 }
   ngOnInit() {
- 
-   this.formBusiness= new FormGroup({
-         name: new FormControl('',Validators.compose([Validators.required,Validators.minLength(3)])),
-         address: new FormControl('',Validators.compose([Validators.required,Validators.minLength(5),])),
-         category:new FormControl('',Validators.required),
-         email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
-         phone:new FormControl('',Validators.compose([Validators.required])),
-         image: new FormControl('')
-    });
-  }
-
-  /*validation_messages = {
-    'name': [
-      { type: 'required', message: 'Campo Obligatorio.' },
-      { type: 'minLength', message: 'El nombre es demasiado corto.' },	
-    ],									
-    'address': [
-      { type: 'required', message: 'Campo Obligatorio.' },
-      { type: 'minLength', message:'Escriba la dirección completa.'},
-    ],
-    'category':[
-      { type:'required', message:'Campo Obligatorio.'},
-    ],
-    'email':[
-      { type: 'required', message:'Campo Obligatorio.'},
-      { type: 'email', message:'El formato ingresado no es valido.'},
-      { type: 'pattern', message:'Ingrese un email valido.'}
-    ],
-    'phone':[
-      { type: 'required', message:'Campo Obligatorio.'},
-      { type: 'pattern', message:'Ingrese un número de teléfono valido.'}
-    ]
-    }*/
+    this.formBusiness= new FormGroup({
+      name: new FormControl('',Validators.compose([Validators.required,Validators.minLength(3)])),
+      address: new FormControl('',Validators.compose([Validators.required,Validators.minLength(5),])),
+      category:new FormControl('',Validators.required),
+      email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
+      phone:new FormControl('',Validators.compose([Validators.required])),
+      image: new FormControl('')
+ });
+    if(this.activateRoute.snapshot.params.id){
+      this.isEditing = true
+      this.businessService.get(this.activateRoute.snapshot.params.id).subscribe({
+        next:(data)=>{
+          // console.log(this.business)
+          this.formBusiness.setValue({
+            name: data.business.name,
+            address:data.business.address,
+            category:data.business.category,
+            email:data.business.email,
+            phone:data.business.phone,
+            image:data.business.image
+          })
+      
+        }
+      })
+    }else{
+      this.isEditing =false
+    }
     
+ 
+  }
+  updateProfileBusinesses(){
+
+   let business= new Business(
+      this.activateRoute.snapshot.params.id, 
+      this.formBusiness.controls['name'].value,
+      this.formBusiness.controls['image'].value,
+      this.formBusiness.controls['category'].value,
+      this.formBusiness.controls['address'].value,
+      this.formBusiness.controls['email'].value,
+      this.formBusiness.controls['phone'].value, 
+      this.storageSessionService.getUser()._id)
+      this.businessService.update(business)     
+      console.log(business.image)    
+  }
     
 
 onSubmit(){
@@ -82,7 +95,7 @@ onSubmit(){
 
      if(this.formBusiness.valid){
       
-      let idUser = this.storageSessionService.getUSer()._id;
+      let idUser = this.storageSessionService.getUser()._id;
       let business= new Business("",
         this.formBusiness.controls['name'].value,
         this.formBusiness.controls['image'].value,

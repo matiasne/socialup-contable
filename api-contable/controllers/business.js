@@ -26,7 +26,7 @@ try{
         if(!businesses){
             res.status(404).send({message: 'no hay business'});
         }else{
-            res.status(200).send({businesses:businesses});
+            res.status(200).send({data:businesses});
         }
       
 }catch(error){

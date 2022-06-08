@@ -5,6 +5,7 @@ import { GLOBAL } from "./global";
 import { LoginPage } from "../pages/login/login.page";
 import { Business } from "../models/business";
 import { BaseCRUDService } from "./base-crud.service";
+
 import { StorageSessionService } from "./storage-session.service";
 import { Session } from "../models/session";
 import { HelperService } from "./helpers.service";
@@ -31,11 +32,11 @@ export class BusinessService extends BaseCRUDService{
     async update(business:Business){   
         
         let formData = await this.helperService.toFormData(business)
-        
+console.log(business)
         this.put(this.url+'/business/'+business._id,formData).subscribe(
             {
               next:(data)=>{       
-               // this.storageSessionService.updateUser(data.business)
+                
                 console.log(data)
               },
               error:(err)=>{

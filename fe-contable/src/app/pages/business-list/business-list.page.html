@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content fullscreen="">
-  <ion-list  *ngFor="let business of listbusinesses">
+  <ion-list  *ngFor="let business of businesses">
   <ion-item  >
     <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
       <img src={{business.image}}>
     </ion-avatar>
-    <ion-label [routerLink]="['/business']" >
+    <ion-label [routerLink]="['/business/'+business._id]" >
      <h1><b>{{business.name}}</b></h1>
       <h3><strong><u>Email:</u></strong> {{business.email}}</h3> 
       <h3><strong><u>Teléfono:</u></strong> {{business.phone}}</h3> 
