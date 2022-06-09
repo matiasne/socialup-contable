@@ -11,8 +11,11 @@ export class HelperService{
         const formData = new FormData();      
         for ( const key of Object.keys(formValue) ) {
           const value = formValue[key];
-          if(key == 'image' && value)
-            formData.append(key, this.DataURIToBlob(value), "imagen.jpg");
+          if(key == 'image' && value){
+            let blob = this.DataURIToBlob(value)
+            if(blob.type.includes("image"))
+              formData.append(key,blob, "imagen.jpg");
+          }
           else
             formData.append(key, value);
         }
