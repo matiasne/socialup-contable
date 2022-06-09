@@ -7,7 +7,7 @@
   <div>
     <ion-card >
      <ion-card-content>
-      <form class="form" [formGroup]="formBusiness" (ngSubmit)="onSubmit()" action="formBusiness"> 
+      <form class="form" [formGroup]="formBusiness"  action="formBusiness"> 
         
         <div class="image-avatar">
           <app-image-upload            
@@ -80,8 +80,8 @@
           <strong class="error-message" *ngIf="phone.errors.required && isSubmitted">*Campo Obligatorio*</strong>
         </div>
        </ion-row><br>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="!isEditing">Crear Empresa</ion-button>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="isEditing"  (click)="updateProfileBusinesses()">Actualizar mis datos</ion-button>
+         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="!isEditing" (ngSubmit)="onSubmit()" (click)="ToastCreateBusiness()">Crear Empresa</ion-button>
+         <ion-button type="submit" expand="default"  shape="round"  *ngIf="isEditing"  (click)="updateProfileBusinesses()" (click)="ToastUpdateBusiness()">Actualizar mis datos</ion-button>
          </form>
      </ion-card-content>
    </ion-card>

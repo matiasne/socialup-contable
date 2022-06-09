@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsMo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
@@ -34,7 +34,8 @@ export class FormProfilePage implements OnInit {
     private userService: UserService,
     public route: ActivatedRoute, 
     private storageSessionService:StorageSessionService,
-    public alertController: AlertController) 
+    public alertController: AlertController,
+    public toastController: ToastController) 
     { 
        this.session= this.storageSessionService.getSession();
        this.url = GLOBAL.url;
@@ -154,6 +155,14 @@ export class FormProfilePage implements OnInit {
     this.formProfile.patchValue({
       image:event
     })
+  }
+
+  async ToastUpdateProfile() {
+    const toast = await this.toastController.create({
+      message: 'Se ha Actualizado el Perfil',
+      duration: 2000
+    });
+    toast.present();
   }
 
   

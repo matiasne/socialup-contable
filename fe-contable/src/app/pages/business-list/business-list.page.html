@@ -10,15 +10,17 @@
     <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
       <img src={{business.image}}>
     </ion-avatar>
-    <ion-label [routerLink]="['/business/'+business._id]" >
+    <ion-label  >
      <h1><b>{{business.name}}</b></h1>
-      <h3><strong><u>Email:</u></strong> {{business.email}}</h3> 
-      <h3><strong><u>Teléfono:</u></strong> {{business.phone}}</h3> 
-      <h3><strong><u>Rubro:</u></strong> {{business.category}}</h3>
+     
+      <h3>Email: {{business.email}}</h3> 
+      <h3>Teléfono: {{business.phone}}</h3> 
+      <h3>Rubro: {{business.category}}</h3>
+      
     </ion-label>
-    <div [routerLink]="['/register']">
+    <ion-button [routerLink]="['/business/'+business._id]">
       <ion-icon name="create-outline" slot="end" ></ion-icon>
-    </div>
+    </ion-button>
     
   </ion-item>
    

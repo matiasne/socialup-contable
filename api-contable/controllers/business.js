@@ -16,7 +16,7 @@ function getBusiness(req,res){
     });
 }
 
-async function getBusinesses(req,res){
+async function getUserBusinesses(req,res){
    
     var idUser = req.params.idUser
     let businessRepo = new businessRepository();
@@ -109,11 +109,13 @@ function getBusinessImageFile(req,res){
     })
 }
 
+
+
 module.exports = {
     addBusiness,
     getBusiness,
     deleteBusiness,
     updateBusiness,
     getBusinessImageFile,
-    getBusinesses
+    getUserBusinesses
 } ; 

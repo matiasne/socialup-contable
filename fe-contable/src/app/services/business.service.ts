@@ -35,9 +35,8 @@ export class BusinessService extends BaseCRUDService{
 console.log(business)
         this.put(this.url+'/business/'+business._id,formData).subscribe(
             {
-              next:(data)=>{       
+              next:(data)=>{   
                 
-                console.log(data)
               },
               error:(err)=>{
                 console.log(err);
@@ -51,6 +50,7 @@ console.log(business)
 
 
      register(business:Business):Observable<any>{
+        
         delete business._id;
         let formData = this.helperService.toFormData(business)
 

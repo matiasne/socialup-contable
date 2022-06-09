@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsMo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
-import { AlertController, NavParams } from '@ionic/angular';
+import { AlertController, NavParams, ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { Business } from 'src/app/models/business';
@@ -39,7 +39,8 @@ export class  BusinessPage implements OnInit {
   
 constructor(public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
-    public businessService:BusinessService){
+    public businessService:BusinessService,
+    public toastController: ToastController){
   
 
 }
@@ -164,5 +165,21 @@ onSubmit(){
     this.formBusiness.patchValue({
       image:event
     })
+  }
+
+  async ToastCreateBusiness() {
+    const toast = await this.toastController.create({
+      message: 'Se ha creado la Empresa',
+      duration: 2000
+    });
+    toast.present();
+  }
+  
+  async ToastUpdateBusiness() {
+    const toast = await this.toastController.create({
+      message: 'Se ha Actualizado la Empresa',
+      duration: 2000
+    });
+    toast.present();
   }
 }

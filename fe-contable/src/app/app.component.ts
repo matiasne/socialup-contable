@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Session } from './models/session';
 import { StorageSessionService } from './services/storage-session.service';
 import { Router } from '@angular/router';
+import { User } from './models/user';
 
 
 @Component({
@@ -24,10 +25,11 @@ export class AppComponent implements OnInit {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   public showMenu = false;
-
+  public user:User
   constructor(
     private storageSessionService:StorageSessionService,
-    private router:Router
+    private router:Router,
+    
     ){
       
 
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit {
     this.storageSessionService.obsLoguedIn().subscribe({
       next:(value)=>{
         this.showMenu = value;
+         this.user = this.storageSessionService.getUser()
       },
     })
   }

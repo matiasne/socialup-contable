@@ -8,7 +8,7 @@ class BusinessRepository extends BaseRepository{
 
    async getByUserId(id){
        console.log(this.model)
-        return await this.model.find({}).exec();
+        return await this.model.find({idUser:id}).exec();
     }
 }
 

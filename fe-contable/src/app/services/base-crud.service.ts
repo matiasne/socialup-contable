@@ -19,7 +19,7 @@ export class BaseCRUDService{
     get(url):Observable<any>{
     //    let token=  this.storageSessionService.getSession().token
     //    console.log(token)
-
+        console.log(url)
         let headers = new HttpHeaders()
      
         return this._http.get(url,{headers : headers})
