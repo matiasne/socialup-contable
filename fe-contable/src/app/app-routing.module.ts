@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
   },
   {
+    path: 'business/:id',
+    loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
+  },
+  {
     path: 'form-profile',
     loadChildren: () => import('./pages/form-profile/form-profile.module').then( m => m.FormProfilePageModule)
   },
@@ -40,7 +44,7 @@ const routes: Routes = [
   {
     path: 'list-business',
     loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule)
-  }
+  },
 
 ];
 

@@ -35,7 +35,7 @@ export class StorageSessionService{
 
     }
 
-    getUSer():User{
+    getUser():User{
       let session:Session = JSON.parse( localStorage.getItem('session'));
       return session.user;
   }

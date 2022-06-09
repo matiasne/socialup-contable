@@ -80,8 +80,8 @@
           <strong class="error-message" *ngIf="phone.errors.required && isSubmitted">*Campo Obligatorio*</strong>
         </div>
        </ion-row><br>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="!formBusiness">Crear Empresa</ion-button>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" >Actualizar mis datos</ion-button>
+         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="!isEditing">Crear Empresa</ion-button>
+         <ion-button type="submit" expand="default"  shape="round" (click)="formBusiness" *ngIf="isEditing"  (click)="updateProfileBusinesses()">Actualizar mis datos</ion-button>
          </form>
      </ion-card-content>
    </ion-card>

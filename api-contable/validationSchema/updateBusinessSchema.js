@@ -7,7 +7,8 @@ const updateBusinessSchema = Joi.object({
     category:Joi.allow(),
     email:Joi.allow(),
     phone:Joi.allow(),
-    image:Joi.allow()
+    image:Joi.allow(),
+    idUser:Joi.allow()
   }); 
 
 module.exports = {

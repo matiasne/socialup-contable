@@ -132,7 +132,9 @@ export class FormProfilePage implements OnInit {
       this.formProfile.controls['image'].value,
       this.formProfile.controls['gender'].value,
       this.formProfile.controls['address'].value,
-      this.formProfile.controls['phone'].value)      
+      this.formProfile.controls['phone'].value
+      )      
+      
       this.userService.update(user)         
   }
   
