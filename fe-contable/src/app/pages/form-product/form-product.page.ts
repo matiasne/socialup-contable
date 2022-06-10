@@ -1,19 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
+import { HelperService } from 'src/app/services/helpers.service';
+import { Business } from 'src/app/models/business';
+
 
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
   styleUrls: ['./form-product.page.scss'],
+  providers:[ProductService,HelperService]
 })
 export class FormProductPage implements OnInit {
-  isSubmited=false;
-  formProduct : FormGroup;
-  FormGroup: FormControl
-  public business:any;
-  formData: any;
-  constructor() { }
+  public isSubmited=false;
+  public formProduct:FormGroup;
+  public FormGroup:FormControl;
+  public imagePreview:any="";
+  public product:any;
+  public business :Business
+  public filesToUpload: Array<File>
+
+
+  constructor(
+    public route: ActivatedRoute, 
+    public productService:ProductService
+  ) { }
 
   ngOnInit() {
     this.formProduct = new FormGroup({
@@ -21,30 +34,45 @@ export class FormProductPage implements OnInit {
       description: new FormControl('',Validators.required),
       code: new FormControl('', Validators.required),
       costPrice: new FormControl('', Validators.required),
-      salePrice: new FormControl('', Validators.required)
-      
+      salePrice: new FormControl('', Validators.required),
+      image: new FormControl('')
     });
   }
+  imageClick(){
+    let content = document.getElementById('selectedFile');
+    content.click();
+  }
 
-  onDestroy(){
-    this.formData.reset();
+  changeImage(event:any){
+    this.formProduct.patchValue({
+      image:event
+    })
   }
   
   onSubmit(){
     this.isSubmited=true;
-    
+    console.log('valid')
     if(this.isSubmited = true){
-      let product = new Product("",
+      let product = new Product('',
         this.formProduct.controls['name'].value,
         this.formProduct.controls['description'].value,
         this.formProduct.controls['code'].value,
         this.formProduct.controls['costPrice'].value,
         this.formProduct.controls['salePrice'].value,
-        ''
-        /*idBusiness*/)
-      // console.log('valid')
+        'idBusinesshardcode',
+        this.formProduct.controls['image'].value,
+        )
+        console.log(product)
+      this.productService.add(product).subscribe({
+        next:(data)=>{
+          console.log(data)
+        }
+      })
     }else{
-      // console.log('not  valid')
+      if(!this.filesToUpload){
+
     }
+  }
+  
   }
 }

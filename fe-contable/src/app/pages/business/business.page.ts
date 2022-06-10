@@ -107,16 +107,15 @@ onSubmit(){
         idUser)
       this.businessService.register(business).subscribe({
         next:(data)=>{
-        //  console.log(data)
+
         }
       })
       
-    //  console.log('valid')
     }else{
         if(!this.filesToUpload){
 
         }else{
-      //console.log('not valid')
+
         }
     }
   }
