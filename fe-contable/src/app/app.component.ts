@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     { title: 'Recuperar Contraseña', url: '/form-forgotpassword', icon: 'trash' },
     { title: 'Lista de Empresas', url: '/list-business', icon: 'warning' },
     { title: 'Producto', url: '/products', icon: 'warning' },
+    { title: 'Lista Producto', url: '/list-product', icon: 'mail' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 

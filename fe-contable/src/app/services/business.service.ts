@@ -24,6 +24,8 @@ export class BusinessService extends BaseCRUDService{
         this.url = GLOBAL.url;
     }
 
+
+
     get(id){
        
         return super.get(this.url+'/business/'+id)
@@ -32,7 +34,6 @@ export class BusinessService extends BaseCRUDService{
     async update(business:Business){   
         
         let formData = await this.helperService.toFormData(business)
-console.log(business)
         this.put(this.url+'/business/'+business._id,formData).subscribe(
             {
               next:(data)=>{       
@@ -48,6 +49,11 @@ console.log(business)
             }
           )
     }
+
+    getUserBusiness(idUser){
+
+      return super.get(this.url+'/user/'+ idUser +'/businesses/')
+  }
 
 
      register(business:Business):Observable<any>{

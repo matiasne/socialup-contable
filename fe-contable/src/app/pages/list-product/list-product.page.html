@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis Empresas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="">
+  <ion-list  *ngFor="let product of products">
+  <ion-item  >
+    <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+      <img src={{product.image}}>
+    </ion-avatar>
+    <ion-label [routerLink]="['/product'+product._id]" >
+     <h1><b>{{product.name}}</b></h1>
+      <h3>Nombre: {{product.name}}</h3> 
+      <h3>Descripcion: {{product.description}}</h3> 
+      <h3>Precio de Venta: {{product.salePrice}}</h3>
+    </ion-label>
+    <div [routerLink]="['/register']">
+      <ion-icon name="create-outline" slot="end" ></ion-icon>
+    </div>
+    
+  </ion-item>
+   
+  </ion-list>
+
+</ion-content>

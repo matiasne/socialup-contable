@@ -2,15 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { GLOBAL } from "./global";
-import { LoginPage } from "../pages/login/login.page";
-import { Business } from "../models/business";
 import { BaseCRUDService } from "./base-crud.service";
 import { StorageSessionService } from "./storage-session.service";
-import { Session } from "../models/session";
 import { HelperService } from "./helpers.service";
+import { Product } from "../models/product";
 
 @Injectable()
-export class BusinessService extends BaseCRUDService{
+export class ProductService extends BaseCRUDService{
     public url: string;
 
     constructor (
@@ -22,25 +20,25 @@ export class BusinessService extends BaseCRUDService{
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
     }
-
-    get(id){
-        return super.get(this.url+'/business/'+id)
+    getBusinessProduct(idBusiness){
+      return super.get(this.url+'/business/'+ idBusiness +'/product/')
+  }
+    get(id){       
+        return super.get(this.url+'/product/'+id)
     }
 
-    async update(business:Business){   
+    async update(product:Product){   
         
-        let formData = await this.helperService.toFormData(business)
-        
-        this.put(this.url+'/business/'+business._id,formData).subscribe(
+        let formData = await this.helperService.toFormData(product)
+console.log(product)
+        this.put(this.url+'/product/'+product,formData).subscribe(
             {
               next:(data)=>{       
-               // this.storageSessionService.updateUser(data.business)
+                
                 console.log(data)
               },
               error:(err)=>{
                 console.log(err);
-
-
               },
               complete:()=>{
               
@@ -50,17 +48,16 @@ export class BusinessService extends BaseCRUDService{
     }
 
 
-     add(business:Business):Observable<any>{
-        delete business._id;
-        let formData = this.helperService.toFormData(business)
+     add(product:Product):Observable<any>{
+      delete product._id;
+        let formData = this.helperService.toFormData(product)
 
-
-        return this.post(this.url+'/business',formData)
+        return this.post(this.url+'/product',formData)
     }
 
     _delete(id):Observable<any>{
         console.log(this.url)
-        return this.delete(this.url+'/business/'+id)
+        return this.delete(this.url+'/product/'+id)
     }
 
     
