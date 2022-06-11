@@ -7,31 +7,6 @@ const fs = require('fs');
 
 var afipRepository = require('../repositories/afip');
 
-function initAfip(comercioId,ptoVenta){     
-
-    if (!fs.existsSync(process.env.FOLDER_AFIP+'/'+comercioId+'_'+ptoVenta+'.key')) {
-        //archivo key no existe
-    }   
-    
-    if (fs.existsSync(process.env.FOLDER_AFIP+'/'+comercioId+'_'+ptoVenta+'.pem')) {
-        //archivo pem no existe
-    }  
-    
-    try{
-        const afip = new Afip({ 
-          CUIT: req.user.nroDoc, 
-          cert: req.user.comercioId+req.user.ptoVenta+".pem",
-          key: req.user.comercioId+req.user.ptoVenta+".key", 
-          res_folder: process.env.FOLDER_AFIP,
-          ta_folder:process.env.FOLDER_AFIP 
-        });
-        return afip;
-    }
-    catch(err){
-        console.log(err)
-    }     
-}
-
 function prueba(req,res){
     res.status(200).send("Prueba Ok!")
 }
@@ -46,8 +21,7 @@ function register(req,res){
 
 function status(req,res){    
     try{         
-        let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-        let serverStatus = await afip.ElectronicBilling.getServerStatus();
+        let serverStatus = await req.afip.ElectronicBilling.getServerStatus();
         return res.status(200).send({data:serverStatus});    
     }   
     catch(err){
@@ -61,8 +35,7 @@ function voucherInfo(req,res){
    //req.body.nroComprobante = 1
    // req.body.ptoVenta = 1
    // req.body.tipoComprobante = 6
-    let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-    const voucherInfo = await afip.ElectronicBilling.getVoucherInfo(
+    const voucherInfo = await req.afip.ElectronicBilling.getVoucherInfo(
         req.body.nroComprobante,
         req.body.ptoVenta,
         req.body.tipoComprobante
@@ -82,8 +55,8 @@ function voucherInfo(req,res){
 
 function getLastVoucherNumber(req,res){     
   
-    let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-    const voucherInfo = await afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+    
+    const voucherInfo = await req.afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
   
     if(voucherInfo === null){
       console.log('El comprobante no existe');
@@ -99,9 +72,9 @@ function getLastVoucherNumber(req,res){
 
 function getLastVoucherInfo(req,res){    
 
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const numero = await afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
-  const voucherInfo = await afip.ElectronicBilling.getVoucherInfo(numero,1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+  
+  const numero = await req.afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+  const voucherInfo = await req.afip.ElectronicBilling.getVoucherInfo(numero,1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
   
   if(voucherInfo === null){
       console.log('El comprobante no existe');
@@ -116,9 +89,9 @@ function getLastVoucherInfo(req,res){
 }
 
 function createVoucher(req,res){
-    let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
+    
     //Aca debo obtener el último número de voucher getLastVoucher
-    const lastVoucherNumber = await afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del ultimo voucher
+    const lastVoucherNumber = await req.afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del ultimo voucher
     
     let voucher:AfipVoucher = new AfipVoucher();
     voucher.CantReg ="1";
@@ -140,14 +113,14 @@ function createVoucher(req,res){
     voucher.MonCotiz = req.body.MonCotiz;//1,     // Cotización de la moneda usada (1 para pesos argentinos)            
    
     if(req.body.iva.length > 0){
-        req.body.iva.forEach((i:any) => {
+        req.body.iva.forEach((i) => {
             let iva = new IvaItem()
             iva.asignarValores(i)
             voucher.Iva.push(iva)
         });                    
     }              
 
-    const respuesta = await afip.ElectronicBilling.createVoucher(voucher);    
+    const respuesta = await req.afip.ElectronicBilling.createVoucher(voucher);    
     return res.status(200).send({CAE:respuesta['CAE'],CAEFchVto:respuesta['CAEFchVto']});         
       
     //CAE asignado el comprobante
@@ -158,10 +131,10 @@ createFacturaFromPedido(req,res){
   try{
     console.log(req.user.comercioId+" "+req.body.pedidoId+" "+req.user.ptoVenta)
     let pedidoRef =  db.collection('comercios/'+req.user.comercioId+'/pedidos').doc(req.body.pedidoId)
-    pedidoRef.get().then(function (doc:any)=>{
+    pedidoRef.get().then((doc)=>{
       if(doc.exists){
 
-        let pedido:any = doc.data();
+        let pedido = doc.data();
         pedido.id = doc.id;
 
         let voucherTipo = EnumAfipTiposComprobantes.facturaC;
@@ -179,7 +152,7 @@ createFacturaFromPedido(req,res){
           }
         }
 
-        let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)    
+            
         let puntoDeVenta = req.user.ptoVenta;      
         const voucherDate = parseInt(req.body.CbteFch.replace(/-/g, ''))   
         
@@ -187,7 +160,7 @@ createFacturaFromPedido(req,res){
         const voucher = await this.createVoucherFromPedido(afip,pedido,voucherDate,voucherTipo,puntoDeVenta)
            
         try{
-          const respuesta = await afip.ElectronicBilling.createVoucher(voucher);  
+          const respuesta = await req.afip.ElectronicBilling.createVoucher(voucher);  
           
           let fechaEmision = new Date()
           let datos = {
@@ -237,7 +210,7 @@ createFacturaFromPedido(req,res){
         this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
         res.status(200).send({message:"Pedido no existe"});
       }
-    }).catch((err:any)=>{
+    }).catch((err)=>{
       res.status(500).send(err);
       console.log(err)
       
@@ -254,10 +227,10 @@ createNotaCreditoFromPedido(req,res){
   try{
     console.log(req.user.comercioId+" "+req.body.pedidoId+" "+req.user.ptoVenta)
     let pedidoRef =  db.collection('comercios/'+req.user.comercioId+'/pedidos').doc(req.body.pedidoId)
-    pedidoRef.get().then(function (doc:any)=>{
+    pedidoRef.get().then((doc)=>{
       if(doc.exists){
 
-        let pedido:any = doc.data();
+        let pedido = doc.data();
         pedido.id = doc.id;
 
         let voucherTipo = EnumAfipTiposComprobantes.notaCreditoC;
@@ -270,14 +243,14 @@ createNotaCreditoFromPedido(req,res){
           voucherTipo = EnumAfipTiposComprobantes.notaCreditoA;
         }
         
-        let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)    
+            
         let puntoDeVenta = req.user.ptoVenta;      
         const voucherDate = parseInt(req.body.CbteFch.replace(/-/g, ''))          
                             
         const voucher = await this.createVoucherFromPedido(afip,pedido,voucherDate,voucherTipo,puntoDeVenta,req.body.montoReembolso,null,null,null)
                              
         try{
-          const respuesta = await afip.ElectronicBilling.createVoucher(voucher);  
+          const respuesta = await req.afip.ElectronicBilling.createVoucher(voucher);  
           console.log("respuesta")
           console.log(respuesta)
           
@@ -305,7 +278,7 @@ createNotaCreditoFromPedido(req,res){
         this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
         res.status(200).send({message:"Pedido no existe"});
       }
-    }).catch((err:any)=>{
+    }).catch((err)=>{
       res.status(500).send(err);
       console.log(err)
       
@@ -318,15 +291,15 @@ createNotaCreditoFromPedido(req,res){
   
 }
 
-guardarArchivoTA(comercioId:any,nroDoc:any,db:any){ //debido a que el archivo temp al finalizar la funcion desaparece lo guardamos en firestor y luego lo retomamos al iniciar afip
+guardarArchivoTA(comercioId,nroDoc,db){ //debido a que el archivo temp al finalizar la funcion desaparece lo guardamos en firestor y luego lo retomamos al iniciar afip
   let TAfile = os.tmpdir()+'/TA-'+nroDoc+'-wsfe.json';
   if (fs.existsSync(TAfile)) {
     console.log("Guardando archivo en documento")
-    fs.readFile(TAfile,'utf-8',function(err:any, jsonData:any){
+    fs.readFile(TAfile,'utf-8',function(err, jsonData){
       if (err) throw err;    
-      var content:any = JSON.parse(jsonData);          
+      var content = JSON.parse(jsonData);          
       const afipRef = db.collection('afip');
-      afipRef.doc(comercioId).set({afipTA:content}, {merge: true}).then((data:any)=>{
+      afipRef.doc(comercioId).set({afipTA:content}, {merge: true}).then((data)=>{
         console.log("guardado ok")
       });           
   });
@@ -339,10 +312,10 @@ guardarArchivoTA(comercioId:any,nroDoc:any,db:any){ //debido a que el archivo te
 
   
 
-function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo:any,puntoDeVenta:any,montoReembolso=0,FchServDesde = null,FchServHasta=null,FchVtoPago=null){
+function createVoucherFromPedido(afip,pedido,voucherDate,voucherTipo,puntoDeVenta,montoReembolso=0,FchServDesde = null,FchServHasta=null,FchVtoPago=null){
   let voucher:AfipVoucher = new AfipVoucher();    
   
-  const lastVoucherNumber = await afip.ElectronicBilling.getLastVoucher(puntoDeVenta,voucherTipo); //Devuelve la información del ultimo voucher
+  const lastVoucherNumber = await req.afip.ElectronicBilling.getLastVoucher(puntoDeVenta,voucherTipo); //Devuelve la información del ultimo voucher
   const voucherNumber = Number(lastVoucherNumber) +1;
 
   voucher.CantReg = "1";
@@ -371,7 +344,7 @@ function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo
     let impuesto = 0;
 
     if(pedido.items.length > 0){           
-      pedido.items.forEach((item:any) => {
+      pedido.items.forEach((item) => {
         impuesto = item.impuestoPorcentaje;
         console.log(item.nombre)
         impNeto += (Number(item.precioTotal) / (1+Number(item.impuestoPorcentaje))).toFixed(2)
@@ -381,7 +354,7 @@ function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo
   
 
     if(pedido.recargos.length > 0){           
-      pedido.recargos.forEach((item:any) => {
+      pedido.recargos.forEach((item) => {
         console.log(item.nombre)
         impNeto += (Number(item.monto) / (1+Number(impuesto))).toFixed(2)
         impIVA += (Number(impNeto) * Number(impuesto)).toFixed(2)
@@ -390,7 +363,7 @@ function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo
 
     //No recuerdo si el descuento se factura
   /*  if(pedido.descuentos.length > 0){           
-      pedido.descuentos.forEach((item:any) => {
+      pedido.descuentos.forEach((item) => {
         console.log(item.nombre)
         impNeto += (Number(item.monto) / (1+Number(impuesto))).toFixed(2)
         impIVA += (Number(impNeto) * Number(impuesto)).toFixed(2)
@@ -421,7 +394,7 @@ function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo
   let tieneProd = false;
   let tieneServ = false;
 
-  pedido.items.forEach((element:any) => {
+  pedido.items.forEach((element) => {
     if(element.tipo == 1){
       tieneProd = true;
     }
@@ -490,126 +463,60 @@ function createVoucherFromPedido(afip:any,pedido:any,voucherDate:any,voucherTipo
 }
 
 function salesPoint(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const salesPoints= await afip.ElectronicBilling.getSalesPoints();
+  
+  const salesPoints= await req.afip.ElectronicBilling.getSalesPoints();
   return res.status(200).send({salesPoints:salesPoints});	
 }
 
 function voucherTypes(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const voucherTypes = await afip.ElectronicBilling.getVoucherTypes();
+  
+  const voucherTypes = await req.afip.ElectronicBilling.getVoucherTypes();
   return res.status(200).send({voucherTypes:voucherTypes});	               
 }
 
 function conceptTypes(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const conceptTypes = await afip.ElectronicBilling.getConceptTypes();
+  
+  const conceptTypes = await req.afip.ElectronicBilling.getConceptTypes();
   return res.status(200).send({conceptTypes:conceptTypes});   
 }
 
 function documentTypes(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const documentTypes  = await afip.ElectronicBilling.getDocumentTypes();
+  
+  const documentTypes  = await req.afip.ElectronicBilling.getDocumentTypes();
   return res.status(200).send({documentTypes:documentTypes }); 	              
 }
 
 function aloquotTypes(req,res){
 
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const aloquotTypes  = await afip.ElectronicBilling.getAliquotTypes();
+  
+  const aloquotTypes  = await req.afip.ElectronicBilling.getAliquotTypes();
   return res.status(200).send({aloquotTypes :aloquotTypes  });   	     
 }
 
 function currenciesTypes(req,res){
 
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const currenciesTypes = await afip.ElectronicBilling.getCurrenciesTypes();
+  
+  const currenciesTypes = await req.afip.ElectronicBilling.getCurrenciesTypes();
   return res.status(200).send({currenciesTypes :currenciesTypes  });        
       
 }
 
 function optionTypes(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const optionTypes  = await afip.ElectronicBilling.getOptionsTypes();
+  
+  const optionTypes  = await req.afip.ElectronicBilling.getOptionsTypes();
   return res.status(200).send({optionTypes  :optionTypes   });   
         
 }
 
 function taxTypes(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const taxTypes = await afip.ElectronicBilling.getTaxTypes();
+  
+  const taxTypes = await req.afip.ElectronicBilling.getTaxTypes();
   return res.status(200).send({taxTypes :taxTypes});           
 }
 
 function consultarPadron(req,res){
-  let afip = await this.initAfip(req.body.comercioId,req.body.ptoVenta)
-  const taxpayerDetails = await afip.RegisterScopeThirteen.getTaxpayerDetails(req.body.cuit);
+  
+  const taxpayerDetails = await req.afip.RegisterScopeThirteen.getTaxpayerDetails(req.body.cuit);
   return res.status(200).send({taxTypes :taxpayerDetails});            
 }    
 
-nuevoPedido(req,res){
-
-  if(req.body.status === "processing"){
-      req.body["statusCobro"] = 1;           
-  }
-  else if(req.body.status === "completed"){
-      req.body["statusCobro"] = 2 
-  }
-  else if(req.body.status === "cancelled"){
-      req.body["statusCobro"] = 3
-  }
-  else if(req.body.status === "refunded"){
-      req.body["statusCobro"] = 4
-  }
-db.collection('comercios/'+req.query.comercioId+"/pedidosWoocommerce").doc(req.body.id.toString()).set(req.body).then((data:any)=>{
-
-      console.log("pedidos guardado")    
-
-
-      db.collection("comercios/"+req.query.comercioId+"/roles").where("rol","==","Administrador").get().then((querySnapshot) => {
-          console.log("rol encontrado")
-          querySnapshot.forEach((doc:any) => {
-              console.log(doc.id)
-              db.collection('users').doc(doc.id).get().then((doc:any) => {
-                 
-                  // doc.data() is never undefined for query doc snapshots
-                  console.log(doc.data().notificationCelulartoken);
-
-                          
-                  var message ={
-                      "token" : doc.data().notificationCelulartoken,
-                      "notification" : {
-                          "body" : "Se ha realizado un pedido desde tu página web",
-                          "title": "Nuevo Pedido"
-                      }
-                  }
-
-                  admin.messaging().send(message)
-                  .then((response) => {
-                      // Response is a message ID string.
-                      console.log('Successfully sent message:', response);
-                      return res.status(200).send({data:"fcm enviado"});
-                  })
-                  .catch((error) => {
-                      console.log('Error sending message:', error);
-                      return res.status(200).send({data:"Error enviando fcm"});
-                  });           
-                  return null;
-                  //return res.status(200).send(response);
-              })
-              .catch((err) => {
-                  return  res.status(500).send(err);
-              });          
-          });
-          return null
-          //return res.status(200).send(response);
-      })
-      .catch((err) => {
-          return  res.status(500).send(err);
-      });
-
-      return null;
-  }).catch((err) => {
-      return  res.status(500).send(err);
-  });
-}
