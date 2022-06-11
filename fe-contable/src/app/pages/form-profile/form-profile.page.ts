@@ -9,6 +9,8 @@ import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { ToastType } from 'src/app/models/toast.enum';
 
 @Component({
   
@@ -35,7 +37,8 @@ export class FormProfilePage implements OnInit {
     public route: ActivatedRoute, 
     private storageSessionService:StorageSessionService,
     public alertController: AlertController,
-    public toastController: ToastController) 
+    public toastService: ToastService
+    ) 
     { 
        this.session= this.storageSessionService.getSession();
        this.url = GLOBAL.url;
@@ -136,7 +139,20 @@ export class FormProfilePage implements OnInit {
       this.formProfile.controls['phone'].value
       )      
       
-      this.userService.update(user)         
+      this.userService.update(user).subscribe(
+        {
+          next:(data)=>{       
+            this.storageSessionService.updateUser(data.user)
+            this.toastService.show(ToastType.success,"Perfil actualizado correctamente")
+          },
+          error:(err)=>{
+            console.log(err);
+          },
+          complete:()=>{
+          
+          }
+        }
+      )
   }
   
   get name (){return this.formProfile.get('name');}
@@ -146,10 +162,6 @@ export class FormProfilePage implements OnInit {
   get address (){return this.formProfile.get('address');}
   get phone(){return this.formProfile.get('phone');}
   
-  imageClick(){
-    let content = document.getElementById('selectedFile');
-    content.click();
-  }
 
   changeImage(event:any){
     this.formProfile.patchValue({
@@ -157,13 +169,7 @@ export class FormProfilePage implements OnInit {
     })
   }
 
-  async ToastUpdateProfile() {
-    const toast = await this.toastController.create({
-      message: 'Se ha Actualizado el Perfil',
-      duration: 2000
-    });
-    toast.present();
-  }
+  
 
   
 

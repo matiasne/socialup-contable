@@ -20,36 +20,36 @@ export class ProductService extends BaseCRUDService{
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
     }
-    getBusinessProduct(idBusiness){
+    
+    getBusinessProducts(idBusiness){
       return super.get(this.url+'/business/'+ idBusiness +'/product/')
-  }
+    }
+
     get(id){       
         return super.get(this.url+'/product/'+id)
     }
 
-    async update(product:Product){   
-        
-        let formData = await this.helperService.toFormData(product)
-console.log(product)
-        this.put(this.url+'/product/'+product,formData).subscribe(
-            {
-              next:(data)=>{       
-                
-                console.log(data)
-              },
-              error:(err)=>{
-                console.log(err);
-              },
-              complete:()=>{
+    update(product:Product){           
+      let formData =  this.helperService.toFormData(product)
+      this.put(this.url+'/product/'+product,formData).subscribe(
+          {
+            next:(data)=>{       
               
-              }
+              console.log(data)
+            },
+            error:(err)=>{
+              console.log(err);
+            },
+            complete:()=>{
+            
             }
-          )
+          }
+        )
     }
 
 
      add(product:Product):Observable<any>{
-      delete product._id;
+        delete product._id;
         let formData = this.helperService.toFormData(product)
 
         return this.post(this.url+'/product',formData)

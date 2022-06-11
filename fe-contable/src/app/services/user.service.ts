@@ -38,24 +38,11 @@ export class UserService extends BaseCRUDService{
         
     }
 
-    async update(user:User){   
+     update(user:User){   
         
-        let formData = await this.helperService.toFormData(user)
+        let formData =  this.helperService.toFormData(user)
         
-        this.put(this.url+'/user/'+user._id,formData).subscribe(
-            {
-              next:(data)=>{       
-                this.storageSessionService.updateUser(data.user)
-                console.log(data)
-              },
-              error:(err)=>{
-                console.log(err);
-              },
-              complete:()=>{
-              
-              }
-            }
-          )
+       return this.put(this.url+'/user/'+user._id,formData)
     }
 
 

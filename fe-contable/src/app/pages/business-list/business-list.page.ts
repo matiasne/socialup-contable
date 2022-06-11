@@ -41,7 +41,7 @@ export class BusinessListPage implements OnInit {
 
 ionViewWillEnter() { 
       let idUser = this.storageSessionService.getUser()._id;
-      this.businessListService.get(idUser).subscribe({
+      this.businessService.getUserBusiness(idUser).subscribe({
         next:(response)=>{
         this.businesses =response.data;
         }

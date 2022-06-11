@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import {HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from './services/authInterceptorservice';
+import { AuthInterceptorService } from './services/authInterceptor.service';
 import { StorageSessionService } from './services/storage-session.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';

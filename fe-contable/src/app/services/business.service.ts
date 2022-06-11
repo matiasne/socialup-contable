@@ -26,33 +26,18 @@ export class BusinessService extends BaseCRUDService{
 
 
 
-    get(id){
-       
+    get(id){       
         return super.get(this.url+'/business/'+id)
     }
 
-    async update(business:Business){   
-        
-        let formData = await this.helperService.toFormData(business)
-        this.put(this.url+'/business/'+business._id,formData).subscribe(
-            {
-              next:(data)=>{   
-                
-              },
-              error:(err)=>{
-                console.log(err);
-              },
-              complete:()=>{
-              
-              }
-            }
-          )
+    update(business:Business){         
+        let formData =  this.helperService.toFormData(business)
+        return this.put(this.url+'/business/'+business._id,formData)
     }
 
     getUserBusiness(idUser){
-
       return super.get(this.url+'/user/'+ idUser +'/businesses/')
-  }
+    }
 
 
      register(business:Business):Observable<any>{

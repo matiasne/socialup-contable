@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { Business } from 'src/app/models/business';
+import { ToastService } from 'src/app/services/toast.service';
+import { ToastType } from 'src/app/models/toast.enum';
 
 
 @Component({
@@ -14,18 +16,20 @@ import { Business } from 'src/app/models/business';
   providers:[ProductService,HelperService]
 })
 export class FormProductPage implements OnInit {
-  public isSubmited=false;
+  public isSubmited:boolean=false;
+  public isEditing:boolean = false;
   public formProduct:FormGroup;
   public FormGroup:FormControl;
   public imagePreview:any="";
   public product:any;
   public business :Business
   public filesToUpload: Array<File>
-
+  public buttonLabel = "Crear Producto"
 
   constructor(
     public route: ActivatedRoute, 
-    public productService:ProductService
+    public productService:ProductService,
+    public toastService:ToastService,
   ) { }
 
   ngOnInit() {
@@ -38,21 +42,30 @@ export class FormProductPage implements OnInit {
       image: new FormControl('')
     });
   }
-  imageClick(){
-    let content = document.getElementById('selectedFile');
-    content.click();
-  }
 
   changeImage(event:any){
     this.formProduct.patchValue({
       image:event
     })
   }
+
+  onSubmit(){    
+    this.isSubmited=true;
+    if(this.formProduct.valid){
+      if(this.isEditing){
+        this.updateProfileBusinesses();
+      }
+      else{
+        this.createProduct();
+      }
+    }else{
+      this.toastService.show(ToastType.error,"Por favor complete todos los campos")
+    }
+  }
   
-  onSubmit(){
+  createProduct(){
     this.isSubmited=true;
     console.log('valid')
-    if(this.isSubmited = true){
       let product = new Product('',
         this.formProduct.controls['name'].value,
         this.formProduct.controls['description'].value,
@@ -68,11 +81,10 @@ export class FormProductPage implements OnInit {
           console.log(data)
         }
       })
-    }else{
-      if(!this.filesToUpload){
-
-    }
+    
   }
-  
+
+  updateProfileBusinesses(){
+    
   }
 }

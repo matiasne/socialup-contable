@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
 import { BusinessService } from 'src/app/services/business.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { ToastType } from 'src/app/models/toast.enum';
 
 
 
@@ -35,12 +37,14 @@ export class  BusinessPage implements OnInit {
   public imagePreview:any=""
   public mostrar=false;
   public isEditing:boolean=false;
-  session: Session;
+  session: Session; 
+
+  public butonLabel = "Crear Nuevo"
   
 constructor(public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
     public businessService:BusinessService,
-    public toastController: ToastController){
+    public toastService: ToastService){
   
 
 }
@@ -52,8 +56,10 @@ constructor(public activateRoute:ActivatedRoute,
       email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
       phone:new FormControl('',Validators.compose([Validators.required])),
       image: new FormControl('')
- });
+    });
+
     if(this.activateRoute.snapshot.params.id){
+      this.butonLabel = "Guardar";
       this.isEditing = true
       this.businessService.get(this.activateRoute.snapshot.params.id).subscribe({
         next:(data)=>{
@@ -70,31 +76,51 @@ constructor(public activateRoute:ActivatedRoute,
         }
       })
     }else{
+      this.butonLabel = "Crear Nuevo";
       this.isEditing =false
-    }
-    
+    }   
  
   }
-  updateProfileBusinesses(){
 
-   let business= new Business(
-      this.activateRoute.snapshot.params.id, 
-      this.formBusiness.controls['name'].value,
-      this.formBusiness.controls['image'].value,
-      this.formBusiness.controls['category'].value,
-      this.formBusiness.controls['address'].value,
-      this.formBusiness.controls['email'].value,
-      this.formBusiness.controls['phone'].value, 
-      this.storageSessionService.getUser()._id)
-      this.businessService.update(business)     
-      console.log(business.image)    
+
+  updateProfileBusinesses(){
+   
+      let business= new Business(
+        this.activateRoute.snapshot.params.id, 
+        this.formBusiness.controls['name'].value,
+        this.formBusiness.controls['image'].value,
+        this.formBusiness.controls['category'].value,
+        this.formBusiness.controls['address'].value,
+        this.formBusiness.controls['email'].value,
+        this.formBusiness.controls['phone'].value, 
+        this.storageSessionService.getUser()._id
+      )
+
+      this.businessService.update(business).subscribe({
+        next:(data)=>{
+          this.toastService.show(ToastType.success,"Se ha actualizado el negocio correctamente")
+        }
+      })
+    
   }
     
 
-onSubmit(){
- this.isSubmitted=true;
+  onSubmit(){    
+    this.isSubmitted=true;
+    if(this.formBusiness.valid){
+      if(this.isEditing){
+        this.updateProfileBusinesses();
+      }
+      else{
+        this.createBusiness();
+      }
+    }else{
+      this.toastService.show(ToastType.error,"Por favor complete todos los campos")
+    }
+  }
 
-     if(this.formBusiness.valid){
+  createBusiness(){
+    if(this.formBusiness.valid){
       
       let idUser = this.storageSessionService.getUser()._id;
       let business= new Business("",
@@ -104,42 +130,14 @@ onSubmit(){
         this.formBusiness.controls['address'].value,
         this.formBusiness.controls['email'].value,
         this.formBusiness.controls['phone'].value,
-        idUser)
+        idUser
+      )
       this.businessService.register(business).subscribe({
         next:(data)=>{
-
+          this.toastService.show(ToastType.success,"Se ha creado el negocio correctamente")
         }
-      })
-      
-    }else{
-        if(!this.filesToUpload){
-
-        }else{
-
-        }
+      })      
     }
-  }
-
-
-
- submitImage(){
-       if(this.mostrar=!this.mostrar){
-
-       }
-    }
-  
-  handleImageChange(event:any):void{
-    
-    if (event.target.files && event.target.files[0]) {
-      
-      const file = event.target.files[0];
-
-      const reader = new FileReader();
-      reader.onload = e => this.imagePreview = reader.result;
-      reader.readAsDataURL(file);
-    }
-    
-
   }
 
   onResetForm(){
@@ -155,30 +153,10 @@ onSubmit(){
   get email(){return this.formBusiness.get('email');}
   get phone(){return this.formBusiness.get('phone');}
 
-  imageClick(){
-    let content = document.getElementById('selectedFile');
-    content.click();
-  }
-
   changeImage(event:any){
     this.formBusiness.patchValue({
       image:event
     })
   }
 
-  async ToastCreateBusiness() {
-    const toast = await this.toastController.create({
-      message: 'Se ha creado la Empresa',
-      duration: 2000
-    });
-    toast.present();
-  }
-  
-  async ToastUpdateBusiness() {
-    const toast = await this.toastController.create({
-      message: 'Se ha Actualizado la Empresa',
-      duration: 2000
-    });
-    toast.present();
-  }
 }

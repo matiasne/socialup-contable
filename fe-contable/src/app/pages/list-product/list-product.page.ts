@@ -31,13 +31,12 @@ export class ListProductPage implements OnInit {
 
   ngOnInit() {
     let idBusiness = this.selectedService.obsSelectedBusiness()
-    this.productService.getBusinessProduct(idBusiness).subscribe({
+    this.productService.getBusinessProducts(idBusiness).subscribe({
       next:(response)=>{
   
       this.products =response.data;
       }
       })      
-    //conseguir el listado de artistas
     }
 
 }
