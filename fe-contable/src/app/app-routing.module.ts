@@ -38,14 +38,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/form-forgotpassword/form-forgotpassword.module').then( m => m.FormForgotpasswordPageModule)
   },
   {
-    path: 'products',
+    path: 'product',
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   },
   {
     path: 'list-business',
     loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule)
-  },  {
-    path: 'list-product',
+  },
+  {
+    path: 'products',
     loadChildren: () => import('./pages/list-product/list-product.module').then( m => m.ListProductPageModule)
   },
 

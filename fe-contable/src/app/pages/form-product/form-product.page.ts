@@ -13,7 +13,7 @@ import { ToastType } from 'src/app/models/toast.enum';
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
   styleUrls: ['./form-product.page.scss'],
-  providers:[ProductService,HelperService]
+  providers:[ProductService,HelperService,SelectedService]
 })
 export class FormProductPage implements OnInit {
   public isSubmited:boolean=false;
@@ -72,7 +72,7 @@ export class FormProductPage implements OnInit {
         this.formProduct.controls['code'].value,
         this.formProduct.controls['costPrice'].value,
         this.formProduct.controls['salePrice'].value,
-        'idBusinesshardcode',
+        'idbusiness',
         this.formProduct.controls['image'].value,
         )
         console.log(product)

@@ -20,11 +20,9 @@ export class ProductService extends BaseCRUDService{
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
     }
-    
-    getBusinessProducts(idBusiness){
-      return super.get(this.url+'/business/'+ idBusiness +'/product/')
-    }
-
+    getBusinessProduct(idBusiness){
+      return super.get(this.url+'/business/'+ idBusiness +'/products/')
+  }
     get(id){       
         return super.get(this.url+'/product/'+id)
     }
