@@ -7,6 +7,7 @@ var app = express();
 
 // Cargar rutas
 var user_routes = require('./routes/user');
+var afip_routes = require('./routes/afip');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use((req,res,next) => {
 });
 
 app.use('/api', user_routes);
+app.use('/api/afip', afip_routes);
 
 module.exports = app;
 

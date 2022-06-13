@@ -10,7 +10,6 @@ var jwt = require('../middlewares/jwt');
 
 function getUser(req,res){
     let userRepo = new userRepository();
-
     let user =  userRepo.get(req.params.id).then(user=>{
         res.status(200).send({user: user});
     }).catch(err=>{
@@ -20,8 +19,6 @@ function getUser(req,res){
 
 async function saveUser(req,res){
     var params = req.body;
-    
-
     bcrypt.hash(params.password, null, null, async function(err,hash){
         try{
             if(err){
@@ -48,10 +45,8 @@ async function updateUser(req,res){
     var update = req.body;
     try{
         // Guardar el usuario
-        let userRepo = new userRepository();
-    
+        let userRepo = new userRepository();    
         let u = await userRepo.update(userId, update)
-
         res.status(200).send({user: u});
     }catch(error){
         res.status(400).send({message: error});

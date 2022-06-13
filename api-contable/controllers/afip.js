@@ -7,9 +7,7 @@ const fs = require('fs');
 
 var afipRepository = require('../repositories/afip');
 
-function prueba(req,res){
-    res.status(200).send("Prueba Ok!")
-}
+
 
 function register(req,res){  
     let params = req.body; 
@@ -19,16 +17,7 @@ function register(req,res){
 }
 
 
-function status(req,res){    
-    try{         
-        let serverStatus = await req.afip.ElectronicBilling.getServerStatus();
-        return res.status(200).send({data:serverStatus});    
-    }   
-    catch(err){
-        console.log(err)
-        return res.status(500).send({data:serverStatus}); 
-    }             
-}
+
 
 
 function voucherInfo(req,res){
@@ -93,9 +82,9 @@ function createVoucher(req,res){
     //Aca debo obtener el último número de voucher getLastVoucher
     const lastVoucherNumber = await req.afip.ElectronicBilling.getLastVoucher(1,6); //Devuelve la información del ultimo voucher
     
-    let voucher:AfipVoucher = new AfipVoucher();
+    let voucher = new AfipVoucher();
     voucher.CantReg ="1";
-    voucher.PtoVta = "1"; // Punto de venta
+    voucher.PtoVta = req.body.PtoVta; // Punto de venta
     voucher.CbteTipo = req.body.CbteTipo; //6,  // Tipo de comprobante (ver tipos disponibles) 
     voucher.Concepto = req.body.Concepto;//1,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
     voucher.DocTipo = req.body.DocTipo;//99, // Tipo de documento del comprador (99 consumidor final, ver tipos disponibles)
@@ -127,7 +116,7 @@ function createVoucher(req,res){
     //Fecha de vencimiento del CAE (yyyy-mm-dd)
 }   
 
-createFacturaFromPedido(req,res){
+function createFacturaFromPedido(req,res){
   try{
     console.log(req.user.comercioId+" "+req.body.pedidoId+" "+req.user.ptoVenta)
     let pedidoRef =  db.collection('comercios/'+req.user.comercioId+'/pedidos').doc(req.body.pedidoId)
@@ -193,7 +182,7 @@ createFacturaFromPedido(req,res){
           var writeOperation = await pedidoRef.set(datos,{merge:true}) //lo seteamos desde el back para asegurarnos que se guarden los datos
           console.log(writeOperation)
 
-          this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+          
           return res.status(200).send(datos);
 
           
@@ -201,13 +190,13 @@ createFacturaFromPedido(req,res){
         catch(err){
           console.log("err")
           console.log(err)
-          this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+          
           return res.status(500).send({message:err.message});
         }  
 
       }
       else{
-        this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+        
         res.status(200).send({message:"Pedido no existe"});
       }
     }).catch((err)=>{
@@ -223,7 +212,7 @@ createFacturaFromPedido(req,res){
   
 }
 
-createNotaCreditoFromPedido(req,res){
+function createNotaCreditoFromPedido(req,res){
   try{
     console.log(req.user.comercioId+" "+req.body.pedidoId+" "+req.user.ptoVenta)
     let pedidoRef =  db.collection('comercios/'+req.user.comercioId+'/pedidos').doc(req.body.pedidoId)
@@ -259,7 +248,7 @@ createNotaCreditoFromPedido(req,res){
           var writeOperation = await pedidoRef.set(datos,{merge:true})
           console.log(writeOperation)
 
-          this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+         
           return res.status(200).send(datos);
 
           
@@ -267,7 +256,7 @@ createNotaCreditoFromPedido(req,res){
         catch(err){
           console.log("err")
           console.log(err)
-          this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+          
           return res.status(500).send({message:err.message});
         }
 
@@ -275,7 +264,7 @@ createNotaCreditoFromPedido(req,res){
 
       }
       else{
-        this.guardarArchivoTA(req.user.comercioId,req.user.nroDoc,db)
+        
         res.status(200).send({message:"Pedido no existe"});
       }
     }).catch((err)=>{
@@ -287,33 +276,14 @@ createNotaCreditoFromPedido(req,res){
   catch(err){
     console.log(err)
     res.status(500).send({message:err});
-  }     
-  
-}
-
-guardarArchivoTA(comercioId,nroDoc,db){ //debido a que el archivo temp al finalizar la funcion desaparece lo guardamos en firestor y luego lo retomamos al iniciar afip
-  let TAfile = os.tmpdir()+'/TA-'+nroDoc+'-wsfe.json';
-  if (fs.existsSync(TAfile)) {
-    console.log("Guardando archivo en documento")
-    fs.readFile(TAfile,'utf-8',function(err, jsonData){
-      if (err) throw err;    
-      var content = JSON.parse(jsonData);          
-      const afipRef = db.collection('afip');
-      afipRef.doc(comercioId).set({afipTA:content}, {merge: true}).then((data)=>{
-        console.log("guardado ok")
-      });           
-  });
-  }         
-  else{
-    console.log("Aun no existe TA")
-  }
+  }       
 }
 
 
   
 
 function createVoucherFromPedido(afip,pedido,voucherDate,voucherTipo,puntoDeVenta,montoReembolso=0,FchServDesde = null,FchServHasta=null,FchVtoPago=null){
-  let voucher:AfipVoucher = new AfipVoucher();    
+  let voucher = new AfipVoucher();    
   
   const lastVoucherNumber = await req.afip.ElectronicBilling.getLastVoucher(puntoDeVenta,voucherTipo); //Devuelve la información del ultimo voucher
   const voucherNumber = Number(lastVoucherNumber) +1;
@@ -462,61 +432,117 @@ function createVoucherFromPedido(afip,pedido,voucherDate,voucherTipo,puntoDeVent
   return voucher;
 }
 
-function salesPoint(req,res){
-  
-  const salesPoints= await req.afip.ElectronicBilling.getSalesPoints();
-  return res.status(200).send({salesPoints:salesPoints});	
+function prueba(req,res){
+  res.status(200).send("Prueba Ok!")
+}
+
+function status(req,res){    
+  try{         
+      let serverStatus = await req.afip.ElectronicBilling.getServerStatus();
+      return res.status(200).send({data:serverStatus});    
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }             
+}
+
+function salesPoint(req,res){  
+  try{ 
+    const salesPoints= await req.afip.ElectronicBilling.getSalesPoints();
+    return res.status(200).send({data:salesPoints});	
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }   
 }
 
 function voucherTypes(req,res){
-  
-  const voucherTypes = await req.afip.ElectronicBilling.getVoucherTypes();
-  return res.status(200).send({voucherTypes:voucherTypes});	               
+  try{
+    const voucherTypes = await req.afip.ElectronicBilling.getVoucherTypes();
+    return res.status(200).send({data:voucherTypes});
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }   	               
 }
 
 function conceptTypes(req,res){
-  
-  const conceptTypes = await req.afip.ElectronicBilling.getConceptTypes();
-  return res.status(200).send({conceptTypes:conceptTypes});   
+  try{
+    const conceptTypes = await req.afip.ElectronicBilling.getConceptTypes();
+    return res.status(200).send({data:conceptTypes});   
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }  
 }
 
 function documentTypes(req,res){
-  
-  const documentTypes  = await req.afip.ElectronicBilling.getDocumentTypes();
-  return res.status(200).send({documentTypes:documentTypes }); 	              
+  try{
+    const documentTypes  = await req.afip.ElectronicBilling.getDocumentTypes();
+    return res.status(200).send({data:documentTypes }); 	 
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }               
 }
 
-function aloquotTypes(req,res){
-
-  
-  const aloquotTypes  = await req.afip.ElectronicBilling.getAliquotTypes();
-  return res.status(200).send({aloquotTypes :aloquotTypes  });   	     
+function aloquotTypes(req,res){  
+  try{
+    const aloquotTypes  = await req.afip.ElectronicBilling.getAliquotTypes();
+    return res.status(200).send({data :aloquotTypes  }); 
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }    	     
 }
 
-function currenciesTypes(req,res){
-
-  
-  const currenciesTypes = await req.afip.ElectronicBilling.getCurrenciesTypes();
-  return res.status(200).send({currenciesTypes :currenciesTypes  });        
-      
+function currenciesTypes(req,res){  
+  try{
+    const currenciesTypes = await req.afip.ElectronicBilling.getCurrenciesTypes();
+    return res.status(200).send({data :currenciesTypes  });   
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }     
 }
 
-function optionTypes(req,res){
-  
-  const optionTypes  = await req.afip.ElectronicBilling.getOptionsTypes();
-  return res.status(200).send({optionTypes  :optionTypes   });   
-        
+function optionTypes(req,res){  
+  try{
+    const optionTypes  = await req.afip.ElectronicBilling.getOptionsTypes();
+    return res.status(200).send({data  :optionTypes   });  
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }           
 }
 
-function taxTypes(req,res){
-  
-  const taxTypes = await req.afip.ElectronicBilling.getTaxTypes();
-  return res.status(200).send({taxTypes :taxTypes});           
+function taxTypes(req,res){  
+  try{
+    const taxTypes = await req.afip.ElectronicBilling.getTaxTypes();
+    return res.status(200).send({data :taxTypes});    
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }         
 }
 
-function consultarPadron(req,res){
-  
-  const taxpayerDetails = await req.afip.RegisterScopeThirteen.getTaxpayerDetails(req.body.cuit);
-  return res.status(200).send({taxTypes :taxpayerDetails});            
+function consultarPadron(req,res){  
+  try{
+    const taxpayerDetails = await req.afip.RegisterScopeThirteen.getTaxpayerDetails(req.body.cuit);
+    return res.status(200).send({data :taxpayerDetails});  
+  }   
+  catch(err){
+      console.log(err)
+      return res.status(500).send({data:err}); 
+  }            
 }    
 
