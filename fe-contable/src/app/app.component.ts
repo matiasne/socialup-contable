@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     
     ){
       
-
+      this.user=new User('','','','','','','','','')
       this.storageSessionService.loadSession();     
 
   }

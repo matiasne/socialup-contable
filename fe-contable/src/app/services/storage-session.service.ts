@@ -36,7 +36,15 @@ export class StorageSessionService{
     }
 
     getUser():User{
-      let session:Session = JSON.parse( localStorage.getItem('session'));
+      let sessionData = JSON.parse( localStorage.getItem('session'));  
+      let user=new User('','','','','','','','','');   
+      let token =  undefined;      
+      if(sessionData){
+        user = User.adapt(sessionData.user);  
+        token = sessionData.token;      
+      }
+      let session:Session = new Session(token, user)
+
       return session.user;
   }
 

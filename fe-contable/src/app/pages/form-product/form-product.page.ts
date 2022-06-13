@@ -13,7 +13,7 @@ import { ToastType } from 'src/app/models/toast.enum';
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
   styleUrls: ['./form-product.page.scss'],
-  providers:[ProductService,HelperService,SelectedService]
+  providers:[ProductService,HelperService,]
 })
 export class FormProductPage implements OnInit {
   public isSubmited:boolean=false;
