@@ -5,13 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { Business } from 'src/app/models/business';
+import { SelectedService } from 'src/app/services/global/selected.service';
 
 
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
   styleUrls: ['./form-product.page.scss'],
-  providers:[ProductService,HelperService]
+  providers:[ProductService,HelperService,SelectedService]
 })
 export class FormProductPage implements OnInit {
   public isSubmited=false;
@@ -51,7 +52,7 @@ export class FormProductPage implements OnInit {
   
   onSubmit(){
     this.isSubmited=true;
-    console.log('valid')
+
     if(this.isSubmited = true){
       let product = new Product('',
         this.formProduct.controls['name'].value,
@@ -59,7 +60,7 @@ export class FormProductPage implements OnInit {
         this.formProduct.controls['code'].value,
         this.formProduct.controls['costPrice'].value,
         this.formProduct.controls['salePrice'].value,
-        'idBusinesshardcode',
+        'idbusiness',
         this.formProduct.controls['image'].value,
         )
         console.log(product)

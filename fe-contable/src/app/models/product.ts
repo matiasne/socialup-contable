@@ -9,4 +9,16 @@ export class Product{
         public businessID: string,
         public image:string
     ){}
+    public static adapt(item:any):Product{
+        return new Product(
+            item._id,
+            item.name,
+            item.description,
+            item.code,
+            item.costPrice,
+            item.salePrice,
+            item.businessID,
+            item.image,
+        )
+    }
 }

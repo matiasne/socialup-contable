@@ -18,26 +18,46 @@ import { SelectedService } from 'src/app/services/global/selected.service';
   providers:[UserService, HelperService,BusinessService, ProductService,SelectedService]
 })
 export class ListProductPage implements OnInit {
-  public products : Array< Product> =[] 
-  
+  public products : Array<Product> =[] 
+  private business:any;
+  private obsBusiness:any;
+
   constructor(
     public route:ActivatedRoute,
     public storageSessionService:StorageSessionService,
     public helperService: HelperService  ,
     public productService:ProductService,
-    public selectedService:SelectedService,
-    public businesService:BusinessService 
-  ) { }
+    public selectedService:SelectedService, 
+  ) { 
+    
+  }
 
   ngOnInit() {
-    let idBusiness = this.selectedService.obsSelectedBusiness()
-    this.productService.getBusinessProduct(idBusiness).subscribe({
-      next:(response)=>{
-  
-      this.products =response.data;
+    
+      this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
+      next:(data:any)=>{
+
+        this.business = data
+        this.refreshProducts()
       }
-      })      
-    //conseguir el listado de artistas
+    })
+  }
+
+    ngOnDestroy(){
+      this.obsBusiness.unsubscribe()
     }
+
+    refreshProducts(){
+  
+      this.productService.getBusinessProduct(this.business._id).subscribe({
+        next:(response)=>{
+  
+        this.products =response.data;
+        }
+        })      
+
+      }
+    
+  
 
 }

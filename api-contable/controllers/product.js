@@ -17,14 +17,14 @@ function getProduct(req,res){
 }
 
 async function getProducts(req,res){
-   
-    var idBusiness = req.params.idBusiness
-    let productsRepo = new productsRepository();
+
+    var idBusiness = req.params.idUser
+    let productRepo = new productRepository();
     
 try{
-    let products = await productRepo.getByUserId(idBusiness)
+    let products = await productRepo.getByBusinessId(idBusiness)
         if(!products){
-            res.status(404).send({message: 'no hay productos'});
+            res.status(404).send({message: 'no hay products'});
         }else{
             res.status(200).send({data:products});
         }

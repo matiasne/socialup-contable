@@ -16,19 +16,19 @@ import { User } from 'src/app/models/user';
   providers:[UserService,BusinessService,HelperService]
 })
 export class BusinessListPage implements OnInit {
-  public businesses : Array< Business> =[] 
+  public businesses : Array<Business> =[] 
   public user:User;
+
   constructor(
     public route:ActivatedRoute,
     public storageSessionService:StorageSessionService,
     public helperService: HelperService,
-    public businessService:BusinessService 
+    public businessService:BusinessService ,
   ) { 
    
   }
 
-  ngOnInit() {
-    console.log('Business Lis, ')
+  ngOnInit() {  
     let idUser = this.storageSessionService.getUser()._id;
     this.businessService.getUserBusiness(idUser).subscribe({
       next:(response)=>{
@@ -36,12 +36,12 @@ export class BusinessListPage implements OnInit {
       this.businesses =response.data;
       }
       })      
-    //conseguir el listado de artistas
+        
     }
 
 ionViewWillEnter() { 
       let idUser = this.storageSessionService.getUser()._id;
-      this.businessListService.get(idUser).subscribe({
+      this.businessService.getUserBusiness(idUser).subscribe({
         next:(response)=>{
         this.businesses =response.data;
         }
