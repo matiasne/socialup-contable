@@ -42,6 +42,7 @@ public id:any;
       
   }
   ionViewDidEnter(){
+
     this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
       next:(data:any)=>{
         this.business = data
@@ -60,13 +61,16 @@ public id:any;
     }
 
     refreshProducts(){
-      this.productService.getBusinessProduct(this.business._id).subscribe({
-        next:(response)=>{
-          this.products =response.data
+      if(this.business._id){
+        this.productService.getBusinessProduct(this.business._id).subscribe({
+          next:(response)=>{
+            this.products =response.data
+          }
+          })      
+  
         }
-        })      
-
       }
+     
     
   
 
