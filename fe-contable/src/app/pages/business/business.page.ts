@@ -28,7 +28,6 @@ export class  BusinessPage implements OnInit {
   public title:'Perfil BUSINESS'
   public business:any;
   public priority:string;
-  public router: any;
   public formBusiness:FormGroup;
   public dbData: any;
   public FormGroup:FormControl  ;
@@ -44,7 +43,9 @@ export class  BusinessPage implements OnInit {
 constructor(public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
     public businessService:BusinessService,
-    public toastService: ToastService){
+    public toastService: ToastService,
+    public alertController:AlertController,
+    public router:Router,){
   
 
 }
@@ -63,7 +64,6 @@ constructor(public activateRoute:ActivatedRoute,
       this.isEditing = true
       this.businessService.get(this.activateRoute.snapshot.params.id).subscribe({
         next:(data)=>{
-          // console.log(this.business)
           this.formBusiness.setValue({
             name: data.business.name,
             address:data.business.address,
@@ -159,4 +159,39 @@ constructor(public activateRoute:ActivatedRoute,
     })
   }
 
+  async doAlert(){
+    const alert = await this.alertController.create({
+      header:'ELIMINAR CUENTA',
+      message:'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            this.businessService._delete(this.activateRoute.snapshot.params.id).subscribe({
+              next:(data)=>{
+                this.toastService.show(ToastType.warning, "Se ha eliminado la empresa correctamente")
+                this.router.navigate(['/list-business'])
+              },
+                error:(err)=>{
+                  console.log(err);
+
+                }
+            })
+            
+          }
+        }
+      ],
+    });
+    (await alert).present()
+
+  }
 }

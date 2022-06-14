@@ -22,6 +22,7 @@ export class ProductService extends BaseCRUDService{
     }
     getBusinessProduct(idBusiness){
       return super.get(this.url+'/business/'+ idBusiness +'/products/')
+    
   }
     get(id){       
         return super.get(this.url+'/product/'+id)
@@ -29,27 +30,15 @@ export class ProductService extends BaseCRUDService{
 
     update(product:Product){           
       let formData =  this.helperService.toFormData(product)
-      this.put(this.url+'/product/'+product,formData).subscribe(
-          {
-            next:(data)=>{       
-              
-              console.log(data)
-            },
-            error:(err)=>{
-              console.log(err);
-            },
-            complete:()=>{
-            
-            }
-          }
-        )
+        return this.put(this.url+'/product/'+product._id,formData)
+console.log(formData)     
     }
 
 
      add(product:Product):Observable<any>{
         delete product._id;
         let formData = this.helperService.toFormData(product)
-
+console.log(product)
         return this.post(this.url+'/product',formData)
     }
 

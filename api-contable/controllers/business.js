@@ -1,6 +1,6 @@
 'use strict'
 
-
+var productController =require('./product');
 var businessRepository = require('../repositories/business');
 var jwtHanlder = require ('./jwtHanlder');
 const path = require('path'); 
@@ -81,14 +81,14 @@ async function updateBusiness(req,res){
 
 async function deleteBusiness(req,res){
     var businessId = req.params.id;
-
     try{
-        // Guardar el usuario
+        
         let businessRepo = new businessRepository();
     
         let business = await businessRepo.delete(businessId);
 
         res.status(200).send({business: business});
+
     }catch(error){
         res.status(400).send({message: error});
     }

@@ -6,7 +6,7 @@ export class Product{
         public code: string,
         public costPrice: string,
         public salePrice: string,
-        public businessID: string,
+        public idBusiness: string,
         public image:string
     ){}
     public static adapt(item:any):Product{
@@ -17,7 +17,7 @@ export class Product{
             item.code,
             item.costPrice,
             item.salePrice,
-            item.businessID,
+            item.idBusiness,
             item.image,
         )
     }

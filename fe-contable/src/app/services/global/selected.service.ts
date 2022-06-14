@@ -2,11 +2,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Business } from "src/app/models/business";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SelectedService{ 
     
     private SelectedBusiness:BehaviorSubject<any> = new BehaviorSubject("")
-
     constructor (){      
         
     }

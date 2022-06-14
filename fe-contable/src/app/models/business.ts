@@ -1,5 +1,6 @@
 export class Business{
     business: any;
+  static _id: any;
     constructor (
         public _id:string,
         public name:string,

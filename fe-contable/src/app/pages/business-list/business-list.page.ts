@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import {StorageSessionService} from 'src/app/services/storage-session.service'
 import { HelperService } from 'src/app/services/helpers.service';
 import { User } from 'src/app/models/user';
+import { SelectedService } from 'src/app/services/global/selected.service';
 
 
 @Component({
@@ -18,14 +19,15 @@ import { User } from 'src/app/models/user';
 export class BusinessListPage implements OnInit {
   public businesses : Array<Business> =[] 
   public user:User;
-
   constructor(
-    public route:ActivatedRoute,
+    public activateRoute:ActivatedRoute,
+    public router:Router,
     public storageSessionService:StorageSessionService,
     public helperService: HelperService,
     public businessService:BusinessService ,
+    public selectService :SelectedService
   ) { 
-   
+    
   }
 
   ngOnInit() {  
@@ -36,7 +38,6 @@ export class BusinessListPage implements OnInit {
       this.businesses =response.data;
       }
       })      
-        
     }
 
 ionViewWillEnter() { 
@@ -48,6 +49,15 @@ ionViewWillEnter() {
       })  
   }
 
+  selectBusiness(business){
+    this.selectService.setSelectedBusiness(business)
+    this.router.navigate(['/products'])
+  }
+  
+  selectAddProduct(business){
+   this.selectService.setSelectedBusiness(business)
+   this.router.navigate(['/product'])
+  }
 }
 
 

@@ -7,6 +7,7 @@ class ProductRepository extends BaseRepository{
     }
     async getByBusinessId(id){
          return await this.model.find({idBusiness:id}).exec();
+         
      }
 }
 

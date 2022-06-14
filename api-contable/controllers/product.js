@@ -18,11 +18,12 @@ function getProduct(req,res){
 
 async function getProducts(req,res){
 
-    var idBusiness = req.params.idUser
+    var idBusiness = req.params.idBusiness
     let productRepo = new productRepository();
     
 try{
     let products = await productRepo.getByBusinessId(idBusiness)
+    console.log(idBusiness)
         if(!products){
             res.status(404).send({message: 'no hay products'});
         }else{
@@ -50,7 +51,7 @@ async function addProduct(req,res){
         params.userId = tokenPayload.sub;
 
         let product = await productRepo.create(params);       
-
+console.log(product)
         res.status(200).send({product: product});
 
     }catch(error){
