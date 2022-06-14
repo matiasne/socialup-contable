@@ -34,12 +34,12 @@
     </ion-fab-button>
    </ion-fab-list>
    <ion-fab-list side="start" style="margin-right:113px;"  >
-    <ion-fab-button>
+    <ion-fab-button (click)="selectAddProduct(business)">
     <ion-icon name="trash-outline" ></ion-icon>
     </ion-fab-button>  
   </ion-fab-list>
    <ion-fab-list  side="start" >
-    <ion-fab-button  [routerLink]="['/products']">
+    <ion-fab-button (click)="selectBusiness(business)">
     <ion-icon name="bag-add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>

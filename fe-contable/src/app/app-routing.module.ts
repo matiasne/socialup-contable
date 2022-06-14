@@ -49,7 +49,10 @@ const routes: Routes = [
     path: 'products',
     loadChildren: () => import('./pages/list-product/list-product.module').then( m => m.ListProductPageModule)
   },
-
+  {
+    path: 'product/:id',
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
+  },
 
 ];
 

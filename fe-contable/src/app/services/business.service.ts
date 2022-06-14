@@ -49,7 +49,6 @@ export class BusinessService extends BaseCRUDService{
     }
 
     _delete(id):Observable<any>{
-        console.log(this.url)
         return this.delete(this.url+'/business/'+id)
     }
 
