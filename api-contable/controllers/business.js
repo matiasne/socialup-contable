@@ -1,6 +1,5 @@
 'use strict'
 
-var productController =require('./product');
 var businessRepository = require('../repositories/business');
 var jwtHanlder = require ('./jwtHanlder');
 const path = require('path'); 
