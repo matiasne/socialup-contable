@@ -6,6 +6,8 @@ import { User } from 'src/app/models/user';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { HelperService } from 'src/app/services/helpers.service';
+import { Business } from 'src/app/models/business';
+
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,7 @@ export class LoginPage implements OnInit{
  public user:User;
  showPassword =false;
  passwordToggleIcon = 'eye';
- 
+ public business:Business
   
  
  constructor(
@@ -35,6 +37,7 @@ export class LoginPage implements OnInit{
     public router:Router
   ){ 
       this.user = new User('','','','','ROLE_USER','','','','');
+      this.business = new Business('','','','','','','','');
   }
   
   togglePassword():void{
@@ -96,8 +99,9 @@ validation_messages = {
               data.user.address,
               data.user.phone);
 
-              let session:Session = new Session(data.token, user)
-
+              
+              let session:Session = new Session(data.token, user, this.business)
+              
             this._storageSessionService.setSession(session);
             // console.log(session.token);
           },
