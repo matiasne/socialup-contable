@@ -53,6 +53,20 @@ const routes: Routes = [
     path: 'product/:id',
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   },
+  {
+    path: 'client',
+    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
+  },
+  {
+    path: 'client/:id',
+    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
+  },
+  {
+    path: 'list-client',
+    loadChildren: () => import('./pages/list-client/list-client.module').then( m => m.ListClientPageModule)
+  },
+
+
 
 ];
 

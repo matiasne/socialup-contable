@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>list-client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list  *ngFor="let client of clients">
+    <ion-item  >
+      <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+        <img src={{client.image}}>
+      </ion-avatar>
+      <ion-label [routerLink]="['/client/'+client._id]" >
+       <h1><b>{{client.name}}</b></h1>
+        <h3>Nombre: {{client.name}}</h3> 
+        <h3>Apellido: {{client.surname}}</h3> 
+        <h3>Telefono: {{client.phone}}</h3>
+      </ion-label>
+      <div>
+        <ion-icon name="create-outline" slot="end" ></ion-icon>
+      </div>
+      
+    </ion-item>
+     
+    </ion-list>
+</ion-content>

@@ -3,19 +3,20 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var clientSchema = Schema({
-    idBusiness : {type: mongoose.Schema.Types.ObjectId,ref:'Businesses'},
-    name: String,
-    surname: String,
-    address:String,
-    email: String,
-    image: String,
-    phone: String, 
-    postCode:String,
+var ClientSchema = Schema({
+ idBusiness : {type: mongoose.Schema.Types.ObjectId,ref:'Businesses'},
+    name:String,
+    image:String,
     city:String,
-    cuit_cuil:String,
+    address: String,
+    email: String,
+    phone: String,
+    postCode:String,
+    documentType:String,
+    documentNumber:String,
+    surname:String
 },{
     timestamps: true
 })
 
-module.exports = mongoose.model('Business', clientSchema)
+module.exports = mongoose.model('Client', ClientSchema)

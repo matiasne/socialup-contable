@@ -19,6 +19,7 @@ import { SelectedService } from 'src/app/services/global/selected.service';
 export class BusinessListPage implements OnInit {
   public businesses : Array<Business> =[] 
   public user:User;
+  public session:Session
   constructor(
     public activateRoute:ActivatedRoute,
     public router:Router,
@@ -51,11 +52,13 @@ ionViewWillEnter() {
 
   selectBusiness(business){
     this.selectService.setSelectedBusiness(business)
+    this.storageSessionService.updateBusiness(business);
     this.router.navigate(['/products'])
   }
   
   selectAddProduct(business){
    this.selectService.setSelectedBusiness(business)
+   this.storageSessionService.updateBusiness(business);
    this.router.navigate(['/product'])
   }
 }
