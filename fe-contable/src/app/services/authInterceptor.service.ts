@@ -19,7 +19,12 @@ export class AuthInterceptorService implements HttpInterceptor {
          if (session.token) {
             // If we have a token, we set it to the header
             request = request.clone({
-               setHeaders: {Authorization: session.token}
+               setHeaders: {
+                  Authorization: session.token,
+                 /* "Access-Control-Allow-Headers":
+                  "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method",
+                  "Access-Control-Allow-Methods":"*",
+               "Access-Control-Allow-Origin":"*"*/}
             });
          }
       }

@@ -8,7 +8,6 @@ import { StorageSessionService } from "./storage-session.service";
 @Injectable()
 export class BaseCRUDService{  
     
-
     constructor (
         public _http: HttpClient,
         public storageSessionService: StorageSessionService
@@ -17,13 +16,8 @@ export class BaseCRUDService{
     }
 
     get(url):Observable<any>{
-    //    let token=  this.storageSessionService.getSession().token
-    //    console.log(token)
-
+ 
         let headers = new HttpHeaders()
-        .set('Contenent-Type', 'application/json')
-        .set('Access-Control-Allow-Origin','*')
-     //   .set('Authorization: ','Bearer '+token)
      
         return this._http.get(url,{headers : headers})
     }
@@ -42,7 +36,7 @@ export class BaseCRUDService{
 
     delete(url):Observable<any>{
         let token=  this.storageSessionService.getSession().token
-        console.log(token)
+
 
         let headers = new HttpHeaders()
         

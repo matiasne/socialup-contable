@@ -5,12 +5,15 @@ import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
+import { HelperService } from 'src/app/services/helpers.service';
+import { Business } from 'src/app/models/business';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [UserService,StorageSessionService]
+  providers: [UserService,StorageSessionService,HelperService]
 })
 
 export class LoginPage implements OnInit{
@@ -25,16 +28,19 @@ export class LoginPage implements OnInit{
  public user:User;
  showPassword =false;
  passwordToggleIcon = 'eye';
- 
+ public business:Business
   
  
  constructor(
-  private _userService : UserService,
+    private _userService : UserService,
     private _storageSessionService: StorageSessionService, 
     public router:Router
-    ){ this.user = new User('','','','','ROLE_USER','','','','');
-   }
-togglePassword():void{
+  ){ 
+      this.user = new User('','','','','ROLE_USER','','','','');
+      this.business = new Business('','','','','','','','');
+  }
+  
+  togglePassword():void{
    this.showPassword =!this.showPassword
   
    if(this.passwordToggleIcon =='eye'){
@@ -42,18 +48,22 @@ togglePassword():void{
    }else{
      this.passwordToggleIcon='eye';
    }
-}
+  }
 
   ngOnInit() {
-   
+  
     this.formData= new FormGroup({
-         email: new FormControl('',Validators.compose([Validators.required,Validators.email,/*Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)*/])),
+         email: new FormControl('',Validators.compose([Validators.required,Validators.email])),
          password: new FormControl('',([Validators.required])),
-        
     });
 
     
   }
+
+  onDestroy(){
+    this.formData.reset();
+  }
+
 validation_messages = {
     'email': [
       { type: 'required', message: 'Campo Obligatorio.' },
@@ -73,7 +83,7 @@ validation_messages = {
     if(this.formData.valid){
       let email = this.formData.controls['email'].value
       let password = this.formData.controls['password'].value
-      console.log('y vamos de nuevo')
+      
       this._userService.singnup(email,password).subscribe(
         {
           next: (data:any)=>{
@@ -89,10 +99,11 @@ validation_messages = {
               data.user.address,
               data.user.phone);
 
-              let session:Session = new Session(data.token, user)
-
+              
+              let session:Session = new Session(data.token, user, this.business)
+              
             this._storageSessionService.setSession(session);
-            console.log(session.token);
+            // console.log(session.token);
           },
           error:(err)=>{
             console.log(err)
@@ -101,28 +112,30 @@ validation_messages = {
             }
           },
           complete:()=>{
-            console.log("Completo")
+            // console.log("Completo")
             
 
           }
         }
       
         )
-      console.log('valid')
+      // console.log('valid')
     }else{
-      console.log('not  valid')
-    }
-
-  
+      // console.log('not  valid')
+    } 
   }
 
   onResetForm(){
-  this.formData.reset();    
+    this.formData.reset();    
 
   }
   navigate(destination:string){
     this.router.navigate([destination])
     // this.router.navigate(['items'], { relativeTo: this.route });
+  }
+
+  changeImage(event:any){
+
   }
 
     

@@ -4,24 +4,36 @@ class BaseRepository{
     }
 
     async get(id){
-        return await this.model.findById(id);
+        try{
+            return await this.model.findById(id);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     async create(entity){
-        return await this.model.create(entity);
+        try{
+            return await this.model.create(entity);
+        }catch(err){
+            console.log(err)
+        }
     }
 
     async update(id, entity){
+        try{
         return await this.model.findByIdAndUpdate(id, entity, {new: true})
+        }catch(err){
+            console.log(err)
+        }
     }
 
     async delete(id){
+        try{
         await this.model.findByIdAndDelete(id);
         return true;
-    }
-
-    async getUserEmail(email){
-        return await this.model.findOne({email:email});
+        }catch(err){
+            console.log(err)
+        }
     }
 }
 

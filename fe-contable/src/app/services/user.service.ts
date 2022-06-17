@@ -7,6 +7,7 @@ import { User } from "../models/user";
 import { BaseCRUDService } from "./base-crud.service";
 import { StorageSessionService } from "./storage-session.service";
 import { Session } from "../models/session";
+import { HelperService } from "./helpers.service";
 
 @Injectable()
 export class UserService extends BaseCRUDService{
@@ -14,10 +15,16 @@ export class UserService extends BaseCRUDService{
 
     constructor (
         public _http: HttpClient,
-        public storageSessionService: StorageSessionService){
+        public storageSessionService: StorageSessionService,
+        public helperService: HelperService    
+    ){
             
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
+    }
+
+    get(id){
+        return super.get(this.url+'/user/'+id)
     }
 
     singnup(email:string,password:string):Observable<any>{ 
@@ -27,25 +34,15 @@ export class UserService extends BaseCRUDService{
             password:password
         }  
         
-        return this.post(this.url+'login',params)
+        return this.post(this.url+'/login',params)
         
     }
 
-    update(user:User){        
-        this.put(this.url+'/user/'+user._id,user).subscribe(
-            {
-              next:(data)=>{
-                this.storageSessionService.updateUser(user)
-                console.log(data)
-              },
-              error:(err)=>{
-                console.log(err);
-              },
-              complete:()=>{
-              
-              }
-            }
-          )
+     update(user:User){   
+        
+        let formData =  this.helperService.toFormData(user)
+        
+       return this.put(this.url+'/user/'+user._id,formData)
     }
 
 
@@ -56,12 +53,19 @@ export class UserService extends BaseCRUDService{
             surname: surname,
             name: name,            
         }
-        return this.post(this.url+'register',params)
+        return this.post(this.url+'/register',params)
     }
 
     _delete(id):Observable<any>{
-        console.log(this.url)
         return this.delete(this.url+'/user/'+id)
     }
 
+    resetPassword(email:string):Observable<any>{
+        let params = {
+            email : email,
+        }
+        return this.post(this.url+'/forgot-password'+params)        
+    }
+
+    
 }

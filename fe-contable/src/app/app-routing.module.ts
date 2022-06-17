@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
   },
   {
+    path: 'business/:id',
+    loadChildren: () => import('./pages/business/business.module').then( m => m.BusinessPageModule)
+  },
+  {
     path: 'form-profile',
     loadChildren: () => import('./pages/form-profile/form-profile.module').then( m => m.FormProfilePageModule)
   },
@@ -32,7 +36,36 @@ const routes: Routes = [
   {
     path: 'form-forgotpassword',
     loadChildren: () => import('./pages/form-forgotpassword/form-forgotpassword.module').then( m => m.FormForgotpasswordPageModule)
-  }
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
+  },
+  {
+    path: 'list-business',
+    loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./pages/list-product/list-product.module').then( m => m.ListProductPageModule)
+  },
+  {
+    path: 'product/:id',
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
+  },
+  {
+    path: 'client',
+    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
+  },
+  {
+    path: 'client/:id',
+    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
+  },
+  {
+    path: 'list-client',
+    loadChildren: () => import('./pages/list-client/list-client.module').then( m => m.ListClientPageModule)
+  },
+
 
 
 ];

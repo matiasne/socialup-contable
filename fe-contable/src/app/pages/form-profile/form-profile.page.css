@@ -1,0 +1,20 @@
+.image-avatar {
+  border-radius: 100%;
+  overflow: hidden;
+  margin: auto;
+  border: 6px solid var(--ion-color-primary, #3880ff);
+}
+
+ion-card {
+  max-width: 400px;
+  margin: auto;
+}
+
+ion-button {
+  margin: auto;
+}
+
+ion-item {
+  margin: auto;
+}
+/*# sourceMappingURL=form-profile.page.css.map */

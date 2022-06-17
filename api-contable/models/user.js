@@ -12,7 +12,10 @@ var UserSchema = Schema({
     image: String,
     address: String,
     gender: String,
-    phone: String
+    phone: String,
+    businesses : [{type: mongoose.Schema.Types.ObjectId,ref:'Businesses'}]
+},{
+    timestamps: true
 })
 
 module.exports = mongoose.model('User', UserSchema)

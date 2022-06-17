@@ -4,8 +4,9 @@
     <ion-menu  contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-list-header>{{user.name}} {{user.surname}}</ion-list-header>
+          <ion-note>{{user.email}}</ion-note><br>
+          <ion-note>{{business.name}}</ion-note>
           <ion-item  >
             <ion-button (click)="LogoutSession()">Cerrar sesión</ion-button>
           </ion-item>

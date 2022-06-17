@@ -1,19 +1,18 @@
 'use strict'
 
 var bcrypt = require('bcrypt-nodejs');
-//var userRepository = require('../repositories/user')
 var userRepository = require('../repositories/user');
-//var User = require('../models/user');
-var createUserSchema = require('../validationSchema/userRegister');
-const Joi = require('joi'); 
-var jwt = require('../middlewares/jwt');
-
+var jwtHanlder = require('./jwtHanlder'); 
+const path = require('path'); 
+var imagesHandler = require('./imagesHandler');
+ 
 function getUser(req,res){
     let userRepo = new userRepository();
-    let user =  userRepo.get(req.params.id).then(user=>{
+    userRepo.get(req.params.id).then(user=>{
+        console.log(user)
         res.status(200).send({user: user});
     }).catch(err=>{
-        res.status(404).send({message: 'no hay'});
+        res.status(404).send({message: err});
     });
 }
 
@@ -41,14 +40,20 @@ async function saveUser(req,res){
 }
 
 async function updateUser(req,res){
-    var userId = req.params._id;
-    var update = req.body;
-    try{
-        // Guardar el usuario
-        let userRepo = new userRepository();    
+    let userId = req.params._id;
+    let update = req.body;
+
+    try{      
+        if (req.file) {   
+            let imgHandler = new imagesHandler()
+            update.image = await imgHandler.processImage(req.file,'user')
+        }
+        let userRepo = new userRepository(); 
         let u = await userRepo.update(userId, update)
         res.status(200).send({user: u});
+        
     }catch(error){
+        console.log(error)
         res.status(400).send({message: error});
     }
 }
@@ -58,8 +63,7 @@ async function deleteUser(req,res){
 
     try{
         // Guardar el usuario
-        let userRepo = new userRepository();
-    
+        let userRepo = new userRepository();    
         let user = await userRepo.delete(userId);
 
         res.status(200).send({user: user});
@@ -72,17 +76,15 @@ async function loginUser(req,res){
     var params = req.body;
 
     var email = params.email;
-    var password = params.password;
-    
+    var password = params.password;    
 
     try{
-        let userRepo = new userRepository();
-        
+        let userRepo = new userRepository();        
         let user = await userRepo.getUserEmail(email);
         bcrypt.compare(password, user.password, function(err,check){
             
         if(check){
-            let token = jwt.createToken(user);
+            let token = jwtHanlder.createToken(user);
             
             res.status(200).send({user: user, token: token});   
         }else{
@@ -94,59 +96,24 @@ async function loginUser(req,res){
         res.status(400).send({message: error});
     }
 }
-async function uploadImage(req, res){ 
-    /*var userId= req.params._id;
-    var file_name = 'No subido...';*/
 
-    const file = req.file
-    
-    if (!file) {
-        res.status(402).send({message: 'Please upload a file'});
-    }
-    res.status(200).send({data: file});
-    /*console.log(req.f)
-    if(req.files){
-        console.log(req.params.image)
-        var file_path = req.files.image.path;
-        
-        var file_split = file_path.split('\\');
-        var file_name= file_split[2];
-        
 
-        var ext_split = file_name.split('\.');
-        var file_ext= ext_split[1];
-        console.log(file_ext)
-        if(file_ext =='png' || file_ext == 'jpg'|| file_ext == 'gif' || file_ext =='jpeg'){
-            User.findByIdAndUpdate(userId,{image:file_name},(err,userUpdate)=>{
-               
-                if(!userUpdate){
-                    res.status(404).send({message: 'No se ha podido actualizar el usuario'});
-                }else{
-                    console.log(userUpdate);
-                    res.status(200).send({image: file_name,user: userUpdate});
-                }
-            });
-        }else{
-                res.status(200).send({message: 'Extension....'});
-        }
-
-    }else{
-        res.status(200).send({message: 'No se ha subido ninguna imagen '});
-    }*/
-}
-
-function getImageFile(req,res){
+function getUserImageFile(req,res){
+    var fs = require('fs')
     var imageFile = req.params.imageFile;
-    var path_file='./uploads/'+imageFile;
+    var path_file='public/user/'+imageFile
 
-    fs.exists(path_file, function (exists){
-        if(exists){
-            res.sendFile(path.resolve(path_file));
-         
+    fs.exists(path_file, (exists) => {
+       if(exists){
+            res.sendFile(path.resolve(path_file));        
         }else{
             res.status(200).send({message: 'No existe la imagen...'});
         }
     })
+}
+
+function getUserBusinesses(req,res){
+    res.status(200).send({message: 'Retornando array de business'});
 }
 
 module.exports = {
@@ -155,6 +122,6 @@ module.exports = {
     updateUser,
     deleteUser,
     loginUser,
-    uploadImage,
-    getImageFile
+    getUserImageFile,
+    getUserBusinesses
 } ; 

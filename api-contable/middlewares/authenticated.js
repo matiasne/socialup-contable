@@ -2,7 +2,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var secret = 'SocialUp';
+
 
 exports.ensureAuth = function(req,res, next){
    
@@ -13,7 +13,7 @@ exports.ensureAuth = function(req,res, next){
     var token = req.headers.authorization;
 
     try{
-        var payload = jwt.decode(token, secret);
+        var payload = jwt.decode(token, 'SocialUp');
 
         if(payload.exp <= moment.unix()){
             return res.status(401).send({message: 'El token ha expirado'});

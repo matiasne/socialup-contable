@@ -1,27 +1,20 @@
 <ion-header>
   <ion-toolbar>
-       <ion-title class="title">MI PERFIL</ion-title> 
+       <ion-title>MI PERFIL</ion-title> 
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <ion-card>
+  <ion-card >
     <ion-card-content>
       <form class="form"[formGroup]="formProfile"   action="formProfile">
-        <ion-row>
-          <div  class="avatar">
-           <ion-item >
-           <div>
-             <ion-avatar class="image-avatar" (click)="imageClick()"  *ngIf="!mostrar">
-               <ion-img src="https://i.pinimg.com/564x/a5/6d/35/a56d3517bb1323832680fbe7eb342da0.jpg"></ion-img>
-             </ion-avatar>
-             <ion-avatar class="image-avatar" (click)="imageClick()" *ngIf="mostrar">
-               <ion-img [src]="imagePreview"></ion-img>
-             </ion-avatar>
-             <input type="file" id="selectedFile" (change)="handleImageChange($event)" style="display:none">
-           </div>
-          </ion-item>
-         </div>
-         </ion-row> 
+        
+         <div class="image-avatar" >
+          <app-image-upload            
+            [aspectRatio] = "'1'"
+            [croppedImage]= "formProfile.controls['image'].value"
+            (onSelectValue)= changeImage($event)>
+          </app-image-upload>
+        </div>
             <ion-row>
               <ion-item>
                 <ion-icon name="person-outline"></ion-icon>
@@ -95,11 +88,16 @@
                 </div>
               </ion-row >
           <br>
-        <ion-button type="submit" expand="default"  shape="round" (click)="updateProfile()" >Actualizar mis datos</ion-button><br>
+        
       </form>
-      <ion-button class="delete-button"type="clear" expand="default"  shape="round" color="danger" (click)="doAlert()">Eliminar Cuenta</ion-button>
+      <ion-row >
+          <ion-button type="submit" expand="default"  shape="round" (click)="updateProfile()">Actualizar mis datos</ion-button>
       
+      </ion-row>
+      <ion-row>
+          <ion-button class="delete-button"type="clear" expand="default"  shape="round" color="danger" (click)="doAlert()">Eliminar Cuenta</ion-button>
+      
+      </ion-row>      
     </ion-card-content>
-  </ion-card>
-  
+  </ion-card>  
 </ion-content>

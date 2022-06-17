@@ -1,43 +1,44 @@
 <ion-content id="content" [fullscreen]="true">
   <div class="container">
+
     <ion-card class="form">
      <ion-card-header>
        <ion-card-subtitle></ion-card-subtitle>
        <ion-card-title >INICIO SESIÓN</ion-card-title>
      </ion-card-header>
      <ion-card-content class="card" >
-       <form [formGroup]="formData" (ngSubmit)="onSubmit()" action="formData"> 
-         <ion-row >
-           <ion-item >
-            <ion-icon name="mail-outline" ></ion-icon>
-            <ion-label ></ion-label>
-             <ion-input formControlName="email" placeholder="Correo Electrónico"></ion-input>
-            </ion-item >
-         </ion-row>
-         <ion-row>
+       <form [formGroup]="formData" (ngSubmit)="onSubmit()" action="formData">         
+        <ion-item>            
+          <ion-label position="floating">
+            <ion-icon name="mail-outline" ></ion-icon>&nbsp; Correo Electrónico
+          </ion-label>
+          <ion-input formControlName="email"></ion-input>
+        </ion-item>
+        <ion-row>
           <div class="error-message" *ngIf="email.invalid && isSubmited">
-            <div class="error-message" *ngIf="email.errors.required && isSubmited">*Correo Electrónico obligatorio*</div>
-            <div class="error-message" *ngIf="email.errors.minlength && isSubmited">*Email No es valido*</div>
-            <div class="error-message" *ngIf="email.errors.pattern && isSubmited">*El formato no es valido.*</div>
+            <div *ngIf="email.errors.required && isSubmited">Correo Electrónico obligatorio</div>
+            <div *ngIf="email.errors.minlength && isSubmited">Email No es valido*</div>
+            <div *ngIf="email.errors.pattern && isSubmited">El formato no es valido.</div>
           </div>
-         </ion-row>
-         <ion-row >
-           <ion-item >  
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <ion-label ></ion-label>
-             <ion-input name="password" formControlName="password" placeholder="Password" [type]="showPassword ? 'text':'password'"  ></ion-input>
-             <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
-            </ion-item>         
-         </ion-row>
+        </ion-row>
+        <ion-item>            
+          <ion-label position="floating">
+            <ion-icon name="lock-closed-outline"></ion-icon>&nbsp; Password
+          </ion-label>
+          <ion-input name="password" formControlName="password" placeholder="Password" [type]="showPassword ? 'text':'password'"></ion-input>
+          <ion-icon class="margin-toggle-password" slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+        </ion-item>
+           
          <ion-row>
             <div class="error-message"  *ngIf="password.invalid && isSubmited" >
              <div  *ngIf="password.errors.required  && isSubmited">*Contraseña obligatoria*</div>
             </div>
          </ion-row>
-         <ion-button type="submit" expand="default"  shape="round" (click)="formData" >Iniciar Sesión</ion-button>
+         
+         <ion-button type="submit" expand="full"   (click)="formData" >Iniciar Sesión</ion-button>
          </form>
      </ion-card-content>
-         <ion-button  [routerLink]="['/register']" type="submit"  expand="default" color="medium" ><u>Registrarme</u></ion-button>
+         <ion-button  [routerLink]="['/register']" type="submit"  expand="default" color="medium" >Registrarme</ion-button>
    </ion-card>
  </div>
  </ion-content>

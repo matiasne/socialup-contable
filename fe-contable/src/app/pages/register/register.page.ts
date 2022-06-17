@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators,FormBuilder  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { HelperService } from 'src/app/services/helpers.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  providers: [UserService]
+  providers: [UserService,HelperService ]
 })
 export class RegisterPage implements OnInit {
   public title : "REGISTRATE";
@@ -49,6 +50,10 @@ export class RegisterPage implements OnInit {
 
   
   }
+
+  onDestroy(){
+    this.formData.reset();
+  }
  
 
   onSubmit (){
@@ -73,15 +78,15 @@ export class RegisterPage implements OnInit {
             }
           },
           complete:()=>{
-            console.log("Completo")
+            // console.log("Completo")
             this.router.navigate(['/login']);
           }
         }
       
         )
-      console.log('valid')
+      // console.log('valid')
     }else{
-      console.log('not  valid')
+      // console.log('not  valid')
     }
 
   }

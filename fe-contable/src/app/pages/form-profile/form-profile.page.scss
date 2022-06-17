@@ -1,3 +1,14 @@
-.delete-button{
-    margin-left: 40.5%;
+.image-avatar{
+    border-radius: 100%;
+    overflow: hidden;
+    margin: auto;
+    border:6px solid var(--ion-color-primary, #3880ff);;
+}
+
+ion-button{
+    margin: auto;
+}
+
+ion-item{
+    margin: auto;
 }
