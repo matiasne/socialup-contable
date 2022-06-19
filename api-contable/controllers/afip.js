@@ -1,21 +1,54 @@
 'use strict'
 
 import { AfipVoucher, CbteAsoc, EnumAfipConceptos, EnumAfipMoneda, EnumAfipPersonaJuridica, EnumAfipTiposComprobantes, EnumAfipTiposDocumentos, IvaItem } from "../models/afipVoucher";
-let os = require('os')
-const Afip = require('@afipsdk/afip.js');
-const fs = require('fs');
+
+var bcrypt = require('bcrypt-nodejs');
+var jwtHanlder = require('./jwtHanlder'); 
 
 var afipRepository = require('../repositories/afip');
 
+function connect(req,res){
+  var params = req.body;
 
+  var email = params.email;
+  var password = params.password;    
 
-function register(req,res){  
-    
+  try{
+      let afipRepo = new afipRepository();        
+      let user = await afipRepo.getUserEmail(email);
+      bcrypt.compare(password, user.password, function(err,check){
+          
+      if(check){
+          let token = jwtHanlder.createToken(user);
+          
+          res.status(200).send({user: user, token: token});   
+      }else{
+          console.log(err)
+          res.status(400).send({message: err});
+      }
+    })
+  }catch(error){
+      res.status(400).send({message: error});
+  }
 }
 
-
-
-
+function register(req,res){  
+  var params = req.body;
+  bcrypt.hash(params.password, null, null, async function(err,hash){
+      try{
+        if(err){               
+            res.status(400).send({message: err});    
+        }else{
+            params.password = hash;                
+            let afipRepo = new afipRepository();    
+            let user = await afipRepo.create(params);                
+            res.status(200).send({user: user});
+        }
+      }catch(error){         
+        res.status(400).send({message: error});
+      }
+  });
+}
 
 function voucherInfo(req,res){
    //req.body.nroComprobante = 1
@@ -39,8 +72,7 @@ function voucherInfo(req,res){
       }  
    }catch(err){
       return res.status(500).send({data:err}); 
-   }
-       	
+   }      	
         
 }
 
@@ -261,6 +293,8 @@ module.exports = {
   voucherInfo,
   getLastVoucherNumber,
   getLastVoucherInfo,
-  createVoucher
+  createVoucher,
+  register,
+  connect
 }; 
 

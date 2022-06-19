@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         var ext_split = file.mimetype.split('/');
         var file_ext= ext_split[1];
-        cb(null, req.body.businessId+'-'+req.body.ptoVta+'-'+file_ext);
+        cb(null, req.body.businessId+'-'+req.body.puntoVenta+'.'+file_ext);
     }
 });
     

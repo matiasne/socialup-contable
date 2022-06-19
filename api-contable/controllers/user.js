@@ -20,16 +20,12 @@ async function saveUser(req,res){
     var params = req.body;
     bcrypt.hash(params.password, null, null, async function(err,hash){
         try{
-            if(err){
-               
+            if(err){               
                 res.status(400).send({message: err});    
             }else{
-                params.password = hash;
-                
-                let userRepo = new userRepository();
-    
-                let user = await userRepo.create(params);
-                
+                params.password = hash;                
+                let userRepo = new userRepository();    
+                let user = await userRepo.create(params);                
                 res.status(200).send({user: user});
             }
         }catch(error){

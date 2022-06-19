@@ -26,9 +26,10 @@ export class StorageSessionService{
     }
 
     getSession():Session{
-        let session:Session = JSON.parse( localStorage.getItem('session'));
-        return session;
+       return JSON.parse( localStorage.getItem('session'));
     }
+
+    
 
     updateUser(user:any){
       let storagedSession = this.getSession();

@@ -17,7 +17,7 @@ export class ProductService extends BaseCRUDService{
         public helperService: HelperService    
     ){
             
-        super(_http,storageSessionService)
+        super(_http)
         this.url = GLOBAL.url;
     }
     getBusinessProduct(idBusiness){

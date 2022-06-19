@@ -30,9 +30,9 @@ try{
             res.status(200).send({data:products});
         }
       
-}catch(error){
-    res.status(400).send({message: error});
-}
+    }catch(error){
+        res.status(400).send({message: error});
+    }
 }
 
 async function addProduct(req,res){
@@ -50,8 +50,7 @@ async function addProduct(req,res){
         var tokenPayload = jwtHanlder.getDataToken(req.headers.authorization);
         params.userId = tokenPayload.sub;
 
-        let product = await productRepo.create(params);       
-console.log(product)
+        let product = await productRepo.create(params);     
         res.status(200).send({product: product});
 
     }catch(error){
