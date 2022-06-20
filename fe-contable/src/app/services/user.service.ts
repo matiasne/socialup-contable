@@ -67,5 +67,9 @@ export class UserService extends BaseCRUDService{
         return this.post(this.url+'/forgot-password'+params)        
     }
 
+    getUserBusiness(idUser){
+        return super.get(this.url+'/user/'+ idUser +'/businesses/')
+    }
+
     
 }

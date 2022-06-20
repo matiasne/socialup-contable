@@ -11,8 +11,8 @@ export class StorageSessionService{
   public loguedRoute = '/list-business'
   public unloguedRoute = '/login'
    
-    private loguedRouteBusiness = '/products'
-    private unloguedRouteBusiness = '/list-business'
+    private loguedRouteBusiness = '/products' // guardas!!!
+    private unloguedRouteBusiness = '/list-business' //guardas!!
     public isLoguedIn:BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor (private router:Router){

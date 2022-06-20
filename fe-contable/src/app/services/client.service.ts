@@ -18,19 +18,16 @@ export class ClientService extends BaseCRUDService{
     ){
             
         super(_http,storageSessionService)
-        this.url = GLOBAL.url;
+        this.url = GLOBAL.url+'/client';
     }
-    getBusinessClient(idBusiness){
-      return super.get(this.url+'/business/'+ idBusiness +'/clients/')
     
-  }
     get(id){       
-        return super.get(this.url+'/client/'+id)
+        return super.get(this.url+'/'+id)
     }
 
     update(client:Client){           
       let formData =  this.helperService.toFormData(client)
-        return this.put(this.url+'/client/'+client._id,formData)
+        return this.put(this.url+'/'+client._id,formData)
 console.log(formData)     
     }
 
@@ -39,12 +36,12 @@ console.log(formData)
         delete client._id;
         let formData = this.helperService.toFormData(client)
 console.log(client)
-        return this.post(this.url+'/client',formData)
+        return this.post(this.url,formData)
     }
 
     _delete(id):Observable<any>{
         console.log(this.url)
-        return this.delete(this.url+'/client/'+id)
+        return this.delete(this.url+'/'+id)
     }
 
     
