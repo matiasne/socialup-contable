@@ -21,26 +21,23 @@ export class ClientService extends BaseCRUDService{
         this.url = GLOBAL.url+'/client';
     }
     
-    get(id){       
+    get(id):Observable<any>{       
         return super.get(this.url+'/'+id)
     }
 
-    update(client:Client){           
-      let formData =  this.helperService.toFormData(client)
+    update(client:Client):Observable<any>{           
+        let formData =  this.helperService.toFormData(client)
         return this.put(this.url+'/'+client._id,formData)
-console.log(formData)     
     }
 
 
      add(client:Client):Observable<any>{
         delete client._id;
         let formData = this.helperService.toFormData(client)
-console.log(client)
         return this.post(this.url,formData)
     }
 
     _delete(id):Observable<any>{
-        console.log(this.url)
         return this.delete(this.url+'/'+id)
     }
 

@@ -62,7 +62,7 @@ public id:any;
 
     refreshProducts(){
       if(this.business._id){
-        this.productService.getBusinessProduct(this.business._id).subscribe({
+        this.businessService.getBusinessProduct(this.business._id).subscribe({
           next:(response)=>{
             this.products =response.data
           }

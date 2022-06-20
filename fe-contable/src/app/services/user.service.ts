@@ -18,7 +18,6 @@ export class UserService extends BaseCRUDService{
         public storageSessionService: StorageSessionService,
         public helperService: HelperService    
     ){
-            
         super(_http,storageSessionService)
         this.url = GLOBAL.url;
     }
@@ -27,22 +26,17 @@ export class UserService extends BaseCRUDService{
         return super.get(this.url+'/user/'+id)
     }
 
-    singnup(email:string,password:string):Observable<any>{ 
-              
+    singnup(email:string,password:string):Observable<any>{               
         let params = {
             email:email,
             password:password
         }  
-        
-        return this.post(this.url+'/login',params)
-        
+        return this.post(this.url+'/login',params)        
     }
 
-     update(user:User){   
-        
+     update(user:User){           
         let formData =  this.helperService.toFormData(user)
-        
-       return this.put(this.url+'/user/'+user._id,formData)
+        return this.put(this.url+'/user/'+user._id,formData)
     }
 
 
@@ -64,7 +58,7 @@ export class UserService extends BaseCRUDService{
         let params = {
             email : email,
         }
-        return this.post(this.url+'/forgot-password'+params)        
+        return this.post(this.url+'/forgot-password',params)        
     }
 
     getUserBusiness(idUser){

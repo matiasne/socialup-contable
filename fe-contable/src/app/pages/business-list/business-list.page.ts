@@ -26,24 +26,25 @@ export class BusinessListPage implements OnInit {
     public storageSessionService:StorageSessionService,
     public helperService: HelperService,
     public businessService:BusinessService ,
-    public selectService :SelectedService
+    public selectService :SelectedService,
+    public userService:UserService
   ) { 
     
   }
 
   ngOnInit() {  
     let idUser = this.storageSessionService.getUser()._id;
-    this.businessService.getUserBusiness(idUser).subscribe({
+    this.userService.getUserBusiness(idUser).subscribe({
       next:(response)=>{
   
       this.businesses =response.data;
       }
-      })      
-    }
+    })      
+  }
 
-ionViewWillEnter() { 
+  ionViewWillEnter() { 
       let idUser = this.storageSessionService.getUser()._id;
-      this.businessService.getUserBusiness(idUser).subscribe({
+      this.userService.getUserBusiness(idUser).subscribe({
         next:(response)=>{
         this.businesses =response.data;
         }

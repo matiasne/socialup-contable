@@ -16,17 +16,16 @@ export class ProductService extends BaseCRUDService{
         public storageSessionService: StorageSessionService,
         public helperService: HelperService    
     ){
-            
         super(_http,storageSessionService)
         this.url = GLOBAL.url+'/product';
     }
    
-    get(id){       
+    get(id):Observable<any>{       
         return super.get(this.url+'/'+id)
     }
 
-    update(product:Product){           
-      let formData =  this.helperService.toFormData(product)
+    update(product:Product):Observable<any>{           
+        let formData =  this.helperService.toFormData(product)
         return this.put(this.url+'/'+product._id,formData)
     }
 
@@ -38,7 +37,6 @@ export class ProductService extends BaseCRUDService{
     }
 
     _delete(id):Observable<any>{
-        console.log(this.url)
         return this.delete(this.url+'/'+id)
     }
 

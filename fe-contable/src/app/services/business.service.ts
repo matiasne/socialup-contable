@@ -19,38 +19,31 @@ export class BusinessService extends BaseCRUDService{
         public storageSessionService: StorageSessionService,
         public helperService: HelperService    
     ){
-            
         super(_http,storageSessionService)
         this.url = GLOBAL.url+'/business';
     }
 
-
-
-    get(id){       
+    get(id):Observable<any>{       
         return super.get(this.url+'/'+id)
     }
 
-    update(business:Business){         
+    update(business:Business):Observable<any>{         
         let formData =  this.helperService.toFormData(business)
         return this.put(this.url+business._id,formData)
-    }
+    }   
 
-    
-
-    getBusinessProduct(idBusiness){
+    getBusinessProduct(idBusiness):Observable<any>{
         return super.get(this.url+'/'+ idBusiness +'/products/')
     }
 
-    getBusinessClient(idBusiness){
+    getBusinessClient(idBusiness):Observable<any>{
         return super.get(this.url+'/'+ idBusiness +'/clients/')      
     }
 
 
-     register(business:Business):Observable<any>{
-        
+    register(business:Business):Observable<any>{        
         delete business._id;
-        let formData = this.helperService.toFormData(business)
-
+        let formData = this.helperService.toFormData(business);
         return this.post(this.url,formData)
     }
 
