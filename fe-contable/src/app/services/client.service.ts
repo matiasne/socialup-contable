@@ -9,6 +9,9 @@ import { Client } from "../models/client";
 
 @Injectable()
 export class ClientService extends BaseCRUDService{
+  getBusinessClient(_id: string) {
+    throw new Error('Method not implemented.');
+  }
     public url: string;
 
     constructor (
