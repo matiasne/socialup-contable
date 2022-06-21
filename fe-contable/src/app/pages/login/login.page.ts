@@ -76,9 +76,7 @@ validation_messages = {
   
    public onSubmit(){
     
-      
     this.isSubmited=true;
-    
     
     if(this.formData.valid){
       let email = this.formData.controls['email'].value

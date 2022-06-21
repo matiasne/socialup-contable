@@ -12,17 +12,20 @@ import { Product } from 'src/app/models/product';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
+import { IonSlides} from '@ionic/angular';
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.page.html',
   styleUrls: ['./list-product.page.scss'],
-  providers:[UserService, HelperService,BusinessService, ProductService]
+  providers:[UserService, HelperService,BusinessService, ProductService, IonSlides]
 })
 export class ListProductPage implements OnInit {
   public products : Array<Product> =[] 
   private business:Business;
   private obsBusiness:any;
+  public perPage:number;
+  public pageCount:number;
 public id:any;
   constructor(
     public activateRoute:ActivatedRoute,
@@ -32,7 +35,8 @@ public id:any;
     public selectedService:SelectedService, 
     public businessService:BusinessService,
     public router:Router,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public ionSlides:IonSlides
   ) { 
     
   }
@@ -64,6 +68,8 @@ public id:any;
       if(this.business._id){
         this.businessService.getBusinessProduct(this.business._id).subscribe({
           next:(response)=>{
+
+            console.log(this.business)
             this.products =response.data
           }
           })      
@@ -71,7 +77,13 @@ public id:any;
         }
       }
      
-    
+      // slidePrev(){
+      //   this.ionSlides.slidePrev();
+      // }
+
+      // slideNext(){
+      //   this.ionSlides.slideNext();
+      // }
   
 
 }

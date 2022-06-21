@@ -20,7 +20,9 @@ export class StorageSessionService{
     }
 
     setSession(session:Session):void{
+        console.log(this.isLoguedIn.getValue())
         this.isLoguedIn.next(true)
+        console.log(this.isLoguedIn.getValue())
         localStorage.setItem('session',JSON.stringify(session));
         this.router.navigate([this.loguedRoute]);        
     }

@@ -60,25 +60,36 @@ export class AppComponent implements OnInit {
         this.router.navigate([this.storageSessionService.unloguedRoute]);
         this.storageSessionService.isLoguedIn.next(false)
       }
+
       this.selectedService.obsSelectedBusiness().subscribe({
         next:(data:any)=>{
           //esto es para cuando hay un cambio de business dentro de la app
           this.business=data
         }
       })
+
+      console.log(this.showMenu)
+      
+      this.storageSessionService.obsLoguedIn().subscribe({
+        next:(value)=>{
+          this.showMenu = value;
+          console.log(value)
+          this.user = this.storageSessionService.getUser()
+        },
+      })
   }
 
   ngOnInit() {
-    this.storageSessionService.obsLoguedIn().subscribe({
-      next:(value)=>{
-        this.showMenu = value;
-         this.user = this.storageSessionService.getUser()
-      },
-    })
+    
   }
+
+  ionViewWillEnter() { 
+
+}
+
 
   LogoutSession():void{
     this.storageSessionService.logoutSession();
-    
+    this.selectedService.setSelectedBusiness(new Business('','','','','','','',''))
 }
 }

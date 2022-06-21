@@ -32,8 +32,8 @@ export class BusinessService extends BaseCRUDService{
         return this.put(this.url+business._id,formData)
     }   
 
-    getBusinessProduct(idBusiness):Observable<any>{
-        return super.get(this.url+'/'+ idBusiness +'/products/')
+    getBusinessProduct(idBusiness,pageCount=0,perPage=0):Observable<any>{
+        return super.get(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage)
     }
 
     getBusinessClient(idBusiness):Observable<any>{

@@ -16,23 +16,30 @@ function getProduct(req,res){
     });
 }
 
-async function getProducts(req,res){
+async function getProducts(req,res){  //pageCount  perPage    
 
     var idBusiness = req.params.idBusiness
+    var pageCount = req.query.pageCount;
+    var perPage = req.query.perPage;
+    var searchWord = req.query.searchWord;
+    var orderBy = req.query.orderBy;
+
+    var offset = (pageCount -1 ) * perPage;
+
+  
+
+    var limit = perPage;
+
     let productRepo = new productRepository();
     
-try{
-    let products = await productRepo.getByBusinessId(idBusiness)
-    console.log(idBusiness)
-        if(!products){
-            res.status(404).send({message: 'no hay products'});
-        }else{
-            res.status(200).send({data:products});
-        }
-      
-}catch(error){
-    res.status(400).send({message: error});
-}
+    try{
+        let data = await productRepo.getByBusinessId(idBusiness,offset,limit,orderBy,searchWord)       
+        res.status(200).send(data);       
+        
+    }catch(error){
+        res.status(400).send({message: error});
+        console.log('catch')
+    }
 }
 
 async function addProduct(req,res){

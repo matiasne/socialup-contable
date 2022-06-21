@@ -63,7 +63,7 @@ public id:any;
 
     refreshClients(){
       if(this.business._id){
-        this.clientService.getBusinessClient(this.business._id).subscribe({
+        this.clientService.get(this.business._id).subscribe({
           next:(response)=>{
             this.clients =response.data
           }
