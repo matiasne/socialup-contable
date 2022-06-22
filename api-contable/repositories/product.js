@@ -8,7 +8,7 @@ class ProductRepository extends BaseRepository{
 
     async getByBusinessId(id,offset = 0, limit = 0, orderBy= "timestamp", searchWord = ""){
 
-         let products = await this.model.find({idBusiness:id})
+    let products = await this.model.find({idBusiness:id, name: new RegExp(searchWord, 'i')})
          .skip(offset).limit(limit).exec();
 
          let total =await this.model.find({idBusiness:id}).count()

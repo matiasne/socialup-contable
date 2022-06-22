@@ -6,10 +6,11 @@
 
 <ion-content fullscreen="">
   <div><br>
-    <ion-searchbar showCancelButton="always"></ion-searchbar>
+    <ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
     </div>  
-  <ion-list *ngFor="let product of products">
-  <ion-item  >
+   
+  <ion-item *ngFor="let product of products" >
+    
     <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
       <img src={{product.image}}>
     </ion-avatar>
@@ -25,17 +26,13 @@
     
   </ion-item>
    
-  </ion-list>
-
-
-
   <ion-footer class="footer" >
     <ion-toolbar>
-      <ion-button (click)="slidePrev()">
+      <ion-button >
         <ion-icon name="chevron-back-outline"></ion-icon>
       </ion-button>
 
-      <ion-button  (click)="slideNext()" class="float-right">
+      <ion-button  class="float-right">
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </ion-button>
     </ion-toolbar>

@@ -12,13 +12,13 @@ import { Product } from 'src/app/models/product';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { IonSlides} from '@ionic/angular';
+import { SpinnerDialog } from '@awesome-cordova-plugins/spinner-dialog/ngx';
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.page.html',
   styleUrls: ['./list-product.page.scss'],
-  providers:[UserService, HelperService,BusinessService, ProductService, IonSlides]
+  providers:[UserService, HelperService,BusinessService, ProductService,SpinnerDialog]
 })
 export class ListProductPage implements OnInit {
   public products : Array<Product> =[] 
@@ -26,7 +26,8 @@ export class ListProductPage implements OnInit {
   private obsBusiness:any;
   public perPage:number;
   public pageCount:number;
-public id:any;
+  public id:any;
+  public searchWord:string;
   constructor(
     public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
@@ -36,13 +37,13 @@ public id:any;
     public businessService:BusinessService,
     public router:Router,
     public toastService: ToastService,
-    public ionSlides:IonSlides
+    private spinnerDialog: SpinnerDialog
   ) { 
-    
+   
   }
 
   ngOnInit() {
-      
+    
       
   }
   ionViewDidEnter(){
@@ -66,11 +67,12 @@ public id:any;
 
     refreshProducts(){
       if(this.business._id){
-        this.businessService.getBusinessProduct(this.business._id).subscribe({
+        this.businessService.getBusinessProduct(this.business._id,1,10,this.searchWord).subscribe({
           next:(response)=>{
 
-            console.log(this.business)
+            
             this.products =response.data
+            console.log(this.products)
           }
           })      
   
@@ -85,5 +87,12 @@ public id:any;
       //   this.ionSlides.slideNext();
       // }
   
+      searchEventFired(){
+//setear paginas a inicio, array vaciar 
+this.spinnerDialog.show();
 
+
+     this.refreshProducts()
+     this.spinnerDialog.hide();
+      }
 }

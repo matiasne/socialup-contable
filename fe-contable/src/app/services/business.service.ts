@@ -32,8 +32,9 @@ export class BusinessService extends BaseCRUDService{
         return this.put(this.url+business._id,formData)
     }   
 
-    getBusinessProduct(idBusiness,pageCount=0,perPage=0):Observable<any>{
-        return super.get(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage)
+    getBusinessProduct(idBusiness,pageCount=1,perPage=10, searchWord=""):Observable<any>{
+        console.log(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage + '&searchWord='+searchWord)
+        return super.get(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)
     }
 
     getBusinessClient(idBusiness):Observable<any>{

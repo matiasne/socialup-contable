@@ -7,6 +7,7 @@ import { ListProductPageRoutingModule } from './list-product-routing.module';
 import { ListProductPage } from './list-product.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
+
 @NgModule({
   imports: [
     CommonModule,
