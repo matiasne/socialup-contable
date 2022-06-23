@@ -33,7 +33,7 @@ export class BusinessService extends BaseCRUDService{
     }   
 
     getBusinessProduct(idBusiness,pageCount=1,perPage=10, searchWord=""):Observable<any>{
-        console.log(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage + '&searchWord='+searchWord)
+
         return super.get(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)
     }
 

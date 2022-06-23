@@ -30,7 +30,7 @@ export class ListProductPage implements OnInit {
   public pageCount:number;
   public totalPages:number=1;
   public isLoading :boolean=false;
-  public isDisabledNext:boolean=false;
+  public isDisabledNext:boolean=true;
   public isDisabledBack:boolean=true;
   constructor(
     public activateRoute:ActivatedRoute,
@@ -83,11 +83,15 @@ export class ListProductPage implements OnInit {
           this.products =response.data
           this.totalPages= response.paging.totalPages
           this.isLoading=false;
-          this.buttonController();
+          
+          },
+          complete:()=>{
+            this.buttonController();
           }
           })      
   
         }
+       
       }
 
       searchEventFired(){
@@ -126,7 +130,13 @@ export class ListProductPage implements OnInit {
       this.isDisabledNext=false
     }else{
       this.isDisabledNext=true
+      
     }
+    if(this.totalPages<=1){
+      
+      this.isDisabledNext=true
+    }
+   
   }
   
 }

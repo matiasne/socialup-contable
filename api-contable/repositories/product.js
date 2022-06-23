@@ -11,7 +11,7 @@ class ProductRepository extends BaseRepository{
     let products = await this.model.find({idBusiness:id, name: new RegExp(searchWord, 'i')})
          .skip(offset).limit(limit).exec();
 
-         let total =await this.model.find({idBusiness:id}).count()
+         let total =await this.model.find({idBusiness:id, name: new RegExp(searchWord, 'i')}).count()
 
          let totalPages = 1;
          if(limit)
