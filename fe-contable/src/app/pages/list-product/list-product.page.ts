@@ -24,10 +24,14 @@ export class ListProductPage implements OnInit {
   public products : Array<Product> =[] 
   private business:Business;
   private obsBusiness:any;
-  public perPage:number;
-  public pageCount:number;
+  public perPage:number=10;
   public id:any;
   public searchWord:string;
+  public pageCount:number;
+  public totalPages:number=1;
+  public isLoading :boolean=false;
+  public isDisabledNext:boolean=false;
+  public isDisabledBack:boolean=true;
   constructor(
     public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
@@ -59,6 +63,9 @@ export class ListProductPage implements OnInit {
       this.router.navigate(['/list-business'])
       this.toastService.show(ToastType.warning , "Necesita ingresar con una empresa")
     }
+    this.pageCount=1
+    this.searchWord=""
+    
   }
 
     ionViewDidLeave(){
@@ -66,33 +73,60 @@ export class ListProductPage implements OnInit {
     }
 
     refreshProducts(){
+      this.isLoading=true;
+    
       if(this.business._id){
-        this.businessService.getBusinessProduct(this.business._id,1,10,this.searchWord).subscribe({
+        this.businessService.getBusinessProduct(this.business._id,this.pageCount,this.perPage,this.searchWord).subscribe({
           next:(response)=>{
 
             
-            this.products =response.data
-            console.log(this.products)
+          this.products =response.data
+          this.totalPages= response.paging.totalPages
+          this.isLoading=false;
+          this.buttonController();
           }
           })      
   
         }
       }
-     
-      // slidePrev(){
-      //   this.ionSlides.slidePrev();
-      // }
 
-      // slideNext(){
-      //   this.ionSlides.slideNext();
-      // }
-  
       searchEventFired(){
 //setear paginas a inicio, array vaciar 
-this.spinnerDialog.show();
+    this.spinnerDialog.show();
 
+    this.refreshProducts()
 
-     this.refreshProducts()
-     this.spinnerDialog.hide();
+    this.spinnerDialog.hide();
       }
+
+  nextPagination(){
+   
+    if(this.pageCount <this.totalPages){
+      this.pageCount ++ 
+      
+      this.refreshProducts()
+    }
+
+}
+  backPagination(){
+    if(this.pageCount != 1){
+      this.pageCount --
+      this.refreshProducts()
+       
+  }
+
+}
+  buttonController(){
+    if(this.pageCount>=2){
+      this.isDisabledBack=false
+    }else{
+      this.isDisabledBack=true
+    }
+    if(this.pageCount !=this.totalPages){
+      this.isDisabledNext=false
+    }else{
+      this.isDisabledNext=true
+    }
+  }
+  
 }

@@ -20,7 +20,6 @@ class ProductRepository extends BaseRepository{
          let currentPage = 1;
          if(offset)
              currentPage = Math.ceil(total % parseInt (offset)) + 1;        
-       
 
          let response = {
             data: products,
