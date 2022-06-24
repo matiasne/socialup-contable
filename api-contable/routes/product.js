@@ -15,7 +15,7 @@ api.put('/product/:_id', [ md_auth.ensureAuth, md_uploadFile.single('image')], P
 api.delete('/product/:id', md_auth.ensureAuth, ProductController.deleteProduct);
 api.post('/product' ,md_uploadFile.single('image'), ProductController.addProduct);
 api.get('/product/file/:imageFile',ProductController.getProductImageFile);
-api.get('/business/:idBusiness/products',ProductController.getProducts);
-//api.get('/business/:idBusiness/products',md_auth.ensureAuth,ProductController.getProducts);
+api.get('/business/:idBusiness/products',md_auth.ensureAuth,ProductController.getProducts);
+
 
 module.exports = api;

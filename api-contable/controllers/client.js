@@ -18,15 +18,17 @@ function getClient(req,res){
 async function getBusinessClients(req,res){
    
     var idBusiness = req.params.idBusiness
+    var pageCount = req.query.pageCount;
+    var perPage = req.query.perPage;
+    var searchWord = req.query.searchWord;
+    var orderBy = req.query.orderBy;
+    var offset = (pageCount -1 ) * perPage;
+    var limit = perPage;
     let clientRepo = new clientRepository();
     
 try{
-    let clients = await clientRepo.getByBusinessId(idBusiness)
-        if(!clients){
-            res.status(404).send({message: 'no hay cliente'});
-        }else{
-            res.status(200).send({data:clients});
-        }
+    let data= await clientRepo.getByBusinessId(idBusiness,offset,limit,orderBy,searchWord)
+    res.status(200).send(data);     
       
 }catch(error){
     res.status(400).send({message: error});

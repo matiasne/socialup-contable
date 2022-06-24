@@ -95,7 +95,7 @@ export class ListProductPage implements OnInit {
       }
 
       searchEventFired(){
-//setear paginas a inicio, array vaciar 
+    this.pageCount=1 
     this.spinnerDialog.show();
 
     this.refreshProducts()

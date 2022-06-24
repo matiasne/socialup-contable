@@ -5,8 +5,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-list  *ngFor="let client of clients">
-    <ion-item  >
+  <div><br>
+    <ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
+    </div>  
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+  <ion-list *ngIf="!isLoading">
+    <ion-item  *ngFor="let client of clients" >
       <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
         <img src={{client.image}}>
       </ion-avatar>
@@ -23,4 +27,16 @@
     </ion-item>
      
     </ion-list>
+    <div *ngIf="clients.length==0">No Hay Clientes</div>
+    <ion-footer class="footer" >
+      <ion-toolbar>
+        <ion-button (click)="backPagination()"  [disabled]="isDisabledBack">
+          <ion-icon name="chevron-back-outline"  ></ion-icon>
+        </ion-button>
+  
+        <ion-button  class="float-right" (click)="nextPagination()"  [disabled]="isDisabledNext">
+          <ion-icon name="chevron-forward-outline" ></ion-icon>
+        </ion-button>
+      </ion-toolbar>
+    </ion-footer>
 </ion-content>
