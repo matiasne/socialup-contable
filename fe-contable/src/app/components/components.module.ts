@@ -5,6 +5,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { IonicModule } from '@ionic/angular';
 import { CropImageComponent } from './crop-image/crop-image.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { ListItemsComponent } from './list-items/list-items.component';
 
 
 
@@ -18,9 +19,11 @@ imports: [
     ],
   declarations: [
     CropImageComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    ListItemsComponent
   ],
   exports: [
+    ListItemsComponent,
     ImageUploadComponent
   ]
 })
