@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-list-items',
@@ -9,6 +9,8 @@ export class ListItemsComponent implements OnInit {
 
   @Input() items:Array<any> = [];
   @Input() totalPages:number;
+  @Input("itemTemplate") itemTemplate?: TemplateRef<any>;
+
   @Output() handleClickItem = new EventEmitter<any>();
   @Output() handleSearch = new EventEmitter<any>();
   
