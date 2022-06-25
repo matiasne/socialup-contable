@@ -1,11 +1,19 @@
 
+
+
 <div><br>
   <ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
   </div>  
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <ion-list *ngIf="!isLoading">
 
-  <ion-item  *ngFor="let item of items" (click)="handleClick(item)">    
+    <div *ngFor="let item of items">
+      <ng-container *ngTemplateOutlet="itemTemplate;context:{item:item}">
+      </ng-container>
+    </div>
+    
+
+  <!--ion-item  *ngFor="let item of items" (click)="handleClick(item)">    
     <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
       <img src={{item.image}}>
     </ion-avatar>
@@ -14,7 +22,7 @@
       <h3>Descripcion: {{item.description}}</h3> 
       <h3>Precio de Venta: {{item.salePrice}}</h3>
     </ion-label> 
-  </ion-item>
+  </ion-item-->
 </ion-list>
 
 <div *ngIf="items.length==0">No hay Items para mostrar</div>

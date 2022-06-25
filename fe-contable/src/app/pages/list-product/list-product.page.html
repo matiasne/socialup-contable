@@ -4,8 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<!--ng-template #productsTemplate let-items>
-  <ion-item  *ngFor="let item of items" (click)="handleClick(item)">    
+<ng-template #productTemplate let-item="item">
+  <ion-item (click)="handleClick(item)">    
     <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
       <img src={{item.image}}>
     </ion-avatar>
@@ -15,12 +15,13 @@
       <h3>Precio de Venta: {{item.salePrice}}</h3>
     </ion-label> 
   </ion-item>
-</!--ng-template-->
+</ng-template>
 
 <ion-content fullscreen="">
   <app-list-items
     #listItem
     [items]="products"
+    [itemTemplate]="productTemplate"
     [totalPages]="totalPages"
     (handleSearch)="refreshProducts($event)"
     (handleClickItem)="click()"
