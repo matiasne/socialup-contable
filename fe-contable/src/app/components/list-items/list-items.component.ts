@@ -53,14 +53,12 @@ export class ListItemsComponent implements OnInit {
     })
   }
 
-  nextPagination(){
-   
+  nextPagination(){   
     if(this.pageCount <this.totalPages){
       this.pageCount ++;
       this.search()
       this.buttonController()
-    }
-    
+    }    
   }
 
   backPagination(){
@@ -71,9 +69,8 @@ export class ListItemsComponent implements OnInit {
     }   
   }
 
-  buttonController(){
-    console.log(this.pageCount)
-    console.log(this.totalPages)
+  buttonController(){ 
+    
     if(this.pageCount>=2){
       this.isDisabledBack=false
     }else{
@@ -82,9 +79,9 @@ export class ListItemsComponent implements OnInit {
     if(this.pageCount !=this.totalPages){
       this.isDisabledNext=false
     }else{
-      this.isDisabledNext=true
-      
+      this.isDisabledNext=true      
     }
+
     if(this.totalPages<=1){      
       this.isDisabledNext=true
     }
