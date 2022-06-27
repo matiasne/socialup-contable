@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { GLOBAL } from "./global";
-import { BaseCRUDService } from "./base-crud.service";
-import { StorageSessionService } from "./storage-session.service";
-import { HelperService } from "./helpers.service";
-import { Product } from "../models/product";
+import { GLOBAL } from "../../../services/global";
+import { BaseCRUDService } from "../../../services/base-crud.service";
+import { StorageSessionService } from "../../../services/storage-session.service";
+import { HelperService } from "../../../services/helpers.service";
+import { Product } from "../../../models/product";
 
 @Injectable()
 export class ProductService extends BaseCRUDService{

@@ -1,0 +1,15 @@
+
+<ng-template #productTemplate let-item="item">
+  <app-item-product [product]="item"></app-item-product>
+</ng-template>
+
+
+  <app-list-items
+    #listItem
+    [items]="products"
+    [itemTemplate]="productTemplate"
+    [totalPages]="totalPages"
+    (handleSearch)="refreshProducts($event)"
+    (handleClickItem)="click()"
+  ></app-list-items>
+

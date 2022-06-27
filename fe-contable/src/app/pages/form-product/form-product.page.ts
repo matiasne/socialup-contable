@@ -2,7 +2,7 @@ import { Product } from 'src/app/models/product';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { Business } from 'src/app/models/business';
 import { ToastService } from 'src/app/services/toast.service';

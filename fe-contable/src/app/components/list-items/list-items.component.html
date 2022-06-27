@@ -1,4 +1,5 @@
-<ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
+
+<ion-searchbar *ngIf="!hideSearchBar" placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
 
 <ion-spinner *ngIf="isLoading"></ion-spinner>
 
@@ -11,7 +12,7 @@
 
 <div *ngIf="items.length==0">No hay Items para mostrar</div>
 
-<ion-footer class="footer">
+<ion-footer class="footer" *ngIf="this.totalPages>1">
   <ion-toolbar>
     <ion-button (click)="backPagination()" [disabled]="isDisabledBack">
       <ion-icon name="chevron-back-outline"  ></ion-icon>

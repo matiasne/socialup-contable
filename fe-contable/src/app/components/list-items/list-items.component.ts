@@ -10,7 +10,7 @@ export class ListItemsComponent implements OnInit {
   @Input() items:Array<any> = [];
   @Input() totalPages:number;
   @Input("itemTemplate") itemTemplate?: TemplateRef<any>;
-
+  @Input() hideSearchBar:boolean=false;
   @Output() handleClickItem = new EventEmitter<any>();
   @Output() handleSearch = new EventEmitter<any>();
   
@@ -70,22 +70,25 @@ export class ListItemsComponent implements OnInit {
   }
 
   buttonController(){ 
-    
-    if(this.pageCount>=2){
-      this.isDisabledBack=false
-    }else{
-      this.isDisabledBack=true
-    }
-    if(this.pageCount !=this.totalPages){
-      this.isDisabledNext=false
-    }else{
-      this.isDisabledNext=true      
-    }
+   if(this.totalPages>1){ 
+      if(this.pageCount>=2){
+        this.isDisabledBack=false
+      }else{
+        this.isDisabledBack=true
+      }
+      if(this.pageCount !=this.totalPages){
+        this.isDisabledNext=false
+      }else{
+        this.isDisabledNext=true      
+      }
 
-    if(this.totalPages<=1){      
-      this.isDisabledNext=true
+      if(this.totalPages<=1){      
+        this.isDisabledNext=true
+      }
+    
+    }else{
+    
     }
-   
   }
 
 }

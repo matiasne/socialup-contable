@@ -11,6 +11,7 @@
   <app-list-items
     #listItem
     [items]="businesses"
+    [hideSearchBar]="true"
     [itemTemplate]="businessTemplate"
     [totalPages]="totalPages"
     (handleSearch)="refreshBusinesses($event)"
