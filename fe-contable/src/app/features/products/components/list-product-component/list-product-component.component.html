@@ -10,6 +10,6 @@
     [itemTemplate]="productTemplate"
     [totalPages]="totalPages"
     (handleSearch)="refreshProducts($event)"
-    (handleClickItem)="click()"
+    (handleClickItem)="click($event)"
   ></app-list-items>
 
