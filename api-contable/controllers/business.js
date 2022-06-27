@@ -18,15 +18,18 @@ function getBusiness(req,res){
 async function getUserBusinesses(req,res){
    
     var idUser = req.params.idUser
+    var pageCount = req.query.pageCount;
+    var perPage = req.query.perPage;
+    var searchWord = req.query.searchWord;
+    var orderBy = req.query.orderBy;
+    var offset = (pageCount -1 ) * perPage;
+    var limit = perPage;
     let businessRepo = new businessRepository();
     
 try{
-    let businesses = await businessRepo.getByUserId(idUser)
-        if(!businesses){
-            res.status(404).send({message: 'no hay business'});
-        }else{
-            res.status(200).send({data:businesses});
-        }
+    let data= await businessRepo.getByUserId(idUser,offset,limit,orderBy,searchWord)
+    res.status(200).send(data);     
+      
       
 }catch(error){
     res.status(400).send({message: error});

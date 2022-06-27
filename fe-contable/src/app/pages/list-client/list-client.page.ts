@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'protractor';
 import { Business } from 'src/app/models/business';
@@ -13,6 +13,7 @@ import { SelectedService } from 'src/app/services/global/selected.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
 import { SpinnerDialog } from '@awesome-cordova-plugins/spinner-dialog/ngx';
+import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 
 @Component({
   selector: 'app-list-client',
@@ -20,7 +21,13 @@ import { SpinnerDialog } from '@awesome-cordova-plugins/spinner-dialog/ngx';
   styleUrls: ['./list-client.page.scss'],
   providers:[UserService, HelperService,BusinessService, ClientService,SpinnerDialog]
 })
+
+
+
 export class ListClientPage implements OnInit {
+  @ViewChild('listItem') listItems: ListItemsComponent;
+
+  
   public clients : Array<Client> =[] 
   private business:Business;
   private obsBusiness:any;
@@ -54,7 +61,7 @@ export class ListClientPage implements OnInit {
     this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
       next:(data:any)=>{
         this.business = data
-        this.refreshClients()
+        this.refreshClients({perPage:10,pageCount:1,searchWord:""})
       }
     })
   
@@ -70,66 +77,21 @@ export class ListClientPage implements OnInit {
       this.obsBusiness.unsubscribe()
     }
 
-    refreshClients(){
-      this.isLoading=true;
-
+    refreshClients(data:any){
       if(this.business._id){
-        this.businessService.getBusinessClient(this.business._id,this.pageCount,this.perPage,this.searchWord).subscribe({
+        this.businessService.getBusinessClient(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
           next:(response)=>{
-            this.clients =response.data
-            this.totalPages= response.paging.totalPages
-            this.isLoading=false;
-          },
-          complete:()=>{
-            this.buttonController();
+            
+          this.clients = response.data
+          this.listItems.totalPages = response.paging.totalPages
+          this.listItems.buttonController()
           }
           })      
-  
         }
       }
-     
-      searchEventFired(){
-      this.pageCount=1
-            this.spinnerDialog.show();
-        
-            this.refreshClients()
-        
-            this.spinnerDialog.hide();
-              }
-  
-              nextPagination(){
-   
-                if(this.pageCount <this.totalPages){
-                  this.pageCount ++ 
-                  
-                  this.refreshClients()
-                }
-              }
-              backPagination(){
-                if(this.pageCount != 1){
-                  this.pageCount --
-                  this.refreshClients()
-                   
-              }
-            
-            }
-              buttonController(){
-                if(this.pageCount>=2){
-                  this.isDisabledBack=false
-                }else{
-                  this.isDisabledBack=true
-                }
-                if(this.pageCount !=this.totalPages){
-                  this.isDisabledNext=false
-                }else{
-                  this.isDisabledNext=true
-                  
-                }
-                if(this.totalPages<=1){
-                  
-                  this.isDisabledNext=true
-                }
-               
-              }
+   click(){
+     console.log("click")
+    }
+      
                           
 }

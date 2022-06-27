@@ -4,7 +4,7 @@
 
 <ion-list *ngIf="!isLoading">
   <div *ngFor="let item of items">
-    <ng-container *ngTemplateOutlet="itemTemplate;context:{item:item}">
+    <ng-container (click)="handleClick(item)" *ngTemplateOutlet="itemTemplate;context:{item:item}">
     </ng-container>
   </div>
 </ion-list>
@@ -15,9 +15,11 @@
   <ion-toolbar>
     <ion-button (click)="backPagination()" [disabled]="isDisabledBack">
       <ion-icon name="chevron-back-outline"  ></ion-icon>
+      prev
     </ion-button>
 
     <ion-button  class="float-right" (click)="nextPagination()"  [disabled]="isDisabledNext">
+     next
       <ion-icon name="chevron-forward-outline" ></ion-icon>
     </ion-button>
   </ion-toolbar>

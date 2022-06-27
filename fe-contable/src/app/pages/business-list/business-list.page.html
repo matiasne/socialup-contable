@@ -3,28 +3,20 @@
     <ion-title>Mis Empresas</ion-title>
   </ion-toolbar>
 </ion-header>
+<ng-template #businessTemplate let-item="item">
+  <app-item-business [business]="item"></app-item-business>
+</ng-template>
 
 <ion-content fullscreen="">
-  <ion-list  *ngFor="let business of businesses">
-  <ion-item  >
-    <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
-      <img src={{business.image}}>
-    </ion-avatar>
-    <!---->
-    <ion-label>
-     <h1><b>{{business.name}}</b></h1>
-     
-      <h3>Email: {{business.email}}</h3> 
-      <h3>Teléfono: {{business.phone}}</h3> 
-      <h3>Rubro: {{business.category}}</h3>
-      
-    </ion-label>
-    <ion-button>
-      <ion-icon name="create-outline" slot="end" ></ion-icon>
-    </ion-button>
-
-  </ion-item>
-  <ion-fab vertical="center" horizontal="end" slot="fixed">
+  <app-list-items
+    #listItem
+    [items]="businesses"
+    [itemTemplate]="businessTemplate"
+    [totalPages]="totalPages"
+    (handleSearch)="refreshBusinesses($event)"
+    (handleClickItem)="click()"
+  ></app-list-items>
+  <!-- <ion-fab vertical="center" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="radio-button-off-outline"></ion-icon>
    </ion-fab-button>
@@ -44,6 +36,5 @@
     </ion-fab-button>
   </ion-fab-list>
    </ion-fab>
-  </ion-list>
-
+  </ion-list> -->
 </ion-content>

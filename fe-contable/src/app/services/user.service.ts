@@ -61,8 +61,8 @@ export class UserService extends BaseCRUDService{
         return this.post(this.url+'/forgot-password',params)        
     }
 
-    getUserBusiness(idUser){
-        return super.get(this.url+'/user/'+ idUser +'/businesses/')
+    getUserBusiness(idUser,pageCount=1,perPage=10, searchWord=""){
+        return super.get(this.url+'/user/'+ idUser +'/businesses?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)
     }
 
     

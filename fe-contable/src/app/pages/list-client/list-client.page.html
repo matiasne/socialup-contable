@@ -3,40 +3,17 @@
     <ion-title>list-client</ion-title>
   </ion-toolbar>
 </ion-header>
+<ng-template #clientTemplate let-item="item">
+  <app-item-client [client]="item"></app-item-client>
+</ng-template>
 
-<ion-content>
-  <div><br>
-    <ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchWord" (ionChange)="searchEventFired()"  showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar>
-    </div>  
-    <ion-spinner *ngIf="isLoading"></ion-spinner>
-  <ion-list *ngIf="!isLoading">
-    <ion-item  *ngFor="let client of clients" >
-      <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
-        <img src={{client.image}}>
-      </ion-avatar>
-      <ion-label [routerLink]="['/client/'+client._id]" >
-       <h1><b>{{client.name}}</b></h1>
-        <h3>Nombre: {{client.name}}</h3> 
-        <h3>Apellido: {{client.surname}}</h3> 
-        <h3>Telefono: {{client.phone}}</h3>
-      </ion-label>
-      <div>
-        <ion-icon name="create-outline" slot="end" ></ion-icon>
-      </div>
-      
-    </ion-item>
-     
-    </ion-list>
-    <div *ngIf="clients.length==0">No Hay Clientes</div>
-    <ion-footer class="footer" >
-      <ion-toolbar>
-        <ion-button (click)="backPagination()"  [disabled]="isDisabledBack">
-          <ion-icon name="chevron-back-outline"  ></ion-icon>
-        </ion-button>
-  
-        <ion-button  class="float-right" (click)="nextPagination()"  [disabled]="isDisabledNext">
-          <ion-icon name="chevron-forward-outline" ></ion-icon>
-        </ion-button>
-      </ion-toolbar>
-    </ion-footer>
+<ion-content fullscreen="">
+  <app-list-items
+    #listItem
+    [items]="clients"
+    [itemTemplate]="clientTemplate"
+    [totalPages]="totalPages"
+    (handleSearch)="refreshClients($event)"
+    (handleClickItem)="click()"
+  ></app-list-items>
 </ion-content>
