@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 import { Business } from 'src/app/models/business';
@@ -19,6 +19,7 @@ import { ProductService } from '../../services/product.service';
 export class ListProductComponentComponent implements OnInit {
 
     @ViewChild('listItem') listItems: ListItemsComponent;
+    @Output() clickProduct = new EventEmitter<Product>()
 
     public products : Array<Product> =[] 
     private business:Business;
@@ -76,8 +77,8 @@ export class ListProductComponentComponent implements OnInit {
 
  
 
-  click(){
-    console.log("click")
+  click(data){
+    this.clickProduct.emit(data)
   }
 
 }

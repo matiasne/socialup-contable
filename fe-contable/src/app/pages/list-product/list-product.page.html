@@ -5,7 +5,9 @@
 </ion-header>
 
 <ion-content fullscreen="">
-  <app-list-product-component></app-list-product-component>
+  <app-list-product-component
+    (clickProduct)="handleClickProduct($event)"
+  ></app-list-product-component>
 </ion-content>
 
 
