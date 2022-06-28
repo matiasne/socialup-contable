@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 import { Business } from 'src/app/models/business';
-import { Product } from 'src/app/models/product';
+import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/services/business.service';
 import { SelectedService } from 'src/app/services/global/selected.service';

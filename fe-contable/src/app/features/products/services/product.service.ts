@@ -5,7 +5,7 @@ import { GLOBAL } from "../../../services/global";
 import { BaseCRUDService } from "../../../services/base-crud.service";
 import { StorageSessionService } from "../../../services/storage-session.service";
 import { HelperService } from "../../../services/helpers.service";
-import { Product } from "../../../models/product";
+import { Product } from "../models/product";
 
 @Injectable()
 export class ProductService extends BaseCRUDService{
