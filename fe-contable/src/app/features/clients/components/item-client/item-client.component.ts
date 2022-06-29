@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Client } from 'src/app/models/client';
+import { Client } from 'src/app/features/clients/models/client';
 
 @Component({
-  selector: 'app-item-client',
+  selector: 'socialup-item-client',
   templateUrl: './item-client.component.html',
   styleUrls: ['./item-client.component.scss'],
 })

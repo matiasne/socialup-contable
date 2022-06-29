@@ -3,17 +3,10 @@
     <ion-title>list-client</ion-title>
   </ion-toolbar>
 </ion-header>
-<ng-template #clientTemplate let-item="item">
-  <app-item-client [client]="item"></app-item-client>
-</ng-template>
+
 
 <ion-content fullscreen="">
-  <app-list-items
-    #listItem
-    [items]="clients"
-    [itemTemplate]="clientTemplate"
-    [totalPages]="totalPages"
-    (handleSearch)="refreshClients($event)"
-    (handleClickItem)="click()"
-  ></app-list-items>
+<socialup-list-client
+(clickClient)="handleClickClient($event)"
+></socialup-list-client>
 </ion-content>

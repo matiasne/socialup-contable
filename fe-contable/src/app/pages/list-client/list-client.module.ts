@@ -8,15 +8,15 @@ import { ListClientPageRoutingModule } from './list-client-routing.module';
 
 import { ListClientPage } from './list-client.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ClientsModule } from 'src/app/features/clients/clients.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ClientsModule,
     IonicModule,
     ListClientPageRoutingModule,
     ComponentsModule,
-    ReactiveFormsModule,
   ],
   declarations: [ListClientPage]
 })

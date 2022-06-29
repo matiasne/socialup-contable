@@ -4,17 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { FormClientPageRoutingModule } from './form-client-routing.module';
 import { FormClientPage } from './form-client.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { ClientsModule } from 'src/app/features/clients/clients.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     FormClientPageRoutingModule,
-    ComponentsModule,
-    ReactiveFormsModule,
+    ClientsModule
   ],
   declarations: [FormClientPage]
 })

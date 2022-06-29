@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { CropImageComponent } from './crop-image/crop-image.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ListItemsComponent } from './list-items/list-items.component';
-import { ItemClientComponent } from './item-client/item-client.component';
 import { ItemBusinessComponent } from './item-business/item-business.component';
 
 
@@ -23,13 +22,11 @@ imports: [
     CropImageComponent,
     ImageUploadComponent,
     ListItemsComponent,
-    ItemClientComponent,
     ItemBusinessComponent
   ],
   exports: [
     ListItemsComponent,
     ImageUploadComponent,
-    ItemClientComponent,
     ItemBusinessComponent
   ]
 })

@@ -3,10 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Business } from 'src/app/models/business';
-import { Client } from 'src/app/models/client';
+import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/services/business.service';
-import { ClientService } from 'src/app/services/client.service';
+import { ClientService } from 'src/app/features/clients/services/client.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -18,15 +18,9 @@ import { ToastService } from 'src/app/services/toast.service';
   providers: [ClientService, HelperService, BusinessService,]
 })
 export class FormClientPage implements OnInit {
-  public formClient:FormGroup;
-  public FormGroup:FormControl;
-  public isEditing: boolean = false;
-  public isSubmited: boolean = false;
-  public buttonLabel = "Crear Cliente"
+  public client:Client;
   public business: Business;
-  public obsBusiness: any;
-  public imagePreview: any = "";
-  public filesToUpload: Array<File>
+  public obsBusiness: any
   constructor(
     public clientService: ClientService,
     public toastService: ToastService,
@@ -35,55 +29,28 @@ export class FormClientPage implements OnInit {
     public selectedService: SelectedService,
     public router: Router,
     public alertController: AlertController
-  ) { }
+  ) {
+    this.client = new Client ('','','','','','','','','','','','',)
+   }
 
   ngOnInit() {
-    this.formClient= new FormGroup({
-      name: new FormControl('',Validators.required),
-      address: new FormControl('',Validators.required),
-      surname:new FormControl('',Validators.required),
-      email: new FormControl('',Validators.required),
-      phone:new FormControl('',Validators.required),
-      documentType:new FormControl('',Validators.required),
-      documentNumber:new FormControl('',Validators.required),
-      postCode:new FormControl('',Validators.required),
-      city:new FormControl('',Validators.required),
-      image: new FormControl('')
-    });
+  
   }
   ionViewDidEnter(){
 
     this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
       next: (data: any) => {
         this.business = data
+        this.client.idBusiness = this.business._id;
       }
     })
-    if (this.activateRoute.snapshot.params.id) {
-      this.buttonLabel = "Guardar";
-      this.isEditing = true
-      this.clientService.get(this.activateRoute.snapshot.params.id).subscribe({
-        next: (data) => {
+   
+    if (this.activateRoute.snapshot.params.id) { 
+      this.client._id = this.activateRoute.snapshot.params.id; 
+      
+     
+    } 
 
-          console.log(data.client)
-          this.formClient.setValue({
-            name: data.client.name,
-            address: data.client.address,
-            surname: data.client.surname,
-            email: data.client.email,
-            phone: data.client.phone,
-            documentType: data.client.documentType,
-            documentNumber: data.client.documentNumber,
-            postCode: data.client.postCode,
-            city: data.client.city,
-            image:  data.client.image?data.client .image:""
-          })
-
-        }
-      })
-    } else {
-      this.buttonLabel = "Crear Nuevo";
-      this.isEditing = false
-    }
 
     if(!this.business){
       this.router.navigate(['/list-business'])
@@ -91,68 +58,11 @@ export class FormClientPage implements OnInit {
     }
   }
    
+  submit(data){
+    console.log(data)
+  }
 
-onSubmit(){
-  this.isSubmited = true;
-    if (this.formClient.valid) {
-      if (this.isEditing) {
-        this.updateProfileClient();
-      }
-      else {
-        this.createClient();
-      }
-    } else {
-      this.toastService.show(ToastType.error, "Por favor complete todos los campos")
-    }
-}
 
-updateProfileClient() {
-  let idClient = this.activateRoute.snapshot.params.id
-  let client = new Client(
-    idClient,
-    this.formClient.controls['name'].value,
-    this.formClient.controls['image'].value,
-    this.formClient.controls['city'].value,
-    this.formClient.controls['address'].value,
-    this.formClient.controls['email'].value,
-    this.formClient.controls['phone'].value,
-    this.business._id,
-    this.formClient.controls['postCode'].value,
-    this.formClient.controls['documentType'].value,
-    this.formClient.controls['documentNumber'].value,
-    this.formClient.controls['surname'].value,
-  )
-  this.clientService.update(client).subscribe({
-    next: (data) => {
-      this.toastService.show(ToastType.success, "Se ha actualizado el cliente correctamente")
-    }
-  })
-}
-createClient() {
-  this.isSubmited = true;
-
-  let client = new Client('',
-    this.formClient.controls['name'].value,
-    this.formClient.controls['image'].value,
-    this.formClient.controls['city'].value,
-    this.formClient.controls['address'].value,
-    this.formClient.controls['email'].value,
-    this.formClient.controls['phone'].value,
-    this.business._id,
-    this.formClient.controls['postCode'].value,
-    this.formClient.controls['documentType'].value,
-    this.formClient.controls['documentNumber'].value,
-    this.formClient.controls['surname'].value,
-   
-  )
-  console.log(client)
-  this.clientService.add(client).subscribe({
-    next: (data) => {
-      console.log(data)
-    }
-  })
-
-}
 
 async doAlert(){
   const alert = await this.alertController.create({
@@ -189,19 +99,5 @@ async doAlert(){
   (await alert).present()
 
 }
-changeImage(event: any) {
-  this.formClient.patchValue({
-    image: event
-  })
-}
 
-  get name(){return this.formClient.get('name');}
-  get address(){return this.formClient.get ('address');}
-  get surname(){return this.formClient.get('surname');}
-  get email(){return this.formClient.get('email');}
-  get phone(){return this.formClient.get('phone');}
-  get documentType(){return this.formClient.get('documentType');}
-  get documentNumber(){return this.formClient.get('documentNumber');}
-  get postCode(){return this.formClient.get('postCode');}
-  get city(){return this.formClient.get('city');}
 }

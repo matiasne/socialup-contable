@@ -7,8 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import {StorageSessionService} from 'src/app/services/storage-session.service'
 import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
-import { ClientService } from 'src/app/services/client.service';
-import { Client } from 'src/app/models/client';
+import { ClientService } from 'src/app/features/clients/services/client.service';
+import { Client } from 'src/app/features/clients/models/client';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
@@ -25,20 +25,6 @@ import { ListItemsComponent } from 'src/app/components/list-items/list-items.com
 
 
 export class ListClientPage implements OnInit {
-  @ViewChild('listItem') listItems: ListItemsComponent;
-
-  
-  public clients : Array<Client> =[] 
-  private business:Business;
-  private obsBusiness:any;
-  public id:any;
-  public perPage:number=10;
-  public searchWord:string;
-  public pageCount:number;
-  public totalPages:number=1;
-  public isLoading :boolean=false;
-  public isDisabledNext:boolean=true;
-  public isDisabledBack:boolean=true;
   constructor(
     public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
@@ -48,7 +34,7 @@ export class ListClientPage implements OnInit {
     public businessService:BusinessService,
     public router:Router,
     public toastService: ToastService,
-    private spinnerDialog: SpinnerDialog
+
   ) { 
     
   }
@@ -56,42 +42,10 @@ export class ListClientPage implements OnInit {
   ngOnInit() {
       
   }
-  ionViewDidEnter(){
-
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next:(data:any)=>{
-        this.business = data
-        this.refreshClients({perPage:10,pageCount:1,searchWord:""})
-      }
-    })
-  
-    if(!this.business){
-      this.router.navigate(['/list-business'])
-      this.toastService.show(ToastType.warning , "Necesita ingresar con una empresa")
-    }
-    this.pageCount=1
-    this.searchWord=""
+    
+  handleClickClient(client){
+    console.log(client)
   }
-
-    ionViewDidLeave(){
-      this.obsBusiness.unsubscribe()
-    }
-
-    refreshClients(data:any){
-      if(this.business._id){
-        this.businessService.getBusinessClient(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
-          next:(response)=>{
-            
-          this.clients = response.data
-          this.listItems.totalPages = response.paging.totalPages
-          this.listItems.buttonController()
-          }
-          })      
-        }
-      }
-   click(){
-     console.log("click")
-    }
       
                           
 }
