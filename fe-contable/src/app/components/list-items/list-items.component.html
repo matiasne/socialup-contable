@@ -4,8 +4,8 @@
 <ion-spinner *ngIf="isLoading"></ion-spinner>
 
 <ion-list *ngIf="!isLoading">
-  <div *ngFor="let item of items">
-    <ng-container (click)="handleClick(item)" *ngTemplateOutlet="itemTemplate;context:{item:item}">
+  <div *ngFor="let item of items" (click)="handleClick(item)">
+    <ng-container  *ngTemplateOutlet="itemTemplate;context:{item:item}">
     </ng-container>
   </div>
 </ion-list>

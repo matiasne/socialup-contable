@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>select-user-business</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis Empresas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ng-template #businessTemplate let-item="item">
+  <app-item-business [business]="item"></app-item-business>
+</ng-template>
+
+<ion-content fullscreen="" >
+ <socialup-list-business
+  (clickBusiness)="handleClickBusiness($event)"
+ ></socialup-list-business>
+</ion-content>

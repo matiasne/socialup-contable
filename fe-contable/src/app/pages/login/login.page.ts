@@ -127,10 +127,10 @@ validation_messages = {
     this.formData.reset();    
 
   }
-  navigate(destination:string){
-    this.router.navigate([destination])
-    // this.router.navigate(['items'], { relativeTo: this.route });
-  }
+  // navigate(destination:string){
+  //   this.router.navigate([destination])
+  //   // this.router.navigate(['items'], { relativeTo: this.route });
+  // }
 
   changeImage(event:any){
 

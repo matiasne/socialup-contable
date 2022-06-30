@@ -62,7 +62,9 @@ export class ListBusinessComponent implements OnInit {
         })      
       }
     }
- click(){
-   console.log("click")
+
+
+  click(data){
+   this.clickBusiness.emit(data)
   }
 }

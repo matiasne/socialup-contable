@@ -35,8 +35,10 @@ export class ListItemsComponent implements OnInit {
     this.buttonController()
   }
 
-  handleClick(item){
+ handleClick (item){
+    console.log('12345')
     this.handleClickItem.emit(item)
+   
   }
 
   searchEventFired(){
