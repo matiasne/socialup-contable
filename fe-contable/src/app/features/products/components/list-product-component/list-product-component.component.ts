@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
-import { BusinessService } from 'src/app/services/business.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { StorageSessionService } from 'src/app/services/storage-session.service';

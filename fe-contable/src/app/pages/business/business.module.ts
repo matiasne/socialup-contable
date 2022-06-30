@@ -8,15 +8,14 @@ import { BusinessPageRoutingModule } from './business-routing.module';
 
 import { BusinessPage } from './business.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { BusinessModule } from 'src/app/features/business/business.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    ComponentsModule,
-    ReactiveFormsModule,
-    BusinessPageRoutingModule
+    BusinessPageRoutingModule,
+    BusinessModule
   ],
   declarations: [BusinessPage]
 })

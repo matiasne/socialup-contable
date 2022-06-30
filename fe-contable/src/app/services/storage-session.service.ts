@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { Business } from "../models/business";
+import { Business } from "../features/business/models/business";
 import { Session } from "../models/session";
 import { User } from "../models/user";
 

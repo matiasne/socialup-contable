@@ -7,82 +7,11 @@
   <div>
   <ion-card >
      <ion-card-content>
-      <form class="form" [formGroup]="formBusiness"  action="formBusiness"> 
-        
-        <div class="image-avatar">
-          <app-image-upload            
-            [aspectRatio] = "'1'"
-            [croppedImage]= "formBusiness.controls['image'].value"
-            (onSelectValue)= changeImage($event)>
-          </app-image-upload>
-        </div>
-         <ion-row> 
-           <ion-item>
-            <ion-icon name="storefront-outline"></ion-icon>
-            <ion-label ></ion-label>
-             <ion-input type="text" formControlName="name" placeholder="Nombre"></ion-input>
-           </ion-item>
-         </ion-row>
-         <ion-row>
-          <div class="error-message" *ngIf="name.invalid && isSubmitted">
-            <strong class="error-message" *ngIf="name.errors.required && isSubmitted">*Campo Obligatorio*</strong>
-            <strong class="error-message" *ngIf="name.errors.minlength && isSubmitted">*El nombre es demasiado corto*</strong>
-          </div>
-         </ion-row>
-         <ion-row>
-          <ion-item>
-            <ion-icon name="location-outline"></ion-icon>
-            <ion-label></ion-label>
-            <ion-input type="text" formControlName="address"  placeholder="Dirección"></ion-input>
-          </ion-item>
-        </ion-row> 
-        <ion-row>
-          <div class="error-message" *ngIf="address.invalid && isSubmitted">
-            <strong class="error-message" *ngIf="address.errors.required && isSubmitted">*Campo Obligatorio*</strong>
-            <strong class="error-message" *ngIf="address.errors.minlength && isSubmitted">*Escriba la dirección más completa*</strong>
-          </div>
-         </ion-row>
-         <ion-row>
-           <ion-item>
-            <ion-icon name="pricetag-outline"></ion-icon>
-             <ion-label></ion-label>
-             <ion-input type="text" formControlName="category" placeholder="Rubro"></ion-input>
-           </ion-item>
-         </ion-row> 
-         <ion-row>
-          <div class="error-message" *ngIf="category.invalid && isSubmitted">
-            <strong class="error-message" *ngIf="category.errors.required && isSubmitted">*Campo Obligatorio*</strong>
-          </div>
-         </ion-row>
-         <ion-row>
-            <ion-item>
-              <ion-icon name="mail-outline"></ion-icon>
-              <ion-label ></ion-label>
-              <ion-input type="text" formControlName="email" placeholder=" Correo Electrónico"></ion-input>
-            </ion-item>
-         </ion-row>
-         <ion-row>
-          <div class="error-message" *ngIf="email.invalid && isSubmitted">
-            <strong class="error-message" *ngIf="email.errors.required && isSubmitted">*Campo Obligatorio*</strong>
-            <strong class="error-message" *ngIf="email.errors.email && isSubmitted">*El formato ingresado no es valido*</strong>
-            <strong class="error-message" *ngIf="email.errors.pattern && isSubmitted">*Ingrese un email valido*</strong>
-          </div>
-         </ion-row>
-         <ion-row>
-          <ion-item>
-            <ion-icon name="call-outline"></ion-icon>
-            <ion-label ></ion-label>
-            <ion-input type="text"  formControlName="phone" placeholder="Numero de Telefono"></ion-input>
-          </ion-item>
-       </ion-row>
-       <ion-row>
-        <div class="error-message" *ngIf="phone.invalid && isSubmitted">
-          <strong class="error-message" *ngIf="phone.errors.required && isSubmitted">*Campo Obligatorio*</strong>
-        </div>
-       </ion-row><br>
-         <ion-button type="submit" expand="default"  shape="round"  (click)="onSubmit()" >{{butonLabel}}</ion-button>
-         <ion-button type="submit" expand="default"  shape="round" color="danger"  (click)="doAlert()" >Eliminar Empresa</ion-button>
-        </form>
+      <socialup-form-business
+      [business]="business"
+      [user]="user"
+      (handleSubmit)="submit($event)"
+      ></socialup-form-business>
      </ion-card-content>
    </ion-card>
  </div>

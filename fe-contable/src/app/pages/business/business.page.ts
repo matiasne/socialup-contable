@@ -6,13 +6,14 @@ import { StorageSessionService } from 'src/app/services/storage-session.service'
 import { AlertController, NavParams, ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { HttpClient } from '@angular/common/http';
 import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
-import { BusinessService } from 'src/app/services/business.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
+import { SelectedService } from 'src/app/services/global/selected.service';
 
 
 
@@ -26,138 +27,50 @@ import { ToastType } from 'src/app/models/toast.enum';
 })
 export class  BusinessPage implements OnInit {
   public title:'Perfil BUSINESS'
-  public business:any;
+  public business:Business;
+  public user:User;
   public priority:string;
-  public formBusiness:FormGroup;
+  
   public dbData: any;
-  public FormGroup:FormControl  ;
-  public isSubmitted=false;
+  
   public token: any;
   public imagePreview:any=""
   public mostrar=false;
-  public isEditing:boolean=false;
+  
   session: Session; 
 
-  public butonLabel = "Crear Nuevo"
   
-constructor(public activateRoute:ActivatedRoute,
-    public storageSessionService:StorageSessionService,
-    public businessService:BusinessService,
-    public toastService: ToastService,
-    public alertController:AlertController,
-    public router:Router,){
-  
+constructor(
+  public toastService: ToastService,
+  public businessService: BusinessService,
+  public activateRoute: ActivatedRoute,
+  public selectedService: SelectedService,
+  public router: Router,
+  public alertController: AlertController
+){
+  this.business = new Business ('','','','','','','','')
 
 }
   ngOnInit() {
-    this.formBusiness= new FormGroup({
-      name: new FormControl('',Validators.compose([Validators.required,Validators.minLength(3)])),
-      address: new FormControl('',Validators.compose([Validators.required,Validators.minLength(5),])),
-      category:new FormControl('',Validators.required),
-      email: new FormControl('',Validators.compose([Validators.required,Validators.email,Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)])),
-      phone:new FormControl('',Validators.compose([Validators.required])),
-      image: new FormControl('')
-    });
+   
 
-    if(this.activateRoute.snapshot.params.id){
-      this.butonLabel = "Guardar";
-      this.isEditing = true
-      this.businessService.get(this.activateRoute.snapshot.params.id).subscribe({
-        next:(data)=>{
-          this.formBusiness.setValue({
-            name: data.business.name,
-            address:data.business.address,
-            category:data.business.category,
-            email:data.business.email,
-            phone:data.business.phone,
-            image:data.business.image
-          })
-      
-        }
-      })
-    }else{
-      this.butonLabel = "Crear Nuevo";
-      this.isEditing =false
-    }   
+   
  
   }
 
 
-  updateProfileBusinesses(){
-   
-      let business= new Business(
-        this.activateRoute.snapshot.params.id, 
-        this.formBusiness.controls['name'].value,
-        this.formBusiness.controls['image'].value,
-        this.formBusiness.controls['category'].value,
-        this.formBusiness.controls['address'].value,
-        this.formBusiness.controls['email'].value,
-        this.formBusiness.controls['phone'].value, 
-        this.storageSessionService.getUser()._id
-      )
+  
 
-      this.businessService.update(business).subscribe({
-        next:(data)=>{
-          this.toastService.show(ToastType.success,"Se ha actualizado el negocio correctamente")
-        }
-      })
-    
-  }
-    
-
-  onSubmit(){    
-    this.isSubmitted=true;
-    if(this.formBusiness.valid){
-      if(this.isEditing){
-        this.updateProfileBusinesses();
-      }
-      else{
-        this.createBusiness();
-      }
-    }else{
-      this.toastService.show(ToastType.error,"Por favor complete todos los campos")
-    }
-  }
-
-  createBusiness(){
-    if(this.formBusiness.valid){
-      
-      let idUser = this.storageSessionService.getUser()._id;
-      let business= new Business("",
-        this.formBusiness.controls['name'].value,
-        this.formBusiness.controls['image'].value,
-        this.formBusiness.controls['category'].value,
-        this.formBusiness.controls['address'].value,
-        this.formBusiness.controls['email'].value,
-        this.formBusiness.controls['phone'].value,
-        idUser
-      )
-      this.businessService.register(business).subscribe({
-        next:(data)=>{
-          this.toastService.show(ToastType.success,"Se ha creado el negocio correctamente")
-        }
-      })      
-    }
-  }
-
-  onResetForm(){
-    this.formBusiness.reset();
-  }
+  // onResetForm(){
+  //   this.formBusiness.reset();
+  // }
 
   public filesToUpload: Array<File>
 
 
-  get name(){return this.formBusiness.get('name');}
-  get address(){return this.formBusiness.get ('address');}
-  get category(){return this.formBusiness.get('category');}
-  get email(){return this.formBusiness.get('email');}
-  get phone(){return this.formBusiness.get('phone');}
-
-  changeImage(event:any){
-    this.formBusiness.patchValue({
-      image:event
-    })
-  }
+submit(data){
+  console.log(data)
+}
 
   async doAlert(){
     const alert = await this.alertController.create({

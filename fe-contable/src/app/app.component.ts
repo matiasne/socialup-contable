@@ -3,7 +3,7 @@ import { Session } from './models/session';
 import { StorageSessionService } from './services/storage-session.service';
 import { Router } from '@angular/router';
 import { User } from './models/user';
-import { Business } from './models/business';
+import { Business } from './features/business/models/business';
 import { SelectedService } from './services/global/selected.service';
 
 

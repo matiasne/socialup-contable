@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'protractor';
-import { Business } from 'src/app/models/business';
-import { BusinessService } from 'src/app/services/business.service';
+import { Business } from 'src/app/features/business/models/business';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { UserService } from 'src/app/services/user.service';
 import {StorageSessionService} from 'src/app/services/storage-session.service'
 import { HelperService } from 'src/app/services/helpers.service';
@@ -38,23 +38,10 @@ export class BusinessListPage implements OnInit {
   }
 
   ngOnInit() {  
-    let idUser = this.storageSessionService.getUser()._id;
-    this.userService.getUserBusiness(idUser).subscribe({
-      next:(response)=>{
-  
-      this.businesses =response.data;
-      }
-    })      
+    
   }
 
-  ionViewWillEnter() { 
-      let idUser = this.storageSessionService.getUser()._id;
-      this.userService.getUserBusiness(idUser).subscribe({
-        next:(response)=>{
-        this.businesses =response.data;
-        }
-      })  
-  }
+
 
   // selectBusiness(business){
   //   this.selectService.setSelectedBusiness(business)
@@ -67,20 +54,8 @@ export class BusinessListPage implements OnInit {
   //  this.storageSessionService.updateBusiness(business);
   //  this.router.navigate(['/product'])
   // }
-  refreshBusinesses(data:any){
-    if(this.user._id){
-      this.userService.getUserBusiness(this.user._id,data.pageCount,data.perPage,data.searchWord).subscribe({
-        next:(response)=>{
-          
-        this.businesses = response.data
-        this.listItems.totalPages = response.paging.totalPages
-        this.listItems.buttonController()
-        }
-        })      
-      }
-    }
- click(){
-   console.log("click")
+  handleClickBusiness(business){
+    console.log(business)
   }
     
 }

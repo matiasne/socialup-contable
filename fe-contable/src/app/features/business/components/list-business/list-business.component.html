@@ -1,0 +1,12 @@
+<ng-template #businessTemplate let-item="item">
+  <app-item-business [business]="item"></app-item-business>
+</ng-template>
+<app-list-items
+#listItem
+[items]="businesses"
+[hideSearchBar]="true"
+[itemTemplate]="businessTemplate"
+[totalPages]="totalPages"
+(handleSearch)="refreshBusinesses($event)"
+(handleClickItem)="click()"
+></app-list-items>

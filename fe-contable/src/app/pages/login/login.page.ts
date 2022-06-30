@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user';
 import { Session } from 'src/app/models/session';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { HelperService } from 'src/app/services/helpers.service';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 
 
 @Component({

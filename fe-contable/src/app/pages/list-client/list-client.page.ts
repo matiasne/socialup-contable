@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'protractor';
-import { Business } from 'src/app/models/business';
-import { BusinessService } from 'src/app/services/business.service';
+import { Business } from 'src/app/features/business/models/business';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { UserService } from 'src/app/services/user.service';
 import {StorageSessionService} from 'src/app/services/storage-session.service'
 import { GLOBAL } from 'src/app/services/global';

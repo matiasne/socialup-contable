@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { timeStamp } from 'console';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ClientService } from 'src/app/features/clients/services/client.service';

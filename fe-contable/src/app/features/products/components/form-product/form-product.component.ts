@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/features/products/models/product';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ToastService } from 'src/app/services/toast.service';
 import { ProductService } from '../../services/product.service';

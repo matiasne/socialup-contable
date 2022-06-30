@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { BusinessService } from 'src/app/services/business.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { AlertController } from '@ionic/angular';
 

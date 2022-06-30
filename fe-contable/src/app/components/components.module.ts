@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { CropImageComponent } from './crop-image/crop-image.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ListItemsComponent } from './list-items/list-items.component';
-import { ItemBusinessComponent } from './item-business/item-business.component';
+
 
 
 
@@ -22,12 +22,12 @@ imports: [
     CropImageComponent,
     ImageUploadComponent,
     ListItemsComponent,
-    ItemBusinessComponent
+   
   ],
   exports: [
     ListItemsComponent,
     ImageUploadComponent,
-    ItemBusinessComponent
+
   ]
 })
 export class ComponentsModule {}

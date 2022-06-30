@@ -1,4 +1,4 @@
-import { Business } from "./business";
+import { Business } from "../features/business/models/business";
 import { User } from "./user";
 
 export class Session{

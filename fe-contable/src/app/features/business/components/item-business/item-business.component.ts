@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 
 @Component({
   selector: 'app-item-business',

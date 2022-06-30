@@ -16,7 +16,6 @@ import { ClientsModule } from 'src/app/features/clients/clients.module';
     ClientsModule,
     IonicModule,
     ListClientPageRoutingModule,
-    ComponentsModule,
   ],
   declarations: [ListClientPage]
 })

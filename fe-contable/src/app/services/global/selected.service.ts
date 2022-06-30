@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Business } from "src/app/models/business";
+import { Business } from "src/app/features/business/models/business";
 
 @Injectable({ providedIn: 'root' })
 export class SelectedService{ 

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Business } from 'src/app/models/business';
+import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
-import { BusinessService } from 'src/app/services/business.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
@@ -30,7 +30,7 @@ export class FormClientPage implements OnInit {
     public router: Router,
     public alertController: AlertController
   ) {
-    this.client = new Client ('','','','','','','','','','','','',)
+    this.client = new Client ('','','','','','','','','','','','')
    }
 
   ngOnInit() {
