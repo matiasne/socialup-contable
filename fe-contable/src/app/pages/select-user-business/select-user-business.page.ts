@@ -42,7 +42,7 @@ export class SelectUserBusinessPage implements OnInit {
   handleClickBusiness(business){
     this.selectService.setSelectedBusiness(business)
     this.storageSessionService.updateBusiness(business);
-    this.router.navigate(['/products'])
+    this.router.navigate(['/dashboard-business'])
   }
     
 }

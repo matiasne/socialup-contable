@@ -5,7 +5,7 @@ import { Business } from "../features/business/models/business";
 import { Session } from "../models/session";
 import { User } from "../models/user";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StorageSessionService{
 
   public loguedRoute = '/select-user-business'

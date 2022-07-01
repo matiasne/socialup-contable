@@ -13,7 +13,7 @@ import { Business } from 'src/app/features/business/models/business';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [UserService,StorageSessionService,HelperService]
+  providers: [UserService,HelperService]
 })
 
 export class LoginPage implements OnInit{

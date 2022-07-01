@@ -11,7 +11,7 @@ import { SelectedService } from './services/global/selected.service';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  providers:[StorageSessionService]
+  providers:[]
 })
 export class AppComponent implements OnInit {
   
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     { title: 'Business', url: '/business', icon: 'heart' },
     { title: 'Profile', url: '/form-profile', icon: 'archive' },
     { title: 'Recuperar Contraseña', url: '/form-forgotpassword', icon: 'trash' },
-    { title: 'Lista de Empresas', url: '/list-business', icon: 'warning' },
+    { title: 'Lista de Empresas', url: '/select-user-business', icon: 'warning' },
     { title: 'Producto', url: '/product', icon: 'warning' },
     { title: 'Lista Producto', url: '/products', icon: 'mail' },
     { title: 'Cliente', url: '/client', icon: 'mail' },
@@ -46,17 +46,30 @@ export class AppComponent implements OnInit {
       this.business = new Business('','','','','','','','');
       let session = this.storageSessionService.getSession();     
       console.log(session)
+
+      this.storageSessionService.obsLoguedIn().subscribe({
+        next:(value)=>{
+          this.showMenu = value;
+          console.log(value)
+          this.user = this.storageSessionService.getUser()
+        },
+      })
     
       if(session){
-        this.router.navigate([this.storageSessionService.loguedRoute]);
+        // this.router.navigate([this.storageSessionService.loguedRoute]);
         this.storageSessionService.isLoguedIn.next(true)
         this.user = User.adapt(session.user)
         if(session.business){
           //esto es para cuando se reinicia el navegador
           this.business = Business.adapt(session.business)
           this.selectedService.setSelectedBusiness(this.business)
-      }
-             
+          this.router.navigate(['/dashboard-business'])
+        }else{
+          this.router.navigate(['/select-user-business'])
+        }          
+       
+      }else{
+      
         this.router.navigate([this.storageSessionService.unloguedRoute]);
         this.storageSessionService.isLoguedIn.next(false)
       }
@@ -68,15 +81,8 @@ export class AppComponent implements OnInit {
         }
       })
 
-      console.log(this.showMenu)
       
-      this.storageSessionService.obsLoguedIn().subscribe({
-        next:(value)=>{
-          this.showMenu = value;
-          console.log(value)
-          this.user = this.storageSessionService.getUser()
-        },
-      })
+      
   }
 
   ngOnInit() {

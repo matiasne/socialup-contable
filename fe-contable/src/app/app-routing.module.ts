@@ -68,6 +68,10 @@ const routes: Routes = [
     path: 'select-user-business',
     loadChildren: () => import('./pages/select-user-business/select-user-business.module').then( m => m.SelectUserBusinessPageModule)
   },
+  {
+    path: 'dashboard-business',
+    loadChildren: () => import('./pages/dashboard-business/dashboard-business.module').then( m => m.DashboardBusinessPageModule)
+  },
 
 
 
