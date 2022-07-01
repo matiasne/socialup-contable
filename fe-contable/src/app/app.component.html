@@ -8,7 +8,7 @@
           <ion-note>{{user.email}}</ion-note><br>
           <ion-note>{{business.name}}</ion-note>
           <ion-item  >
-            <ion-button (click)="LogoutSession()">Cerrar sesión</ion-button>
+            <ion-button (click)="LogoutSession()" >Cerrar sesión</ion-button>
           </ion-item>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">

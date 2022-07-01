@@ -61,8 +61,9 @@ export class LoginPage implements OnInit{
   }
 
   onDestroy(){
-    this.formData.reset();
+  this.formData.reset();
   }
+  
 
 validation_messages = {
     'email': [
@@ -129,7 +130,7 @@ validation_messages = {
   }
   // navigate(destination:string){
   //   this.router.navigate([destination])
-  //   // this.router.navigate(['items'], { relativeTo: this.route });
+  //   this.router.navigate(['items'], { relativeTo: this.route });
   // }
 
   changeImage(event:any){

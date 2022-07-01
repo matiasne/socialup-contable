@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
       this.storageSessionService.obsLoguedIn().subscribe({
         next:(value)=>{
           this.showMenu = value;
-          console.log(value)
           this.user = this.storageSessionService.getUser()
         },
       })
@@ -63,15 +62,13 @@ export class AppComponent implements OnInit {
           //esto es para cuando se reinicia el navegador
           this.business = Business.adapt(session.business)
           this.selectedService.setSelectedBusiness(this.business)
-          this.router.navigate(['/dashboard-business'])
-        }else{
-          this.router.navigate(['/select-user-business'])
-        }          
-       
+          
+        }       
+        this.router.navigate(['/dashboard-business']) 
       }else{
       
-        this.router.navigate([this.storageSessionService.unloguedRoute]);
         this.storageSessionService.isLoguedIn.next(false)
+        this.router.navigate([this.storageSessionService.unloguedRoute]);
       }
 
       this.selectedService.obsSelectedBusiness().subscribe({
@@ -86,16 +83,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
-  ionViewWillEnter() { 
-
-}
-
-
   LogoutSession():void{
+    console.log('hola')
+    this.router.navigate([this.storageSessionService.unloguedRoute])
     this.storageSessionService.logoutSession();
     this.selectedService.setSelectedBusiness(new Business('','','','','','','',''))
+    console.log('chau')
+  // window.location.reload();
 }
+
 }
