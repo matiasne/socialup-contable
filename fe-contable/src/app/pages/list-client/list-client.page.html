@@ -1,5 +1,7 @@
 <ion-header>
   <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+
     <ion-title>list-client</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,4 +11,7 @@
 <socialup-list-client
 (clickClient)="handleClickClient($event)"
 ></socialup-list-client>
+<ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button [routerLink]="['/client']"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+</ion-fab> 
 </ion-content>

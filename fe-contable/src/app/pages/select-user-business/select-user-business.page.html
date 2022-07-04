@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>select-user-business</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,4 +18,7 @@
  <socialup-list-business
   (clickBusiness)="handleClickBusiness($event)"
  ></socialup-list-business>
+ <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed" >
+  <ion-fab-button [routerLink]="['/business']"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+</ion-fab>
 </ion-content>

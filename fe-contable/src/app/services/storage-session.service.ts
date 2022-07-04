@@ -62,12 +62,9 @@ export class StorageSessionService {
     return business;
   }
 
-
-
-
   logoutSession(): void {
-    localStorage.removeItem('session');
     this.isLoguedIn.next(false)
+    localStorage.removeItem('session');
   }
 
   obsLoguedIn(): Observable<boolean> {

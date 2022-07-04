@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { User } from './models/user';
 import { Business } from './features/business/models/business';
 import { SelectedService } from './services/global/selected.service';
+import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
+import { NavController } from '@ionic/angular';
+
 
 
 @Component({
@@ -38,15 +41,15 @@ export class AppComponent implements OnInit {
   constructor(
     private storageSessionService:StorageSessionService,
     private router:Router,
-    private selectedService:SelectedService
+    private selectedService:SelectedService,
     
+
     ){
       
       this.user=new User('','','','','','','','','')
       this.business = new Business('','','','','','','','');
       let session = this.storageSessionService.getSession();     
-      console.log(session)
-
+    
       this.storageSessionService.obsLoguedIn().subscribe({
         next:(value)=>{
           this.showMenu = value;
@@ -77,22 +80,23 @@ export class AppComponent implements OnInit {
           this.business=data
         }
       })
-
-      
-      
+    
   }
 
   ngOnInit() {
 
   }
+  ngOnDestroy(){
+
+  }
+
 
   LogoutSession():void{
-    console.log('hola')
-    this.router.navigate([this.storageSessionService.unloguedRoute])
+   
     this.storageSessionService.logoutSession();
     this.selectedService.setSelectedBusiness(new Business('','','','','','','',''))
-    console.log('chau')
-  // window.location.reload();
+    window.location.replace('/login')
+   
 }
 
-}
+} 

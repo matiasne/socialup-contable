@@ -53,28 +53,12 @@ export class LoginPage implements OnInit{
   ngOnInit() {
   
     this.formData= new FormGroup({
-         email: new FormControl('',Validators.compose([Validators.required,Validators.email])),
+         email: new FormControl('',([Validators.required])),
          password: new FormControl('',([Validators.required])),
     });
 
-    
   }
 
-  onDestroy(){
-  this.formData.reset();
-  }
-  
-
-validation_messages = {
-    'email': [
-      { type: 'required', message: 'Campo Obligatorio.' },
-      { type: 'pattern', message: 'El formato no es valido.' },
-    ],
-    'password': [
-      { type: 'required', message: 'Contraseña Obligatoria' }
-    ],
-    }
-  
    public onSubmit(){
     
     this.isSubmited=true;
@@ -111,7 +95,7 @@ validation_messages = {
             }
           },
           complete:()=>{
-            // console.log("Completo")
+
             
 
           }
@@ -122,22 +106,26 @@ validation_messages = {
     }else{
       // console.log('not  valid')
     } 
+
   }
 
   onResetForm(){
     this.formData.reset();    
 
   }
+
   // navigate(destination:string){
   //   this.router.navigate([destination])
   //   this.router.navigate(['items'], { relativeTo: this.route });
-  // }
 
-  changeImage(event:any){
-
+  ionViewDidEnter(){
+    this.onResetForm()
+  }
+  
+  ionViewWillEnter(){
+console.log('!!!!!')
   }
 
-    
   get email(){return this.formData.get('email');}
   get password(){return this.formData.get ('password');}
  }
