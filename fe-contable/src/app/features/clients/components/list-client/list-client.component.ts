@@ -53,9 +53,6 @@ export class ListClientComponent implements OnInit {
     }
   }
   
-  ngOnDestroy(){
-    this.obsBusiness.unsubscribe()
-  }
 
   refreshClients(data:any){
     if(this.business._id){
@@ -69,8 +66,8 @@ export class ListClientComponent implements OnInit {
         })      
       }
     }
-    click(){
-      console.log("click")
+    click(client){
+      this.clickClient.emit(client)
      }
 
 }

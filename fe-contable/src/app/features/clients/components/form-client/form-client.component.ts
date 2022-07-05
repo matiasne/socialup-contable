@@ -46,13 +46,10 @@ export class FormClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log()
     if (this.client._id != "") {
       this.isEditing = true
-      this.clientService.get(this.client._id).subscribe({
-        next: (data) => {
-          this.client= data;
-        }
-      })
+     
           this.formClient.setValue({
             name: this.client.name,
             address: this.client.address,
@@ -69,6 +66,7 @@ export class FormClientComponent implements OnInit {
             this.isEditing = false
           }
      }
+
      changeImage(event: any) {
       this.formClient.patchValue({
         image: event
@@ -105,19 +103,19 @@ export class FormClientComponent implements OnInit {
   createClient() {
     this.clientService.add(this.client).subscribe({
       next: (data) => {
-        console.log(data)
-        this.client=data
+        // this.client=data
         this.handleSubmit.emit(data)
       }
     })
   
   }
   updateProfileClient() {
+    console.log(this.client)
     this.clientService.update(this.client).subscribe({
      next:(data)=>{
-       this.client = data
        this.toastService.show(ToastType.success, "Se ha actualizaddo el prodcuto correctamente")
        this.handleSubmit.emit(data)
+
      }
     })
    }

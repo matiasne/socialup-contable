@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     { title: 'Lista Producto', url: '/products', icon: 'mail' },
     { title: 'Cliente', url: '/client', icon: 'mail' },
     { title: 'Lista Cliente', url: '/list-client', icon: 'mail' },
+    { title: 'Venta', url: '/form-sale', icon: 'mail' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
