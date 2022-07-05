@@ -1,0 +1,9 @@
+<ion-button expand="block" (click)="openModal()" *ngIf="!client">+ Cliente</ion-button>
+<ng-template #clientTemplate let-item="item">
+    <socialup-item-client [client]="item"></socialup-item-client>
+  </ng-template>
+  <div *ngIf="client">
+<p>Nombre:{{client.name}} </p>
+<p>Apellido:{{client.surname}} </p>
+<p>Tel: {{client.phone}}</p>
+</div>

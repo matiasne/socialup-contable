@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>edit-client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <socialup-form-client
+  [business]="business"
+  [client]="client"
+  (handleSubmit)="submit($event)"
+  ></socialup-form-client>
+</ion-content>

@@ -54,17 +54,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   },
   {
-    path: 'client',
-    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
-  },
-  {
-    path: 'client/:id',
-    loadChildren: () => import('./pages/form-client/form-client.module').then( m => m.FormClientPageModule)
-  },
-  {
     path: 'list-client',
     loadChildren: () => import('./pages/list-client/list-client.module').then( m => m.ListClientPageModule)
-  },  {
+  },
+  {
     path: 'select-user-business',
     loadChildren: () => import('./pages/select-user-business/select-user-business.module').then( m => m.SelectUserBusinessPageModule)
   },
@@ -72,6 +65,19 @@ const routes: Routes = [
     path: 'dashboard-business',
     loadChildren: () => import('./pages/dashboard-business/dashboard-business.module').then( m => m.DashboardBusinessPageModule)
   },
+  {
+    path: 'form-sale',
+    loadChildren: () => import('./pages/form-sale/form-sale.module').then( m => m.FormSalePageModule)
+  },
+  {
+    path: 'edit-client',
+    loadChildren: () => import('./pages/edit-client/edit-client.module').then( m => m.EditClientPageModule)
+  },
+  {
+    path: 'create-client',
+    loadChildren: () => import('./pages/create-client/create-client.module').then( m => m.CreateClientPageModule)
+  },
+
 
 
 

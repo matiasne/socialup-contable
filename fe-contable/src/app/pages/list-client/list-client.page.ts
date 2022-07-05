@@ -44,7 +44,7 @@ export class ListClientPage implements OnInit {
   }
     
   handleClickClient(client){
-    console.log(client)
+    this.router.navigate(['/edit-client',{client:JSON.stringify(client)}])
   }
       
                           
