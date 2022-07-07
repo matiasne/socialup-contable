@@ -1,0 +1,13 @@
+<ng-template #saleProductTemplate let-item="item">
+  <socialup-item-sale-product [saleProduct]="item"></socialup-item-sale-product>
+</ng-template>
+
+  <app-list-items
+    #listItem
+    [items]="items"
+    [hideSearchBar]="true"
+    [itemTemplate]="saleProductTemplate"
+    [totalPages]="totalPages"
+    (handleSearch)="refreshSaleProducts($event)"
+    (handleClickItem)="click($event)"
+  ></app-list-items>

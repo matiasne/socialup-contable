@@ -108,7 +108,7 @@ export class FormProductComponent implements OnInit {
     this.productService.add(this.product).subscribe({
       next: (data) => {
         console.log(data)
-        this.product = data
+        
         this.handleSubmit.emit(data)
       }
     })
@@ -117,7 +117,7 @@ export class FormProductComponent implements OnInit {
   updateProfileProducts() {    
     this.productService.update(this.product).subscribe({
       next: (data) => {
-        this.product = data
+
         this.toastService.show(ToastType.success, "Se ha actualizado el producto correctamente")
         this.handleSubmit.emit(data)
       }
