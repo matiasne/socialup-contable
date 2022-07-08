@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular'; 
+import { timeStamp } from 'console';
+import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
@@ -24,6 +26,7 @@ export class FormSaleComponent implements OnInit {
   @Input() product:Product
   @Output() handleSubmit = new EventEmitter<any>();
   public saleProducts:Array<SaleProduct> = []
+  public total :number =0;
 
  
   message = 'This modal example uses the modalController to present and dismiss modals.';
@@ -94,10 +97,12 @@ console.log(data)
     // console.log(data)
     
     if(!this.saleProducts.includes(data)){
+
       this.saleProducts.push(data)
+     
     }
       
-
+    this. refreshTotalSale()
     
     
      
@@ -111,13 +116,21 @@ console.log(data)
 
   }
 
-  totalSalePrice(){
-      
-  }
 
   handleEditSaleProduct(selectSaleProduct){
 console.log(selectSaleProduct)
     this.openModalSaleProduct(selectSaleProduct)
     
   }
+
+  refreshTotalSale(){
+this.total =0 
+
+this.saleProducts.forEach(element => {
+ this.total += element.subTotal
+}) 
+
+      
+
+   }
 }

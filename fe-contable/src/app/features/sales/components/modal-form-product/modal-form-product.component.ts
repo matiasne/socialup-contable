@@ -27,7 +27,7 @@ export class ModalFormProductComponent implements OnInit {
     private modalCtrl :ModalController
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','','','')
+    this.saleProduct =  new SaleProduct('','','','','','','','','',0)
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),

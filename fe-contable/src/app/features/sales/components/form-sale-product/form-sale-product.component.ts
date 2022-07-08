@@ -31,7 +31,7 @@ export class FormSaleProductComponent implements OnInit {
     public navParams: NavParams
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','','','')
+    this.saleProduct =  new SaleProduct('','','','','','','','','',0)
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
@@ -59,11 +59,15 @@ export class FormSaleProductComponent implements OnInit {
       this.saleProduct.amount = this.formSaleProduct.controls.amount .value
       this.saleProduct.detail = this.formSaleProduct.controls.detail.value
 
+      var subTotal:number;
+
+      subTotal = Number(this.saleProduct.amount)*Number(this.saleProduct.salePrice)
+      this.saleProduct.subTotal= subTotal
+
+
       this.modalCtrl.dismiss(this.saleProduct)
     }
   }
-
-
 
 
 }

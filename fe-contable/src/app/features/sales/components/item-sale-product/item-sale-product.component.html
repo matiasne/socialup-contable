@@ -4,9 +4,10 @@
   </ion-avatar> -->
   <ion-label  >
    <h1><b>Product:{{saleProduct.name}}</b></h1>
-    <p>Detalle: {{saleProduct.detail}}</p>
+    <div><p>Detalle: {{saleProduct.detail}}</p>
     <p>Cantidad: {{saleProduct.amount}}</p>
-    <p>Total: {{saleProduct.salePrice}}</p> 
+    <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
+    <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p></div>
   </ion-label>
 </ion-item>
 

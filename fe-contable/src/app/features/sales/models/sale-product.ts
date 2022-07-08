@@ -10,7 +10,8 @@ export class SaleProduct extends Product{
         public idBusiness: string,
         public image:string,
         public amount:string,
-        public detail:string
+        public detail:string,
+        public subTotal:number
     ){
         super('',name,description,code,costPrice,salePrice,idBusiness,image)
     }
@@ -25,7 +26,8 @@ export class SaleProduct extends Product{
             item.idBusiness,
             item.image,
             item.amount,
-            item.detail
+            item.detail,
+            item.subTotal
         )
     }
 }

@@ -9,8 +9,15 @@ import { SaleProduct } from '../../models/sale-product';
 })
 export class ItemSaleProductComponent implements OnInit {
   @Input() saleProduct:SaleProduct;
+  @Input() valor1:Number;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+ionViewWillEnter(){
+
+}
+
 
 }

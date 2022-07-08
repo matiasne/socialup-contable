@@ -16,3 +16,6 @@
     <ion-fab-button (click)="openModalProduct()"  *ngIf="client"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
   </ion-fab> 
 
+  <ion-footer >
+      <ion-title >{{total | currency: 'USD' }}</ion-title>
+  </ion-footer> 
