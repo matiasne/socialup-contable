@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { instanceAvailability } from '@awesome-cordova-plugins/core';
 import { ModalController } from '@ionic/angular'; 
 import { timeStamp } from 'console';
 import { element } from 'protractor';
@@ -9,7 +10,9 @@ import { ListProductComponentComponent } from 'src/app/features/products/compone
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
+import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
+import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
 import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
@@ -22,16 +25,15 @@ import { SelectClientComponent } from '../select-client/select-client.component'
   providers:[ HelperService,BusinessService, ClientService,ProductService ]
 })
 export class FormSaleComponent implements OnInit {
-  @Input() client:Client;
-  @Input() product:Product
+
   @Output() handleSubmit = new EventEmitter<any>();
-  public saleProducts:Array<SaleProduct> = []
-  public total :number =0;
+
 
  
   message = 'This modal example uses the modalController to present and dismiss modals.';
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public currentSaleService:CurrentSaleService
     ) {
     
   }
@@ -47,7 +49,7 @@ export class FormSaleComponent implements OnInit {
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
 
-    this.client=data
+    this.currentSaleService.addClient(data)
     
   }
 
@@ -60,7 +62,8 @@ export class FormSaleComponent implements OnInit {
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
 
-    this.product=data
+    
+   /* this.product=data
 
     if(this.product._id){
 
@@ -73,12 +76,12 @@ export class FormSaleComponent implements OnInit {
     data.salePrice=this.product.salePrice
     data.image=this.product.image
     data.idBusiness=this.product.idBusiness
-console.log(data)
+console.log(data)*/
       this.openModalSaleProduct(data)
-    }
+    
 
   }
-  async openModalSaleProduct(selectSaleProduct:SaleProduct) {
+  async openModalSaleProduct(selectSaleProduct:any) {
 
     const modal2: HTMLIonModalElement = await this.modalCtrl.create({
       component: FormSaleProductComponent,
@@ -92,45 +95,27 @@ console.log(data)
     // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
-    
-   // this.saleProducts.push(data)
-    // console.log(data)
-    
-    if(!this.saleProducts.includes(data)){
 
-      this.saleProducts.push(data)
-     
-    }
-      
-    this. refreshTotalSale()
-    
-    
-     
-
-
-    // console.log(this.saleProducts)
-
+    this.currentSaleService.addSaleProduct(data)
    
-
-    
-
   }
 
-
-  handleEditSaleProduct(selectSaleProduct){
-console.log(selectSaleProduct)
-    this.openModalSaleProduct(selectSaleProduct)
-    
+  isClient(){
+    return this.currentSaleService.currentSale.client != undefined
   }
 
-  refreshTotalSale(){
-this.total =0 
+  clientInSale(){
+    return this.currentSaleService.currentSale.client
+  }
 
-this.saleProducts.forEach(element => {
- this.total += element.subTotal
-}) 
+  listSaleProductAdded(){
+    return this.currentSaleService.currentSale.saleProducts
+  }
 
-      
-
-   }
+  totalSaleProducts(){
+    return this.currentSaleService.currentSale.total
+  }
+  saveSale(){
+   return this.currentSaleService.add(this.currentSaleService.currentSale)
+  }
 }

@@ -10,6 +10,7 @@ var user_routes = require('./routes/user');
 var business_routes = require('./routes/business');
 var product_routes = require('./routes/product');
 var client_routes = require('./routes/client');
+var sale_routes = require('./routes/sale');
 
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -28,5 +29,6 @@ app.use('/api', user_routes);
 app.use('/api', business_routes);
 app.use('/api', product_routes);
 app.use('/api', client_routes);
+app.use('/api', sale_routes);
 module.exports = app;
 

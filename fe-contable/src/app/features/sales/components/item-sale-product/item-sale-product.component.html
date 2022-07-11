@@ -8,6 +8,9 @@
     <p>Cantidad: {{saleProduct.amount}}</p>
     <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
     <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p></div>
+ 
   </ion-label>
+  <ion-button (click)="handleClickDelete()">Delete</ion-button>
+  <ion-button (click)="handleClickEdit()">Edit</ion-button>
 </ion-item>
 
