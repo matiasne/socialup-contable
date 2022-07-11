@@ -20,7 +20,7 @@ export class BaseCRUDService{
     }
 
     post(url, body = {}):Observable<any>{      
-        console.log(body)  
+
         return this._http.post(url,body)
     }
 
