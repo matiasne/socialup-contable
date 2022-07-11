@@ -1,0 +1,16 @@
+<ion-item>
+  <!-- <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+    <img src={{saleProduct.image}}>
+  </ion-avatar> -->
+  <ion-label  >
+   <h1><b>Product:{{saleProduct.name}}</b></h1>
+    <div><p>Detalle: {{saleProduct.detail}}</p>
+    <p>Cantidad: {{saleProduct.amount}}</p>
+    <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
+    <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p></div>
+ 
+  </ion-label>
+  <ion-button (click)="handleClickDelete()">Delete</ion-button>
+  <ion-button (click)="handleClickEdit()">Edit</ion-button>
+</ion-item>
+

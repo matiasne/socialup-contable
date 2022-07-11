@@ -1,9 +1,23 @@
-<ion-button expand="block" (click)="openModal()" *ngIf="!client">+ Cliente</ion-button>
+<ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()">+ Cliente</ion-button>
 <ng-template #clientTemplate let-item="item">
     <socialup-item-client [client]="item"></socialup-item-client>
   </ng-template>
-  <div *ngIf="client">
-<p>Nombre:{{client.name}} </p>
-<p>Apellido:{{client.surname}} </p>
-<p>Tel: {{client.phone}}</p>
-</div>
+<socialup-item-client 
+[client]="clientInSale()" *ngIf="isClient()"
+></socialup-item-client>
+<div >Productos:</div>
+ <socialup-list-sale-product 
+    [items]="listSaleProductAdded()"
+    
+></socialup-list-sale-product>
+
+<ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModalProduct()"  *ngIf="isClient()"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab> 
+
+
+
+  <ion-footer >
+      <ion-title >{{totalSaleProducts() | currency: 'USD' }}</ion-title>
+      <ion-button (click)="saveSale()">Guardar Venta</ion-button>
+  </ion-footer> 
