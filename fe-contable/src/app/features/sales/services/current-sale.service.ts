@@ -9,6 +9,7 @@ import { BaseCRUDService } from "../../../services/base-crud.service";
 import { Observable } from "rxjs";
 import { GLOBAL } from "src/app/services/global";
 import { StorageSessionService } from "../../../services/storage-session.service";
+import { DiscountType } from "../models/discount";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -70,4 +71,23 @@ export class CurrentSaleService extends BaseCRUDService{
      })
    }
 
+   calculateProductSubTotal(saleProduct:SaleProduct){
+    let subTotal = Number(saleProduct.amount)*Number(saleProduct.salePrice)
+    let descuento=0
+    if(saleProduct.discount.type == DiscountType.percentage){
+        descuento = subTotal * Number(saleProduct.discount.value) / 100
+        subTotal = subTotal - descuento
+    }
+    if(saleProduct.discount.type == DiscountType.amount){
+        descuento = subTotal - Number(saleProduct.discount.value)
+        subTotal =  descuento
+    }
+
+    
+       
+        return subTotal;
+   }
+calculateSaleTotal(){
+    
+}
 }

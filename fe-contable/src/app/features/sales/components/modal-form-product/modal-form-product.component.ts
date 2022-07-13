@@ -5,6 +5,7 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
+import { Discount } from '../../models/discount';
 import { SaleProduct } from '../../models/sale-product';
 
 @Component({
@@ -27,7 +28,7 @@ export class ModalFormProductComponent implements OnInit {
     private modalCtrl :ModalController
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','','','',0)
+    this.saleProduct =  new SaleProduct('','','','','','','',0,'',0,new Discount())
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),

@@ -14,6 +14,9 @@ import { ModalFormProductComponent } from './components/modal-form-product/modal
 import { FormSalePageRoutingModule } from 'src/app/pages/form-sale/form-sale-routing.module';
 import { FormSaleProductComponent } from './components/form-sale-product/form-sale-product.component';
 import { ProductsModule } from '../products/products.module';
+import { FormCalculateComponent } from './components/form-calculate/form-calculate.component';
+import { ModalFormDiscountComponent } from './components/modal-form-discount/modal-form-discount.component';
+import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/modal-form-surcharge.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { ProductsModule } from '../products/products.module';
     ListSaleProductComponent,
     ModalFormProductComponent,
     FormSaleProductComponent,
+    FormCalculateComponent,
+    ModalFormDiscountComponent,
+    ModalFormSurchargeComponent
     
 
   ],
@@ -34,7 +40,8 @@ import { ProductsModule } from '../products/products.module';
     CommonModule,
     ClientsModule,
     ComponentsModule,
-    ProductsModule
+    ProductsModule,
+
     
   ],
   exports:[
@@ -44,7 +51,10 @@ import { ProductsModule } from '../products/products.module';
     ModalSelectProductComponent,
     ListSaleProductComponent,
     ModalFormProductComponent,
-    FormSaleProductComponent
+    FormSaleProductComponent,
+    FormCalculateComponent,
+    ModalFormDiscountComponent,
+    ModalFormSurchargeComponent
 
   ]
   

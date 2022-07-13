@@ -81,12 +81,12 @@ console.log(data)*/
     
 
   }
-  async openModalSaleProduct(selectSaleProduct:any) {
+  async openModalSaleProduct(selectProduct:Product) {
 
     const modal2: HTMLIonModalElement = await this.modalCtrl.create({
       component: FormSaleProductComponent,
       componentProps: {
-        selectSaleProduct:selectSaleProduct,
+        selectProduct:selectProduct,
         other: {couldAlsoBeAnObject: true}
      }
     });
@@ -118,4 +118,5 @@ console.log(data)*/
   saveSale(){
    return this.currentSaleService.add(this.currentSaleService.currentSale)
   }
+  
 }

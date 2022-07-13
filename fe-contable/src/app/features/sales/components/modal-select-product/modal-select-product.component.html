@@ -1,4 +1,6 @@
 <ion-content>
+  <ion-button >Descuento</ion-button>
+  <ion-button (click)="openModalSurchargeTotal(sale)">Recargo</ion-button>
   <app-list-product-component
   (clickProduct)="handleClickProduct($event)"
   ></app-list-product-component>

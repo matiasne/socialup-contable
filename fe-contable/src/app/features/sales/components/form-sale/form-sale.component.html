@@ -12,12 +12,12 @@
 ></socialup-list-sale-product>
 
 <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openModalProduct()"  *ngIf="isClient()"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="openModalProduct()"   ><ion-icon name="add-outline"></ion-icon></ion-fab-button>
   </ion-fab> 
 
 
 
-  <ion-footer >
+  <ion-footer *ngIf="totalSaleProducts()>0">
       <ion-title >{{totalSaleProducts() | currency: 'USD' }}</ion-title>
-      <ion-button (click)="saveSale()">Guardar Venta</ion-button>
+      <ion-button (click)="saveSale()" >Guardar Venta</ion-button>
   </ion-footer> 

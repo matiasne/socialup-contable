@@ -1,4 +1,5 @@
 import { Product } from "../../products/models/product";
+import { Discount } from "./discount";
 
 export class SaleProduct extends Product{
     constructor (
@@ -9,9 +10,10 @@ export class SaleProduct extends Product{
         public salePrice: string,
         public idBusiness: string,
         public image:string,
-        public amount:string,
+        public amount:number,
         public detail:string,
-        public subTotal:number
+        public subTotal:number,
+        public discount:Discount
     ){
         super('',name,description,code,costPrice,salePrice,idBusiness,image)
     }
@@ -27,7 +29,8 @@ export class SaleProduct extends Product{
             item.image,
             item.amount,
             item.detail,
-            item.subTotal
+            item.subTotal,
+            item.discount
         )
     }
 }
