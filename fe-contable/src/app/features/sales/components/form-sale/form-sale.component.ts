@@ -97,9 +97,9 @@ console.log(data)*/
     // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
-
+    console.log(data)
     this.currentSaleService.addSaleProduct(data)
-   
+    
   }
 
   isClient(){

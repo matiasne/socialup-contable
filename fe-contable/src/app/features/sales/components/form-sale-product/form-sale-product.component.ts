@@ -20,6 +20,8 @@ export class FormSaleProductComponent implements OnInit {
   @Input() product:Product;
   @Input() saleProduct:SaleProduct;
   @Input() discount:Discount;
+  @Output() clickSaleProduct= new EventEmitter<SaleProduct>();
+  
  
   public discountTypes = DiscountType;
  
@@ -40,9 +42,7 @@ export class FormSaleProductComponent implements OnInit {
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
       detail: new FormControl('', Validators.required),
-      discountType: new FormControl(''),
-      discountValue: new FormControl(''),
-      discountDescription: new FormControl('')
+    
     });
    }
 
@@ -73,9 +73,9 @@ export class FormSaleProductComponent implements OnInit {
     this.formSaleProduct.setValue({
       amount: this.saleProduct.amount?this.saleProduct.amount:"",
       detail: this.saleProduct.detail?this.saleProduct.detail:"",
-      discountType: this.saleProduct.discount.type?this.saleProduct.discount.type:"",
-      discountValue: this.saleProduct.discount.value?this.saleProduct.discount.value:"",
-      discountDescription: this.saleProduct.discount.description?this.saleProduct.discount.description:"",
+    //  type: this.saleProduct.discount.type?this.saleProduct.discount.type:"",
+    //  value: this.saleProduct.discount.value?this.saleProduct.discount.value:"",
+    //  description: this.saleProduct.discount.description?this.saleProduct.discount.description:"",
     })
       
     
@@ -83,30 +83,31 @@ export class FormSaleProductComponent implements OnInit {
 
   onSubmit() {
     this.isSubmited = true;
+    
     if (this.formSaleProduct.valid) {
-
+      console.log("holiss")
       this.saleProduct.amount = this.formSaleProduct.controls.amount .value
       this.saleProduct.detail = this.formSaleProduct.controls.detail.value
-      // this.saleProduct.discount.type =this.formSaleProduct.controls.discountType.value
-      // this.saleProduct.discount.description =this.formSaleProduct.controls.discountDescription.value
-      // this.saleProduct.discount.value=this.formSaleProduct.controls.discountValue.value
+      // this.saleProduct.discount.type =this.formSaleProduct.controls.type.value
+      // this.saleProduct.discount.description =this.formSaleProduct.controls.description.value
+      // this.saleProduct.discount.value=this.formSaleProduct.controls.value.value
 
       var subTotal:number;
       
 
 
       console.log(this.saleProduct)
-      // this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
+      this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
 
 
       this.modalCtrl.dismiss(this.saleProduct)
     }
   }
   refreshData(data){
-    console.log(data)
-    this.saleProduct=data
-    
-    this.currentSaleService.addDiscount(data)
+   
+    this.saleProduct.discount=data
+    this.clickSaleProduct.emit(this.saleProduct);
   }
+  
 
 }
