@@ -19,7 +19,7 @@ import { CurrentSaleService } from '../../services/current-sale.service';
 export class FormSaleProductComponent implements OnInit {
   @Input() product:Product;
   @Input() saleProduct:SaleProduct;
- 
+  @Input() discount:Discount;
  
   public discountTypes = DiscountType;
  
@@ -87,20 +87,26 @@ export class FormSaleProductComponent implements OnInit {
 
       this.saleProduct.amount = this.formSaleProduct.controls.amount .value
       this.saleProduct.detail = this.formSaleProduct.controls.detail.value
-      this.saleProduct.discount.type = this.formSaleProduct.controls.discountType.value
-      this.saleProduct.discount.value = this.formSaleProduct.controls.discountValue.value
-      this.saleProduct.discount.description = this.formSaleProduct.controls.discountDescription.value
+      // this.saleProduct.discount.type =this.formSaleProduct.controls.discountType.value
+      // this.saleProduct.discount.description =this.formSaleProduct.controls.discountDescription.value
+      // this.saleProduct.discount.value=this.formSaleProduct.controls.discountValue.value
+
       var subTotal:number;
       
 
 
-      
-      this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
+      console.log(this.saleProduct)
+      // this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
 
 
       this.modalCtrl.dismiss(this.saleProduct)
     }
   }
-
+  refreshData(data){
+    console.log(data)
+    this.saleProduct=data
+    
+    this.currentSaleService.addDiscount(data)
+  }
 
 }

@@ -4,10 +4,17 @@
   </ion-avatar> -->
   <ion-label  >
    <h1><b>Product:{{saleProduct.name}}</b></h1>
-    <div><p>Detalle: {{saleProduct.detail}}</p>
-    <p>Cantidad: {{saleProduct.amount}}</p>
-    <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
-    <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p></div>
+    <div>
+      <p>Detalle: {{saleProduct.detail}}</p>
+      <p>Cantidad: {{saleProduct.amount}}</p>
+      <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
+      <div *ngIf="saleProduct.discount.type != 'empty'">
+        <p>Tipo descuento: {{saleProduct.discount.type}} </p>
+        <p>Valor descuento:{{ saleProduct.discount.value }}</p>
+        <p>Observación: {{saleProduct.discount.description }}</p>
+      </div>
+      <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p>
+    </div>
  
   </ion-label>
   <ion-button (click)="handleClickDelete()">Delete</ion-button>

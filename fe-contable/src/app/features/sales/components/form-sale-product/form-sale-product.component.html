@@ -14,19 +14,9 @@
           <ion-input type="text" formControlName="detail" placeholder="Detalles  "></ion-input>
         </ion-item>
       </ion-row>
-        <ion-item>
-         <ion-label >Descuento  </ion-label>
-          <ion-select formControlName="discountType" value="brown" okText="Okay" cancelText="Dismiss" >
-            <ion-select-option  [value]="discountTypes.empty"> </ion-select-option>
-            <ion-select-option  [value]="discountTypes.percentage">%</ion-select-option>
-            <ion-select-option  [value]="discountTypes.amount">$</ion-select-option>
-          </ion-select>
-        
-        </ion-item>
-        <ion-label></ion-label>
-          <ion-input formControlName="discountValue" placeholder="Valor"> </ion-input>
-        <ion-label></ion-label>
-          <ion-input formControlName="discountDescription" placeholder="Descripcion "> </ion-input>
+      <app-form-variation
+      (handleChange)="refreshData($event)"
+      ></app-form-variation>
          
       <ion-button color="tertiary" (click)="onSubmit()">{{buttonLabel}}</ion-button>
 

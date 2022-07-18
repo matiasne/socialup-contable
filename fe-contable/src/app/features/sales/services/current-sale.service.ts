@@ -9,7 +9,7 @@ import { BaseCRUDService } from "../../../services/base-crud.service";
 import { Observable } from "rxjs";
 import { GLOBAL } from "src/app/services/global";
 import { StorageSessionService } from "../../../services/storage-session.service";
-import { DiscountType } from "../models/discount";
+import { Discount, DiscountType } from "../models/discount";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -42,9 +42,12 @@ export class CurrentSaleService extends BaseCRUDService{
         this.refreshTotal()        
     }
 
-    updateSaleProduct(saleProduct:SaleProduct){
+    addDiscount(discount:Discount){
+        this.currentSale.discounts.push(discount)
+        this.refreshTotal()     
+    }
 
-        
+    updateSaleProduct(saleProduct:SaleProduct){        
         this.refreshTotal()        
     }
 
@@ -83,11 +86,23 @@ export class CurrentSaleService extends BaseCRUDService{
         subTotal =  descuento
     }
 
-    
-       
         return subTotal;
    }
+
 calculateSaleTotal(){
+    console.log('calculateSaleTotal')
+    // let Total = Number(saleProduct.amount)*Number(saleProduct.salePrice)
+    // let descuento=0
+    // if(saleProduct.discount.type == DiscountType.percentage){
+    //     descuento = subTotal * Number(saleProduct.discount.value) / 100
+    //     subTotal = subTotal - descuento
+    // }
+    // if(saleProduct.discount.type == DiscountType.amount){
+    //     descuento = subTotal - Number(saleProduct.discount.value)
+    //     subTotal =  descuento
+    // }
     
+    //     return Total;
+   
 }
 }

@@ -10,6 +10,7 @@ import { HelperService } from 'src/app/services/helpers.service';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
+import { CurrentSaleService } from '../../services/current-sale.service';
 import { ModalFormDiscountComponent } from '../modal-form-discount/modal-form-discount.component';
 import { ModalFormSurchargeComponent } from '../modal-form-surcharge/modal-form-surcharge.component';
 
@@ -33,6 +34,7 @@ constructor(private modalCtrl: ModalController,
   public clientService:ClientService,
   public selectedService:SelectedService, 
   public businessService:BusinessService,
+  private currentSaleService:CurrentSaleService,
   public router:Router,) { }
 
   ngOnInit() {}
@@ -43,41 +45,6 @@ constructor(private modalCtrl: ModalController,
     
     
     }
-    async openModalDiscountTotal(sale:Sale) {
-
-      const modal2: HTMLIonModalElement = await this.modalCtrl.create({
-        component: ModalFormDiscountComponent,
-        componentProps: {
-          sale:sale,
-          other: {couldAlsoBeAnObject: true}
-       }
-      });
-      modal2.present();
-  
-      // const { data, role } = await modal.onWillDismiss();
-      let { data, role } = await modal2.onWillDismiss();
-  
-  
-      // this.currentSaleService.addSaleProduct(data)
-     
-    }
-  
-    async openModalSurchargeTotal(sale:Sale) {
-
-      const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
-        component: ModalFormSurchargeComponent,
-        componentProps: {
-          sale:sale,
-          other: {couldAlsoBeAnObject: true}
-       }
-      });
-      modalSurcharge.present();
-  
-      let { data, role } = await modalSurcharge.onWillDismiss();
-  console.log('fin')
-  
-      // this.currentSaleService.addSaleProduct(data)
-     
-    }
+   
   
 }

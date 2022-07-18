@@ -5,8 +5,8 @@ import { SaleProduct } from "./sale-product";
 
 export enum DiscountType{
     empty = "empty",
-    percentage = "percentage",
-    amount = "amount"
+    percentage = "%",
+    amount = "$"
 }
 
 export class Discount {

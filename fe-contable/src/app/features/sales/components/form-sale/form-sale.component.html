@@ -1,15 +1,18 @@
 <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()">+ Cliente</ion-button>
+
 <ng-template #clientTemplate let-item="item">
     <socialup-item-client [client]="item"></socialup-item-client>
   </ng-template>
-<socialup-item-client 
-[client]="clientInSale()" *ngIf="isClient()"
-></socialup-item-client>
+
+<socialup-item-client  [client]="clientInSale()" *ngIf="isClient()"></socialup-item-client>
+
+<ion-button (click)="openModalDiscountTotal()">Descuento</ion-button>
+<ion-button (click)="openModalSurchargeTotal()">Recargo</ion-button>
+
+<app-list-variation  [items]="listSaleVariationAdded()"></app-list-variation>
+
 <div >Productos:</div>
- <socialup-list-sale-product 
-    [items]="listSaleProductAdded()"
-    
-></socialup-list-sale-product>
+<socialup-list-sale-product [items]="listSaleProductAdded()"></socialup-list-sale-product>
 
 <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openModalProduct()"   ><ion-icon name="add-outline"></ion-icon></ion-fab-button>

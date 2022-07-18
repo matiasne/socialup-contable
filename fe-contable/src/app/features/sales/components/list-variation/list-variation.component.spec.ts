@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FormCalculateComponent } from './form-calculate.component';
+import { ListVariationComponent } from './list-variation.component';
 
-describe('FormCalculateComponent', () => {
-  let component: FormCalculateComponent;
-  let fixture: ComponentFixture<FormCalculateComponent>;
+describe('ListVariationComponent', () => {
+  let component: ListVariationComponent;
+  let fixture: ComponentFixture<ListVariationComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormCalculateComponent ],
+      declarations: [ ListVariationComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormCalculateComponent);
+    fixture = TestBed.createComponent(ListVariationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

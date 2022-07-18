@@ -14,7 +14,9 @@ import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
+import { ModalFormDiscountComponent } from '../modal-form-discount/modal-form-discount.component';
 import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
+import { ModalFormSurchargeComponent } from '../modal-form-surcharge/modal-form-surcharge.component';
 import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
 import { SelectClientComponent } from '../select-client/select-client.component';
 
@@ -112,11 +114,48 @@ console.log(data)*/
     return this.currentSaleService.currentSale.saleProducts
   }
 
+  listSaleVariationAdded(){
+    return this.currentSaleService.currentSale.discounts
+  }
+
   totalSaleProducts(){
     return this.currentSaleService.currentSale.total
   }
   saveSale(){
    return this.currentSaleService.add(this.currentSaleService.currentSale)
+  }
+
+  async openModalDiscountTotal() {
+
+    const modal2: HTMLIonModalElement = await this.modalCtrl.create({
+      component: ModalFormDiscountComponent,
+      componentProps: {
+        other: {couldAlsoBeAnObject: true}
+     }
+    });
+    modal2.present();
+
+    // const { data, role } = await modal.onWillDismiss();
+    let { data, role } = await modal2.onWillDismiss();
+
+    this.currentSaleService.addDiscount(data)
+   
+  }
+
+  async openModalSurchargeTotal() {
+
+    const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
+      component: ModalFormSurchargeComponent,
+      componentProps: {
+        other: {couldAlsoBeAnObject: true}
+     }
+    });
+    modalSurcharge.present();
+
+    let { data, role } = await modalSurcharge.onWillDismiss();
+console.log(data)
+    this.currentSaleService.addDiscount(data)
+   
   }
   
 }

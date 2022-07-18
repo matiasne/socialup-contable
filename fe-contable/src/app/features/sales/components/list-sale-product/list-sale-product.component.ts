@@ -9,6 +9,7 @@ import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Discount } from '../../models/discount';
 import { SaleProduct } from '../../models/sale-product';
 
 @Component({
@@ -28,6 +29,7 @@ export class ListSaleProductComponent implements OnInit {
   private business:Business;
   public id:any; 
   private obsBusiness:any;
+
   constructor(
     public activateRoute:ActivatedRoute,
     public storageSessionService:StorageSessionService,
@@ -71,10 +73,8 @@ export class ListSaleProductComponent implements OnInit {
      
     }
 
-
-
-click(data){
-  this.clickSaleProduct.emit(data)
-}
+  click(data){
+    this.clickSaleProduct.emit(data)
+  }
 
 }

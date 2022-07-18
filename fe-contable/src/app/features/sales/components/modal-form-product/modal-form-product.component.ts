@@ -33,13 +33,23 @@ export class ModalFormProductComponent implements OnInit {
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
       detail: new FormControl('', Validators.required),
+      discountType: new FormControl(''),
+      discountValue: new FormControl(''),
+      discountDescription: new FormControl('')
     });
    }
 
   ngOnInit() {}
 
   handleClickSaleProduct(saleProduct){
-   this.modalCtrl.dismiss(saleProduct)
-      }
+    this.modalCtrl.dismiss(saleProduct)
+  }
+  submit(){
+    this.modalCtrl.dismiss(this.saleProduct);
+  }
+
+  cancel(){
+    this.modalCtrl.dismiss(undefined);
+  }
 
 }

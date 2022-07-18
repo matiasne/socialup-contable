@@ -1,41 +1,45 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { Business } from 'src/app/features/business/models/business';
-import { DiscountType } from '../../models/discount';
+import { Discount, DiscountType } from '../../models/discount';
 import { Sale } from '../../models/sale';
 
 @Component({
-  selector: 'app-form-calculate',
-  templateUrl: './form-calculate.component.html',
-  styleUrls: ['./form-calculate.component.scss'],
+  selector: 'app-form-variation',
+  templateUrl: './form-variation.component.html',
+  styleUrls: ['./form-variation.component.scss'],
 })
-export class FormCalculateComponent implements OnInit {
+export class FormVariationComponent implements OnInit {
   public discountTypes = DiscountType;
   public formVariation:FormGroup;
+  
 
   @Output()handleChange=new EventEmitter<any>();
 
   private obs:any
 
-  constructor() { 
+  constructor(  private modalCtrl:ModalController) { 
     this.formVariation = new FormGroup({
-      discountType: new FormControl(''),
-      discountValue: new FormControl(''),
-      discountDescription: new FormControl('')
+      type: new FormControl(''),
+      value: new FormControl(''),
+      description: new FormControl('')
     });
 
     this.obs = this.formVariation.valueChanges.subscribe({
       next: data =>{ 
-        this.handleChange.emit(this.formVariation.value)
+          this.handleChange.emit(data)
       }
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   ngOnDestroy(){
     this.obs.unsubscribe()
   }
-
+  
 
 }

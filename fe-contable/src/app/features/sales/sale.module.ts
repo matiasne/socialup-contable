@@ -14,9 +14,11 @@ import { ModalFormProductComponent } from './components/modal-form-product/modal
 import { FormSalePageRoutingModule } from 'src/app/pages/form-sale/form-sale-routing.module';
 import { FormSaleProductComponent } from './components/form-sale-product/form-sale-product.component';
 import { ProductsModule } from '../products/products.module';
-import { FormCalculateComponent } from './components/form-calculate/form-calculate.component';
+import { FormVariationComponent } from './components/form-variation/form-variation.component';
 import { ModalFormDiscountComponent } from './components/modal-form-discount/modal-form-discount.component';
 import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/modal-form-surcharge.component';
+import { ItemVariationComponent } from './components/item-variation/item-variation.component';
+import { ListVariationComponent } from './components/list-variation/list-variation.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,12 @@ import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/m
     ListSaleProductComponent,
     ModalFormProductComponent,
     FormSaleProductComponent,
-    FormCalculateComponent,
+    FormVariationComponent,
     ModalFormDiscountComponent,
-    ModalFormSurchargeComponent
-    
-
+    ModalFormSurchargeComponent,
+    ItemVariationComponent,
+    ListVariationComponent
+  
   ],
   imports: [
     FormsModule,
@@ -41,6 +44,7 @@ import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/m
     ClientsModule,
     ComponentsModule,
     ProductsModule,
+
 
     
   ],
@@ -52,9 +56,11 @@ import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/m
     ListSaleProductComponent,
     ModalFormProductComponent,
     FormSaleProductComponent,
-    FormCalculateComponent,
+    FormVariationComponent,
     ModalFormDiscountComponent,
-    ModalFormSurchargeComponent
+    ModalFormSurchargeComponent,
+    ItemVariationComponent,
+    ListVariationComponent
 
   ]
   
