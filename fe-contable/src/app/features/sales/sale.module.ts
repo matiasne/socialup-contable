@@ -15,8 +15,8 @@ import { FormSalePageRoutingModule } from 'src/app/pages/form-sale/form-sale-rou
 import { FormSaleProductComponent } from './components/form-sale-product/form-sale-product.component';
 import { ProductsModule } from '../products/products.module';
 import { FormVariationComponent } from './components/form-variation/form-variation.component';
+
 import { ModalFormVariationComponent } from './components/modal-form-variation/modal-form-variation.component';
-import { ModalFormSurchargeComponent } from './components/modal-form-surcharge/modal-form-surcharge.component';
 import { ItemVariationComponent } from './components/item-variation/item-variation.component';
 import { ListVariationComponent } from './components/list-variation/list-variation.component';
 
@@ -31,7 +31,6 @@ import { ListVariationComponent } from './components/list-variation/list-variati
     FormSaleProductComponent,
     FormVariationComponent,
     ModalFormVariationComponent,
-    ModalFormSurchargeComponent,
     ItemVariationComponent,
     ListVariationComponent
   
@@ -58,7 +57,6 @@ import { ListVariationComponent } from './components/list-variation/list-variati
     FormSaleProductComponent,
     FormVariationComponent,
     ModalFormVariationComponent,
-    ModalFormSurchargeComponent,
     ItemVariationComponent,
     ListVariationComponent
 

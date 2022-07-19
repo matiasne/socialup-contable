@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { GLOBAL } from "src/app/services/global";
 import { StorageSessionService } from "../../../services/storage-session.service";
 import { Variation, VariationType } from "../models/variation";
+import { element } from "protractor";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -56,11 +57,22 @@ export class CurrentSaleService extends BaseCRUDService{
         this.refreshTotal()        
     }
 
-    refreshTotal(){
+    async refreshTotal(){
         this.currentSale.total = 0;
-        this.currentSale.saleProducts.forEach(element=>{
-            this.currentSale.total += element.subTotal;
-        })
+        for await(let product of this.currentSale.saleProducts){
+            this.currentSale.total += product.subTotal;
+        }
+
+        for await(let variation of this.currentSale.variations){
+
+            if(variation.type == VariationType.percentage){
+                this.currentSale.total = this.currentSale.total + (this.currentSale.total * Number(variation.value) / 100)
+            }
+            if(variation.type == VariationType.amount){
+                this.currentSale.total = this.currentSale.total + Number(variation.value)
+            }
+        }
+
     }
 
    add(sale:Sale){
@@ -89,20 +101,4 @@ export class CurrentSaleService extends BaseCRUDService{
         return subTotal;
    }
 
-calculateSaleTotal(){
-    console.log('calculateSaleTotal')
-    // let Total = Number(saleProduct.amount)*Number(saleProduct.salePrice)
-    // let descuento=0
-    // if(saleProduct.variation.type == VariationType.percentage){
-    //     descuento = subTotal * Number(saleProduct.variation.value) / 100
-    //     subTotal = subTotal - descuento
-    // }
-    // if(saleProduct.variation.type == VariationType.amount){
-    //     descuento = subTotal - Number(saleProduct.variation.value)
-    //     subTotal =  descuento
-    // }
-    
-    //     return Total;
-   
-}
 }

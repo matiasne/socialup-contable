@@ -12,14 +12,14 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 })
 export class ItemVariationComponent implements OnInit {
   @Input() saleVariation:Variation;
-  public saleVariation:Variation;
+  public saleVariatio :Variation;
 
   constructor(
     private modalCtrl:ModalController,
     private currentSaleService:CurrentSaleService,
     private alertController:AlertController
   ) {
-    console.log(this.saleVariation)
+
   }
 
   ngOnInit() {

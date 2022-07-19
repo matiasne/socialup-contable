@@ -6,8 +6,8 @@
 
 <socialup-item-client  [client]="clientInSale()" *ngIf="isClient()"></socialup-item-client>
 
-<ion-button (click)="openModalVariationTotal()">Descuento</ion-button>
-<ion-button (click)="openModalSurchargeTotal()">Recargo</ion-button>
+<ion-button value="discount" (click)="openModalVariationTotal('discount')" >Descuento</ion-button>
+<ion-button value="surcharge" (click)="openModalVariationTotal('surcharge')">Recargo</ion-button>
 
 <app-list-variation  [items]="listSaleVariationAdded()"></app-list-variation>
 
