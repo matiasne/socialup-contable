@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Discount } from '../../models/discount';
+import { Variation } from '../../models/variation';
 
 @Component({
   selector: 'app-modal-form-surcharge',
@@ -8,13 +8,13 @@ import { Discount } from '../../models/discount';
   styleUrls: ['./modal-form-surcharge.component.scss'],
 })
 export class ModalFormSurchargeComponent implements OnInit {
-private salesVariation:Discount;
+private salesVariation:Variation;
  
 @Output()handleChange=new EventEmitter<any>();
   constructor(
     private modalCtrl:ModalController
   ) {
-    this.salesVariation = new Discount();
+    this.salesVariation = new Variation();
    }
 
   ngOnInit() {}

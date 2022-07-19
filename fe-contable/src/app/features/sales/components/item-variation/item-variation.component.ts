@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
-import { Discount } from '../../models/discount';
+import { Variation } from '../../models/variation';
 import { Sale } from '../../models/sale';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
@@ -11,8 +11,8 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
   styleUrls: ['./item-variation.component.scss'],
 })
 export class ItemVariationComponent implements OnInit {
-  @Input() saleVariation:Discount;
-  public saleDiscount:Discount;
+  @Input() saleVariation:Variation;
+  public saleVariation:Variation;
 
   constructor(
     private modalCtrl:ModalController,

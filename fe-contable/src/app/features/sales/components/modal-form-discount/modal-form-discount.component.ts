@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Discount } from '../../models/discount';
+import { Variation } from '../../models/variation';
 
 @Component({
   selector: 'app-modal-form-discount',
@@ -9,7 +9,7 @@ import { Discount } from '../../models/discount';
 })
 export class ModalFormDiscountComponent implements OnInit {
 
-  private data:Discount;
+  private data:Variation;
 
   constructor(
     private modalCtrl:ModalController

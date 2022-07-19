@@ -9,7 +9,7 @@ import { BaseCRUDService } from "../../../services/base-crud.service";
 import { Observable } from "rxjs";
 import { GLOBAL } from "src/app/services/global";
 import { StorageSessionService } from "../../../services/storage-session.service";
-import { Discount, DiscountType } from "../models/discount";
+import { Variation, VariationType } from "../models/variation";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -42,8 +42,8 @@ export class CurrentSaleService extends BaseCRUDService{
         this.refreshTotal()        
     }
 
-    addDiscount(discount:Discount){
-        this.currentSale.discounts.push(discount)
+    addVariation(variation:Variation){
+        this.currentSale.variations.push(variation)
         this.refreshTotal()     
     }
 
@@ -77,12 +77,12 @@ export class CurrentSaleService extends BaseCRUDService{
    calculateProductSubTotal(saleProduct:SaleProduct){
     let subTotal = Number(saleProduct.amount)*Number(saleProduct.salePrice)
     let descuento=0
-    if(saleProduct.discount.type == DiscountType.percentage){
-        descuento = subTotal * Number(saleProduct.discount.value) / 100
+    if(saleProduct.variation.type == VariationType.percentage){
+        descuento = subTotal * Number(saleProduct.variation.value) / 100
         subTotal = subTotal - descuento
     }
-    if(saleProduct.discount.type == DiscountType.amount){
-        descuento = subTotal - Number(saleProduct.discount.value)
+    if(saleProduct.variation.type == VariationType.amount){
+        descuento = subTotal - Number(saleProduct.variation.value)
         subTotal =  descuento
     }
 
@@ -93,12 +93,12 @@ calculateSaleTotal(){
     console.log('calculateSaleTotal')
     // let Total = Number(saleProduct.amount)*Number(saleProduct.salePrice)
     // let descuento=0
-    // if(saleProduct.discount.type == DiscountType.percentage){
-    //     descuento = subTotal * Number(saleProduct.discount.value) / 100
+    // if(saleProduct.variation.type == VariationType.percentage){
+    //     descuento = subTotal * Number(saleProduct.variation.value) / 100
     //     subTotal = subTotal - descuento
     // }
-    // if(saleProduct.discount.type == DiscountType.amount){
-    //     descuento = subTotal - Number(saleProduct.discount.value)
+    // if(saleProduct.variation.type == VariationType.amount){
+    //     descuento = subTotal - Number(saleProduct.variation.value)
     //     subTotal =  descuento
     // }
     

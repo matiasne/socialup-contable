@@ -6,7 +6,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
-import { Discount, DiscountType } from '../../models/discount';
+import { Variation, VariationType } from '../../models/variation';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
 
@@ -19,11 +19,11 @@ import { CurrentSaleService } from '../../services/current-sale.service';
 export class FormSaleProductComponent implements OnInit {
   @Input() product:Product;
   @Input() saleProduct:SaleProduct;
-  @Input() discount:Discount;
+  @Input() variation:Variation;
   @Output() clickSaleProduct= new EventEmitter<SaleProduct>();
   
  
-  public discountTypes = DiscountType;
+  public variationTypes = VariationType;
  
 
   public formSaleProduct: FormGroup;
@@ -37,7 +37,7 @@ export class FormSaleProductComponent implements OnInit {
     private currentSaleService:CurrentSaleService
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','',0,'',0,new Discount())
+    this.saleProduct =  new SaleProduct('','','','','','','',0,'',0,new Variation())
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
@@ -62,7 +62,7 @@ export class FormSaleProductComponent implements OnInit {
         0,
         "",
         0,
-        new Discount()
+        new Variation()
       )
     }
     
@@ -73,9 +73,9 @@ export class FormSaleProductComponent implements OnInit {
     this.formSaleProduct.setValue({
       amount: this.saleProduct.amount?this.saleProduct.amount:"",
       detail: this.saleProduct.detail?this.saleProduct.detail:"",
-    //  type: this.saleProduct.discount.type?this.saleProduct.discount.type:"",
-    //  value: this.saleProduct.discount.value?this.saleProduct.discount.value:"",
-    //  description: this.saleProduct.discount.description?this.saleProduct.discount.description:"",
+    //  type: this.saleProduct.variation.type?this.saleProduct.variation.type:"",
+    //  value: this.saleProduct.variation.value?this.saleProduct.variation.value:"",
+    //  description: this.saleProduct.variation.description?this.saleProduct.variation.description:"",
     })
       
     
@@ -88,9 +88,9 @@ export class FormSaleProductComponent implements OnInit {
       console.log("holiss")
       this.saleProduct.amount = this.formSaleProduct.controls.amount .value
       this.saleProduct.detail = this.formSaleProduct.controls.detail.value
-      // this.saleProduct.discount.type =this.formSaleProduct.controls.type.value
-      // this.saleProduct.discount.description =this.formSaleProduct.controls.description.value
-      // this.saleProduct.discount.value=this.formSaleProduct.controls.value.value
+      // this.saleProduct.variation.type =this.formSaleProduct.controls.type.value
+      // this.saleProduct.variation.description =this.formSaleProduct.controls.description.value
+      // this.saleProduct.variation.value=this.formSaleProduct.controls.value.value
 
       var subTotal:number;
       
@@ -105,7 +105,7 @@ export class FormSaleProductComponent implements OnInit {
   }
   refreshData(data){
    
-    this.saleProduct.discount=data
+    this.saleProduct.variation=data
     this.clickSaleProduct.emit(this.saleProduct);
   }
   

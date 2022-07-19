@@ -11,8 +11,6 @@ import { StorageSessionService } from 'src/app/services/storage-session.service'
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
-import { ModalFormDiscountComponent } from '../modal-form-discount/modal-form-discount.component';
-import { ModalFormSurchargeComponent } from '../modal-form-surcharge/modal-form-surcharge.component';
 
 
 @Component({

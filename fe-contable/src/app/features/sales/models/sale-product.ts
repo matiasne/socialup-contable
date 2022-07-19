@@ -1,5 +1,5 @@
 import { Product } from "../../products/models/product";
-import { Discount } from "./discount";
+import { Variation } from "./variation";
 
 export class SaleProduct extends Product{
     constructor (
@@ -13,7 +13,7 @@ export class SaleProduct extends Product{
         public amount:number,
         public detail:string,
         public subTotal:number,
-        public discount:Discount
+        public variation:Variation
     ){
         super('',name,description,code,costPrice,salePrice,idBusiness,image)
     }
@@ -30,7 +30,7 @@ export class SaleProduct extends Product{
             item.amount,
             item.detail,
             item.subTotal,
-            item.discount
+            item.variation
         )
     }
 }

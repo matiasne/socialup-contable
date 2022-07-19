@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ModalFormDiscountComponent } from './modal-form-discount.component';
 
-describe('ModalFormDiscountComponent', () => {
+describe('ModalFormVariationComponent', () => {
   let component: ModalFormDiscountComponent;
   let fixture: ComponentFixture<ModalFormDiscountComponent>;
 

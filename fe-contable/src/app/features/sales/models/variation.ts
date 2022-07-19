@@ -3,15 +3,15 @@ import { Client } from "../../clients/models/client";
 import { Product } from "../../products/models/product";
 import { SaleProduct } from "./sale-product";
 
-export enum DiscountType{
+export enum VariationType{
     empty = "empty",
     percentage = "%",
     amount = "$"
 }
 
-export class Discount {
+export class Variation {
 
-    public type:DiscountType = DiscountType.empty
+    public type:VariationType = VariationType.empty
     public value:number = 0;
     public description:string = "";
 

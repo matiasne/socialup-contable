@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
-import { Discount } from '../../models/discount';
+import { Variation } from '../../models/variation';
 
 @Component({
   selector: 'app-list-variation',
@@ -10,7 +10,7 @@ import { Discount } from '../../models/discount';
 export class ListVariationComponent implements OnInit {
   @Input() items = []
   @ViewChild('listItem') listItems: ListItemsComponent;
-  @Output() clickSaleVariation = new EventEmitter<Discount>()
+  @Output() clickSaleVariation = new EventEmitter<Variation>()
 
   constructor() {
     

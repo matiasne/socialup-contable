@@ -115,7 +115,7 @@ console.log(data)*/
   }
 
   listSaleVariationAdded(){
-    return this.currentSaleService.currentSale.discounts
+    return this.currentSaleService.currentSale.variations
   }
 
   totalSaleProducts(){
@@ -125,7 +125,7 @@ console.log(data)*/
    return this.currentSaleService.add(this.currentSaleService.currentSale)
   }
 
-  async openModalDiscountTotal() {
+  async openModalVariationTotal() {
 
     const modal2: HTMLIonModalElement = await this.modalCtrl.create({
       component: ModalFormDiscountComponent,
@@ -138,7 +138,7 @@ console.log(data)*/
     // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
-    this.currentSaleService.addDiscount(data)
+    this.currentSaleService.addVariation(data)
    
   }
 
@@ -154,7 +154,7 @@ console.log(data)*/
 
     let { data, role } = await modalSurcharge.onWillDismiss();
 console.log(data)
-    this.currentSaleService.addDiscount(data)
+    this.currentSaleService.addVariation(data)
    
   }
   

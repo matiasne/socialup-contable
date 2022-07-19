@@ -9,7 +9,7 @@ import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { Discount } from '../../models/discount';
+import { Variation } from '../../models/variation';
 import { SaleProduct } from '../../models/sale-product';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Business } from 'src/app/features/business/models/business';
-import { Discount, DiscountType } from '../../models/discount';
+import { Variation, VariationType } from '../../models/variation';
 import { Sale } from '../../models/sale';
 
 @Component({
@@ -11,7 +11,7 @@ import { Sale } from '../../models/sale';
   styleUrls: ['./form-variation.component.scss'],
 })
 export class FormVariationComponent implements OnInit {
-  public discountTypes = DiscountType;
+  public variationTypes = VariationType;
   public formVariation:FormGroup;
   
 

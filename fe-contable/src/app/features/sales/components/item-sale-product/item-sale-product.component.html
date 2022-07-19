@@ -8,10 +8,10 @@
       <p>Detalle: {{saleProduct.detail}}</p>
       <p>Cantidad: {{saleProduct.amount}}</p>
       <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
-      <div *ngIf="saleProduct.discount.type != 'empty'">
-        <p>Tipo descuento: {{saleProduct.discount.type}} </p>
-        <p>Valor descuento:{{ saleProduct.discount.value }}</p>
-        <p>Observación: {{saleProduct.discount.description }}</p>
+      <div *ngIf="saleProduct.variation.type != 'empty'">
+        <p>Tipo descuento: {{saleProduct.variation.type}} </p>
+        <p>Valor descuento:{{ saleProduct.variation.value }}</p>
+        <p>Observación: {{saleProduct.variation.description }}</p>
       </div>
       <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p>
     </div>
