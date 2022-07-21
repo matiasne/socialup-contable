@@ -42,9 +42,7 @@ import { ListVariationComponent } from './components/list-variation/list-variati
     CommonModule,
     ClientsModule,
     ComponentsModule,
-    ProductsModule,
-
-
+    ProductsModule
     
   ],
   exports:[

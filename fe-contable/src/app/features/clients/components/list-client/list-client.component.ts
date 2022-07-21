@@ -37,6 +37,8 @@ export class ListClientComponent implements OnInit {
     public router:Router,
     public toastService: ToastService,
 
+    
+
   ) { }
 
   ngOnInit() {
@@ -69,5 +71,8 @@ export class ListClientComponent implements OnInit {
     click(client){
       this.clickClient.emit(client)
      }
-
+     handleClickClient(client){
+      this.router.navigate(['/edit-client',{client:JSON.stringify(client)}])
+    }
+    
 }

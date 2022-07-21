@@ -7,14 +7,15 @@ import { ToastType } from 'src/app/models/toast.enum';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController, NavParams } from '@ionic/angular';
+import { SelectedService } from 'src/app/services/global/selected.service';
 
 @Component({
   selector: 'socialup-form-client',
-  templateUrl: './form-client.component.html',
-  styleUrls: ['./form-client.component.scss'],
+  templateUrl: './modal-form-client.component.html',
+  styleUrls: ['./modal-form-client.component.scss'],
 })
-export class FormClientComponent implements OnInit {
+export class ModalFormClientComponent implements OnInit {
 
   @Input() client:Client;
   @Input() business:Business;
@@ -31,7 +32,10 @@ export class FormClientComponent implements OnInit {
     public clientService: ClientService,
     public activateRoute: ActivatedRoute,
     public router: Router,
-    public alertController: AlertController,
+   public alertController: AlertController,
+   private modalCtrl: ModalController,
+   private selectedService:SelectedService,
+   public navParams: NavParams
    
   ) { 
 
@@ -52,7 +56,8 @@ export class FormClientComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+ 
+    console.log( this.navParams.get('client'))
     if (this.client._id != "") {
       this.isEditing = true
      
@@ -91,8 +96,9 @@ export class FormClientComponent implements OnInit {
         this.client.documentType = this.formClient.controls.documentType.value
         this.client.documentNumber = this.formClient.controls.documentNumber.value
         this.client.surname = this.formClient.controls.surname.value
-  
+        this.client.idBusiness = this.selectedService.SelectedBusiness.value._id
         this.save()
+        
       }else{
         this.toastService.show(ToastType.error, "Por Favor complete todo los campos")
       }
@@ -104,16 +110,18 @@ export class FormClientComponent implements OnInit {
         else {
           this.createClient();
         }
+
   }
   
   createClient() {
     this.clientService.add(this.client).subscribe({
-      next: (data) => {
+      next: (data) => {      
         // this.client=data
-        this.handleSubmit.emit(data)
+        this.modalCtrl.dismiss(data.client)
+
       }
     })
-  
+
   }
   updateProfileClient() {
     console.log(this.client)
@@ -121,7 +129,7 @@ export class FormClientComponent implements OnInit {
      next:(data)=>{
        this.toastService.show(ToastType.success, "Se ha actualizaddo el prodcuto correctamente")
        this.handleSubmit.emit(data)
-
+       this.modalCtrl.dismiss(data)
      }
     })
    }

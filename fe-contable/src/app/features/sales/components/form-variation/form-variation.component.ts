@@ -13,13 +13,14 @@ import { Sale } from '../../models/sale';
 export class FormVariationComponent implements OnInit {
   public variationTypes = VariationType;
   public formVariation:FormGroup;
-  
 
+  
   @Output()handleChange=new EventEmitter<any>();
 
   private obs:any
 
   constructor(  private modalCtrl:ModalController) { 
+    
     this.formVariation = new FormGroup({
       type: new FormControl(''),
       value: new FormControl(''),
@@ -28,6 +29,7 @@ export class FormVariationComponent implements OnInit {
 
     this.obs = this.formVariation.valueChanges.subscribe({
       next: data =>{ 
+        
           this.handleChange.emit(data)
       }
     })

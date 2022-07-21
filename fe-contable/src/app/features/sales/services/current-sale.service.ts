@@ -37,6 +37,9 @@ export class CurrentSaleService extends BaseCRUDService{
     addClient(client:Client){
         this.currentSale.client = client;
     }
+    removeClient(){
+    this.currentSale.client=  undefined
+}
 
     addSaleProduct(saleProduct:SaleProduct){
         this.currentSale.saleProducts.push(saleProduct)
@@ -56,6 +59,7 @@ export class CurrentSaleService extends BaseCRUDService{
         this.currentSale.saleProducts = this.currentSale.saleProducts.filter((item) => item !== saleProduct)
         this.refreshTotal()        
     }
+
 
     async refreshTotal(){
         this.currentSale.total = 0;
@@ -94,11 +98,12 @@ export class CurrentSaleService extends BaseCRUDService{
         subTotal = subTotal - descuento
     }
     if(saleProduct.variation.type == VariationType.amount){
-        descuento = subTotal - Number(saleProduct.variation.value)
+        descuento = subTotal + Number(saleProduct.variation.value)
         subTotal =  descuento
     }
 
         return subTotal;
    }
+   
 
 }

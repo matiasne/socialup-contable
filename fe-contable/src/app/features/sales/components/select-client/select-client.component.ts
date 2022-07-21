@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BusinessService } from 'src/app/features/business/service/business.service';
+import { FormClientComponent } from 'src/app/features/clients/components/form-client/form-client.component';
 import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
+import { ModalFormClientComponent } from 'src/app/features/clients/components/modal-form-client/modal-form-client.component';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
@@ -31,6 +33,23 @@ export class SelectClientComponent implements OnInit {
   ngOnInit() {}
 
   handleClickClient(client){
-  this.modalCtrl.dismiss(client)
+    this.modalCtrl.dismiss(client,"","select")
+  }
+
+  async openModalNewClient() {
+    
+    const modal = await this.modalCtrl.create({
+      id:"1",
+      component: ModalFormClientComponent,
+    });
+    modal.present();
+
+    // const { data, role } = await modal.onWillDismiss();
+    const { data, role } = await modal.onWillDismiss();
+    
+    if(data){      
+      this.handleClickClient(data) 
+    }
+
   }
 }

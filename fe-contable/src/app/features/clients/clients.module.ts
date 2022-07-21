@@ -6,6 +6,8 @@ import { FormClientComponent } from './components/form-client/form-client.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemClientComponent } from './components/item-client/item-client.component';
 import { ListClientComponent } from './components/list-client/list-client.component';
+import { ModalFormClientComponent } from './components/modal-form-client/modal-form-client.component';
+
 
 
 
@@ -13,7 +15,9 @@ import { ListClientComponent } from './components/list-client/list-client.compon
   declarations: [
     FormClientComponent,
     ItemClientComponent,
-    ListClientComponent
+    ListClientComponent,
+    ModalFormClientComponent
+
 
   ],
   imports: [
@@ -21,12 +25,16 @@ import { ListClientComponent } from './components/list-client/list-client.compon
     ReactiveFormsModule,
     IonicModule,
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+  
+
   ],
   exports:[
     FormClientComponent,
     ItemClientComponent,
-    ListClientComponent
+    ListClientComponent,
+    ModalFormClientComponent
+
   ]
   
 })

@@ -43,13 +43,15 @@ public buttonLabel=""
   ngOnInit() {}
 
   async openModalClient() {
-    const modal = await this.modalCtrl.create({
+    
+    const modalSelectClient = await this.modalCtrl.create({
+      id:"select",
       component: SelectClientComponent,
     });
-    modal.present();
+    modalSelectClient.present();
 
     // const { data, role } = await modal.onWillDismiss();
-    const { data, role } = await modal.onWillDismiss();
+    const { data, role } = await modalSelectClient.onWillDismiss();
 
     this.currentSaleService.addClient(data)
     
@@ -64,21 +66,7 @@ public buttonLabel=""
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
 
-    
-   /* this.product=data
-
-    if(this.product._id){
-
-
-    data._id=this.product._id
-    data.name=this.product.name
-    data.description=this.product.description
-    data.code=this.product.code
-    data.costPrice=this.product.costPrice
-    data.salePrice=this.product.salePrice
-    data.image=this.product.image
-    data.idBusiness=this.product.idBusiness
-console.log(data)*/
+    if(data)
       this.openModalSaleProduct(data)
     
 
@@ -97,8 +85,8 @@ console.log(data)*/
     // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
-    console.log(data)
-    this.currentSaleService.addSaleProduct(data)
+    if(data)
+      this.currentSaleService.addSaleProduct(data)
     
   }
 
@@ -125,23 +113,6 @@ console.log(data)*/
    return this.currentSaleService.add(this.currentSaleService.currentSale)
   }
 
-  // async openModalVariationTotal() {
-
-  //   const modal2: HTMLIonModalElement = await this.modalCtrl.create({
-  //     component: ModalFormDiscountComponent,
-  //     componentProps: {
-  //       other: {couldAlsoBeAnObject: true}
-  //    }
-  //   });
-  //   modal2.present();
-
-  //   // const { data, role } = await modal.onWillDismiss();
-  //   let { data, role } = await modal2.onWillDismiss();
-
-  //   this.currentSaleService.addVariation(data)
-   
-  // }
-
   async openModalVariationTotal(type) {
 
     const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
@@ -154,9 +125,15 @@ console.log(data)*/
     modalSurcharge.present();
 
     let { data, role } = await modalSurcharge.onWillDismiss();
-
-    this.currentSaleService.addVariation(data)
+    if(data)
+      this.currentSaleService.addVariation(data)
     
   }
-  
+  removeClient(client:Client){
+    console.log()
+    this.currentSaleService.removeClient()
+  }
+  // click(data){
+  //   this.clickBusiness.emit(data)
+  //  }
 }

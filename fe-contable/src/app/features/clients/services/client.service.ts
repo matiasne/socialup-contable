@@ -7,7 +7,7 @@ import { StorageSessionService } from "../../../services/storage-session.service
 import { HelperService } from "../../../services/helpers.service";
 import { Client } from "../models/client";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ClientService extends BaseCRUDService{
   getBusinessClient(_id: string) {
     throw new Error('Method not implemented.');

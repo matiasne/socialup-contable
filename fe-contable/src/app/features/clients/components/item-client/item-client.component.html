@@ -1,4 +1,4 @@
-<ion-item>
+<ion-item >
   <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
     <img src={{client.image}}>
   </ion-avatar>
@@ -8,4 +8,6 @@
     <h3>Apellido: {{client.surname}}</h3> 
     <h3>Telefono: {{client.phone}}</h3>
   </ion-label>
+  <ion-button *ngIf="showButton" (click)="handleClickDelete()" >Eliminar</ion-button>
+  <ion-button *ngIf="showButton" (click)="handleClickEditing()" >Editar</ion-button>
 </ion-item>

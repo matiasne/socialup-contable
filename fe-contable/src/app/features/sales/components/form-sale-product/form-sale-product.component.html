@@ -14,9 +14,13 @@
           <ion-input type="text" formControlName="detail" placeholder="Detalles  "></ion-input>
         </ion-item>
       </ion-row>
+      <ion-button value="discount" (click)="enabledFormVariation('discount')" >Descuento</ion-button>
+      <ion-button value="surcharge" (click)="enabledFormVariation('surcharge')">Recargo</ion-button>
       <app-form-variation
+      *ngIf="variationEnabled"
       (handleChange)="refreshData($event)"
       ></app-form-variation>
+      
          
       <ion-button color="tertiary" (click)="onSubmit()">{{buttonLabel}}</ion-button>
 

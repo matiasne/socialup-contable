@@ -32,7 +32,7 @@ private salesVariation:Variation;
      }
 
   refreshData(data){
-    this.salesVariation=data;
+    this.salesVariation=data
     console.log(data)
   }
 

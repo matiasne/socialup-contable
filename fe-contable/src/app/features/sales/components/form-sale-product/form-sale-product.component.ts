@@ -9,6 +9,7 @@ import { HelperService } from 'src/app/services/helpers.service';
 import { Variation, VariationType } from '../../models/variation';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
+import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
 
 @Component({
   selector: 'socialup-form-sale-product',
@@ -25,11 +26,12 @@ export class FormSaleProductComponent implements OnInit {
  
   public variationTypes = VariationType;
  
-
+  public variationEnabled:boolean=false
   public formSaleProduct: FormGroup;
   public isEditing: boolean = false;  
   public isSubmited: boolean = false;
   public buttonLabel = "Añadir Producto"
+  public saleProductVariation = new Variation();
   
   constructor(
     private modalCtrl: ModalController,
@@ -41,8 +43,7 @@ export class FormSaleProductComponent implements OnInit {
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
-      detail: new FormControl('', Validators.required),
-    
+      detail: new FormControl(''),
     });
    }
 
@@ -109,5 +110,28 @@ export class FormSaleProductComponent implements OnInit {
     this.clickSaleProduct.emit(this.saleProduct);
   }
   
+  // async openModalVariationTotal(type) {
 
+  //   const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
+  //     component: ModalFormVariationComponent,
+  //     componentProps: {
+  //       type:type,
+  //       other: {couldAlsoBeAnObject: true}
+  //    }
+  //   });
+  //   modalSurcharge.present();
+
+  //   let { data, role } = await modalSurcharge.onWillDismiss();
+  //   if(data)
+  //     this.currentSaleService.addVariation(data)
+    
+  // }
+
+  enabledFormVariation(type){
+    this.variationEnabled=true
+    if(type === 'discount'){
+      this.saleProduct.variation.value = -this.saleProductVariation.value;
+    }
+    this.saleProduct.variation.type = type
+  }
 }

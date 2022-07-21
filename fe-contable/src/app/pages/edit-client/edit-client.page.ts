@@ -55,40 +55,6 @@ export class EditClientPage implements OnInit {
 
   
 
-async doAlert(){
-  const alert = await this.alertController.create({
-    header:'ELIMINAR CUENTA',
-    message:'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        id: 'cancel-button',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
-      }, {
-        text: 'Ok',
-        id: 'confirm-button',
-        handler: () => {
-          this.clientService._delete(this.activateRoute.snapshot.params.id).subscribe({
-            next:(data)=>{
-              this.toastService.show(ToastType.warning, "Se ha eliminado el cliente correctamente")
-              this.router.navigate(['/list-business'])
-            },
-              error:(err)=>{
-                console.log(err);
 
-              }
-          })
-          
-        }
-      }
-    ],
-  });
-  (await alert).present()
-
-}
 
 }

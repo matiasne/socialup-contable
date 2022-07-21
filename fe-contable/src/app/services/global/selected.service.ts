@@ -6,7 +6,7 @@ import { Client } from "src/app/features/clients/models/client";
 @Injectable({ providedIn: 'root' })
 export class SelectedService{ 
     
-    private SelectedBusiness:BehaviorSubject<any> = new BehaviorSubject("")
+    public SelectedBusiness:BehaviorSubject<any> = new BehaviorSubject("")
     
     constructor (){      
         
