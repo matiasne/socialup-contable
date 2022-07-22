@@ -50,6 +50,10 @@ export class CurrentSaleService extends BaseCRUDService{
         this.currentSale.variations.push(variation)
         this.refreshTotal()     
     }
+    deleteSaleVariation(variation:Variation){
+        this.currentSale.variations = this.currentSale.variations.filter((item) => item !== variation)
+        this.refreshTotal()        
+    }
 
     updateSaleProduct(saleProduct:SaleProduct){        
         this.refreshTotal()        

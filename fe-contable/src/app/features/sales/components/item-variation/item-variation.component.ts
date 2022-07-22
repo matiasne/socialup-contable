@@ -23,13 +23,14 @@ export class ItemVariationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.saleVariation)
+    
+    this.saleVariation.value = Math.abs(this.saleVariation.value)
   }
 
   async doAlert(){
     const alert = await this.alertController.create({
       header:'ELIMINAR CUENTA',
-      message:'Desea quitar el producto de la lista.',
+      message:'Desea quitar el Variacion de la lista.',
       buttons: [
         {
           text: 'Cancel',
@@ -43,7 +44,7 @@ export class ItemVariationComponent implements OnInit {
           text: 'Ok',
           id: 'confirm-button',
           handler: () => {
-          //  this.currentSaleService.deleteSaleProduct(this.saleVariation)
+           this.currentSaleService.deleteSaleVariation(this.saleVariation)
           }
         }
       ],
