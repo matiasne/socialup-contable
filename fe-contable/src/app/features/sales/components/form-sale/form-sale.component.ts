@@ -16,6 +16,7 @@ import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
 import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
+import { ModalFormSaleStatusComponent } from '../modal-form-sale-status/modal-form-sale-status.component';
 import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
 import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
 import { SelectClientComponent } from '../select-client/select-client.component';
@@ -109,9 +110,21 @@ public buttonLabel=""
   totalSaleProducts(){
     return this.currentSaleService.currentSale.total
   }
-  saveSale(){
-   return this.currentSaleService.add(this.currentSaleService.currentSale)
+ async openModalSaveSale(){
+  const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
+    component: ModalFormSaleStatusComponent,
+    componentProps: {
+      other: {couldAlsoBeAnObject: true}
+   }
+  });
+  modalStatus.present();
+
+  let { data, role } = await modalStatus.onWillDismiss();
+  if(data){
+  return this.currentSaleService.add(this.currentSaleService.currentSale)
+
   }
+}
 
   async openModalVariationTotal(type) {
 
@@ -127,6 +140,7 @@ public buttonLabel=""
     let { data, role } = await modalSurcharge.onWillDismiss();
     if(data)
       this.currentSaleService.addVariation(data)
+      
     
   }
   removeClient(client:Client){

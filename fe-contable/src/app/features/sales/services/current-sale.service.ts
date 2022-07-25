@@ -11,6 +11,8 @@ import { GLOBAL } from "src/app/services/global";
 import { StorageSessionService } from "../../../services/storage-session.service";
 import { Variation, VariationType } from "../models/variation";
 import { element } from "protractor";
+import { Status } from "../models/status";
+import { Payment } from "../models/payment";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -43,6 +45,7 @@ export class CurrentSaleService extends BaseCRUDService{
 
     addSaleProduct(saleProduct:SaleProduct){
         this.currentSale.saleProducts.push(saleProduct)
+        console.log(saleProduct)
         this.refreshTotal()        
     }
 
@@ -99,7 +102,7 @@ export class CurrentSaleService extends BaseCRUDService{
     let descuento=0
     if(saleProduct.variation.type == VariationType.percentage){
         descuento = subTotal * Number(saleProduct.variation.value) / 100
-        subTotal = subTotal - descuento
+        subTotal = subTotal + descuento
     }
     if(saleProduct.variation.type == VariationType.amount){
         descuento = subTotal + Number(saleProduct.variation.value)
@@ -109,5 +112,13 @@ export class CurrentSaleService extends BaseCRUDService{
         return subTotal;
    }
    
+    addStatus(status:Status){
+        this.currentSale.status = status;
+    }
 
+    addPayment(payment:Payment){
+        this.currentSale.payments.push(payment)
+        
+
+    }
 }

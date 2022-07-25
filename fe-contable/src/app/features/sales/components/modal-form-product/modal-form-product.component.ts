@@ -28,7 +28,7 @@ export class ModalFormProductComponent implements OnInit {
     private modalCtrl :ModalController
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','',0,'',0,new Variation())
+    this.saleProduct =  new SaleProduct('','','','','','','','',0,'',0,new Variation())
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
@@ -45,6 +45,9 @@ export class ModalFormProductComponent implements OnInit {
     this.modalCtrl.dismiss(saleProduct)
   }
   submit(){
+
+    
+
     this.modalCtrl.dismiss(this.saleProduct);
   }
 

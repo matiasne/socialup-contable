@@ -8,6 +8,7 @@ var saleProduct = new Schema({
     amount: String,
     detail: String,
     subTotal: Number,
+    variation:{},
     product: { type: Schema.ObjectId, ref: 'Product' }
 });
 

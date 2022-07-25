@@ -13,6 +13,7 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 export class ItemVariationComponent implements OnInit {
   @Input() saleVariation:Variation;
   public saleVariatio :Variation;
+  public valueVariationView:number;
 
   constructor(
     private modalCtrl:ModalController,
@@ -24,7 +25,7 @@ export class ItemVariationComponent implements OnInit {
 
   ngOnInit() {
     
-    this.saleVariation.value = Math.abs(this.saleVariation.value)
+    this.valueVariationView = Math.abs(this.saleVariation.value)
   }
 
   async doAlert(){

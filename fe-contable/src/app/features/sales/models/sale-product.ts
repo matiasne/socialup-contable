@@ -3,6 +3,7 @@ import { Variation } from "./variation";
 
 export class SaleProduct extends Product{
     constructor (
+        public _id:string,
         public name:string,
         public description:string,
         public code: string,
@@ -15,11 +16,12 @@ export class SaleProduct extends Product{
         public subTotal:number,
         public variation:Variation
     ){
-        super('',name,description,code,costPrice,salePrice,idBusiness,image)
+        super(_id,name,description,code,costPrice,salePrice,idBusiness,image)
     }
 
     public static adapt(item:any):SaleProduct{        
         return new SaleProduct(
+            item._id,
             item.name,
             item.description,
             item.code,

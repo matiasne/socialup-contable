@@ -25,5 +25,5 @@
 
   <ion-footer collapse="fade" *ngIf="totalSaleProducts()>0  ">
       <ion-title>{{totalSaleProducts() | currency: 'USD' }}</ion-title>
-      <ion-button expand="full" (click)="saveSale()" >Finalizar Venta</ion-button>
+      <ion-button expand="full" (click)="openModalSaveSale()" >Finalizar Venta</ion-button>
   </ion-footer> 

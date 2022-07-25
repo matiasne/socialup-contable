@@ -10,6 +10,8 @@ var SaleSchema = Schema({
     client: {},
     saleProducts:[],
     total:Number,
+    payment:{},
+    variation:{},
     billingDate: Date
 },{
     timestamps: true

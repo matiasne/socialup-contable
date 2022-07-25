@@ -32,6 +32,7 @@ export class FormSaleProductComponent implements OnInit {
   public isSubmited: boolean = false;
   public buttonLabel = "Añadir Producto"
   public saleProductVariation = new Variation();
+  public typeVariation:string;
   
   constructor(
     private modalCtrl: ModalController,
@@ -39,7 +40,7 @@ export class FormSaleProductComponent implements OnInit {
     private currentSaleService:CurrentSaleService
   ) {
     
-    this.saleProduct =  new SaleProduct('','','','','','','',0,'',0,new Variation())
+    this.saleProduct =  new SaleProduct('','','','','','','','',0,'',0,new Variation())
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
@@ -53,6 +54,7 @@ export class FormSaleProductComponent implements OnInit {
       this.product = this.navParams.get('selectProduct');
 
       this.saleProduct = new SaleProduct(
+        this.product._id,
         this.product.name,
         this.product.description,
         this.product.code,
@@ -86,7 +88,7 @@ export class FormSaleProductComponent implements OnInit {
     this.isSubmited = true;
     
     if (this.formSaleProduct.valid) {
-      console.log("holiss")
+      
       this.saleProduct.amount = this.formSaleProduct.controls.amount .value
       this.saleProduct.detail = this.formSaleProduct.controls.detail.value
       // this.saleProduct.variation.type =this.formSaleProduct.controls.type.value
@@ -95,9 +97,8 @@ export class FormSaleProductComponent implements OnInit {
 
       var subTotal:number;
       
+   
 
-
-      console.log(this.saleProduct)
       this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
 
 
@@ -105,33 +106,20 @@ export class FormSaleProductComponent implements OnInit {
     }
   }
   refreshData(data){
-   
     this.saleProduct.variation=data
+    
+    if(this.typeVariation === 'discount'){
+      this.saleProduct.variation.value = -data.value;
+    }
+
     this.clickSaleProduct.emit(this.saleProduct);
   }
   
-  // async openModalVariationTotal(type) {
-
-  //   const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
-  //     component: ModalFormVariationComponent,
-  //     componentProps: {
-  //       type:type,
-  //       other: {couldAlsoBeAnObject: true}
-  //    }
-  //   });
-  //   modalSurcharge.present();
-
-  //   let { data, role } = await modalSurcharge.onWillDismiss();
-  //   if(data)
-  //     this.currentSaleService.addVariation(data)
-    
-  // }
-
   enabledFormVariation(type){
     this.variationEnabled=true
-    if(type === 'discount'){
-      this.saleProduct.variation.value = -this.saleProductVariation.value;
-    }
+   
+    this.typeVariation = type;
+   
     this.saleProduct.variation.type = type
   }
 }
