@@ -88,8 +88,9 @@ export class CurrentSaleService extends BaseCRUDService{
 
    add(sale:Sale){
 
-    let formData = this.helperService.toFormData(sale)
-    console.log(formData)
+    // let formData = this.helperService.toFormData(sale)
+    // console.log(formData)
+    console.log(sale)
      this.post(this.url,sale).subscribe({
         next:(data)=>{
             console.log(data)

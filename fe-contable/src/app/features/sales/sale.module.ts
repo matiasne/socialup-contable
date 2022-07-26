@@ -20,6 +20,8 @@ import { ModalFormVariationComponent } from './components/modal-form-variation/m
 import { ItemVariationComponent } from './components/item-variation/item-variation.component';
 import { ListVariationComponent } from './components/list-variation/list-variation.component';
 import { ModalFormSaleStatusComponent } from './components/modal-form-sale-status/modal-form-sale-status.component';
+import { ListSaleComponent } from './components/list-sale/list-sale.component';
+import { ItemSaleComponent } from './components/item-sale/item-sale.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ModalFormSaleStatusComponent } from './components/modal-form-sale-statu
     ModalFormVariationComponent,
     ItemVariationComponent,
     ListVariationComponent,
-    ModalFormSaleStatusComponent
+    ModalFormSaleStatusComponent,
+    ListSaleComponent,
+    ItemSaleComponent,
   
   ],
   imports: [
@@ -60,7 +64,9 @@ import { ModalFormSaleStatusComponent } from './components/modal-form-sale-statu
     ModalFormVariationComponent,
     ItemVariationComponent,
     ListVariationComponent,
-    ModalFormSaleStatusComponent
+    ModalFormSaleStatusComponent,
+    ListSaleComponent,
+    ItemSaleComponent,
 
   ]
   

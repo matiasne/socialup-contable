@@ -140,6 +140,7 @@ public buttonLabel=""
     let { data, role } = await modalSurcharge.onWillDismiss();
     if(data)
       this.currentSaleService.addVariation(data)
+      console.log(data)
       
     
   }

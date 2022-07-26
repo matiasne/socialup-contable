@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Payment, paymentTypes } from '../../models/payment';
+import { Sale } from '../../models/sale';
 import { Status } from '../../models/status';
 import { CurrentSaleService } from '../../services/current-sale.service';
 
@@ -24,6 +25,7 @@ public cardAmount=0;
 public checkAmount = 0;
 public transferAmount=0;
 public personalAccountAmount = 0;
+public sale: Sale;
   constructor(
     public currentSaleService:CurrentSaleService
   ) { 
@@ -78,5 +80,7 @@ public personalAccountAmount = 0;
       this.currentSaleService.addPayment(payment)
     }
 console.log(this.currentSaleService.currentSale)
+this.currentSaleService.add(this.currentSaleService.currentSale)
+
 }
 }
