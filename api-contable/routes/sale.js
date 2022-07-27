@@ -9,6 +9,7 @@ var api = express.Router();
 
 
 api.post('/sale',SaleController.saveSale); 
+api.get('/business/:idBusiness/sales',md_auth.ensureAuth,SaleController.getSales);
 
 module.exports = api;
 

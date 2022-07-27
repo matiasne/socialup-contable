@@ -18,4 +18,5 @@ api.post('/business', validationSchema(postBusinessSchema),md_uploadFile.single(
 api.get('/business/file/:imageFile',BusinessController.getBusinessImageFile);
 
 
+
 module.exports = api;

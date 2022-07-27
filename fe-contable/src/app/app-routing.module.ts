@@ -77,6 +77,13 @@ const routes: Routes = [
     path: 'create-client',
     loadChildren: () => import('./pages/create-client/create-client.module').then( m => m.CreateClientPageModule)
   },
+  {
+    path: 'list-sale',
+    loadChildren: () => import('./pages/list-sale/list-sale.module').then( m => m.ListSalePageModule)
+  }
+
+
+
 
 
 

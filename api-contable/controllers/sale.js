@@ -14,7 +14,35 @@ async function saveSale(req,res){
         res.status(400).send({message: error});
     }
 }
+async function getSales(req,res){  //pageCount  perPage    
+
+    var idBusiness = req.params.idBusiness
+    var pageCount = req.query.pageCount;
+    var perPage = req.query.perPage;
+    var searchWord = req.query.searchWord;
+    var orderBy = req.query.orderBy;
+
+    var offset = (pageCount -1 ) * perPage;
+
+  
+
+    var limit = perPage;
+
+    let saleRepo = new saleRepository();
+    
+    try{
+        let data = await saleRepo.getByBusinessId(idBusiness,offset,limit,orderBy,searchWord)       
+        res.status(200).send(data);       
+        
+    }catch(error){
+        console.log(error)
+        res.status(400).send({message: error});
+        console.log('catch')
+    }
+}
+
 
 module.exports = {
-    saveSale
+    saveSale,
+    getSales
 } ; 
