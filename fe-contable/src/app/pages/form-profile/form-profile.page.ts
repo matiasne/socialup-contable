@@ -58,13 +58,13 @@ export class FormProfilePage implements OnInit {
               console.log('Confirm Cancel: blah');
             }
           }, {
-            text: 'Okay',
+            text: 'Ok',
             id: 'confirm-button',
             handler: () => {
               this.userService._delete(this.session.user._id).subscribe({
                 next:(data)=>{
                  this.storageSessionService.logoutSession();
-                  console.log('Confirm Okay');
+                  console.log('Confirm Ok');
                   console.log(data);
                 },
                   error:(err)=>{
@@ -115,7 +115,7 @@ export class FormProfilePage implements OnInit {
         }) 
 
         let user = User.adapt(this.session.user);        
-        this.storageSessionService.updateUser(user)
+        //this.storageSessionService.updateUser(user) //no parece necesario
       },
     })
     

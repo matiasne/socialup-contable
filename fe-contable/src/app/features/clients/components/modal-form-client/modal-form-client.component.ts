@@ -25,6 +25,7 @@ export class ModalFormClientComponent implements OnInit {
   public isEditing: boolean = false;
   public isSubmited: boolean = false;
   public buttonLabel = "Crear Cliente"
+  public buttonEdit= "Editar Cliente"
  
 
   constructor(
@@ -106,9 +107,11 @@ export class ModalFormClientComponent implements OnInit {
   save(){
       if (this.isEditing) {
           this.updateProfileClient();
+          
         }
         else {
           this.createClient();
+          
         }
 
   }

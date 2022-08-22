@@ -11,6 +11,7 @@ var ProductSchema = Schema({
     costPrice: String,
     salePrice: String,
     image: String,    
+   
 },{
     timestamps: true
 })

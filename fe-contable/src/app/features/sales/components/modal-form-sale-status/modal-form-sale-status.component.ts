@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
 import { Status } from '../../models/status';
@@ -27,8 +29,11 @@ public transferAmount=0;
 public personalAccountAmount = 0;
 public sale: Sale;
   constructor(
+    private modalCtrl: ModalController,
+    public router: Router,
     public currentSaleService:CurrentSaleService
   ) { 
+    
    
   }
 
@@ -81,6 +86,7 @@ public sale: Sale;
     }
 console.log(this.currentSaleService.currentSale)
 this.currentSaleService.add(this.currentSaleService.currentSale)
-
+this.router.navigate(['/list-sale'])
+this.modalCtrl.dismiss(this.submit)
 }
 }

@@ -77,8 +77,9 @@ export class ListProductComponentComponent implements OnInit {
 
  
 
-  click(data){
-    this.clickProduct.emit(data)
+  click(product){
+    this.clickProduct.emit(product)
+    // this.router.navigate(['/product/:id', { product: JSON.stringify(Product) }]);
   }
 
 }

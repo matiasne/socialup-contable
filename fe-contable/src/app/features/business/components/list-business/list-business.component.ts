@@ -65,6 +65,7 @@ export class ListBusinessComponent implements OnInit {
 
 
   click(data){
-   this.clickBusiness.emit(data)
+   this.clickBusiness.emit(data);
+   this.router.navigate(['/products'])
   }
 }

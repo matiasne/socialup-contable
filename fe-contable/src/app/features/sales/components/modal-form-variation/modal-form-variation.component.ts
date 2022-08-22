@@ -28,7 +28,9 @@ private salesVariation:Variation;
     this.typeVariation = this.navParams.get('type')
     if(this.typeVariation === 'discount'){
       this.title='Descuento'
-      } 
+      }else{
+        this.title='Recargo'
+      }
      }
 
   refreshData(data){

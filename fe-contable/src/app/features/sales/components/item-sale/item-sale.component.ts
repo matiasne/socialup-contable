@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { async } from 'rxjs';
+import { Client } from 'src/app/features/clients/models/client';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
+import { SalesModule } from '../../sale.module';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
@@ -14,12 +16,15 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 export class ItemSaleComponent implements OnInit {
   @Input() sale:Sale;
   @Input() valor1:Number;
+  public saleProduct: Array<any>=[SaleProduct]
 
-  constructor(  
-  ) { }
+  constructor(  ) {
+
+   }
  
   ngOnInit() {
-   console.log(this.sale.client.name)
+  
+
   }
 
 

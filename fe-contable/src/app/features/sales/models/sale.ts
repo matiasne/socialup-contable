@@ -8,18 +8,33 @@ import { Payment } from "./payment";
 
 export class Sale {
 
-    public client:Client
-    public saleProducts:Array<SaleProduct> = []
-    public variations:Array<Variation> = []
-    public total:number = 0;
-    public date:Date = new Date()
-    public status:Status
-    public payments:Array<Payment>=[]
     constructor (
-        public business:Business
+        public _id: String,
+        public client:Client,
+        public saleProducts:Array<SaleProduct> = [],
+        public variations:Array<Variation> = [],
+        public total:number = 0,
+        public date:Date = new Date(),
+        public status:Status,
+        public payments:Array<Payment>=[],
+        public business:Business,
     ){
        
     }
-
+    public static adapt(item:any):Sale{
+        return new Sale(
+            item._id,
+            item.client,
+            item.saleProducts,
+            item.variations,
+            item.total,
+            item.date,
+            item.status,
+            item.payments,
+            item.business
+        
+           
+        )
+    }
    
 }

@@ -74,8 +74,8 @@ export class FormProductPage implements OnInit {
   
   async doAlert(){
     const alert = await this.alertController.create({
-      header:'ELIMINAR CUENTA',
-      message:'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+      header:'ELIMINAR PRODUCTO',
+      message:'Desea eliminar el Producto permanentemente.No podra volver a recuperarlo.',
       buttons: [
         {
           text: 'Cancel',
@@ -83,7 +83,7 @@ export class FormProductPage implements OnInit {
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            
           }
         }, {
           text: 'Ok',

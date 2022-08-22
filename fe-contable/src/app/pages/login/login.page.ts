@@ -91,7 +91,7 @@ export class LoginPage implements OnInit{
           error:(err)=>{
             console.log(err)
             if(err.status == 400){
-              alert(err.error.message)
+              alert("Email o Contraseña incorrecto")
             }
           },
           complete:()=>{

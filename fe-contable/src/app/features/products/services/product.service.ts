@@ -36,8 +36,9 @@ export class ProductService extends BaseCRUDService{
         return this.post(this.url,formData)
     }
 
-    _delete(id):Observable<any>{
-        return this.delete(this.url+'/'+id)
+    _delete(_id):Observable<any>{
+        console.log(this.url+'/'+_id)
+        return this.delete(this.url+'/'+_id)
     }
 
     

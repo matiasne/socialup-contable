@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators,FormBuilder  } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators,FormBuilder, ValidatorFn, AbstractControl, ValidationErrors  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { HelperService } from 'src/app/services/helpers.service';
@@ -17,8 +17,8 @@ export class RegisterPage implements OnInit {
   public isSubmitted: boolean;
   public showPassword : boolean;
   public passwordToggleIcon='eye';
- public user_register:User
-  
+  public user_register:User
+  public messageerror:String
 
 
   constructor(
@@ -36,6 +36,12 @@ export class RegisterPage implements OnInit {
     }
 
   }
+  checkPasswords: ValidatorFn = (control: AbstractControl  ): ValidationErrors | null => {
+    const password = control.get("password");
+    const validpassword = control.get("validpassword");
+    
+    return password && validpassword && password.value !==validpassword.value? { passwordCoincide: false }: null;
+  };
 
   ngOnInit() {
      // this.priority = this.route.snapshot.paramMap.get('priority');
@@ -45,8 +51,13 @@ export class RegisterPage implements OnInit {
       surname: new FormControl("",[Validators.required, Validators.minLength(5)]),
       email: new FormControl ("",[Validators.required,Validators.maxLength(30), Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)]),
       password: new FormControl("",Validators.compose([Validators.required, Validators.minLength(5)])),
-      validpassword: new FormControl("",Validators.compose ([Validators.required])),
-    })
+      validpassword: new FormControl("",Validators.compose ([Validators.required,])),
+    },
+    
+    { validators: [this.checkPasswords] }
+   
+    )
+    
 
   
   }
@@ -98,12 +109,14 @@ export class RegisterPage implements OnInit {
     let password = this.formData.controls.password.value
     let validpassword = this.formData.controls.validpassword.value
 
-    if(password != validpassword){
-      return true
+    if(password !== validpassword){
+      alert("Las contraseñas no coinciden")
+      return false
     }
     else
-      return false
+      return true
   }
+  
 
   userRegister(formRegister: NgForm){
   

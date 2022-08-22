@@ -68,7 +68,8 @@
             <ion-input type="text" formControlName="address" placeholder="Dirección"></ion-input>
           </ion-item>
         </ion-row>
-        <ion-button type="submit" expand="default"  shape="round" (click)="onSubmit()">{{buttonLabel}}</ion-button>
+        <ion-button type="submit" expand="default"  shape="round" *ngIf="!isEditing"(click)="onSubmit()">{{buttonLabel}}</ion-button>
+        <ion-button type="submit" expand="default"  shape="round" *ngIf="isEditing" (click)="onSubmit()">{{buttonEdit}}</ion-button>
         <!-- <ion-button type="submit" expand="default"  shape="round" (click)="doAlert()">eliminar cliente</ion-button> -->
       </form>
     </ion-card-content>

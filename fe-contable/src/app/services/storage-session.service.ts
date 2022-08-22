@@ -8,7 +8,7 @@ import { User } from "../models/user";
 @Injectable({ providedIn: 'root' })
 export class StorageSessionService {
 
-  public loguedRoute = '/select-user-business'
+  public loguedRoute = '/select-user-business' 
   public unloguedRoute = '/login'
 
   private loguedRouteBusiness = '/products' // guardas!!!

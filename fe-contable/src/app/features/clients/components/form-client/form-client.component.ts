@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'socialup-form-client',
+  selector: 'form-client',
   templateUrl: './form-client.component.html',
   styleUrls: ['./form-client.component.scss'],
 })
@@ -23,7 +23,8 @@ export class FormClientComponent implements OnInit {
   public formClient:FormGroup;
   public isEditing: boolean = false;
   public isSubmited: boolean = false;
-  public buttonLabel = "Crear Cliente"
+  public buttonLabel = "Crear Cliente";
+  public buttonEdit="Editar Cliente";
  
 
   constructor(
@@ -110,6 +111,7 @@ export class FormClientComponent implements OnInit {
     this.clientService.add(this.client).subscribe({
       next: (data) => {
         // this.client=data
+        this.toastService.show(ToastType.success, "Se ha creado el Cliente correctamente")
         this.handleSubmit.emit(data)
       }
     })
@@ -119,7 +121,7 @@ export class FormClientComponent implements OnInit {
     console.log(this.client)
     this.clientService.update(this.client).subscribe({
      next:(data)=>{
-       this.toastService.show(ToastType.success, "Se ha actualizaddo el prodcuto correctamente")
+       this.toastService.show(ToastType.success, "Se ha actualizado el Cliente correctamente")
        this.handleSubmit.emit(data)
 
      }

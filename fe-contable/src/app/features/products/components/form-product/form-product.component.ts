@@ -86,7 +86,8 @@ export class FormProductComponent implements OnInit {
       this.product.salePrice = this.formProduct.controls.salePrice.value
       this.product.image = this.formProduct.controls.image.value
       
-      this.save()
+      this.save();
+      this.formProduct.reset();
 
       
     }
