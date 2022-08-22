@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'socialup-form-client',
+  selector: 'form-client',
   templateUrl: './form-client.component.html',
   styleUrls: ['./form-client.component.scss'],
 })
@@ -23,7 +23,8 @@ export class FormClientComponent implements OnInit {
   public formClient:FormGroup;
   public isEditing: boolean = false;
   public isSubmited: boolean = false;
-  public buttonLabel = "Crear Cliente"
+  public buttonLabel = "Crear Cliente";
+  public buttonEdit = "Editar Cliente";
  
 
   constructor(

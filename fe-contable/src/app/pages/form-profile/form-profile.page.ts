@@ -115,7 +115,7 @@ export class FormProfilePage implements OnInit {
         }) 
 
         let user = User.adapt(this.session.user);        
-        this.storageSessionService.updateUser(user)
+        //this.storageSessionService.updateUser(user)
       },
     })
     
