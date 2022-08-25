@@ -121,7 +121,7 @@ public buttonLabel=""
 
   let { data, role } = await modalStatus.onWillDismiss();
   if(data){
-  return this.currentSaleService.add(this.currentSaleService.currentSale)
+    return this.currentSaleService.add(this.currentSaleService.currentSale)
 
   }
 }
