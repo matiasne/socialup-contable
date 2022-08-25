@@ -14,7 +14,8 @@ export class ItemVariationComponent implements OnInit {
   @Input() saleVariation:Variation;
   public saleVariatio :Variation;
   public valueVariationView:number;
-
+  public typeVariation
+  public title='Recargo'
   constructor(
     private modalCtrl:ModalController,
     private currentSaleService:CurrentSaleService,
@@ -24,7 +25,11 @@ export class ItemVariationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    let type = Math.sign(this.saleVariation.value)
+
+    if(type == -1){
+      this.title = "Descuento"
+    }
     this.valueVariationView = Math.abs(this.saleVariation.value)
   }
 

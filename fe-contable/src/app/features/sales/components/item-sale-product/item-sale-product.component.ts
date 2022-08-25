@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { SaleProduct } from '../../models/sale-product';
+import { Variation } from '../../models/variation';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
@@ -13,6 +14,10 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 export class ItemSaleProductComponent implements OnInit {
   @Input() saleProduct:SaleProduct;
   @Input() valor1:Number;
+  @Input() saleVariation:Variation;
+  public valueVariationView:number;
+  public typeVariation
+  public title='Recargo'
   constructor(
     private modalCtrl:ModalController,
     private currentSaleService:CurrentSaleService,
@@ -20,7 +25,12 @@ export class ItemSaleProductComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-
+    let type = Math.sign(this.saleProduct.variation.value)
+console.log(type)
+    if(type == -1){
+      this.title = "Descuento"
+    }
+    this.valueVariationView = Math.abs(this.saleProduct.variation.value)
   }
 
 ionViewWillEnter(){
