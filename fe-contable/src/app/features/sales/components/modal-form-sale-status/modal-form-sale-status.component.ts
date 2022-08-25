@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Payment, paymentTypes } from '../../models/payment';
@@ -28,6 +29,7 @@ public checkAmount = 0;
 public transferAmount=0;
 public personalAccountAmount = 0;
 public sale: Sale;
+public formSale: FormGroup;
   constructor(
     private modalCtrl: ModalController,
     public router: Router,
@@ -85,8 +87,13 @@ public sale: Sale;
       this.currentSaleService.addPayment(payment)
     }
 console.log(this.currentSaleService.currentSale)
+
 this.currentSaleService.add(this.currentSaleService.currentSale)
 this.router.navigate(['/list-sale'])
 this.modalCtrl.dismiss(this.submit)
+this.formSale.reset()
+}
+resetSale(){
+ 
 }
 }

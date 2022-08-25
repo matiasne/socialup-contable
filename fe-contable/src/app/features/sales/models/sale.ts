@@ -9,7 +9,7 @@ import { Payment } from "./payment";
 export class Sale {
 
     constructor (
-        public _id: String,
+        // public _id: String,
         public client:Client,
         public saleProducts:Array<SaleProduct> = [],
         public variations:Array<Variation> = [],
@@ -21,20 +21,20 @@ export class Sale {
     ){
        
     }
-    public static adapt(item:any):Sale{
-        return new Sale(
-            item._id,
-            item.client,
-            item.saleProducts,
-            item.variations,
-            item.total,
-            item.date,
-            item.status,
-            item.payments,
-            item.business
+    // public static adapt(item:any):Sale{
+    //     return new Sale(
+    //         item._id,
+    //         item.client,
+    //         item.saleProducts,
+    //         item.variations,
+    //         item.total,
+    //         item.date,
+    //         item.status,
+    //         item.payments,
+    //         item.business
         
            
-        )
-    }
+    //     )
+    // }
    
 }

@@ -94,6 +94,7 @@ export class FormClientComponent implements OnInit {
         this.client.surname = this.formClient.controls.surname.value
   
         this.save()
+        
       }else{
         this.toastService.show(ToastType.error, "Por Favor complete todo los campos")
       }
@@ -104,6 +105,7 @@ export class FormClientComponent implements OnInit {
         }
         else {
           this.createClient();
+          this.formClient.reset();
         }
   }
   

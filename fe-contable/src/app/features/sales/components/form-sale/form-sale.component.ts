@@ -32,7 +32,7 @@ export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
 
 public buttonLabel=""
- 
+
   message = 'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
@@ -119,11 +119,13 @@ public buttonLabel=""
   });
   modalStatus.present();
 
+
   let { data, role } = await modalStatus.onWillDismiss();
   if(data){
   return this.currentSaleService.add(this.currentSaleService.currentSale)
-
+    
   }
+  
 }
 
   async openModalVariationTotal(type) {

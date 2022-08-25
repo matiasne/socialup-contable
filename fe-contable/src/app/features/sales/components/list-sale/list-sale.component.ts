@@ -89,6 +89,6 @@ export class ListSaleComponent implements OnInit {
     this.clickSales.emit(sale);
   }
   handleClickSales(sale) {
-    this.router.navigate(['/form-sale', { sale: JSON.stringify(sale) }]);
+    this.router.navigate(['/dashboard-business', { sale: JSON.stringify(sale) }]);
   }
 }

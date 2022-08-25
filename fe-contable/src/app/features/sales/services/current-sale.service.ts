@@ -36,7 +36,7 @@ export class CurrentSaleService extends BaseCRUDService {
 
     this.selectedService.obsSelectedBusiness().subscribe((business) => {
       this.currentSale = new Sale(
-        '',
+        // '',
         this.client,
         this.saleProducts,
         this.variations,

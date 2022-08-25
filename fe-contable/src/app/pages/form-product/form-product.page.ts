@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-form-product',
@@ -35,7 +35,8 @@ export class FormProductPage implements OnInit {
     public activateRoute: ActivatedRoute,
     public selectedService: SelectedService,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public navCtrl:NavController
   ) {
     this.product  =  new Product('','','','','','','','');
   }
@@ -67,6 +68,7 @@ export class FormProductPage implements OnInit {
   }
 
   submit(data){
+    this.navCtrl.back();
     console.log(data)
   }
  

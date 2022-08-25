@@ -71,11 +71,11 @@ export class ItemProductComponent implements OnInit {
           handler: () => {
             this.productService._delete(this.product._id).subscribe({
               next: (data) => {
-                this.toastService.show(
-                  ToastType.warning,
-                  'Se ha eliminado el producto correctamente'
-                );
-                this.router.navigate(['/products']);
+                this.toastService.show(ToastType.warning,'Se ha eliminado el producto correctamente');
+                
+                // this.router.navigate(['/products'])
+                
+                // 
                 
               },
               error: (err) => {
@@ -92,6 +92,9 @@ export class ItemProductComponent implements OnInit {
 
   handleClickDelete() {
     this.doAlert();
+
+    
+    
   }
   async handleClickEdit() {
     const modal2: HTMLIonModalElement = await this.modalCtrl.create({

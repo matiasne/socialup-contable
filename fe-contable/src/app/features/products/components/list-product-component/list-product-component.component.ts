@@ -52,6 +52,10 @@ export class ListProductComponentComponent implements OnInit {
     }
   }
 
+  ionViewDidEnter(){
+    this.refreshProducts({perPage:10,pageCount:1,searchWord:""})
+  }
+
   
 
     ngOnDestroy(){
@@ -79,7 +83,7 @@ export class ListProductComponentComponent implements OnInit {
 
   click(product){
     this.clickProduct.emit(product)
-    // this.router.navigate(['/product/:id', { product: JSON.stringify(Product) }]);
+    // this.router.navigate(['/form-product', { product: JSON.stringify(Product) }]);
   }
 
 }

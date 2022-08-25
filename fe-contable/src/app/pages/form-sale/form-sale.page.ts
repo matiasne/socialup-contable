@@ -19,8 +19,8 @@ export class FormSalePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sale = Sale.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('sale')))
-    console.log(this.sale)
+    // this.sale = Sale.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('sale')))
+   
   }
 
 }
