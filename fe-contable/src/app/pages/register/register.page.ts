@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators,FormBuilder  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/models/user';
 import { HelperService } from 'src/app/services/helpers.service';
 import { UserService } from '../../services/user.service';
@@ -22,8 +23,7 @@ export class RegisterPage implements OnInit {
 
 
   constructor(
-    private _userService : UserService,
-    private route: ActivatedRoute,
+    private authService : AuthService,
     private router:Router) { 
   
   }
@@ -63,7 +63,7 @@ export class RegisterPage implements OnInit {
       let password = this.formData.controls['password'].value
       let name= this.formData.controls['name'].value
       let surname= this.formData.controls['surname'].value
-      this._userService.register(name,surname,email,password).subscribe(
+      this.authService.register(name,surname,email,password).subscribe(
         {
           next: (data:any)=>{
             let user:User = data.user;

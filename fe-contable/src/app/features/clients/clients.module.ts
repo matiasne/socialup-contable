@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { ComponentsModule } from 'src/app/components/components.module';
 import { FormClientComponent } from './components/form-client/form-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemClientComponent } from './components/item-client/item-client.component';
 import { ListClientComponent } from './components/list-client/list-client.component';
 import { ModalFormClientComponent } from './components/modal-form-client/modal-form-client.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,7 +25,7 @@ import { ModalFormClientComponent } from './components/modal-form-client/modal-f
     ReactiveFormsModule,
     IonicModule,
     CommonModule,
-    ComponentsModule,
+    SharedModule,
   
 
   ],

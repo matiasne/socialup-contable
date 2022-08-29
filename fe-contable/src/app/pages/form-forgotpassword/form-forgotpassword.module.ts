@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormForgotpasswordPageRoutingModule } from './form-forgotpassword-routing.module';
 
 import { FormForgotpasswordPage } from './form-forgotpassword.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     FormForgotpasswordPageRoutingModule,
     ReactiveFormsModule,
-    ComponentsModule,
+    SharedModule,
     
   ],
   declarations: [FormForgotpasswordPage]

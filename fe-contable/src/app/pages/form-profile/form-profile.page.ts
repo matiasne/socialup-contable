@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm,Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Session } from 'src/app/models/session';
-import { StorageSessionService } from 'src/app/services/storage-session.service';
+import { Session } from 'src/app/auth/model/session';
 import { AlertController, ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
@@ -11,6 +10,8 @@ import { GLOBAL } from 'src/app/services/global';
 import { HelperService } from 'src/app/services/helpers.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
+import { SessionService } from 'src/app/auth/services/session.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   
@@ -35,12 +36,13 @@ export class FormProfilePage implements OnInit {
   constructor(
     private userService: UserService,
     public route: ActivatedRoute, 
-    private storageSessionService:StorageSessionService,
+    private sessionService:SessionService,
+    private authService:AuthService,
     public alertController: AlertController,
     public toastService: ToastService
     ) 
     { 
-       this.session= this.storageSessionService.getSession();
+       this.session= this.sessionService.getSession();
        this.url = GLOBAL.url;
     }
 
@@ -63,7 +65,7 @@ export class FormProfilePage implements OnInit {
             handler: () => {
               this.userService._delete(this.session.user._id).subscribe({
                 next:(data)=>{
-                 this.storageSessionService.logoutSession();
+                 this.authService.logout();
                   console.log('Confirm Okay');
                   console.log(data);
                 },
@@ -115,7 +117,7 @@ export class FormProfilePage implements OnInit {
         }) 
 
         let user = User.adapt(this.session.user);        
-        //this.storageSessionService.updateUser(user)
+        //this.sessionService.updateUser(user)
       },
     })
     
@@ -142,7 +144,7 @@ export class FormProfilePage implements OnInit {
       this.userService.update(user).subscribe(
         {
           next:(data)=>{       
-            this.storageSessionService.updateUser(data.user)
+            this.sessionService.updateUser(data.user)
             this.toastService.show(ToastType.success,"Perfil actualizado correctamente")
           },
           error:(err)=>{

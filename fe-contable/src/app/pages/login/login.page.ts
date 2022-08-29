@@ -1,19 +1,18 @@
-import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
-import { Session } from 'src/app/models/session';
-import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { Business } from 'src/app/features/business/models/business';
+import { SessionService } from 'src/app/auth/services/session.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [UserService,HelperService]
+  providers: [HelperService]
 })
 
 export class LoginPage implements OnInit{
@@ -32,8 +31,8 @@ export class LoginPage implements OnInit{
   
  
  constructor(
-    private _userService : UserService,
-    private _storageSessionService: StorageSessionService, 
+    private authService : AuthService,
+    private _sessionService: SessionService, 
     public router:Router
   ){ 
       this.user = new User('','','','','ROLE_USER','','','','');
@@ -67,45 +66,10 @@ export class LoginPage implements OnInit{
       let email = this.formData.controls['email'].value
       let password = this.formData.controls['password'].value
       
-      this._userService.singnup(email,password).subscribe(
-        {
-          next: (data:any)=>{
-          //  let session:Session = new Session(data.token, data.user)
-            let user:User = new User(
-              data.user._id,
-              data.user.name,
-              data.user.surname, 
-              data.user.email,
-              data.user.role,
-              data.user.image,
-              data.user.gender,
-              data.user.address,
-              data.user.phone);
-
-              
-              let session:Session = new Session(data.token, user, this.business)
-              
-            this._storageSessionService.setSession(session);
-            // console.log(session.token);
-          },
-          error:(err)=>{
-            console.log(err)
-            if(err.status == 400){
-              alert(err.error.message)
-            }
-          },
-          complete:()=>{
-
-            
-
-          }
-        }
-      
-        )
-      // console.log('valid')
-    }else{
-      // console.log('not  valid')
-    } 
+      this.authService.authenticate(email,password).then((data:any) =>{
+       this.router.navigate(['/list-business'])
+      })
+    }
 
   }
 

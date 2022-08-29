@@ -45,9 +45,6 @@ export class ModalFormProductComponent implements OnInit {
     this.modalCtrl.dismiss(saleProduct)
   }
   submit(){
-
-    
-
     this.modalCtrl.dismiss(this.saleProduct);
   }
 

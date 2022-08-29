@@ -4,13 +4,13 @@ import { Observable } from "rxjs";
 import { GLOBAL } from "./global";
 import { LoginPage } from "../pages/login/login.page";
 import { User } from "../models/user";
-import { StorageSessionService } from "./storage-session.service";
+import { SessionService } from "../auth/services/session.service";
 @Injectable()
 export class BaseCRUDService{  
     
     constructor (
         public _http: HttpClient,
-        public storageSessionService: StorageSessionService
+        public storageSessionService: SessionService
     ){      
         
     }

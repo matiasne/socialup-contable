@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Session } from 'protractor';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/models/user';
 import { HelperService } from 'src/app/services/helpers.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,7 +19,7 @@ export class FormForgotpasswordPage implements OnInit {
   show:boolean=false;
   time
   constructor(
-    private _userService : UserService,
+    private authService : AuthService,
     public router:Router
   ) { }
 
@@ -39,7 +40,7 @@ export class FormForgotpasswordPage implements OnInit {
    if(this.formForgotPassword.valid){
      let email = this.formForgotPassword.controls['email'].value
      //console.log(this.onReset)
-     this._userService.resetPassword(email).subscribe(
+     this.authService.resetPassword(email).subscribe(
        {
          next: (data:any)=>{
            

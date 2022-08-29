@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { timeStamp } from 'console';
 import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
+import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
@@ -18,8 +19,6 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
 import { ModalFormSaleStatusComponent } from '../modal-form-sale-status/modal-form-sale-status.component';
 import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
-import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
-import { SelectClientComponent } from '../select-client/select-client.component';
 
 @Component({
   selector: 'socialup-form-sale',
@@ -47,7 +46,7 @@ public buttonLabel=""
     
     const modalSelectClient = await this.modalCtrl.create({
       id:"select",
-      component: SelectClientComponent,
+      component: ListClientComponent,
     });
     modalSelectClient.present();
 
@@ -60,7 +59,7 @@ public buttonLabel=""
 
   async openModalProduct() {
     const modal = await this.modalCtrl.create({
-      component: ModalSelectProductComponent,
+      component: ListProductComponentComponent,
     });
     modal.present();
 

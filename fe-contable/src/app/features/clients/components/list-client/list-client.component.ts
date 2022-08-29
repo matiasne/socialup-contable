@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
@@ -8,8 +7,9 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
-import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
+import { SessionService } from 'src/app/auth/services/session.service';
 
 
 @Component({
@@ -27,9 +27,11 @@ export class ListClientComponent implements OnInit {
     public id:any;  
     private obsBusiness:any;
     public totalPages:number;
+    public obs:any
+
   constructor(
    public activateRoute:ActivatedRoute,
-    public storageSessionService:StorageSessionService,
+    public sessionService:SessionService,
     public helperService: HelperService  ,
     public clientService:ClientService,
     public selectedService:SelectedService, 
@@ -42,7 +44,8 @@ export class ListClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
+    
+    this.obs = this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
       next:(data:any)=>{
         this.business = data
         this.refreshClients({perPage:10,pageCount:1,searchWord:""})
@@ -54,11 +57,13 @@ export class ListClientComponent implements OnInit {
       this.toastService.show(ToastType.warning , "Necesita ingresar con una empresa")
     }
   }
+
+
   
 
   refreshClients(data:any){
-    if(this.business._id){
-      this.businessService.getBusinessClient(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
+      
+    this.businessService.getBusinessClient(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
         next:(response)=>{
           
         this.clients = response.data
@@ -67,7 +72,7 @@ export class ListClientComponent implements OnInit {
         }
         })      
       }
-    }
+    
     click(client){
       this.clickClient.emit(client)
      }

@@ -6,8 +6,8 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { User } from 'src/app/models/user';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { SessionService } from 'src/app/auth/services/session.service';
 
 @Component({
   selector: 'socialup-form-business',
@@ -27,7 +27,7 @@ export class FormBusinessComponent implements OnInit {
   public FormGroup:FormControl;
 
   constructor(
-    public storageSessionService:StorageSessionService,
+    public sessionService:SessionService,
     public businessService:BusinessService,
     public toastService: ToastService,
    
@@ -95,7 +95,7 @@ onSubmit(){
 createBusiness(){
   if(this.formBusiness.valid){
     
-    let idUser = this.storageSessionService.getUser()._id;
+    let idUser = this.sessionService.getUserData()._id;
     let business= new Business("",
       this.formBusiness.controls['name'].value,
       this.formBusiness.controls['image'].value,

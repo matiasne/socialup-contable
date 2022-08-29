@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { ToastType } from 'src/app/models/toast.enum';
 import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
-import { StorageSessionService } from 'src/app/services/storage-session.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { Variation } from '../../models/variation';
+import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { SaleProduct } from '../../models/sale-product';
 
 @Component({
@@ -31,9 +29,6 @@ export class ListSaleProductComponent implements OnInit {
   private obsBusiness:any;
 
   constructor(
-    public activateRoute:ActivatedRoute,
-    public storageSessionService:StorageSessionService,
-    public helperService: HelperService  ,
     public productService:ProductService,
     public selectedService:SelectedService, 
     public businessService:BusinessService,
@@ -50,11 +45,7 @@ export class ListSaleProductComponent implements OnInit {
       this.refreshSaleProducts({perPage:10,pageCount:1,searchWord:""})
     }
   })
-
-  if(!this.business){
-    this.router.navigate(['/list-business'])
-    this.toastService.show(ToastType.warning , "Necesita ingresar con una empresa")
-  }}
+  }
   
   refreshSaleProducts(data:any){
 

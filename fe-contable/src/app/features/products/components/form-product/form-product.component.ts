@@ -5,6 +5,9 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ToastService } from 'src/app/services/toast.service';
 import { ProductService } from '../../services/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { SelectedService } from 'src/app/services/global/selected.service';
 
 @Component({
   selector: 'socialup-form-product',
@@ -24,7 +27,10 @@ export class FormProductComponent implements OnInit {
 
   constructor(
     private toastService:ToastService,
-    private productService:ProductService
+    private productService:ProductService,
+    public router: Router,
+    public alertController: AlertController,
+    public activateRoute:ActivatedRoute
   ) { 
 
     this.product =  new Product('','','','','','','','')
@@ -117,11 +123,47 @@ export class FormProductComponent implements OnInit {
   updateProfileProducts() {    
     this.productService.update(this.product).subscribe({
       next: (data) => {
-
         this.toastService.show(ToastType.success, "Se ha actualizado el producto correctamente")
         this.handleSubmit.emit(data)
       }
     })
+  }
+
+  
+  async doAlert(){
+    const alert = await this.alertController.create({
+      header:'ELIMINAR CUENTA',
+      message:'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            this.productService._delete(this.activateRoute.snapshot.params.id).subscribe({
+              next:(data)=>{
+                this.toastService.show(ToastType.warning, "Se ha eliminado el producto correctamente")
+                this.router.navigate(['/products'])
+              },
+                error:(err)=>{
+                  console.log(err);
+
+                }
+            })
+            
+          }
+        }
+      ],
+    });
+    (await alert).present()
+
   }
 
 

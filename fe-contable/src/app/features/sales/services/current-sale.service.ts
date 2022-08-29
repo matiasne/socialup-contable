@@ -8,11 +8,11 @@ import { SaleProduct } from "../models/sale-product";
 import { BaseCRUDService } from "../../../services/base-crud.service";
 import { Observable } from "rxjs";
 import { GLOBAL } from "src/app/services/global";
-import { StorageSessionService } from "../../../services/storage-session.service";
 import { Variation, VariationType } from "../models/variation";
 import { element } from "protractor";
 import { Status } from "../models/status";
 import { Payment } from "../models/payment";
+import { SessionService } from "src/app/auth/services/session.service";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -25,9 +25,9 @@ export class CurrentSaleService extends BaseCRUDService{
         public _http: HttpClient,
         private selectedService:SelectedService,
         public helperService: HelperService,
-        public storageSessionService: StorageSessionService,
+        public sessionService:SessionService,
     ){      
-        super(_http,storageSessionService)
+        super(_http,sessionService)
         this.url = GLOBAL.url+'/sale';
 
         this.selectedService.obsSelectedBusiness().subscribe(business =>{

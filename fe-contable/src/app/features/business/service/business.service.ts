@@ -6,20 +6,21 @@ import { LoginPage } from "../../../pages/login/login.page";
 import { Business } from "../models/business";
 import { BaseCRUDService } from "../../../services/base-crud.service";
 
-import { StorageSessionService } from "../../../services/storage-session.service";
-import { Session } from "../../../models/session";
 import { HelperService } from "../../../services/helpers.service";
+import { SessionService } from "src/app/auth/services/session.service";
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+})
 export class BusinessService extends BaseCRUDService{
     public url: string;
 
     constructor (
         public _http: HttpClient,
-        public storageSessionService: StorageSessionService,
+        public sessionService:SessionService,
         public helperService: HelperService    
     ){
-        super(_http,storageSessionService)
+        super(_http,sessionService)
         this.url = GLOBAL.url+'/business';
     }
 

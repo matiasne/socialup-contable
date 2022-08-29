@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
+import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Variation } from '../../models/variation';
 
 @Component({

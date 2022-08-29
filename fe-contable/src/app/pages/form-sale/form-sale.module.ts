@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { FormSalePageRoutingModule } from './form-sale-routing.module';
 
 import { FormSalePage } from './form-sale.page';
-import { ComponentsModule } from 'src/app/components/components.module';
 import { SalesModule } from 'src/app/features/sales/sale.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { SalesModule } from 'src/app/features/sales/sale.module';
     IonicModule,
     FormSalePageRoutingModule,
     SalesModule,
-    ComponentsModule
+    SharedModule
     
   ],
   declarations: [FormSalePage]

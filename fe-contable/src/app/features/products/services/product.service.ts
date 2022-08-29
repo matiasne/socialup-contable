@@ -3,9 +3,9 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { GLOBAL } from "../../../services/global";
 import { BaseCRUDService } from "../../../services/base-crud.service";
-import { StorageSessionService } from "../../../services/storage-session.service";
 import { HelperService } from "../../../services/helpers.service";
 import { Product } from "../models/product";
+import { SessionService } from "src/app/auth/services/session.service";
 
 @Injectable()
 export class ProductService extends BaseCRUDService{
@@ -13,10 +13,10 @@ export class ProductService extends BaseCRUDService{
 
     constructor (
         public _http: HttpClient,
-        public storageSessionService: StorageSessionService,
+        public sessionService:SessionService,
         public helperService: HelperService    
     ){
-        super(_http,storageSessionService)
+        super(_http,sessionService)
         this.url = GLOBAL.url+'/product';
     }
    

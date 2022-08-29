@@ -2,17 +2,17 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import {catchError} from "rxjs/operators"
-import { StorageSessionService } from "./storage-session.service";
+import { SessionService } from "./session.service";
 
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-    constructor(private storagesessionservice: StorageSessionService) {} 
+    constructor(private sessionservice: SessionService) {} 
     
    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
   
-      const session = this.storagesessionservice.getSession();
+      const session = this.sessionservice.getSession();
       if(session){
     
 
