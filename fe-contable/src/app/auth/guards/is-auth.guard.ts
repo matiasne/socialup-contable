@@ -10,7 +10,7 @@ export class isAuthRedirectGuard implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (this.sessionService.isAuthenticated()) {
-            this.router.navigateByUrl("/list-business");
+            this.router.navigateByUrl("/select-user-business");
             return false;
         }
         return true;

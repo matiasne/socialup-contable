@@ -25,7 +25,7 @@ export class unselectedBusinessRedirectGuard implements CanActivate {
         if(this.selectedService.SelectedBusiness.value._id !="")
             return true;
         else    
-            this.router.navigateByUrl('/list-business');
+            this.router.navigateByUrl('/select-user-business');
     } else {
       this.router.navigateByUrl('/login');
       return false;
