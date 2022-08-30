@@ -1,0 +1,8 @@
+<ion-content>
+  <socialup-list-client
+  (clickClient)="handleClickClient($event)"
+  ></socialup-list-client>
+  <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModalNewClient()"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
+  </ion-fab> 
+</ion-content>

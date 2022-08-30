@@ -19,6 +19,7 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
 import { ModalFormSaleStatusComponent } from '../modal-form-sale-status/modal-form-sale-status.component';
 import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
+import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
 
 @Component({
   selector: 'socialup-form-sale',
@@ -59,7 +60,7 @@ public buttonLabel=""
 
   async openModalProduct() {
     const modal = await this.modalCtrl.create({
-      component: ListProductComponentComponent,
+      component: ModalSelectProductComponent,
     });
     modal.present();
 
