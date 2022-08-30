@@ -7,8 +7,7 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-form-product',
@@ -33,45 +32,33 @@ export class FormProductPage implements OnInit {
     public toastService: ToastService,
     public businessService: BusinessService,
     public activateRoute: ActivatedRoute,
-    public selectedService: SelectedService,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public navCtrl:NavController
   ) {
     this.product  =  new Product('','','','','','','','');
   }
 
   ngOnInit() {  
     
-    
-  
   }
 
   ionViewDidEnter(){
 
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next: (data: any) => {
-        this.business = data
-        this.product.idBusiness = this.business._id;
-      }
-    })    
-
+    this.product.idBusiness = this.businessService.getBusinessId();
+     
     if (this.activateRoute.snapshot.params.id) { 
       this.product._id = this.activateRoute.snapshot.params.id; 
       
      
     } 
 
-    if(!this.business){
-      this.router.navigate(['/list-business'])      
-    }
+   
   }
 
-  submit(data){
-    console.log(data)
-    this.router.navigate(['/products'])
+  submit(data){    
+    this.router.navigateByUrl('/products')
   }
- 
-
-  
+   
 
 }

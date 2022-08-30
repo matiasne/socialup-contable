@@ -7,7 +7,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { SelectedService } from 'src/app/services/global/selected.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 
 @Component({
   selector: 'socialup-form-product',
@@ -30,7 +30,8 @@ export class FormProductComponent implements OnInit {
     private productService:ProductService,
     public router: Router,
     public alertController: AlertController,
-    public activateRoute:ActivatedRoute
+    public activateRoute:ActivatedRoute,
+    public businessService:BusinessService
   ) { 
 
     this.product =  new Product('','','','','','','','')
@@ -91,7 +92,8 @@ export class FormProductComponent implements OnInit {
       this.product.costPrice = this.formProduct.controls.costPrice.value
       this.product.salePrice = this.formProduct.controls.salePrice.value
       this.product.image = this.formProduct.controls.image.value
-      
+      this.product.idBusiness = this.businessService.getBusinessId()
+      console.log(this.businessService.getBusinessId())
       this.save()
 
       
@@ -111,6 +113,7 @@ export class FormProductComponent implements OnInit {
   }
 
   createProduct() {    
+    console.log(this.product)
     this.productService.add(this.product).subscribe({
       next: (data) => {
         console.log(data)

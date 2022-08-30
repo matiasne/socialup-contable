@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { SelectedService } from "src/app/services/global/selected.service";
 import { HelperService } from "src/app/services/helpers.service";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Client } from "../../clients/models/client";
@@ -13,6 +12,7 @@ import { element } from "protractor";
 import { Status } from "../models/status";
 import { Payment } from "../models/payment";
 import { SessionService } from "src/app/auth/services/session.service";
+import { BusinessService } from "../../business/service/business.service";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
@@ -23,14 +23,14 @@ export class CurrentSaleService extends BaseCRUDService{
     
     constructor (
         public _http: HttpClient,
-        private selectedService:SelectedService,
         public helperService: HelperService,
         public sessionService:SessionService,
+        private businessService:BusinessService
     ){      
         super(_http,sessionService)
         this.url = GLOBAL.url+'/sale';
 
-        this.selectedService.obsSelectedBusiness().subscribe(business =>{
+        this.businessService.obsSelectedBusiness().subscribe(business =>{
             this.currentSale = new Sale(business)
         })
         

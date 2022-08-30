@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { GLOBAL } from "../../../services/global";
 import { LoginPage } from "../../../pages/login/login.page";
 import { Business } from "../models/business";
@@ -15,6 +15,9 @@ import { SessionService } from "src/app/auth/services/session.service";
 export class BusinessService extends BaseCRUDService{
     public url: string;
 
+    public SelectedBusiness:BehaviorSubject<Business> = new BehaviorSubject(new Business('','','','','','','',''))
+
+
     constructor (
         public _http: HttpClient,
         public sessionService:SessionService,
@@ -22,6 +25,21 @@ export class BusinessService extends BaseCRUDService{
     ){
         super(_http,sessionService)
         this.url = GLOBAL.url+'/business';
+    }
+
+    public setSelectedBusiness(business:Business){
+        console.log(business)
+        //this.sessionService.updateBusiness(business);
+        this.SelectedBusiness.next(business)
+    }
+
+    public getBusinessId(){
+        console.log(this.SelectedBusiness)
+       return this.SelectedBusiness.value._id
+    }
+
+    public obsSelectedBusiness():Observable<any>{
+        return this.SelectedBusiness.asObservable()
     }
 
     get(id):Observable<any>{       
@@ -33,16 +51,17 @@ export class BusinessService extends BaseCRUDService{
         return this.put(this.url+business._id,formData)
     }   
 
-    getBusinessProduct(idBusiness,pageCount=1,perPage=10, searchWord=""):Observable<any>{
-
+    getBusinessProduct(pageCount=1,perPage=10, searchWord=""):Observable<any>{
+        let idBusiness = this.SelectedBusiness.value._id
         return super.get(this.url+'/'+ idBusiness +'/products?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)
     }
-    getBusinessSales(idBusiness,pageCount=1,perPage=10, searchWord=""):Observable<any>{
-    
+    getBusinessSales(pageCount=1,perPage=10, searchWord=""):Observable<any>{
+        let idBusiness = this.SelectedBusiness.value._id
         return super.get(this.url+'/'+ idBusiness +'/sales?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)
     }
 
-    getBusinessClient(idBusiness,pageCount=1,perPage=10, searchWord=""):Observable<any>{
+    getBusinessClient(pageCount=1,perPage=10, searchWord=""):Observable<any>{
+        let idBusiness = this.SelectedBusiness.value._id
         return super.get(this.url+'/'+ idBusiness +'/clients?pageCount='+ pageCount + '&perPage='+perPage +'&searchWord='+searchWord)      
     }
 

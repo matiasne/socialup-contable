@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './models/user';
 import { Business } from './features/business/models/business';
-import { SelectedService } from './services/global/selected.service';
 import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
 import { NavController } from '@ionic/angular';
 import { SessionService } from './auth/services/session.service';
 import { AuthService } from './auth/services/auth.service';
+import { BusinessService } from './features/business/service/business.service';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private sessionService: SessionService,
-    private selectedService: SelectedService,
+    private businessService: BusinessService,
     private router: Router
   ) {
     
@@ -54,13 +54,15 @@ export class AppComponent implements OnInit {
     this.sessionService.observeSession().subscribe({
       next: (session) => {
         if (session) {
+          
           if (session.user) 
             this.user = User.adapt(session.user);
 
-          if (session.business && session.business) {
+          if (session.business) {
               //esto es para cuando se reinicia el navegador
               this.business = Business.adapt(session.business);
-              this.selectedService.setSelectedBusiness(this.business);
+              console.log(this.business)
+              this.businessService.setSelectedBusiness(this.business);
             
           }
         }
@@ -69,7 +71,7 @@ export class AppComponent implements OnInit {
       },
     });
 
-    this.selectedService.obsSelectedBusiness().subscribe({
+    this.businessService.obsSelectedBusiness().subscribe({
       next: (data: Business) => {
         this.business = data;
       },

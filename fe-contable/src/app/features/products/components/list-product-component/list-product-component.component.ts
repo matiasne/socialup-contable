@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
@@ -10,7 +11,6 @@ import { Business } from 'src/app/features/business/models/business';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -37,38 +37,20 @@ export class ListProductComponentComponent implements OnInit {
     public sessionService: SessionService,
     public helperService: HelperService,
     public productService: ProductService,
-    public selectedService: SelectedService,
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next: (data: any) => {
-        this.business = data;
-        this.refreshProducts({ perPage: 10, pageCount: 1, searchWord: '' });
-      },
-    });
+  
 
-    if (!this.business) {
-      this.router.navigate(['/list-business']);
-      this.toastService.show(
-        ToastType.warning,
-        'Necesita ingresar con una empresa'
-      );
-    }
+    
   }
 
-  ngOnDestroy() {
-    this.obsBusiness.unsubscribe();
-  }
-
-  refreshProducts(data: any) {
-    if (this.business._id) {
-      this.businessService
-        .getBusinessProduct(
-          this.business._id,
+  refreshProducts(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
+   
+      this.businessService.getBusinessProduct(
           data.pageCount,
           data.perPage,
           data.searchWord
@@ -81,7 +63,7 @@ export class ListProductComponentComponent implements OnInit {
             this.listItems.buttonController();
           },
         });
-    }
+    
   }
 
   click(data) {

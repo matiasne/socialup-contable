@@ -7,7 +7,7 @@ import { HelperService } from "../../../services/helpers.service";
 import { Product } from "../models/product";
 import { SessionService } from "src/app/auth/services/session.service";
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class ProductService extends BaseCRUDService{
     public url: string;
 
