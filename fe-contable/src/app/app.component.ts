@@ -53,7 +53,6 @@ export class AppComponent implements OnInit {
 
     this.sessionService.observeSession().subscribe({
       next: (session) => {
-        console.log(session);
         if (session) {
           if (session.user) 
             this.user = User.adapt(session.user);
