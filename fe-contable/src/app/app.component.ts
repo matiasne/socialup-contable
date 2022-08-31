@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
         }
 
         this.showMenu = this.sessionService.isAuthenticated();
+        console.log(this.showMenu)
       },
     });
 
@@ -76,10 +77,14 @@ export class AppComponent implements OnInit {
     });
 
   }
-  ngOnDestroy() {}
+  ngOnDestroy() {
+
+  }
 
   LogoutSession(): void {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    window.location.replace('/login');
+
+    
   }
 }
