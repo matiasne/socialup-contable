@@ -5,6 +5,8 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ToastService } from 'src/app/services/toast.service';
 import { ProductService } from '../../services/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'socialup-form-product',
@@ -24,7 +26,11 @@ export class FormProductComponent implements OnInit {
 
   constructor(
     private toastService:ToastService,
-    private productService:ProductService
+    private productService:ProductService,
+    public activateRoute: ActivatedRoute,
+    public router: Router,
+    public alertController: AlertController,
+   
   ) { 
 
     this.product =  new Product('','','','','','','','')
@@ -122,6 +128,43 @@ export class FormProductComponent implements OnInit {
         this.handleSubmit.emit(data)
       }
     })
+  }
+  async doAlert(){
+    this.product = Product.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('product')))
+    const alert = await this.alertController.create({
+      header:'ELIMINAR PRODUCTO',
+      message:'Desea eliminar este producto.No podra recuperarlo.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            console.log(this.product._id)
+            this.productService._delete(this.product._id).subscribe({
+              next:(data)=>{
+                this.toastService.show(ToastType.warning, "Se ha eliminado el producto correctamente")
+                this.router.navigate(['/products'])
+              },
+                error:(err)=>{
+                  console.log(err);
+
+                }
+            })
+            
+          }
+        }
+      ],
+    });
+    (await alert).present()
+
   }
 
 

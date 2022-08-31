@@ -13,18 +13,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     ItemProductComponent,
     ListProductComponentComponent,
-    FormProductComponent
+    FormProductComponent,
+    
   ],
   imports: [
-    ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CommonModule
+    CommonModule,
+    ComponentsModule,
   ],
   exports:[
     ListProductComponentComponent,
-    FormProductComponent
+    FormProductComponent, 
+    ItemProductComponent,
   ]
   
 })

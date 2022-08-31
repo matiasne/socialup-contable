@@ -22,8 +22,8 @@ export class ListProductPage implements OnInit {
       
   }
 
-  handleClickProduct(product){
-    console.log(product)
-  }
+  // handleClickProduct(product){
+  //   console.log(product)
+  // }
   
 }

@@ -44,7 +44,7 @@
         </ion-item>
       </ion-row>
       <ion-button color="tertiary" (click)="onSubmit()"><ion-icon name="bag-add-outline"></ion-icon>{{buttonLabel}}</ion-button>
-      
+      <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"><ion-icon name="trash-outline"></ion-icon> Eliminar Producto</ion-button>
     </form>
    </ion-card-content>
   </ion-card>

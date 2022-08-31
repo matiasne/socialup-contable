@@ -80,7 +80,11 @@ const routes: Routes = [
   {
     path: 'list-sale',
     loadChildren: () => import('./pages/list-sale/list-sale.module').then( m => m.ListSalePageModule)
+  },  {
+    path: 'edit-product',
+    loadChildren: () => import('./pages/edit-product/edit-product.module').then( m => m.EditProductPageModule)
   }
+
 
 
 

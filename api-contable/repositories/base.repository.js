@@ -28,6 +28,7 @@ class BaseRepository{
     }
 
     async delete(id){
+        
         try{
         await this.model.findByIdAndDelete(id);
         return true;
