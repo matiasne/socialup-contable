@@ -22,7 +22,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     IonicModule,
     CommonModule,
-    ComponentsModule,
   ],
   exports:[
     ListProductComponentComponent,

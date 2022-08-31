@@ -7,7 +7,6 @@ import { ListClientComponent } from 'src/app/features/clients/components/list-cl
 import { ModalFormClientComponent } from 'src/app/features/clients/components/modal-form-client/modal-form-client.component';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -24,7 +23,6 @@ export class SelectClientComponent implements OnInit {
     public activateRoute:ActivatedRoute,
     public helperService: HelperService  ,
     public clientService:ClientService,
-    public selectedService:SelectedService, 
     public businessService:BusinessService,
     public router:Router,) { }
 
