@@ -13,13 +13,14 @@ import { element } from "protractor";
 import { Status } from "../models/status";
 import { Payment } from "../models/payment";
 import { SessionService } from "src/app/auth/services/session.service";
+import { Business } from "../../business/models/business";
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService{ 
     
     public currentSale:Sale;
     public url: string;
-
+    public currentBussines:Business;
     
     constructor (
         public _http: HttpClient,
@@ -32,6 +33,7 @@ export class CurrentSaleService extends BaseCRUDService{
 
         this.selectedService.obsSelectedBusiness().subscribe(business =>{
             this.currentSale = new Sale(business)
+            this.currentBussines = business;
         })
         
     }
@@ -94,6 +96,7 @@ export class CurrentSaleService extends BaseCRUDService{
      this.post(this.url,sale).subscribe({
         next:(data)=>{
             console.log(data)
+            this.reset()
         }
      })
    }
@@ -121,5 +124,9 @@ export class CurrentSaleService extends BaseCRUDService{
         this.currentSale.payments.push(payment)
         
 
+    }
+
+    reset(){
+      this.currentSale = new Sale(this.currentBussines)
     }
 }
