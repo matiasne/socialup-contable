@@ -7,8 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-list-sale',
   templateUrl: './list-sale.page.html',
-  styleUrls: ['./list-sale.page.scss'],
-  providers:[UserService, HelperService,BusinessService, ProductService]
+  styleUrls: ['./list-sale.page.scss']
 })
 export class ListSalePage implements OnInit {
 

@@ -6,20 +6,17 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-edit-client',
   templateUrl: './edit-client.page.html',
-  styleUrls: ['./edit-client.page.scss'],
-  providers:[ClientService,HelperService, BusinessService  ]
+  styleUrls: ['./edit-client.page.scss']
 })
 export class EditClientPage implements OnInit {
 
   public client:Client;
-  public business: Business;
   public obsBusiness: any
 
   constructor(
@@ -27,7 +24,6 @@ export class EditClientPage implements OnInit {
     public toastService: ToastService,
     public businessService: BusinessService,
     public activateRoute: ActivatedRoute,
-    public selectedService: SelectedService,
     public router: Router,
     public alertController: AlertController,
 
@@ -35,12 +31,7 @@ export class EditClientPage implements OnInit {
 
     this.client = new Client ('','','','','','','','','','','','')
 
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next: (data: any) => {
-        this.business = data
-        this.client.idBusiness = this.business._id;
-      }
-    })
+  
    
    }
 
@@ -50,7 +41,7 @@ export class EditClientPage implements OnInit {
   }
 
   submit(data){
- 
+    this.client.idBusiness = this.businessService.getBusinessId()
   }
 
   

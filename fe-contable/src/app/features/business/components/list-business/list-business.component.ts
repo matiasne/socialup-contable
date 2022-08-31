@@ -4,7 +4,6 @@ import { Client } from 'src/app/features/clients/models/client';
 import { Business } from 'src/app/features/business/models/business';
 import { User } from 'src/app/models/user';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { UserService } from 'src/app/services/user.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
@@ -29,7 +28,6 @@ export class ListBusinessComponent implements OnInit {
     public sessionService:SessionService,
     public helperService: HelperService,
     public businessService:BusinessService ,
-    public selectService :SelectedService,
     public userService:UserService
   ) { 
     

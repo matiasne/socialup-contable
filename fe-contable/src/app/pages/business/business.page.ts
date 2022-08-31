@@ -12,7 +12,6 @@ import { HelperService } from 'src/app/services/helpers.service';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { SelectedService } from 'src/app/services/global/selected.service';
 
 
 
@@ -21,8 +20,7 @@ import { SelectedService } from 'src/app/services/global/selected.service';
 @Component({
   selector: 'app-business',
   templateUrl: './business.page.html',
-  styleUrls: ['./business.page.scss'],
-  providers:[BusinessService,HelperService ]
+  styleUrls: ['./business.page.scss']
 })
 export class  BusinessPage implements OnInit {
   public title:'Perfil BUSINESS'
@@ -43,7 +41,6 @@ constructor(
   public toastService: ToastService,
   public businessService: BusinessService,
   public activateRoute: ActivatedRoute,
-  public selectedService: SelectedService,
   public router: Router,
   public alertController: AlertController
 ){

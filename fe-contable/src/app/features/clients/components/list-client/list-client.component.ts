@@ -5,7 +5,6 @@ import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
@@ -34,7 +33,6 @@ export class ListClientComponent implements OnInit {
     public sessionService:SessionService,
     public helperService: HelperService  ,
     public clientService:ClientService,
-    public selectedService:SelectedService, 
     public businessService:BusinessService,
     public router:Router,
     public toastService: ToastService,
@@ -45,17 +43,10 @@ export class ListClientComponent implements OnInit {
 
   ngOnInit() {
     
-    this.obs = this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next:(data:any)=>{
-        this.business = data
-        this.refreshClients({perPage:10,pageCount:1,searchWord:""})
-      }
-    })
+    
+    this.refreshClients({perPage:10,pageCount:1,searchWord:""})
+    
   
-    if(!this.business){
-      this.router.navigate(['/select-user-business'])
-      this.toastService.show(ToastType.warning , "Necesita ingresar con una empresa")
-    }
   }
 
 
@@ -63,7 +54,7 @@ export class ListClientComponent implements OnInit {
 
   refreshClients(data:any){
       
-    this.businessService.getBusinessClient(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
+    this.businessService.getBusinessClient(data.pageCount,data.perPage,data.searchWord).subscribe({
         next:(response)=>{
           
         this.clients = response.data

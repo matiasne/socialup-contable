@@ -15,7 +15,7 @@ import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-
   selector: 'socialup-form-sale-product',
   templateUrl: './form-sale-product.component.html',
   styleUrls: ['./form-sale-product.component.scss'],
-  providers:[ HelperService,BusinessService, ClientService,ProductService ]
+  providers:[]
 })
 export class FormSaleProductComponent implements OnInit {
   @Input() product:Product;

@@ -6,7 +6,6 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { UserService } from 'src/app/services/user.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { User } from 'src/app/models/user';
-import { SelectedService } from 'src/app/services/global/selected.service';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class SelectUserBusinessPage implements OnInit {
     public router:Router,
     public helperService: HelperService,
     public businessService:BusinessService ,
-    public selectService :SelectedService,
     public userService:UserService
   ) { 
     
@@ -37,7 +35,8 @@ export class SelectUserBusinessPage implements OnInit {
   }
 
   handleClickBusiness(business){
-    this.selectService.setSelectedBusiness(business)
+    this.businessService.setSelectedBusiness(business)
+    //console.log(business)
     this.router.navigate(['/dashboard-business'])
   }
     

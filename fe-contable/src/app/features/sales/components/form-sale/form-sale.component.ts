@@ -25,7 +25,7 @@ import { ModalSelectProductComponent } from '../modal-select-product/modal-selec
   selector: 'socialup-form-sale',
   templateUrl: './form-sale.component.html',
   styleUrls: ['./form-sale.component.scss'],
-  providers:[ HelperService,BusinessService, ClientService,ProductService ]
+  providers:[  ]
 })
 export class FormSaleComponent implements OnInit {
 

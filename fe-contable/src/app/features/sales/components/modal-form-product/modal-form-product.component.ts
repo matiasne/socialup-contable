@@ -12,7 +12,7 @@ import { SaleProduct } from '../../models/sale-product';
   selector: 'socialup-modal-form-product',
   templateUrl: './modal-form-product.component.html',
   styleUrls: ['./modal-form-product.component.scss'],
-  providers:[ HelperService,BusinessService, ClientService,ProductService ]
+  providers:[  ]
   
 })
 export class ModalFormProductComponent implements OnInit {

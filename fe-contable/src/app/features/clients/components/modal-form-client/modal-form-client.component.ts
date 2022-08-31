@@ -8,7 +8,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { ToastService } from 'src/app/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController, NavParams } from '@ionic/angular';
-import { SelectedService } from 'src/app/services/global/selected.service';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 
 @Component({
   selector: 'socialup-form-client',
@@ -34,7 +34,7 @@ export class ModalFormClientComponent implements OnInit {
     public router: Router,
    public alertController: AlertController,
    private modalCtrl: ModalController,
-   private selectedService:SelectedService,
+   private businessService:BusinessService,
    public navParams: NavParams
    
   ) { 
@@ -96,7 +96,7 @@ export class ModalFormClientComponent implements OnInit {
         this.client.documentType = this.formClient.controls.documentType.value
         this.client.documentNumber = this.formClient.controls.documentNumber.value
         this.client.surname = this.formClient.controls.surname.value
-        this.client.idBusiness = this.selectedService.SelectedBusiness.value._id
+        this.client.idBusiness = this.businessService.SelectedBusiness.value._id
         this.save()
         
       }else{
