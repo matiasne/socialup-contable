@@ -41,10 +41,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },
   {
-    path: 'list-business',
-    loadChildren: () => import('./pages/business-list/business-list.module').then( m => m.BusinessListPageModule), canActivate:[AuthGuard]
-  },
-  {
     path: 'products',
     loadChildren: () => import('./pages/list-product/list-product.module').then( m => m.ListProductPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },

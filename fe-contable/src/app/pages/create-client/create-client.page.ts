@@ -46,7 +46,7 @@ export class CreateClientPage implements OnInit {
     })
    
     if(!this.business){
-      this.router.navigate(['/list-business'])      
+      this.router.navigate(['/select-user-business'])      
     }
   }
    

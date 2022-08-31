@@ -52,7 +52,7 @@ export class ListProductComponentComponent implements OnInit {
     });
 
     if (!this.business) {
-      this.router.navigate(['/list-business']);
+      this.router.navigate(['/select-user-business']);
       this.toastService.show(
         ToastType.warning,
         'Necesita ingresar con una empresa'

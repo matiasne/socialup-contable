@@ -146,7 +146,7 @@ export class FormClientComponent implements OnInit {
             this.clientService._delete(this.activateRoute.snapshot.params.id).subscribe({
               next:(data)=>{
                 this.toastService.show(ToastType.warning, "Se ha eliminado el cliente correctamente")
-                this.router.navigate(['/list-business'])
+                this.router.navigate(['/list-client'])
               },
                 error:(err)=>{
                   console.log(err);
