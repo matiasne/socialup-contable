@@ -12,8 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-create-client',
   templateUrl: './create-client.page.html',
-  styleUrls: ['./create-client.page.scss'],
-  providers:[ClientService,HelperService, BusinessService  ]
+  styleUrls: ['./create-client.page.scss']
 })
 export class CreateClientPage implements OnInit {
 

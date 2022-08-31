@@ -33,7 +33,7 @@ export class FormProductComponent implements OnInit {
     public activateRoute:ActivatedRoute,
     public businessService:BusinessService
   ) { 
-
+    console.log(this.businessService.getBusinessId())
     this.product =  new Product('','','','','','','','')
 
     this.formProduct = new FormGroup({

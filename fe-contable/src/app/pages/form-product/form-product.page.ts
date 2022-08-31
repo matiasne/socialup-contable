@@ -12,8 +12,7 @@ import { AlertController, NavController } from '@ionic/angular';
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
-  styleUrls: ['./form-product.page.scss'],
-  providers: [ProductService, HelperService, BusinessService,]
+  styleUrls: ['./form-product.page.scss']
 })
 
 /*Responsabilidad:

@@ -20,8 +20,7 @@ import { ToastType } from 'src/app/models/toast.enum';
 @Component({
   selector: 'app-business',
   templateUrl: './business.page.html',
-  styleUrls: ['./business.page.scss'],
-  providers:[BusinessService,HelperService ]
+  styleUrls: ['./business.page.scss']
 })
 export class  BusinessPage implements OnInit {
   public title:'Perfil BUSINESS'

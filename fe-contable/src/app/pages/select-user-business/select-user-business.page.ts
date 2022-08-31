@@ -36,6 +36,7 @@ export class SelectUserBusinessPage implements OnInit {
 
   handleClickBusiness(business){
     this.businessService.setSelectedBusiness(business)
+    //console.log(business)
     this.router.navigate(['/dashboard-business'])
   }
     

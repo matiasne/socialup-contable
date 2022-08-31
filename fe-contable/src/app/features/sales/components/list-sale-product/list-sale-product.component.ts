@@ -11,8 +11,7 @@ import { SaleProduct } from '../../models/sale-product';
 @Component({
   selector: 'socialup-list-sale-product',
   templateUrl: './list-sale-product.component.html',
-  styleUrls: ['./list-sale-product.component.scss'],
-  providers: [HelperService, BusinessService, ProductService]
+  styleUrls: ['./list-sale-product.component.scss']
 })
 export class ListSaleProductComponent implements OnInit {
   @Input() items = []

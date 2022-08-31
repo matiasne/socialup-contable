@@ -23,7 +23,6 @@ export class ListProductPage implements OnInit {
   ) {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        console.log(val)
         if (val.url = "/products")
           this.listItems.refreshProducts()
       }

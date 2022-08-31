@@ -25,16 +25,23 @@ export class BusinessService extends BaseCRUDService{
     ){
         super(_http,sessionService)
         this.url = GLOBAL.url+'/business';
+        console.log("AAAAAAA")
     }
 
     public setSelectedBusiness(business:Business){
         console.log(business)
-        //this.sessionService.updateBusiness(business);
+        this.sessionService.updateBusiness(business);
         this.SelectedBusiness.next(business)
     }
 
-    public getBusinessId(){
+    public loadSelectedBusiness(business:Business){
+        console.log(business)
+        this.SelectedBusiness.next(business)
         console.log(this.SelectedBusiness)
+    }
+
+    public getBusinessId(){
+       console.log(this.SelectedBusiness)
        return this.SelectedBusiness.value._id
     }
 

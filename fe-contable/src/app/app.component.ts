@@ -50,20 +50,21 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log("f5")
     this.sessionService.observeSession().subscribe({
       next: (session) => {
         if (session) {
           
-          if (session.user) 
+          if (session.user) {
+            
             this.user = User.adapt(session.user);
-
+          }
+          
           if (session.business) {
               //esto es para cuando se reinicia el navegador
               this.business = Business.adapt(session.business);
               console.log(this.business)
-              this.businessService.setSelectedBusiness(this.business);
-            
+              this.businessService.loadSelectedBusiness(this.business);
           }
         }
 
