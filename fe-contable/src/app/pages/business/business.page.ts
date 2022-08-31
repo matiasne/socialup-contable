@@ -91,7 +91,7 @@ submit(data){
             this.businessService._delete(this.activateRoute.snapshot.params.id).subscribe({
               next:(data)=>{
                 this.toastService.show(ToastType.warning, "Se ha eliminado la empresa correctamente")
-                this.router.navigate(['/list-business'])
+                this.router.navigate(['/select-user-business'])
               },
                 error:(err)=>{
                   console.log(err);

@@ -67,7 +67,7 @@ export class LoginPage implements OnInit{
       let password = this.formData.controls['password'].value
       
       this.authService.authenticate(email,password).then((data:any) =>{
-       this.router.navigate(['/list-business'])
+       this.router.navigate(['/select-user-business'])
       })
     }
 
