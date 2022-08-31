@@ -131,6 +131,32 @@ export class FormProductComponent implements OnInit {
       }
     })
   }
+  async doAlert(){
+    this.product = Product.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('product')))
+    const alert = await this.alertController.create({
+      header:'ELIMINAR PRODUCTO',
+      message:'Desea eliminar este producto.No podra recuperarlo.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            console.log(this.product._id)
+            this.productService._delete(this.product._id).subscribe({
+              next:(data)=>{
+                this.toastService.show(ToastType.warning, "Se ha eliminado el producto correctamente")
+                this.router.navigate(['/products'])
+              },
+                error:(err)=>{
+                  console.log(err);
 
   
   async doAlert(){

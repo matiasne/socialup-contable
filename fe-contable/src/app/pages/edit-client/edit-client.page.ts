@@ -44,7 +44,7 @@ export class EditClientPage implements OnInit {
     this.client.idBusiness = this.businessService.getBusinessId()
   }
 
-  
+    
 
 
 

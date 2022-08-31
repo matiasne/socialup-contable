@@ -13,18 +13,21 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     ItemProductComponent,
     ListProductComponentComponent,
-    FormProductComponent
+    FormProductComponent,
+    
   ],
   imports: [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CommonModule
+    CommonModule,
+    ComponentsModule,
   ],
   exports:[
     ListProductComponentComponent,
-    FormProductComponent
+    FormProductComponent, 
+    ItemProductComponent,
   ]
   
 })

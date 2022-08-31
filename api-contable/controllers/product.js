@@ -88,6 +88,7 @@ async function updateProduct(req,res){
 }
 
 async function deleteProduct(req,res){
+   
     var productId = req.params.id;
 
     try{
