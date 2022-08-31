@@ -9,8 +9,8 @@
       <p>Cantidad: {{saleProduct.amount}}</p>
       <p>Precio unitario: {{saleProduct.salePrice  | currency: 'USD' }}</p> 
       <div *ngIf="saleProduct.variation.type != 'empty'">
-        <p>Tipo descuento: {{saleProduct.variation.type}} </p>
-        <p>Valor descuento:{{ saleProduct.variation.value }}</p>
+        <p>Tipo {{title}}: {{saleProduct.variation.type}} </p>
+        <p>Valor {{title}}:{{this.valueVariationView }}</p>
         <p>Observación: {{saleProduct.variation.description }}</p>
       </div>
       <p>Sub Total: {{saleProduct.subTotal  | currency: 'USD' }}</p>
