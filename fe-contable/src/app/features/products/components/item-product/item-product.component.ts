@@ -20,7 +20,7 @@ export class ItemProductComponent implements OnInit {
   ngOnInit(){ }
   
   handleClickEditing(){
-    console.log(this.product)
+    
     this.router.navigate(['/edit-product',{product:JSON.stringify(this.product)}])
   }
 

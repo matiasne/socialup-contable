@@ -33,7 +33,7 @@ export class FormProductComponent implements OnInit {
     public activateRoute:ActivatedRoute,
     public businessService:BusinessService
   ) { 
-    console.log(this.businessService.getBusinessId())
+    
     this.product =  new Product('','','','','','','','')
 
     this.formProduct = new FormGroup({
@@ -93,7 +93,7 @@ export class FormProductComponent implements OnInit {
       this.product.salePrice = this.formProduct.controls.salePrice.value
       this.product.image = this.formProduct.controls.image.value
       this.product.idBusiness = this.businessService.getBusinessId()
-      console.log(this.businessService.getBusinessId())
+      
       this.save()
 
       
@@ -113,10 +113,10 @@ export class FormProductComponent implements OnInit {
   }
 
   createProduct() {    
-    console.log(this.product)
+    
     this.productService.add(this.product).subscribe({
       next: (data) => {
-        console.log(data)
+    
         
         this.handleSubmit.emit(data)
       }
@@ -149,7 +149,7 @@ export class FormProductComponent implements OnInit {
           text: 'Ok',
           id: 'confirm-button',
           handler: () => {
-            console.log(this.product._id)
+            
             this.productService._delete(this.product._id).subscribe({
               next:(data)=>{
                 this.toastService.show(ToastType.warning, "Se ha eliminado el producto correctamente")

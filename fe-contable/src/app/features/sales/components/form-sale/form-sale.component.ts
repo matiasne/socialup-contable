@@ -140,15 +140,12 @@ public buttonLabel=""
     let { data, role } = await modalSurcharge.onWillDismiss();
     if(data)
       this.currentSaleService.addVariation(data)
-      console.log(data)
       
     
   }
   removeClient(client:Client){
-    console.log()
+    
     this.currentSaleService.removeClient()
   }
-  // click(data){
-  //   this.clickBusiness.emit(data)
-  //  }
+
 }

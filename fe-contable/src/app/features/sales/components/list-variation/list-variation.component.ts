@@ -20,18 +20,8 @@ export class ListVariationComponent implements OnInit {
 
   refreshSaleVariation(data:any){
 
-    console.log('hola');
-    // if(this.business._id){
-    //   this.businessService.getBusinessProduct(this.business._id,data.pageCount,data.perPage,data.searchWord).subscribe({
-    //     next:(response)=>{
-          
-    //     this.saleProducts = response.data
-    //     this.listItems.totalPages = response.paging.totalPages
-    //     this.listItems.buttonController()
-    //     }
-    //     })      
+    
 
-    //   }
      
     }
 

@@ -65,7 +65,7 @@ constructor(
 
 
 submit(data){
-  console.log(data)
+ 
 }
 
   async doAlert(){

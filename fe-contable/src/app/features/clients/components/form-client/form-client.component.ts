@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { timeStamp } from 'console';
 import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
@@ -26,7 +25,6 @@ export class FormClientComponent implements OnInit {
   public buttonLabel = "Crear Cliente";
   public buttonEdit = "Editar Cliente";
 
-
   constructor(
     private toastService: ToastService,
     public clientService: ClientService,
@@ -37,7 +35,6 @@ export class FormClientComponent implements OnInit {
   ) {
 
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '')
-
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -56,7 +53,6 @@ export class FormClientComponent implements OnInit {
 
     if (this.client._id != "") {
       this.isEditing = true
-
       this.formClient.setValue({
         name: this.client.name,
         address: this.client.address,
@@ -111,14 +107,13 @@ export class FormClientComponent implements OnInit {
   createClient() {
     this.clientService.add(this.client).subscribe({
       next: (data) => {
-        // this.client=data
         this.handleSubmit.emit(data)
       }
     })
 
   }
   updateProfileClient() {
-    console.log(this.client)
+
     this.clientService.update(this.client).subscribe({
       next: (data) => {
         this.toastService.show(ToastType.success, "Se ha actualizaddo el prodcuto correctamente")

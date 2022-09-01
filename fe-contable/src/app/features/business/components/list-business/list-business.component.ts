@@ -18,45 +18,41 @@ export class ListBusinessComponent implements OnInit {
 
   @ViewChild('listItem') listItems: ListItemsComponent;
   @Output() clickBusiness = new EventEmitter<Business>()
-  
-  public businesses : Array<Business> =[] 
-  private user:User;
-  public totalPages:number;
+
+  public businesses: Array<Business> = []
+  private user: User;
+  public totalPages: number;
   constructor(
-    public activateRoute:ActivatedRoute,
-    public router:Router,
-    public sessionService:SessionService,
+    public activateRoute: ActivatedRoute,
+    public router: Router,
+    public sessionService: SessionService,
     public helperService: HelperService,
-    public businessService:BusinessService ,
-    public userService:UserService
-  ) { 
-    
-      
+    public businessService: BusinessService,
+    public userService: UserService
+  ) {
   }
 
   ngOnInit() {
     this.userService.getUserBusiness().subscribe({
-      next:(response)=>{
-      this.businesses =response.data;
+      next: (response) => {
+        this.businesses = response.data;
       }
-    })  
+    })
   }
 
-  refreshBusinesses(data:any){
-    if(this.user._id){
-      this.userService.getUserBusiness(data.pageCount,data.perPage,data.searchWord).subscribe({
-        next:(response)=>{
-          
-        this.businesses = response.data
-        this.listItems.totalPages = response.paging.totalPages
-        this.listItems.buttonController()
+  refreshBusinesses(data: any) {
+    if (this.user._id) {
+      this.userService.getUserBusiness(data.pageCount, data.perPage, data.searchWord).subscribe({
+        next: (response) => {
+          this.businesses = response.data
+          this.listItems.totalPages = response.paging.totalPages
+          this.listItems.buttonController()
         }
-        })      
-      }
+      })
     }
+  }
 
-
-  click(data){
-   this.clickBusiness.emit(data)
+  click(data) {
+    this.clickBusiness.emit(data)
   }
 }

@@ -40,7 +40,7 @@ private salesVariation:Variation;
     if(this.typeVariation === 'discount'){
       this.salesVariation.value = -this.salesVariation.value;
     }
-    console.log(this.salesVariation)
+   
     this.modalCtrl.dismiss(this.salesVariation);
   }
 
