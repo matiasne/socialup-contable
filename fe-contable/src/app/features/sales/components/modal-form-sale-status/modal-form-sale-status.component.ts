@@ -81,7 +81,7 @@ public formSale:FormGroup;
       let payment:Payment = new Payment(paymentTypes.transfer,this.transferAmount);
       this.currentSaleService.addPayment(payment)
     }
-console.log(this.currentSaleService.currentSale)
+
 this.currentSaleService.add(this.currentSaleService.currentSale)
 
 this.formSale.reset()

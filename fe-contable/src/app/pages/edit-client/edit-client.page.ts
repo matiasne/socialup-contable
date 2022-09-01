@@ -37,7 +37,7 @@ export class EditClientPage implements OnInit {
 
   ngOnInit() {
     this.client = Client.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('client')))
-    console.log(this.client._id)
+   
   }
 
   submit(data){

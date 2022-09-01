@@ -57,7 +57,7 @@ export class ListProductComponentComponent implements OnInit {
         )
         .subscribe({
           next: (response) => {
-            console.log(response.data);
+            
             this.products = response.data;
             this.listItems.totalPages = response.paging.totalPages;
             this.listItems.buttonController();

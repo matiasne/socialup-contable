@@ -8,8 +8,6 @@ import { ListBusinessComponent } from './components/list-business/list-business.
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
-
-
 @NgModule({
   declarations: [
     FormBusinessComponent,
@@ -23,12 +21,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     SharedModule
   ],
-  exports:[
+  exports: [
     FormBusinessComponent,
     ItemBusinessComponent,
     ListBusinessComponent
-    
+
   ]
-  
+
 })
 export class BusinessModule { }

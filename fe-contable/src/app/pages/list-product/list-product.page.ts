@@ -31,7 +31,7 @@ export class ListProductPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("onInit")
+   
   }
 
 

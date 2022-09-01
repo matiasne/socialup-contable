@@ -47,7 +47,7 @@ export class CurrentSaleService extends BaseCRUDService{
 
     addSaleProduct(saleProduct:SaleProduct){
         this.currentSale.saleProducts.push(saleProduct)
-        console.log(saleProduct)
+        
         this.refreshTotal()        
     }
 
@@ -90,12 +90,10 @@ export class CurrentSaleService extends BaseCRUDService{
 
    add(sale:Sale){
 
-    // let formData = this.helperService.toFormData(sale)
-    // console.log(formData)
-    console.log(sale)
+ 
+    
      this.post(this.url,sale).subscribe({
         next:(data)=>{
-            console.log(data)
             this.reset()
         }
      })

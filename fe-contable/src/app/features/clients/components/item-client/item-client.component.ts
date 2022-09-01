@@ -11,39 +11,38 @@ import { ModalFormClientComponent } from '../modal-form-client/modal-form-client
 })
 export class ItemClientComponent implements OnInit {
 
-  @Input() client:Client;
-  @Input() showButton=false
-  @Output() handleClickRemove=new EventEmitter<any>();
-  @Output() handleClickEdit =new EventEmitter<any>();
+  @Input() client: Client;
+  @Input() showButton = false
+  @Output() handleClickRemove = new EventEmitter<any>();
+  @Output() handleClickEdit = new EventEmitter<any>();
   constructor(
-    public modalCtrl:ModalController
+    public modalCtrl: ModalController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  handleClickDelete(){
+  handleClickDelete() {
     this.handleClickRemove.emit(this.client)
   }
-  handleClickEditing(){
-  this.handleClickEdit.emit(this.client)
- this.openModalNewClient(this.client)
+  handleClickEditing() {
+    this.handleClickEdit.emit(this.client)
+    this.openModalNewClient(this.client)
   }
   async openModalNewClient(client) {
 
     const modal = await this.modalCtrl.create({
-      id:"1",
+      id: "1",
       component: ModalFormClientComponent,
       componentProps: {
-        client:client,
-        other: {couldAlsoBeAnObject: true}
-     }
+        client: client,
+        other: { couldAlsoBeAnObject: true }
+      }
     });
     modal.present();
 
     const { data, role } = await modal.onWillDismiss();
-    
-    if(data){      
-      // this.handleClickClient(data) 
+
+    if (data) {
     }
 
   }

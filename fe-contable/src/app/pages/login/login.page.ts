@@ -87,7 +87,7 @@ export class LoginPage implements OnInit{
   }
   
   ionViewWillEnter(){
-console.log('!!!!!')
+
   }
 
   get email(){return this.formData.get('email');}

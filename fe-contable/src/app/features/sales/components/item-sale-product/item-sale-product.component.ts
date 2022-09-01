@@ -26,7 +26,7 @@ export class ItemSaleProductComponent implements OnInit {
 
   ngOnInit() {
     let type = Math.sign(this.saleProduct.variation.value)
-console.log(type)
+
     if(type == -1){
       this.title = "Descuento"
     }

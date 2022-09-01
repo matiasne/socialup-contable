@@ -14,36 +14,36 @@ export class SessionService {
     this.loadSession();
   }
 
-  loadSession():void {       
-    
-    let session = localStorage.getItem('session')?JSON.parse(localStorage.getItem('session')):undefined;
+  loadSession(): void {
+
+    let session = localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : undefined;
     this.currentSessionSubj.next(session);
 
-}  
+  }
 
-  setSession(session: Session): void {  
+  setSession(session: Session): void {
     localStorage.setItem('session', JSON.stringify(session));
     this.currentSessionSubj.next(session)
   }
 
-  removeSession(){
+  removeSession() {
     localStorage.removeItem('session');
     this.currentSessionSubj.next(new Session(""));
   }
 
-  observeSession():Observable<Session> {
+  observeSession(): Observable<Session> {
     return this.currentSessionSubj.asObservable();
   }
 
-  getToken():string {
+  getToken(): string {
     return this.currentSessionSubj.value?.token;
   }
 
-  getUserData():User {
-      return this.currentSessionSubj.value?.user;
-  }   
+  getUserData(): User {
+    return this.currentSessionSubj.value?.user;
+  }
 
-  getSession():Session{
+  getSession(): Session {
     return this.currentSessionSubj.value;
   }
 
@@ -64,9 +64,9 @@ export class SessionService {
     return this.currentSessionSubj.value?.business
   }
 
-  isAuthenticated():boolean {
+  isAuthenticated(): boolean {
 
-    return this.currentSessionSubj.value && this.currentSessionSubj.value.token !== "";   
+    return this.currentSessionSubj.value && this.currentSessionSubj.value.token !== "";
   }
 
 

@@ -36,7 +36,7 @@ export class ListItemsComponent implements OnInit {
   }
 
  handleClick (item){
-    console.log('12345')
+
     this.handleClickItem.emit(item)
    
   }

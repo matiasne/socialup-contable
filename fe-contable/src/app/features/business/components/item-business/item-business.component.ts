@@ -8,10 +8,10 @@ import { Business } from 'src/app/features/business/models/business';
 })
 export class ItemBusinessComponent implements OnInit {
 
-  @Input() business:Business;
+  @Input() business: Business;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

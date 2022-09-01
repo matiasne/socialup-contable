@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("f5")
     this.sessionService.observeSession().subscribe({
       next: (session) => {
         if (session) {
@@ -63,13 +62,11 @@ export class AppComponent implements OnInit {
           if (session.business) {
               //esto es para cuando se reinicia el navegador
               this.business = Business.adapt(session.business);
-              console.log(this.business)
               this.businessService.loadSelectedBusiness(this.business);
           }
         }
 
         this.showMenu = this.sessionService.isAuthenticated();
-        console.log(this.showMenu)
       },
     });
 

@@ -68,7 +68,7 @@ export class FormProfilePage implements OnInit {
                 next:(data)=>{
                  this.authService.logout();
                   console.log('Confirm Okay');
-                  console.log(data);
+                 
                 },
                   error:(err)=>{
                     console.log(err);
@@ -107,7 +107,7 @@ export class FormProfilePage implements OnInit {
 
     this.userService.get(this.session.user._id).subscribe({
       next:(data)=>{
-        // console.log(data)
+       
         this.formProfile.setValue({
           name: data.user.name,
           surname:data.user.surname,
