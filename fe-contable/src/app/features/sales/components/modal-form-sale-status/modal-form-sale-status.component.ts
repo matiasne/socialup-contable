@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms'
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
 import { Status } from '../../models/status';
@@ -26,6 +27,7 @@ public checkAmount = 0;
 public transferAmount=0;
 public personalAccountAmount = 0;
 public sale: Sale;
+public formSale:FormGroup;
   constructor(
     public currentSaleService:CurrentSaleService
   ) { 
@@ -82,5 +84,6 @@ public sale: Sale;
 console.log(this.currentSaleService.currentSale)
 this.currentSaleService.add(this.currentSaleService.currentSale)
 
+this.formSale.reset()
 }
 }

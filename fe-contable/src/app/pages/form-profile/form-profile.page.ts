@@ -39,7 +39,8 @@ export class FormProfilePage implements OnInit {
     private sessionService:SessionService,
     private authService:AuthService,
     public alertController: AlertController,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public router:Router,
     ) 
     { 
        this.session= this.sessionService.getSession();
@@ -146,6 +147,7 @@ export class FormProfilePage implements OnInit {
           next:(data)=>{       
             this.sessionService.updateUser(data.user)
             this.toastService.show(ToastType.success,"Perfil actualizado correctamente")
+            this.router.navigate(['/dashboard-business'])
           },
           error:(err)=>{
             console.log(err);

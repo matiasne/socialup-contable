@@ -2,7 +2,7 @@
   <ion-label  >
    <h1><b>Fecha:{{sale.date}}</b></h1>
     <div>
-      <p>client :{{sale.client}</p>
+      <p *ngIf="sale.client">client : {{sale.client.name}}</p>
       <p>Productos: {{sale.saleProducts}}</p>
       <p>Total: {{sale.total  | currency: 'USD' }}</p> 
     </div>
