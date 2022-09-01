@@ -9,8 +9,6 @@ const {createUserSchema, updateUserSchema, getUserLogin} = require('../validatio
 const validationSchema = require('../middlewares/requestValidation');
 
 var api = express.Router();
-
-
 api.get('/user/:id',  UserController.getUser);
 api.post('/register',UserController.saveUser, validationSchema(createUserSchema)); 
 api.put('/user/:_id', [validationSchema(updateUserSchema), md_auth.ensureAuth, md_uploadFile.single('image')], UserController.updateUser);

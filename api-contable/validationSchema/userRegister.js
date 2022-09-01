@@ -15,9 +15,7 @@ const createUserSchema = Joi.object({
   name: Joi.string().min(1).max(30).required(),
   surname: Joi.string().min(1).max(30).required(),
   email: Joi.string().email().required(),
-  password: passwordComplexity(complexityOptions),
-  //role: Joi.string()
-  //image: Joi.string()
+  password: passwordComplexity(complexityOptions)
 }); 
 
 const updateUserSchema = Joi.object({
