@@ -58,6 +58,7 @@ export class BusinessService extends BaseCRUDService {
 
     getBusinessProduct(pageCount = 1, perPage = 10, searchWord = ""): Observable<any> {
         let idBusiness = this.SelectedBusiness.value._id
+        
         return super.get(this.url + '/' + idBusiness + '/products?pageCount=' + pageCount + '&perPage=' + perPage + '&searchWord=' + searchWord)
     }
     getBusinessSales(pageCount = 1, perPage = 10, searchWord = ""): Observable<any> {

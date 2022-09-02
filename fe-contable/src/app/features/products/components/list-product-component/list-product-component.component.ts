@@ -44,7 +44,7 @@ export class ListProductComponentComponent implements OnInit {
 
   ngOnInit(): void {
   
-
+    this.refreshProducts()
     
   }
 
