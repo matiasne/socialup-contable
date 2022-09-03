@@ -38,13 +38,13 @@ export class ListClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshClients({ perPage: 10, pageCount: 1, searchWord: "" })
+    this.refreshClients()
   }
 
 
 
 
-  refreshClients(data: any) {
+  refreshClients(data ={ perPage: 10, pageCount: 1, searchWord: "" }) {
 
     this.businessService.getBusinessClient(data.pageCount, data.perPage, data.searchWord).subscribe({
       next: (response) => {

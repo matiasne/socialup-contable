@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
-    <ion-back-button slot="start"></ion-back-button>
     <ion-title>list-client</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,6 +8,7 @@
 
 <ion-content fullscreen="">
 <socialup-list-client
+  #listItem
   (clickClient)="handleClickClient($event)"
 ></socialup-list-client>
 <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">

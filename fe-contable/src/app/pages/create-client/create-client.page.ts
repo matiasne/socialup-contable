@@ -35,8 +35,8 @@ export class CreateClientPage implements OnInit {
   }
   
    
-  submit(data){
- 
+  submit(data){    
+    this.router.navigateByUrl('/clients')
   }
 
 

@@ -40,9 +40,10 @@ export class EditClientPage implements OnInit {
    
   }
 
-  submit(data){
-    this.client.idBusiness = this.businessService.getBusinessId()
+  submit(data){    
+    this.router.navigateByUrl('/clients')
   }
+
 
     
 

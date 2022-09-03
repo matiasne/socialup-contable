@@ -49,7 +49,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },
   {
-    path: 'list-client',
+    path: 'clients',
     loadChildren: () => import('./pages/list-client/list-client.module').then( m => m.ListClientPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },
   {

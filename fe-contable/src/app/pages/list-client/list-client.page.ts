@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
 
 @Component({
   selector: 'app-list-client',
@@ -11,12 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 export class ListClientPage implements OnInit {
+
+  @ViewChild('list') listItems: ListClientComponent
+
   constructor(
    
     public router:Router,
 
   ) { 
-    
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url = "/products")
+          this.listItems.refreshClients()
+      }
+    });
   }
 
   ngOnInit() {

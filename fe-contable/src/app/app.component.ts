@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     { title: 'Producto', url: '/product', icon: 'warning' },
     { title: 'Lista Producto', url: '/products', icon: 'mail' },
     { title: 'Cliente', url: '/create-client', icon: 'mail' },
-    { title: 'Lista Cliente', url: '/list-client', icon: 'mail' },
+    { title: 'Lista Cliente', url: '/clients', icon: 'mail' },
     { title: 'Venta', url: '/form-sale', icon: 'mail' },
     { title: 'Lista de Ventas', url: '/list-sale', icon: 'mail' },
   ];
