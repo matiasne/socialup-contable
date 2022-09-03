@@ -69,6 +69,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/edit-client/edit-client.module').then( m => m.EditClientPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },
   {
+    path: 'edit-product',
+    loadChildren: () => import('./pages/edit-product/edit-product.module').then( m => m.EditProductPageModule), canActivate:[unselectedBusinessRedirectGuard]
+  },
+  {
     path: 'create-client',
     loadChildren: () => import('./pages/create-client/create-client.module').then( m => m.CreateClientPageModule), canActivate:[unselectedBusinessRedirectGuard]
   },

@@ -1,11 +1,11 @@
 <ion-item >    
-  <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+  <ion-avatar (click)="handleClick()" style="margin-right: 10px; width: 100px; height: 100px ;" >
     <img src="{{product.image}}">
   </ion-avatar>
-  <ion-label>
+  <ion-label (click)="handleClick()">
     <h3>Nombre: {{product.name}}</h3> 
     <h3>Descripcion: {{product.description}}</h3> 
     <h3>Precio de Venta: {{product.salePrice}}</h3>
   </ion-label> 
-  <ion-button (click)="handleClickEdit()" >Editar</ion-button>
+  <ion-button *ngIf="showEditButton" (click)="handleClickEdit()" >Editar</ion-button>
 </ion-item>

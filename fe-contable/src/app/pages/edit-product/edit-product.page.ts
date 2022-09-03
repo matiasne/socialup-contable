@@ -30,12 +30,7 @@ export class EditProductPage implements OnInit {
 
     this.product = new Product ('','','','','','','','')
 
-    this.obsBusiness = this.businessService.obsSelectedBusiness().subscribe({
-      next: (data: Business) => {
-        this.business = data
-        this.product.idBusiness= this.business._id;
-      }
-    })
+    
   }
 
   ngOnInit() {

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -24,7 +25,9 @@ import { ListItemsComponent } from 'src/app/shared/components/list-items/list-it
 })
 export class ListProductComponentComponent implements OnInit {
   @ViewChild('listItem') listItems: ListItemsComponent;
+  @Input() showEditButton = false;
   @Output() clickProduct = new EventEmitter<Product>();
+  @Output() clickEditProduct = new EventEmitter<Product>();
 
   public products: Array<Product> = [];
   private business: Business;
@@ -66,7 +69,11 @@ export class ListProductComponentComponent implements OnInit {
     
   }
 
-  click(data) {
+  handleClick(data) {
     this.clickProduct.emit(data);
+  }
+
+  handleClickEdit(product){
+    this.clickEditProduct.emit(product)    
   }
 }

@@ -18,7 +18,7 @@ constructor(private modalCtrl: ModalController) { }
     this.modalCtrl.dismiss(product)
     
     
-    }
+  }
    
   
 }

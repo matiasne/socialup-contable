@@ -10,8 +10,9 @@ import { Product } from 'src/app/features/products/models/product';
 export class ItemProductComponent implements OnInit {
 
   @Input() product:Product;
-  @Input() showButton=false;
-  @Output() handleClickEdit =new EventEmitter<any>();
+  @Input() showEditButton=false;
+  @Output() eventClickEdit =new EventEmitter<any>();
+  @Output() eventClick =new EventEmitter<any>();
   
   constructor(
     public router:Router,
@@ -19,9 +20,12 @@ export class ItemProductComponent implements OnInit {
 
   ngOnInit(){ }
   
-  handleClickEditing(){
-    
-    this.router.navigate(['/edit-product',{product:JSON.stringify(this.product)}])
+  handleClickEdit(){
+    this.eventClickEdit.emit(this.product)    
+  }
+
+  handleClick(){
+    this.eventClick.emit(this.product)    
   }
 
 }
