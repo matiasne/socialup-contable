@@ -11,6 +11,18 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.*": [
+      "hola",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~13.2.2",
