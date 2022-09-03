@@ -12,7 +12,7 @@ import { ModalFormClientComponent } from '../modal-form-client/modal-form-client
 export class ItemClientComponent implements OnInit {
 
   @Input() client: Client;
-  @Input() showButton = false
+  @Input() showButtonDelete = false
   @Input() showEditButton = false;
   @Output() eventClick = new EventEmitter<any>();
   @Output() eventClickRemove = new EventEmitter<any>();
