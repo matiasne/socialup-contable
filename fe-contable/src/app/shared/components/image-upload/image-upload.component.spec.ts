@@ -9,8 +9,8 @@ describe('ImageUploadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageUploadComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ImageUploadComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ImageUploadComponent);

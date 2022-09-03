@@ -8,24 +8,20 @@ import { Product } from 'src/app/features/products/models/product';
   styleUrls: ['./item-product.component.scss'],
 })
 export class ItemProductComponent implements OnInit {
+  @Input() product: Product;
+  @Input() showEditButton = false;
+  @Output() eventClickEdit = new EventEmitter<any>();
+  @Output() eventClick = new EventEmitter<any>();
 
-  @Input() product:Product;
-  @Input() showEditButton=false;
-  @Output() eventClickEdit =new EventEmitter<any>();
-  @Output() eventClick =new EventEmitter<any>();
-  
-  constructor(
-    public router:Router,
-  ){ }
+  constructor(public router: Router) {}
 
-  ngOnInit(){ }
-  
-  handleClickEdit(){
-    this.eventClickEdit.emit(this.product)    
+  ngOnInit() {}
+
+  handleClickEdit() {
+    this.eventClickEdit.emit(this.product);
   }
 
-  handleClick(){
-    this.eventClick.emit(this.product)    
+  handleClick() {
+    this.eventClick.emit(this.product);
   }
-
 }

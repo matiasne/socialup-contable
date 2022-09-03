@@ -12,19 +12,14 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
   styleUrls: ['./item-sale.component.scss'],
 })
 export class ItemSaleComponent implements OnInit {
-  @Input() sale:Sale;
-  @Input() valor1:Number;
+  @Input() sale: Sale;
+  @Input() valor1: Number;
 
-  constructor(  
-  ) { }
- 
+  constructor() {}
+
   ngOnInit() {
-   console.log(this.sale.client.name)
+    console.log(this.sale.client.name);
   }
 
-
-ionViewWillEnter(){
-
-}
-
+  ionViewWillEnter() {}
 }

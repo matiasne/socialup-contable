@@ -45,24 +45,20 @@ export class AppComponent implements OnInit {
     private sessionService: SessionService,
     private businessService: BusinessService,
     private router: Router
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit() {
     this.sessionService.observeSession().subscribe({
       next: (session) => {
         if (session) {
-          
           if (session.user) {
-            
             this.user = User.adapt(session.user);
           }
-          
+
           if (session.business) {
-              //esto es para cuando se reinicia el navegador
-              this.business = Business.adapt(session.business);
-              this.businessService.loadSelectedBusiness(this.business);
+            //esto es para cuando se reinicia el navegador
+            this.business = Business.adapt(session.business);
+            this.businessService.loadSelectedBusiness(this.business);
           }
         }
 
@@ -75,16 +71,11 @@ export class AppComponent implements OnInit {
         this.business = data;
       },
     });
-
   }
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() {}
 
   LogoutSession(): void {
     this.authService.logout();
     window.location.replace('/login');
-
-    
   }
 }

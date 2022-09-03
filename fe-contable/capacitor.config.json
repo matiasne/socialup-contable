@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "SocilaUpContable",
-	"webDir": "www",
-	"bundledWebRuntime": false
+  "appId": "io.ionic.starter",
+  "appName": "SocilaUpContable",
+  "webDir": "www",
+  "bundledWebRuntime": false
 }

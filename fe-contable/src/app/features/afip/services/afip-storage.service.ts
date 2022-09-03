@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AfipStorageService {
+  private key: string = 'afipToken';
 
-    private key:string = 'afipToken';
+  constructor() {}
 
-    constructor(){
+  public setAfipToken(token: string): void {
+    localStorage.setItem(this.key, JSON.stringify(token));
+  }
 
-    }
-
-    public setAfipToken(token:string):void{
-        localStorage.setItem(this.key,JSON.stringify(token));
-    }
-  
-    public getAfipToken():string{
-        return JSON.parse( localStorage.getItem(this.key) || "");
-    }
+  public getAfipToken(): string {
+    return JSON.parse(localStorage.getItem(this.key) || '');
+  }
 }

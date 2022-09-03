@@ -12,20 +12,18 @@ import { AlertController, NavController } from '@ionic/angular';
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
-  styleUrls: ['./form-product.page.scss']
+  styleUrls: ['./form-product.page.scss'],
 })
 
 /*Responsabilidad:
 leer la ruta
 manejar servicios
 manejar link hacia otras paginas....*/
-
 export class FormProductPage implements OnInit {
-  
-  public product:Product;
-  public business: Business;  
+  public product: Product;
+  public business: Business;
   public obsBusiness: any;
-  
+
   constructor(
     public productService: ProductService,
     public toastService: ToastService,
@@ -33,31 +31,22 @@ export class FormProductPage implements OnInit {
     public activateRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController,
-    public navCtrl:NavController
+    public navCtrl: NavController
   ) {
-    this.product  =  new Product('','','','','','','','');
+    this.product = new Product('', '', '', '', '', '', '', '');
   }
 
-  ngOnInit() {  
-    
-  }
+  ngOnInit() {}
 
-  ionViewDidEnter(){
-
+  ionViewDidEnter() {
     this.product.idBusiness = this.businessService.getBusinessId();
-     
-    if (this.activateRoute.snapshot.params.id) { 
-      this.product._id = this.activateRoute.snapshot.params.id; 
-      
-     
-    } 
 
-   
+    if (this.activateRoute.snapshot.params.id) {
+      this.product._id = this.activateRoute.snapshot.params.id;
+    }
   }
 
-  submit(data){    
-    this.router.navigateByUrl('/products')
+  submit(data) {
+    this.router.navigateByUrl('/products');
   }
-   
-
 }

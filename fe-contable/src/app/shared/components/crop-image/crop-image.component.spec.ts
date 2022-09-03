@@ -9,8 +9,8 @@ describe('CropImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CropImageComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [CropImageComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CropImageComponent);

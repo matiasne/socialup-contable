@@ -9,8 +9,8 @@ describe('EditProductPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditProductPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [EditProductPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditProductPage);

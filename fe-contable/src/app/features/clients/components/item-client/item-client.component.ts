@@ -10,40 +10,35 @@ import { ModalFormClientComponent } from '../modal-form-client/modal-form-client
   styleUrls: ['./item-client.component.scss'],
 })
 export class ItemClientComponent implements OnInit {
-
   @Input() client: Client;
-  @Input() showDeleteButton = false
+  @Input() showDeleteButton = false;
   @Input() showEditButton = false;
   @Output() eventClick = new EventEmitter<any>();
   @Output() eventClickRemove = new EventEmitter<any>();
   @Output() eventClickEdit = new EventEmitter<any>();
-  constructor(
-    public modalCtrl: ModalController
-  ) { }
+  constructor(public modalCtrl: ModalController) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  handleClick(){
-    
-    this.eventClick.emit(this.client)
+  handleClick() {
+    this.eventClick.emit(this.client);
   }
 
   handleClickDelete() {
-    this.eventClickRemove.emit(this.client)
+    this.eventClickRemove.emit(this.client);
   }
   handleClickEditing() {
-    this.eventClickEdit.emit(this.client)
-    this.openModalNewClient(this.client)
+    this.eventClickEdit.emit(this.client);
+    this.openModalNewClient(this.client);
   }
   async openModalNewClient(client) {
-
     const modal = await this.modalCtrl.create({
-      id: "1",
+      id: '1',
       component: ModalFormClientComponent,
       componentProps: {
         client: client,
-        other: { couldAlsoBeAnObject: true }
-      }
+        other: { couldAlsoBeAnObject: true },
+      },
     });
     modal.present();
 
@@ -51,6 +46,5 @@ export class ItemClientComponent implements OnInit {
 
     if (data) {
     }
-
   }
 }

@@ -8,14 +8,12 @@ import { ListClientComponent } from './components/list-client/list-client.compon
 import { ModalFormClientComponent } from './components/modal-form-client/modal-form-client.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
 @NgModule({
   declarations: [
     FormClientComponent,
     ItemClientComponent,
     ListClientComponent,
-    ModalFormClientComponent
-
+    ModalFormClientComponent,
   ],
   imports: [
     FormsModule,
@@ -23,16 +21,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     CommonModule,
     SharedModule,
-
-
   ],
   exports: [
     FormClientComponent,
     ItemClientComponent,
     ListClientComponent,
-    ModalFormClientComponent
-
-  ]
-
+    ModalFormClientComponent,
+  ],
 })
-export class ClientsModule { }
+export class ClientsModule {}

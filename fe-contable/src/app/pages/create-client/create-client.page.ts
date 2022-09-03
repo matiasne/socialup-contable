@@ -12,13 +12,12 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-create-client',
   templateUrl: './create-client.page.html',
-  styleUrls: ['./create-client.page.scss']
+  styleUrls: ['./create-client.page.scss'],
 })
 export class CreateClientPage implements OnInit {
-
-  public client:Client;
+  public client: Client;
   public business: Business;
-  public obsBusiness: any
+  public obsBusiness: any;
   constructor(
     public clientService: ClientService,
     public toastService: ToastService,
@@ -27,18 +26,14 @@ export class CreateClientPage implements OnInit {
     public router: Router,
     public alertController: AlertController
   ) {
-    this.client = new Client ('','','','','','','','','','','','')
-   }
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
+  }
 
   ngOnInit() {
     this.client.idBusiness = this.businessService.getBusinessId();
   }
-  
-   
-  submit(data){    
-    this.router.navigateByUrl('/clients')
+
+  submit(data) {
+    this.router.navigateByUrl('/clients');
   }
-
-
-
 }

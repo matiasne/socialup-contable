@@ -54,11 +54,11 @@ export class ListClientComponent implements OnInit {
           this.clients = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
-        }
+        },
       });
   }
 
   handleClick(client) {
-    this.eventClient.emit(client);    
+    this.eventClient.emit(client);
   }
 }

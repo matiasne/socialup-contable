@@ -11,25 +11,19 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'app-form-forgotpassword',
   templateUrl: './form-forgotpassword.page.html',
   styleUrls: ['./form-forgotpassword.page.scss'],
-  providers: [UserService, HelperService]
+  providers: [UserService, HelperService],
 })
 export class FormForgotpasswordPage implements OnInit {
   public formForgotPassword: FormGroup;
   isSubmited: boolean;
   show: boolean = false;
-  time
-  constructor(
-    private authService: AuthService,
-    public router: Router
-  ) { }
+  time;
+  constructor(private authService: AuthService, public router: Router) {}
 
   ngOnInit() {
     this.formForgotPassword = new FormGroup({
       email: new FormControl('', [Validators.required]),
-    })
-
-
-
+    });
   }
 
   onDestroy() {
@@ -38,34 +32,22 @@ export class FormForgotpasswordPage implements OnInit {
   onReset() {
     this.isSubmited = true;
     if (this.formForgotPassword.valid) {
-      let email = this.formForgotPassword.controls['email'].value
+      let email = this.formForgotPassword.controls['email'].value;
 
-      this.authService.resetPassword(email).subscribe(
-        {
-          next: (data: any) => {
-
-          },
-          error: (err) => {
-            console.log(err)
-            if (err.status == 400) {
-              alert(err.error.message)
-            }
-          },
-          complete: () => {
-
-
-
+      this.authService.resetPassword(email).subscribe({
+        next: (data: any) => {},
+        error: (err) => {
+          console.log(err);
+          if (err.status == 400) {
+            alert(err.error.message);
           }
-        }
-
-      )
-
+        },
+        complete: () => {},
+      });
     } else {
-
     }
   }
-  get email() { return this.formForgotPassword.get('email'); }
-
-
+  get email() {
+    return this.formForgotPassword.get('email');
+  }
 }
-

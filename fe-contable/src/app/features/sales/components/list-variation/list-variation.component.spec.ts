@@ -9,8 +9,8 @@ describe('ListVariationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListVariationComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ListVariationComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListVariationComponent);

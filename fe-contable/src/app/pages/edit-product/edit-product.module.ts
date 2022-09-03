@@ -15,8 +15,8 @@ import { ProductsModule } from 'src/app/features/products/products.module';
     FormsModule,
     ProductsModule,
     IonicModule,
-    EditProductPageRoutingModule
+    EditProductPageRoutingModule,
   ],
-  declarations: [EditProductPage]
+  declarations: [EditProductPage],
 })
 export class EditProductPageModule {}

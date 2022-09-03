@@ -7,36 +7,29 @@ import { UserService } from 'src/app/services/user.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { User } from 'src/app/models/user';
 
-
 @Component({
   selector: 'app-select-user-business',
   templateUrl: './select-user-business.page.html',
-  styleUrls: ['./select-user-business.page.scss']
+  styleUrls: ['./select-user-business.page.scss'],
 })
 export class SelectUserBusinessPage implements OnInit {
-
-  public businesses : Array<Business> =[] 
-  public user:User;
-  public session:Session
-  public totalPages:number;
+  public businesses: Array<Business> = [];
+  public user: User;
+  public session: Session;
+  public totalPages: number;
   constructor(
-    public activateRoute:ActivatedRoute,
-    public router:Router,
+    public activateRoute: ActivatedRoute,
+    public router: Router,
     public helperService: HelperService,
-    public businessService:BusinessService ,
-    public userService:UserService
-  ) { 
-    
-  }
+    public businessService: BusinessService,
+    public userService: UserService
+  ) {}
 
-  ngOnInit() {  
-    
-  }
+  ngOnInit() {}
 
-  handleClickBusiness(business){
-    this.businessService.setSelectedBusiness(business)
-  
-    this.router.navigate(['/dashboard-business'])
+  handleClickBusiness(business) {
+    this.businessService.setSelectedBusiness(business);
+
+    this.router.navigate(['/dashboard-business']);
   }
-    
 }

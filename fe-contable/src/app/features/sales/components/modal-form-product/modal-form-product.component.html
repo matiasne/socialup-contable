@@ -1,7 +1,6 @@
- <ion-content> 
+<ion-content>
   <socialup-form-sale-product>
-    [saleProduct]="saleProduct"
-    (handleSubmit)="handleClickSaleProduct($event)"
+    [saleProduct]="saleProduct" (handleSubmit)="handleClickSaleProduct($event)"
   </socialup-form-sale-product>
   <ion-button (click)="submit()">Confirmar</ion-button>
   <ion-button (click)="cancel()">Cancelar</ion-button>

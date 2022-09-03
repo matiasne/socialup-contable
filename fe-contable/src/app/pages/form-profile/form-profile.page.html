@@ -1,104 +1,140 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
-       <ion-title>MI PERFIL</ion-title> 
+    <ion-title>MI PERFIL</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <ion-card >
+  <ion-card>
     <ion-card-content>
-      <form class="form"[formGroup]="formProfile"   action="formProfile">
-        
-         <div class="image-avatar" >
-          <app-image-upload            
-            [aspectRatio] = "'1'"
-            [croppedImage]= "formProfile.controls['image'].value"
-            (onSelectValue)= changeImage($event)>
+      <form class="form" [formGroup]="formProfile" action="formProfile">
+        <div class="image-avatar">
+          <app-image-upload
+            [aspectRatio]="'1'"
+            [croppedImage]="formProfile.controls['image'].value"
+            (onSelectValue)="changeImage($event)"
+          >
           </app-image-upload>
         </div>
-            <ion-row>
-              <ion-item>
-                <ion-icon name="person-outline"></ion-icon>
-                <ion-label ></ion-label>
-                <ion-input type="text" required formControlName="name" placeholder="Nombre"></ion-input> 
-              </ion-item>
-            </ion-row> 
-            <ion-row >
-              <div class="error-message" *ngIf="!name.valid  && isSubmitted">
-                <div calss="error-message" *ngIf="name.errors.required ">
-                  <strong>*Campo Obligatorio*</strong> 
-                </div>
-                <div class="error-message" *ngIf="name.errors.minlength ">
-                 <strong>*Al menos 3 caracteres* </strong> 
-                </div>
-              </div> 
-            </ion-row>
-            <ion-row>
-            <ion-item>
-              <ion-icon name="people-outline"></ion-icon>
-              <ion-label ></ion-label>
-              <ion-input type="text" required formControlName="surname" placeholder="Apellido"></ion-input> 
-            </ion-item>          
-            </ion-row> 
-          <ion-row >
-            <div class="error-message" *ngIf="!surname.valid && isSubmitted">
-              <div calss="error-message" *ngIf="surname.errors.required">
-                <strong>*Campo Obligatorio*</strong> 
-              </div>
-              <div class="error-message" *ngIf="surname.errors.minlength">
-               <strong>*Al menos 3 caracteres* </strong> 
-              </div>
-            </div> 
-          </ion-row>
-          <ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              required
+              formControlName="name"
+              placeholder="Nombre"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <div class="error-message" *ngIf="!name.valid  && isSubmitted">
+            <div calss="error-message" *ngIf="name.errors.required ">
+              <strong>*Campo Obligatorio*</strong>
+            </div>
+            <div class="error-message" *ngIf="name.errors.minlength ">
+              <strong>*Al menos 3 caracteres* </strong>
+            </div>
+          </div>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              required
+              formControlName="surname"
+              placeholder="Apellido"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <div class="error-message" *ngIf="!surname.valid && isSubmitted">
+            <div calss="error-message" *ngIf="surname.errors.required">
+              <strong>*Campo Obligatorio*</strong>
+            </div>
+            <div class="error-message" *ngIf="surname.errors.minlength">
+              <strong>*Al menos 3 caracteres* </strong>
+            </div>
+          </div>
+        </ion-row>
+        <ion-row>
           <ion-item>
             <ion-icon name="transgender-outline"></ion-icon>
-            <ion-label ></ion-label>
-            <ion-input type="text" required formControlName="gender" placeholder="Género"></ion-input> 
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              required
+              formControlName="gender"
+              placeholder="Género"
+            ></ion-input>
           </ion-item>
-          </ion-row> 
+        </ion-row>
         <ion-row>
-        <ion-item>
-          <ion-icon name="location-outline"></ion-icon>
-          <ion-label ></ion-label>
-          <ion-input type="text" required formControlName="address" placeholder="Dirección" ></ion-input> 
-        </ion-item>
-        </ion-row> 
-          <ion-row >
-            <div class="error-message" *ngIf="!address.valid && isSubmitted">
-              <div calss="error-message" *ngIf="address.errors.required">
-                <strong>*Campo Obligatorio*</strong> 
-              </div>
-              <div class="error-message" *ngIf="address.errors.minlength">
-              <strong>*Al menos 3 caracteres* </strong> 
-              </div>
-            </div> 
-          </ion-row> 
-          <ion-row>
-            <ion-item>
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-              <ion-label ></ion-label>
-              <ion-input type="text" required formControlName="phone" placeholder="Teléfono" ></ion-input> 
-            </ion-item>
-            </ion-row> 
-              <ion-row >
-                <div class="error-message" *ngIf="!phone.valid && isSubmitted">
-                  <div calss="error-message" *ngIf="phone.errors.required">
-                    <strong>*Campo Obligatorio*</strong> 
-                  </div>
-                </div>
-              </ion-row >
-          <br>
-        
+          <ion-item>
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              required
+              formControlName="address"
+              placeholder="Dirección"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <div class="error-message" *ngIf="!address.valid && isSubmitted">
+            <div calss="error-message" *ngIf="address.errors.required">
+              <strong>*Campo Obligatorio*</strong>
+            </div>
+            <div class="error-message" *ngIf="address.errors.minlength">
+              <strong>*Al menos 3 caracteres* </strong>
+            </div>
+          </div>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="phone-portrait-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              required
+              formControlName="phone"
+              placeholder="Teléfono"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <div class="error-message" *ngIf="!phone.valid && isSubmitted">
+            <div calss="error-message" *ngIf="phone.errors.required">
+              <strong>*Campo Obligatorio*</strong>
+            </div>
+          </div>
+        </ion-row>
+        <br />
       </form>
-      <ion-row >
-          <ion-button type="submit" expand="default"  shape="round" (click)="updateProfile()">Actualizar mis datos</ion-button>
-      
+      <ion-row>
+        <ion-button
+          type="submit"
+          expand="default"
+          shape="round"
+          (click)="updateProfile()"
+          >Actualizar mis datos</ion-button
+        >
       </ion-row>
       <ion-row>
-          <ion-button class="delete-button"type="clear" expand="default"  shape="round" color="danger" (click)="doAlert()">Eliminar Cuenta</ion-button>
-      
-      </ion-row>      
+        <ion-button
+          class="delete-button"
+          type="clear"
+          expand="default"
+          shape="round"
+          color="danger"
+          (click)="doAlert()"
+          >Eliminar Cuenta</ion-button
+        >
+      </ion-row>
     </ion-card-content>
-  </ion-card>  
+  </ion-card>
 </ion-content>

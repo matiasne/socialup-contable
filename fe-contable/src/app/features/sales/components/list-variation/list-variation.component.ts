@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Variation } from '../../models/variation';
 
@@ -8,21 +15,13 @@ import { Variation } from '../../models/variation';
   styleUrls: ['./list-variation.component.scss'],
 })
 export class ListVariationComponent implements OnInit {
-  @Input() items = []
+  @Input() items = [];
   @ViewChild('listItem') listItems: ListItemsComponent;
-  @Output() clickSaleVariation = new EventEmitter<Variation>()
+  @Output() clickSaleVariation = new EventEmitter<Variation>();
 
-  constructor() {
-    
-   }
+  constructor() {}
 
   ngOnInit() {}
 
-  refreshSaleVariation(data:any){
-
-    
-
-     
-    }
-
+  refreshSaleVariation(data: any) {}
 }

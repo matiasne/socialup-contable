@@ -7,14 +7,11 @@ import { FormProductComponent } from './components/form-product/form-product.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
-
 @NgModule({
   declarations: [
     ItemProductComponent,
     ListProductComponentComponent,
     FormProductComponent,
-    
   ],
   imports: [
     SharedModule,
@@ -23,11 +20,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     CommonModule,
   ],
-  exports:[
+  exports: [
     ListProductComponentComponent,
-    FormProductComponent, 
+    FormProductComponent,
     ItemProductComponent,
-  ]
-  
+  ],
 })
-export class ProductsModule { }
+export class ProductsModule {}

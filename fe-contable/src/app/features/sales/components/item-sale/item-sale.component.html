@@ -1,11 +1,12 @@
 <ion-item>
-  <ion-label  >
-   <h1><b>Fecha:{{sale.date}}</b></h1>
+  <ion-label>
+    <h1>
+      <b>Fecha:{{ sale.date }}</b>
+    </h1>
     <div>
-      <p *ngIf="sale.client">client : {{sale.client.name}}</p>
-      <p>Productos: {{sale.saleProducts}}</p>
-      <p>Total: {{sale.total  | currency: 'USD' }}</p> 
+      <p *ngIf="sale.client">client : {{ sale.client.name }}</p>
+      <p>Productos: {{ sale.saleProducts }}</p>
+      <p>Total: {{ sale.total | currency: "USD" }}</p>
     </div>
- 
   </ion-label>
 </ion-item>

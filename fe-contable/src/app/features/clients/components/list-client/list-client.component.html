@@ -1,13 +1,15 @@
 <ng-template #clientTemplate let-item="item">
-  <socialup-item-client [showEditButton]="showEditButton" [client]="item" (eventClick)="handleClick($event)"></socialup-item-client>
+  <socialup-item-client
+    [showEditButton]="showEditButton"
+    [client]="item"
+    (eventClick)="handleClick($event)"
+  ></socialup-item-client>
 </ng-template>
 
-  <app-list-items
-    #listItem
-    [items]="clients"
-    [itemTemplate]="clientTemplate"
-    [totalPages]="totalPages"
-    (handleSearch)="refreshClients($event)"
-    
-  ></app-list-items>
-  
+<app-list-items
+  #listItem
+  [items]="clients"
+  [itemTemplate]="clientTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshClients($event)"
+></app-list-items>

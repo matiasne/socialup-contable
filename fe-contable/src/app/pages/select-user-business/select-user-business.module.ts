@@ -15,8 +15,8 @@ import { BusinessModule } from 'src/app/features/business/business.module';
     FormsModule,
     IonicModule,
     SelectUserBusinessPageRoutingModule,
-    BusinessModule
+    BusinessModule,
   ],
-  declarations: [SelectUserBusinessPage]
+  declarations: [SelectUserBusinessPage],
 })
 export class SelectUserBusinessPageModule {}

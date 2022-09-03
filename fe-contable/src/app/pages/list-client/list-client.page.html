@@ -5,14 +5,15 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content fullscreen="">
-<socialup-list-client
-  #listItem
-  showEditButton="true"
-  (clickClient)="handleClickClient($event)"
-></socialup-list-client>
-<ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button [routerLink]="['/create-client']"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
-</ion-fab> 
+  <socialup-list-client
+    #listItem
+    showEditButton="true"
+    (clickClient)="handleClickClient($event)"
+  ></socialup-list-client>
+  <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/create-client']"
+      ><ion-icon name="add-outline"></ion-icon
+    ></ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -15,7 +15,6 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
   styleUrls: ['./modal-form-client.component.scss'],
 })
 export class ModalFormClientComponent implements OnInit {
-
   @Input() client: Client;
   @Input() business: Business;
   @Output() handleSubmit = new EventEmitter<any>();
@@ -23,8 +22,7 @@ export class ModalFormClientComponent implements OnInit {
   public formClient: FormGroup;
   public isEditing: boolean = false;
   public isSubmited: boolean = false;
-  public buttonLabel = "Crear Cliente"
-
+  public buttonLabel = 'Crear Cliente';
 
   constructor(
     private toastService: ToastService,
@@ -35,10 +33,8 @@ export class ModalFormClientComponent implements OnInit {
     private modalCtrl: ModalController,
     private businessService: BusinessService,
     public navParams: NavParams
-
   ) {
-
-    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '')
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -49,14 +45,13 @@ export class ModalFormClientComponent implements OnInit {
       documentNumber: new FormControl('', Validators.required),
       postCode: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
-      image: new FormControl('')
+      image: new FormControl(''),
     });
   }
 
   ngOnInit() {
-
-    if (this.client._id != "") {
-      this.isEditing = true
+    if (this.client._id != '') {
+      this.isEditing = true;
       this.formClient.setValue({
         name: this.client.name,
         address: this.client.address,
@@ -67,71 +62,73 @@ export class ModalFormClientComponent implements OnInit {
         documentNumber: this.client.documentNumber,
         postCode: this.client.postCode,
         city: this.client.city,
-        image: this.client.image ? this.client.image : ""
-      })
+        image: this.client.image ? this.client.image : '',
+      });
     } else {
-      this.isEditing = false
+      this.isEditing = false;
     }
   }
 
   changeImage(event: any) {
     this.formClient.patchValue({
-      image: event
-    })
+      image: event,
+    });
   }
   onSubmit() {
     this.isSubmited = true;
     if (this.formClient.valid) {
-      this.client.name = this.formClient.controls.name.value
-      this.client.image = this.formClient.controls.image.value
-      this.client.city = this.formClient.controls.city.value
-      this.client.address = this.formClient.controls.address.value
-      this.client.email = this.formClient.controls.email.value
-      this.client.phone = this.formClient.controls.phone.value
-      this.client.postCode = this.formClient.controls.postCode.value
-      this.client.documentType = this.formClient.controls.documentType.value
-      this.client.documentNumber = this.formClient.controls.documentNumber.value
-      this.client.surname = this.formClient.controls.surname.value
-      this.client.idBusiness = this.businessService.SelectedBusiness.value._id
-      this.save()
-
+      this.client.name = this.formClient.controls.name.value;
+      this.client.image = this.formClient.controls.image.value;
+      this.client.city = this.formClient.controls.city.value;
+      this.client.address = this.formClient.controls.address.value;
+      this.client.email = this.formClient.controls.email.value;
+      this.client.phone = this.formClient.controls.phone.value;
+      this.client.postCode = this.formClient.controls.postCode.value;
+      this.client.documentType = this.formClient.controls.documentType.value;
+      this.client.documentNumber =
+        this.formClient.controls.documentNumber.value;
+      this.client.surname = this.formClient.controls.surname.value;
+      this.client.idBusiness = this.businessService.SelectedBusiness.value._id;
+      this.save();
     } else {
-      this.toastService.show(ToastType.error, "Por Favor complete todo los campos")
+      this.toastService.show(
+        ToastType.error,
+        'Por Favor complete todo los campos'
+      );
     }
   }
   save() {
     if (this.isEditing) {
       this.updateProfileClient();
-    }
-    else {
+    } else {
       this.createClient();
     }
-
   }
 
   createClient() {
     this.clientService.add(this.client).subscribe({
       next: (data) => {
-        this.modalCtrl.dismiss(data.client)
-
-      }
-    })
-
+        this.modalCtrl.dismiss(data.client);
+      },
+    });
   }
   updateProfileClient() {
-
     this.clientService.update(this.client).subscribe({
       next: (data) => {
-        this.toastService.show(ToastType.success, "Se ha actualizaddo el prodcuto correctamente")
-        this.handleSubmit.emit(data)
-        this.modalCtrl.dismiss(data)
-      }
-    })
+        this.toastService.show(
+          ToastType.success,
+          'Se ha actualizaddo el prodcuto correctamente'
+        );
+        this.handleSubmit.emit(data);
+        this.modalCtrl.dismiss(data);
+      },
+    });
   }
   async doAlert() {
     const alert = await this.alertController.create({
       header: 'ELIMINAR CUENTA',
-      message: 'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+      message:
+        'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
       buttons: [
         {
           text: 'Cancel',
@@ -140,28 +137,30 @@ export class ModalFormClientComponent implements OnInit {
           id: 'cancel-button',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Ok',
           id: 'confirm-button',
           handler: () => {
-            this.clientService._delete(this.activateRoute.snapshot.params.id).subscribe({
-              next: (data) => {
-                this.toastService.show(ToastType.warning, "Se ha eliminado el cliente correctamente")
-                this.router.navigate(['/list-client'])
-              },
-              error: (err) => {
-                console.log(err);
-
-              }
-            })
-
-          }
-        }
+            this.clientService
+              ._delete(this.activateRoute.snapshot.params.id)
+              .subscribe({
+                next: (data) => {
+                  this.toastService.show(
+                    ToastType.warning,
+                    'Se ha eliminado el cliente correctamente'
+                  );
+                  this.router.navigate(['/list-client']);
+                },
+                error: (err) => {
+                  console.log(err);
+                },
+              });
+          },
+        },
       ],
     });
-    (await alert).present()
-
+    (await alert).present();
   }
-
 }

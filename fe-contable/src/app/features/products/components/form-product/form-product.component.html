@@ -1,51 +1,78 @@
 <div>
-  <ion-card >
-   <ion-card-content>
-    <form class="form"   [formGroup]="formProduct"  action="formProduct"> 
-      <div class="image-avatar">
-        <app-image-upload            
-          [aspectRatio] = "'1'"
-          [croppedImage]= "formProduct.controls['image'].value"
-          (onSelectValue)= changeImage($event)>
-        </app-image-upload>
-      </div>
-      <ion-row> 
-        <ion-item>
-          <ion-icon name="add-outline"></ion-icon>
-          <ion-label ></ion-label>
-          <ion-input type="text" formControlName="name" placeholder="Nombre del Producto"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row> 
-        <ion-item>
-          <ion-icon name="create-outline"></ion-icon>
-          <ion-label ></ion-label>
-          <ion-input type="text" formControlName="description" placeholder="Descripción"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row> 
-        <ion-item>
-          <ion-icon name="barcode-outline"></ion-icon>
-          <ion-label ></ion-label>
-          <ion-input type="text"formControlName="code" placeholder="Código"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row> 
-        <ion-item>
-          <ion-icon name="cash-outline"></ion-icon>            <ion-label ></ion-label>
-          <ion-input type="text" formControlName="costPrice" placeholder="Precio de Costo"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row> 
-        <ion-item>
-          <ion-icon name="bag-outline"></ion-icon>
-          <ion-label ></ion-label>
-          <ion-input type="text" formControlName="salePrice" placeholder="Precio de Venta"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-button color="tertiary" (click)="onSubmit()"><ion-icon name="bag-add-outline"></ion-icon>{{buttonLabel}}</ion-button>
-      <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"><ion-icon name="trash-outline"></ion-icon> Eliminar Producto</ion-button>
-    </form>
-   </ion-card-content>
+  <ion-card>
+    <ion-card-content>
+      <form class="form" [formGroup]="formProduct" action="formProduct">
+        <div class="image-avatar">
+          <app-image-upload
+            [aspectRatio]="'1'"
+            [croppedImage]="formProduct.controls['image'].value"
+            (onSelectValue)="changeImage($event)"
+          >
+          </app-image-upload>
+        </div>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="add-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              formControlName="name"
+              placeholder="Nombre del Producto"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              formControlName="description"
+              placeholder="Descripción"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="barcode-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              formControlName="code"
+              placeholder="Código"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="cash-outline"></ion-icon> <ion-label></ion-label>
+            <ion-input
+              type="text"
+              formControlName="costPrice"
+              placeholder="Precio de Costo"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-icon name="bag-outline"></ion-icon>
+            <ion-label></ion-label>
+            <ion-input
+              type="text"
+              formControlName="salePrice"
+              placeholder="Precio de Venta"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-button color="tertiary" (click)="onSubmit()"
+          ><ion-icon name="bag-add-outline"></ion-icon
+          >{{ buttonLabel }}</ion-button
+        >
+        <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"
+          ><ion-icon name="trash-outline"></ion-icon> Eliminar
+          Producto</ion-button
+        >
+      </form>
+    </ion-card-content>
   </ion-card>
 </div>

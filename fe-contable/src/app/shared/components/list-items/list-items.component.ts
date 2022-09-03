@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-list-items',
@@ -6,90 +13,85 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
   styleUrls: ['./list-items.component.scss'],
 })
 export class ListItemsComponent implements OnInit {
-
-  @Input() items:Array<any> = [];
-  @Input() totalPages:number;
-  @Input("itemTemplate") itemTemplate?: TemplateRef<any>;
-  @Input() hideSearchBar:boolean=false;
+  @Input() items: Array<any> = [];
+  @Input() totalPages: number;
+  @Input('itemTemplate') itemTemplate?: TemplateRef<any>;
+  @Input() hideSearchBar: boolean = false;
   @Output() handleClickItem = new EventEmitter<any>();
   @Output() handleSearch = new EventEmitter<any>();
-  
-  public perPage:number=10;
-  public searchWord:string;
-  public pageCount:number;
-  public isLoading :boolean=false;
-  public isDisabledNext:boolean=true;
-  public isDisabledBack:boolean=true;
 
-  constructor() { }
+  public perPage: number = 10;
+  public searchWord: string;
+  public pageCount: number;
+  public isLoading: boolean = false;
+  public isDisabledNext: boolean = true;
+  public isDisabledBack: boolean = true;
+
+  constructor() {}
 
   ngOnInit() {
-    this.pageCount=1;
-    this.searchWord="";
-    this.buttonController()
+    this.pageCount = 1;
+    this.searchWord = '';
+    this.buttonController();
   }
 
-  ionViewDidEnter(){
-    this.pageCount=1;
-    this.searchWord="";
-    this.buttonController()
+  ionViewDidEnter() {
+    this.pageCount = 1;
+    this.searchWord = '';
+    this.buttonController();
   }
 
- handleClick (item){
-    this.handleClickItem.emit(item)
-   
+  handleClick(item) {
+    this.handleClickItem.emit(item);
   }
 
-  searchEventFired(){
-    this.pageCount=1 
-    this.search()
-  //  this.buttonController()
+  searchEventFired() {
+    this.pageCount = 1;
+    this.search();
+    //  this.buttonController()
   }
 
-  public search(){
+  public search() {
     this.handleSearch.emit({
-      perPage:this.perPage,
-      pageCount:this.pageCount,
-      searchWord:this.searchWord
-    })
+      perPage: this.perPage,
+      pageCount: this.pageCount,
+      searchWord: this.searchWord,
+    });
   }
 
-  nextPagination(){   
-    if(this.pageCount <this.totalPages){
-      this.pageCount ++;
-      this.search()
-      this.buttonController()
-    }    
-  }
-
-  backPagination(){
-    if(this.pageCount != 1){
-      this.pageCount --;
-      this.search()
-      this.buttonController()      
-    }   
-  }
-
-  buttonController(){ 
-   if(this.totalPages>1){ 
-      if(this.pageCount>=2){
-        this.isDisabledBack=false
-      }else{
-        this.isDisabledBack=true
-      }
-      if(this.pageCount !=this.totalPages){
-        this.isDisabledNext=false
-      }else{
-        this.isDisabledNext=true      
-      }
-
-      if(this.totalPages<=1){      
-        this.isDisabledNext=true
-      }
-    
-    }else{
-    
+  nextPagination() {
+    if (this.pageCount < this.totalPages) {
+      this.pageCount++;
+      this.search();
+      this.buttonController();
     }
   }
 
+  backPagination() {
+    if (this.pageCount != 1) {
+      this.pageCount--;
+      this.search();
+      this.buttonController();
+    }
+  }
+
+  buttonController() {
+    if (this.totalPages > 1) {
+      if (this.pageCount >= 2) {
+        this.isDisabledBack = false;
+      } else {
+        this.isDisabledBack = true;
+      }
+      if (this.pageCount != this.totalPages) {
+        this.isDisabledNext = false;
+      } else {
+        this.isDisabledNext = true;
+      }
+
+      if (this.totalPages <= 1) {
+        this.isDisabledNext = true;
+      }
+    } else {
+    }
+  }
 }

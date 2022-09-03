@@ -12,40 +12,40 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'socialup-select-client',
   templateUrl: './select-client.component.html',
-  styleUrls: ['./select-client.component.scss']
+  styleUrls: ['./select-client.component.scss'],
 })
 export class SelectClientComponent implements OnInit {
-    public name: string;
-    public clients : Array<Client> =[] 
-    public client:Client
-  constructor(private modalCtrl: ModalController,
-    public activateRoute:ActivatedRoute,
-    public helperService: HelperService  ,
-    public clientService:ClientService,
-    public businessService:BusinessService,
-    public router:Router,) { }
+  public name: string;
+  public clients: Array<Client> = [];
+  public client: Client;
+  constructor(
+    private modalCtrl: ModalController,
+    public activateRoute: ActivatedRoute,
+    public helperService: HelperService,
+    public clientService: ClientService,
+    public businessService: BusinessService,
+    public router: Router
+  ) {}
 
   ngOnInit() {}
 
-  handleClick(client){
-    console.log(client)
-    this.modalCtrl.dismiss(client,"","select")
+  handleClick(client) {
+    console.log(client);
+    this.modalCtrl.dismiss(client, '', 'select');
   }
 
   async openModalNewClient() {
-    
     const modal = await this.modalCtrl.create({
-      id:"1",
+      id: '1',
       component: ModalFormClientComponent,
     });
     modal.present();
 
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
-    console.log(data)
-    if(data){      
-      this.handleClick(data) 
+    console.log(data);
+    if (data) {
+      this.handleClick(data);
     }
-
   }
 }

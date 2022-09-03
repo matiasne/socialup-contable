@@ -8,48 +8,45 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
   styleUrls: ['./crop-image.component.scss'],
 })
 export class CropImageComponent implements OnInit {
-
-  public imagen:any;
-  public croppedImage:any;  
-  public imageChangedEvent:any;
-  public aspectRatio ="";
+  public imagen: any;
+  public croppedImage: any;
+  public imageChangedEvent: any;
+  public aspectRatio = '';
   public resizeToWidth = 0;
   public resizeToHeight = 0;
 
   constructor(
     private modalCtrl: ModalController,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams
-  ) { 
+  ) {
     this.resizeToWidth = this.navParams.get('resizeToWidth');
     this.resizeToHeight = this.navParams.get('resizeToHeight');
-  }  
-  
+  }
+
   imageLoaded() {
     // show cropper
   }
   cropperReady() {
-      // cropper ready
+    // cropper ready
   }
   loadImageFailed() {
-      // show message
-} 
+    // show message
+  }
 
   ngOnInit() {
-    this.imageChangedEvent = this.navParams.get("file");
+    this.imageChangedEvent = this.navParams.get('file');
   }
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
   }
 
-
-  guardar(){  
+  guardar() {
     this.modalCtrl.dismiss(this.croppedImage);
   }
 
-  cancelar(){
+  cancelar() {
     this.modalCtrl.dismiss();
   }
-
 }

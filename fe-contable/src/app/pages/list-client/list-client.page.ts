@@ -6,34 +6,18 @@ import { ListClientComponent } from 'src/app/features/clients/components/list-cl
   selector: 'app-list-client',
   templateUrl: './list-client.page.html',
   styleUrls: ['./list-client.page.scss'],
-  providers:[]
+  providers: [],
 })
-
-
-
 export class ListClientPage implements OnInit {
+  @ViewChild('listItem') listItems: ListClientComponent;
 
-  @ViewChild('listItem') listItems: ListClientComponent
+  constructor(public router: Router) {}
 
-  constructor(
-   
-    public router:Router,
+  ngOnInit() {}
 
-  ) { 
-    
+  ngAfterViewInit() {}
+
+  handleClickClient(client) {
+    this.router.navigate(['/edit-client', { client: JSON.stringify(client) }]);
   }
-
-  ngOnInit() {
-    
-  }
-
-  ngAfterViewInit(){
-
-  }
-    
-  handleClickClient(client){
-    this.router.navigate(['/edit-client',{client:JSON.stringify(client)}])
-  }
-      
-                          
 }

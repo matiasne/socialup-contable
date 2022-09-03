@@ -10,8 +10,8 @@ import { ProductsModule } from 'src/app/features/products/products.module';
     CommonModule,
     ProductsModule,
     IonicModule,
-    FormProductPageRoutingModule
+    FormProductPageRoutingModule,
   ],
-  declarations: [FormProductPage]
+  declarations: [FormProductPage],
 })
 export class FormProductPageModule {}

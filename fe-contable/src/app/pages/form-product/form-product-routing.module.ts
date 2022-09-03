@@ -6,8 +6,8 @@ import { FormProductPage } from './form-product.page';
 const routes: Routes = [
   {
     path: '',
-    component: FormProductPage
-  }
+    component: FormProductPage,
+  },
 ];
 
 @NgModule({

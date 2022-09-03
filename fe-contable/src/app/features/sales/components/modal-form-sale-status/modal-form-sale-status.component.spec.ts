@@ -9,8 +9,8 @@ describe('ModalFormSaleStatusComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalFormSaleStatusComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ModalFormSaleStatusComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalFormSaleStatusComponent);

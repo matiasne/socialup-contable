@@ -9,8 +9,8 @@ describe('ModalSelectProductComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalSelectProductComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ModalSelectProductComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalSelectProductComponent);

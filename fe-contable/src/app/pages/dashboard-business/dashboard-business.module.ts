@@ -13,8 +13,8 @@ import { DashboardBusinessPage } from './dashboard-business.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardBusinessPageRoutingModule
+    DashboardBusinessPageRoutingModule,
   ],
-  declarations: [DashboardBusinessPage]
+  declarations: [DashboardBusinessPage],
 })
 export class DashboardBusinessPageModule {}

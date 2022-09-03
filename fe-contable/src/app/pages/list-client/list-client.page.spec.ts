@@ -9,8 +9,8 @@ describe('ListClientPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListClientPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ListClientPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListClientPage);

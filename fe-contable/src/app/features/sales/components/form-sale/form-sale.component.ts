@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { instanceAvailability } from '@awesome-cordova-plugins/core';
-import { ModalController } from '@ionic/angular'; 
+import { ModalController } from '@ionic/angular';
 import { timeStamp } from 'console';
 import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
@@ -26,28 +26,25 @@ import { SelectClientComponent } from '../select-client/select-client.component'
   selector: 'socialup-form-sale',
   templateUrl: './form-sale.component.html',
   styleUrls: ['./form-sale.component.scss'],
-  providers:[  ]
+  providers: [],
 })
 export class FormSaleComponent implements OnInit {
-
   @Output() handleSubmit = new EventEmitter<any>();
 
-public buttonLabel=""
- 
-  message = 'This modal example uses the modalController to present and dismiss modals.';
+  public buttonLabel = '';
+
+  message =
+    'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
-    public currentSaleService:CurrentSaleService
-    ) {
-    
-  }
+    public currentSaleService: CurrentSaleService
+  ) {}
 
   ngOnInit() {}
 
   async openModalClient() {
-    
     const modalSelectClient = await this.modalCtrl.create({
-      id:"select",
+      id: 'select',
       component: SelectClientComponent,
     });
     modalSelectClient.present();
@@ -55,8 +52,7 @@ public buttonLabel=""
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modalSelectClient.onWillDismiss();
 
-    this.currentSaleService.addClient(data)
-    
+    this.currentSaleService.addClient(data);
   }
 
   async openModalProduct() {
@@ -68,85 +64,72 @@ public buttonLabel=""
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
 
-    if(data)
-      this.openModalSaleProduct(data)
-    
-
+    if (data) this.openModalSaleProduct(data);
   }
-  async openModalSaleProduct(selectProduct:Product) {
-
+  async openModalSaleProduct(selectProduct: Product) {
     const modal2: HTMLIonModalElement = await this.modalCtrl.create({
       component: FormSaleProductComponent,
       componentProps: {
-        selectProduct:selectProduct,
-        other: {couldAlsoBeAnObject: true}
-     }
+        selectProduct: selectProduct,
+        other: { couldAlsoBeAnObject: true },
+      },
     });
     modal2.present();
 
     // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
-    if(data)
-      this.currentSaleService.addSaleProduct(data)
-    
+    if (data) this.currentSaleService.addSaleProduct(data);
   }
 
-  isClient(){
-    return this.currentSaleService.currentSale.client != undefined
+  isClient() {
+    return this.currentSaleService.currentSale.client != undefined;
   }
 
-  clientInSale(){
-    return this.currentSaleService.currentSale.client
+  clientInSale() {
+    return this.currentSaleService.currentSale.client;
   }
 
-  listSaleProductAdded(){
-    return this.currentSaleService.currentSale.saleProducts
+  listSaleProductAdded() {
+    return this.currentSaleService.currentSale.saleProducts;
   }
 
-  listSaleVariationAdded(){
-    return this.currentSaleService.currentSale.variations
+  listSaleVariationAdded() {
+    return this.currentSaleService.currentSale.variations;
   }
 
-  totalSaleProducts(){
-    return this.currentSaleService.currentSale.total
+  totalSaleProducts() {
+    return this.currentSaleService.currentSale.total;
   }
- async openModalSaveSale(){
-  const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
-    component: ModalFormSaleStatusComponent,
-    componentProps: {
-      other: {couldAlsoBeAnObject: true}
-   }
-  });
-  modalStatus.present();
+  async openModalSaveSale() {
+    const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
+      component: ModalFormSaleStatusComponent,
+      componentProps: {
+        other: { couldAlsoBeAnObject: true },
+      },
+    });
+    modalStatus.present();
 
-  let { data, role } = await modalStatus.onWillDismiss();
-  if(data){
-    return this.currentSaleService.add(this.currentSaleService.currentSale)
-
+    let { data, role } = await modalStatus.onWillDismiss();
+    if (data) {
+      return this.currentSaleService.add(this.currentSaleService.currentSale);
+    }
   }
-}
 
   async openModalVariationTotal(type) {
-
     const modalSurcharge: HTMLIonModalElement = await this.modalCtrl.create({
       component: ModalFormVariationComponent,
       componentProps: {
-        type:type,
-        other: {couldAlsoBeAnObject: true}
-     }
+        type: type,
+        other: { couldAlsoBeAnObject: true },
+      },
     });
     modalSurcharge.present();
 
     let { data, role } = await modalSurcharge.onWillDismiss();
-    if(data)
-      this.currentSaleService.addVariation(data)
-      
-    
+    if (data) this.currentSaleService.addVariation(data);
   }
-  removeClient(client:Client){
-    
-    this.currentSaleService.removeClient()
+  removeClient(client: Client) {
+    this.currentSaleService.removeClient();
   }
-
 }

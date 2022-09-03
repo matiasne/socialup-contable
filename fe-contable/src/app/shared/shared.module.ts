@@ -7,25 +7,15 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { ListItemsComponent } from './components/list-items/list-items.component';
 
-
-
 @NgModule({
   imports: [
-    CommonModule,  
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
     ImageCropperModule,
-    ],
-  declarations: [
-    CropImageComponent,
-    ImageUploadComponent,
-    ListItemsComponent   
   ],
-  exports: [
-    ListItemsComponent,
-    ImageUploadComponent,
-
-  ]
+  declarations: [CropImageComponent, ImageUploadComponent, ListItemsComponent],
+  exports: [ListItemsComponent, ImageUploadComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

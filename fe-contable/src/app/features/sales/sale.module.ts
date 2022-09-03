@@ -37,7 +37,7 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ListSaleComponent,
     ItemSaleComponent,
     ModalSelectProductComponent,
-    SelectClientComponent
+    SelectClientComponent,
   ],
   imports: [
     FormsModule,
@@ -47,10 +47,8 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ClientsModule,
     SharedModule,
     ProductsModule,
-    
-    
   ],
-  exports:[
+  exports: [
     FormSaleComponent,
     ItemSaleProductComponent,
     ListSaleProductComponent,
@@ -63,8 +61,6 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ModalFormSaleStatusComponent,
     ListSaleComponent,
     ItemSaleComponent,
-
-  ]
-  
+  ],
 })
-export class SalesModule { }
+export class SalesModule {}

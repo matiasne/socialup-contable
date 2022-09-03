@@ -15,42 +15,52 @@ import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-
   selector: 'socialup-form-sale-product',
   templateUrl: './form-sale-product.component.html',
   styleUrls: ['./form-sale-product.component.scss'],
-  providers:[]
+  providers: [],
 })
 export class FormSaleProductComponent implements OnInit {
-  @Input() product:Product;
-  @Input() saleProduct:SaleProduct;
-  @Input() variation:Variation;
-  @Output() clickSaleProduct= new EventEmitter<SaleProduct>();
-  
- 
+  @Input() product: Product;
+  @Input() saleProduct: SaleProduct;
+  @Input() variation: Variation;
+  @Output() clickSaleProduct = new EventEmitter<SaleProduct>();
+
   public variationTypes = VariationType;
- 
-  public variationEnabled:boolean=false
+
+  public variationEnabled: boolean = false;
   public formSaleProduct: FormGroup;
-  public isEditing: boolean = false;  
+  public isEditing: boolean = false;
   public isSubmited: boolean = false;
-  public buttonLabel = "Añadir Producto"
+  public buttonLabel = 'Añadir Producto';
   public saleProductVariation = new Variation();
-  public typeVariation:string;
-  
+  public typeVariation: string;
+
   constructor(
     private modalCtrl: ModalController,
     public navParams: NavParams,
-    private currentSaleService:CurrentSaleService
+    private currentSaleService: CurrentSaleService
   ) {
-    
-    this.saleProduct =  new SaleProduct('','','','','','','','',0,'',0,new Variation())
+    this.saleProduct = new SaleProduct(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      '',
+      0,
+      new Variation()
+    );
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
       detail: new FormControl(''),
     });
-   }
+  }
 
   ngOnInit() {
-
-    if(this.navParams.get('selectProduct')){
+    if (this.navParams.get('selectProduct')) {
       this.product = this.navParams.get('selectProduct');
 
       this.saleProduct = new SaleProduct(
@@ -63,63 +73,57 @@ export class FormSaleProductComponent implements OnInit {
         this.product.idBusiness,
         this.product.image,
         0,
-        "",
+        '',
         0,
         new Variation()
-      )
+      );
     }
-    
-    if(this.navParams.get('selectSaleProduct'))
-      this.saleProduct = this.navParams.get('selectSaleProduct')
-    
+
+    if (this.navParams.get('selectSaleProduct'))
+      this.saleProduct = this.navParams.get('selectSaleProduct');
 
     this.formSaleProduct.setValue({
-      amount: this.saleProduct.amount?this.saleProduct.amount:"",
-      detail: this.saleProduct.detail?this.saleProduct.detail:"",
-    //  type: this.saleProduct.variation.type?this.saleProduct.variation.type:"",
-    //  value: this.saleProduct.variation.value?this.saleProduct.variation.value:"",
-    //  description: this.saleProduct.variation.description?this.saleProduct.variation.description:"",
-    })
-      
-    
+      amount: this.saleProduct.amount ? this.saleProduct.amount : '',
+      detail: this.saleProduct.detail ? this.saleProduct.detail : '',
+      //  type: this.saleProduct.variation.type?this.saleProduct.variation.type:"",
+      //  value: this.saleProduct.variation.value?this.saleProduct.variation.value:"",
+      //  description: this.saleProduct.variation.description?this.saleProduct.variation.description:"",
+    });
   }
 
   onSubmit() {
     this.isSubmited = true;
-    
+
     if (this.formSaleProduct.valid) {
-      
-      this.saleProduct.amount = this.formSaleProduct.controls.amount .value
-      this.saleProduct.detail = this.formSaleProduct.controls.detail.value
+      this.saleProduct.amount = this.formSaleProduct.controls.amount.value;
+      this.saleProduct.detail = this.formSaleProduct.controls.detail.value;
       // this.saleProduct.variation.type =this.formSaleProduct.controls.type.value
       // this.saleProduct.variation.description =this.formSaleProduct.controls.description.value
       // this.saleProduct.variation.value=this.formSaleProduct.controls.value.value
 
-      var subTotal:number;
-      
-   
+      var subTotal: number;
 
-      this.saleProduct.subTotal= this.currentSaleService.calculateProductSubTotal(this.saleProduct)
+      this.saleProduct.subTotal =
+        this.currentSaleService.calculateProductSubTotal(this.saleProduct);
 
-
-      this.modalCtrl.dismiss(this.saleProduct)
+      this.modalCtrl.dismiss(this.saleProduct);
     }
   }
-  refreshData(data){
-    this.saleProduct.variation=data
-    
-    if(this.typeVariation === 'discount'){
+  refreshData(data) {
+    this.saleProduct.variation = data;
+
+    if (this.typeVariation === 'discount') {
       this.saleProduct.variation.value = -data.value;
     }
 
     this.clickSaleProduct.emit(this.saleProduct);
   }
-  
-  enabledFormVariation(type){
-    this.variationEnabled=true
-   
+
+  enabledFormVariation(type) {
+    this.variationEnabled = true;
+
     this.typeVariation = type;
-   
-    this.saleProduct.variation.type = type
+
+    this.saleProduct.variation.type = type;
   }
 }

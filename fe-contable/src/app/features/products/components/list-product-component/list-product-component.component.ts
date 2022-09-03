@@ -46,34 +46,26 @@ export class ListProductComponentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  
-    this.refreshProducts()
-    
+    this.refreshProducts();
   }
 
   refreshProducts(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
-   
-      this.businessService.getBusinessProduct(
-          data.pageCount,
-          data.perPage,
-          data.searchWord
-        )
-        .subscribe({
-          next: (response) => {
-            
-            this.products = response.data;
-            this.listItems.totalPages = response.paging.totalPages;
-            this.listItems.buttonController();
-          },
-        });
-    
+    this.businessService
+      .getBusinessProduct(data.pageCount, data.perPage, data.searchWord)
+      .subscribe({
+        next: (response) => {
+          this.products = response.data;
+          this.listItems.totalPages = response.paging.totalPages;
+          this.listItems.buttonController();
+        },
+      });
   }
 
   handleClick(data) {
     this.clickProduct.emit(data);
   }
 
-  handleClickEdit(product){
-    this.clickEditProduct.emit(product)    
+  handleClickEdit(product) {
+    this.clickEditProduct.emit(product);
   }
 }

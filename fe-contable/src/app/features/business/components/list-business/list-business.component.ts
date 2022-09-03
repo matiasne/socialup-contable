@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/features/clients/models/client';
 import { Business } from 'src/app/features/business/models/business';
@@ -15,11 +21,10 @@ import { SessionService } from 'src/app/auth/services/session.service';
   styleUrls: ['./list-business.component.scss'],
 })
 export class ListBusinessComponent implements OnInit {
-
   @ViewChild('listItem') listItems: ListItemsComponent;
-  @Output() clickBusiness = new EventEmitter<Business>()
+  @Output() clickBusiness = new EventEmitter<Business>();
 
-  public businesses: Array<Business> = []
+  public businesses: Array<Business> = [];
   private user: User;
   public totalPages: number;
   constructor(
@@ -29,30 +34,31 @@ export class ListBusinessComponent implements OnInit {
     public helperService: HelperService,
     public businessService: BusinessService,
     public userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.userService.getUserBusiness().subscribe({
       next: (response) => {
         this.businesses = response.data;
-      }
-    })
+      },
+    });
   }
 
   refreshBusinesses(data: any) {
     if (this.user._id) {
-      this.userService.getUserBusiness(data.pageCount, data.perPage, data.searchWord).subscribe({
-        next: (response) => {
-          this.businesses = response.data
-          this.listItems.totalPages = response.paging.totalPages
-          this.listItems.buttonController()
-        }
-      })
+      this.userService
+        .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
+        .subscribe({
+          next: (response) => {
+            this.businesses = response.data;
+            this.listItems.totalPages = response.paging.totalPages;
+            this.listItems.buttonController();
+          },
+        });
     }
   }
 
   click(data) {
-    this.clickBusiness.emit(data)
+    this.clickBusiness.emit(data);
   }
 }
