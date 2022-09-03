@@ -36,7 +36,6 @@ export class ListItemsComponent implements OnInit {
   }
 
  handleClick (item){
-
     this.handleClickItem.emit(item)
    
   }
