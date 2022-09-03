@@ -38,7 +38,7 @@ ionViewWillEnter(){
 }
 async doAlert(){
   const alert = await this.alertController.create({
-    header:'ELIMINAR CUENTA',
+    header:'REMOVER DE LA VENTA',
     message:'Desea quitar el producto de la lista.',
     buttons: [
       {
