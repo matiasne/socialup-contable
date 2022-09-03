@@ -9,5 +9,5 @@
     <h3>Telefono: {{client.phone}}</h3>
   </ion-label>
   <ion-button *ngIf="showButton" (click)="handleClickDelete()" >Eliminar</ion-button>
-  <ion-button *ngIf="showButton" (click)="handleClickEditing()" >Editar</ion-button>
+  <ion-button *ngIf="showEditButton" (click)="handleClickEditing()" >Editar</ion-button>
 </ion-item>

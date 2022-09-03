@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -22,6 +23,8 @@ import { SessionService } from 'src/app/auth/services/session.service';
 })
 export class ListClientComponent implements OnInit {
   @ViewChild('listItem') listItems: ListItemsComponent;
+
+  @Input() showEditButton = false;
   @Output() eventClient = new EventEmitter<Client>();
 
   public clients: Array<Client> = [];

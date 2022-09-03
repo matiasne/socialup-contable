@@ -13,23 +13,22 @@ import { ListClientComponent } from 'src/app/features/clients/components/list-cl
 
 export class ListClientPage implements OnInit {
 
-  @ViewChild('list') listItems: ListClientComponent
+  @ViewChild('listItem') listItems: ListClientComponent
 
   constructor(
    
     public router:Router,
 
   ) { 
-    this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        if (val.url = "/products")
-          this.listItems.refreshClients()
-      }
-    });
+    
   }
 
   ngOnInit() {
-      
+    
+  }
+
+  ngAfterViewInit(){
+
   }
     
   handleClickClient(client){

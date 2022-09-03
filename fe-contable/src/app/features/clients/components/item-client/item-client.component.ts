@@ -13,6 +13,7 @@ export class ItemClientComponent implements OnInit {
 
   @Input() client: Client;
   @Input() showButton = false
+  @Input() showEditButton = false;
   @Output() eventClick = new EventEmitter<any>();
   @Output() eventClickRemove = new EventEmitter<any>();
   @Output() eventClickEdit = new EventEmitter<any>();
