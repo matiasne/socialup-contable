@@ -1,13 +1,11 @@
 <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
   >+ Cliente</ion-button
 >
-
-
 <socialup-item-client
   [client]="clientInSale()"
   *ngIf="isClient()"
   (eventClickRemove)="removeClient($event)"
-  [showButton]="true"
+  [showDeleteButton]="true"
 ></socialup-item-client>
 
 <ion-button value="discount" (click)="openModalVariationTotal('discount')"
