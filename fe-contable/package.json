@@ -18,7 +18,6 @@
   },
   "lint-staged": {
     "*.*": [
-      "hola",
       "prettier --write",
       "git add"
     ]
