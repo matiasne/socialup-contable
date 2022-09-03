@@ -12,8 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'socialup-select-client',
   templateUrl: './select-client.component.html',
-  styleUrls: ['./select-client.component.scss'],
-  providers:[UserService, HelperService,BusinessService, ClientService, ]
+  styleUrls: ['./select-client.component.scss']
 })
 export class SelectClientComponent implements OnInit {
     public name: string;
@@ -28,7 +27,8 @@ export class SelectClientComponent implements OnInit {
 
   ngOnInit() {}
 
-  handleClickClient(client){
+  handleClick(client){
+    console.log(client)
     this.modalCtrl.dismiss(client,"","select")
   }
 
@@ -42,9 +42,9 @@ export class SelectClientComponent implements OnInit {
 
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
-    
+    console.log(data)
     if(data){      
-      this.handleClickClient(data) 
+      this.handleClick(data) 
     }
 
   }

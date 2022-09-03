@@ -17,8 +17,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   
   selector: 'app-form-profile',
   templateUrl: './form-profile.page.html',
-  styleUrls: ['./form-profile.page.scss'],
-  providers:[UserService,HelperService ]
+  styleUrls: ['./form-profile.page.scss']
 
 })
 export class FormProfilePage implements OnInit {

@@ -11,8 +11,7 @@ import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-select-user-business',
   templateUrl: './select-user-business.page.html',
-  styleUrls: ['./select-user-business.page.scss'],
-  providers:[UserService,HelperService]
+  styleUrls: ['./select-user-business.page.scss']
 })
 export class SelectUserBusinessPage implements OnInit {
 

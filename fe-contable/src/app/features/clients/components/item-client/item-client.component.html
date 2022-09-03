@@ -1,8 +1,8 @@
 <ion-item >
-  <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
+  <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" (click)="handleClick()" >
     <img src={{client.image}}>
   </ion-avatar>
-  <ion-label  >
+  <ion-label  (click)="handleClick()">
    <h1><b>{{client.name}}</b></h1>
     <h3>Nombre: {{client.name}}</h3> 
     <h3>Apellido: {{client.surname}}</h3> 

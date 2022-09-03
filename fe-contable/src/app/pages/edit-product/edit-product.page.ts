@@ -11,8 +11,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.page.html',
-  styleUrls: ['./edit-product.page.scss'],
-  providers:[ProductService,HelperService, BusinessService  ]
+  styleUrls: ['./edit-product.page.scss']
 })
 export class EditProductPage implements OnInit {
   public product:Product;

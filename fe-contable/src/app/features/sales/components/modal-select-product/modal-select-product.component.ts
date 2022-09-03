@@ -15,9 +15,7 @@ constructor(private modalCtrl: ModalController) { }
 
 
   handleClickProduct(product){
-    this.modalCtrl.dismiss(product)
-    
-    
+    this.modalCtrl.dismiss(product)    
   }
    
   

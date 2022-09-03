@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
@@ -9,23 +15,19 @@ import { ToastService } from 'src/app/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { SessionService } from 'src/app/auth/services/session.service';
 
-
 @Component({
   selector: 'socialup-list-client',
   templateUrl: './list-client.component.html',
   styleUrls: ['./list-client.component.scss'],
 })
 export class ListClientComponent implements OnInit {
-
   @ViewChild('listItem') listItems: ListItemsComponent;
-  @Output() clickClient = new EventEmitter<Client>()
+  @Output() eventClient = new EventEmitter<Client>();
 
-  public clients: Array<Client> = []
-  private business: Business;
+  public clients: Array<Client> = [];
   public id: any;
-  private obsBusiness: any;
   public totalPages: number;
-  public obs: any
+  public obs: any;
 
   constructor(
     public activateRoute: ActivatedRoute,
@@ -34,32 +36,26 @@ export class ListClientComponent implements OnInit {
     public clientService: ClientService,
     public businessService: BusinessService,
     public router: Router,
-    public toastService: ToastService,
-  ) { }
+    public toastService: ToastService
+  ) {}
 
   ngOnInit() {
-    this.refreshClients()
+    this.refreshClients();
   }
 
-
-
-
-  refreshClients(data ={ perPage: 10, pageCount: 1, searchWord: "" }) {
-
-    this.businessService.getBusinessClient(data.pageCount, data.perPage, data.searchWord).subscribe({
-      next: (response) => {
-        this.clients = response.data
-        this.listItems.totalPages = response.paging.totalPages
-        this.listItems.buttonController()
-      }
-    })
+  refreshClients(data = { perPage: 10, pageCount: 1, searchWord: '' }) {
+    this.businessService
+      .getBusinessClient(data.pageCount, data.perPage, data.searchWord)
+      .subscribe({
+        next: (response) => {
+          this.clients = response.data;
+          this.listItems.totalPages = response.paging.totalPages;
+          this.listItems.buttonController();
+        }
+      });
   }
 
-  click(client) {
-    this.clickClient.emit(client)
+  handleClick(client) {
+    this.eventClient.emit(client);    
   }
-  handleClickClient(client) {
-    this.router.navigate(['/edit-client', { client: JSON.stringify(client) }])
-  }
-
 }

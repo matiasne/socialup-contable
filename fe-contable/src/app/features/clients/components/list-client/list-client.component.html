@@ -1,13 +1,13 @@
 <ng-template #clientTemplate let-item="item">
-  <socialup-item-client [client]="item"></socialup-item-client>
+  <socialup-item-client [client]="item" (eventClick)="handleClick($event)"></socialup-item-client>
 </ng-template>
-el click item que lo haga el item!!! no la lista
+
   <app-list-items
     #listItem
     [items]="clients"
     [itemTemplate]="clientTemplate"
     [totalPages]="totalPages"
     (handleSearch)="refreshClients($event)"
-    (handleClickItem)="click($event)"
+    
   ></app-list-items>
   

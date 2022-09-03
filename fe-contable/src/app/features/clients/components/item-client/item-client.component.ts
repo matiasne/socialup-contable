@@ -13,19 +13,25 @@ export class ItemClientComponent implements OnInit {
 
   @Input() client: Client;
   @Input() showButton = false
-  @Output() handleClickRemove = new EventEmitter<any>();
-  @Output() handleClickEdit = new EventEmitter<any>();
+  @Output() eventClick = new EventEmitter<any>();
+  @Output() eventClickRemove = new EventEmitter<any>();
+  @Output() eventClickEdit = new EventEmitter<any>();
   constructor(
     public modalCtrl: ModalController
   ) { }
 
   ngOnInit() { }
 
+  handleClick(){
+    
+    this.eventClick.emit(this.client)
+  }
+
   handleClickDelete() {
-    this.handleClickRemove.emit(this.client)
+    this.eventClickRemove.emit(this.client)
   }
   handleClickEditing() {
-    this.handleClickEdit.emit(this.client)
+    this.eventClickEdit.emit(this.client)
     this.openModalNewClient(this.client)
   }
   async openModalNewClient(client) {
