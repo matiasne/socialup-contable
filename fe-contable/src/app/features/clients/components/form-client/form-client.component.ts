@@ -107,6 +107,10 @@ export class FormClientComponent implements OnInit {
     this.clientService.add(this.client).subscribe({
       next: (data) => {
         this.handleSubmit.emit(data);
+        this.toastService.show(
+          ToastType.success,
+          'El cliente se ha creado correctamente'
+        );
       },
     });
   }
