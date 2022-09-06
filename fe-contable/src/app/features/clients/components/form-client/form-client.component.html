@@ -90,8 +90,7 @@
                 cancelText="Dismiss"
                 formControlName="city"
               >
-                <ion-select-option value="f">Female</ion-select-option>
-                <ion-select-option value="m">Male</ion-select-option>
+                <ion-select-option *ngFor="let pais of this.nameProvince" [value]="pais" >{{pais}}</ion-select-option>
               </ion-select>
             </ion-label>
           </ion-item>

@@ -7,6 +7,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { ToastService } from 'src/app/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { CountriesService } from 'src/app/services/countries.service';
 
 @Component({
   selector: 'form-client',
@@ -23,13 +24,15 @@ export class FormClientComponent implements OnInit {
   public isSubmited: boolean = false;
   public buttonLabel = 'Crear Cliente';
   public buttonEdit = 'Editar Cliente';
-
+  public countries:any=[]
+  public nameProvince:any=[]
   constructor(
     private toastService: ToastService,
     public clientService: ClientService,
     public activateRoute: ActivatedRoute,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private countriesService:CountriesService
   ) {
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
@@ -64,6 +67,7 @@ export class FormClientComponent implements OnInit {
     } else {
       this.isEditing = false;
     }
+    this.dataCountries()
   }
 
   changeImage(event: any) {
@@ -156,8 +160,22 @@ export class FormClientComponent implements OnInit {
               });
           },
         },
-      ],
+      ], 
     });
     (await alert).present();
+  }
+   dataCountries(){
+     this.countriesService.getCountries('https://restcountries.com/v3.1/all').subscribe({
+      next:(data)=>{
+        console.log(data)
+this.countries =data
+        this.countries.forEach(element => {
+        this.nameProvince.push(element.name.common)
+       
+         });
+      },error:(err)=>{
+        console.log(err)
+      }
+    })
   }
 }
