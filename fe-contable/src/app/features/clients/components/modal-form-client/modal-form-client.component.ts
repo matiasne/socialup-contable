@@ -49,9 +49,11 @@ export class ModalFormClientComponent implements OnInit {
     });
   }
 
+  
   ngOnInit() {
     if (this.client._id != '') {
       this.isEditing = true;
+      this.buttonLabel = 'Guardar';
       this.formClient.setValue({
         name: this.client.name,
         address: this.client.address,
