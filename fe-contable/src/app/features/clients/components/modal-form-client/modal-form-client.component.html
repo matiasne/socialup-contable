@@ -106,12 +106,13 @@
             ></ion-input>
           </ion-item>
         </ion-row>
-        <ion-button
-          type="submit"
-          expand="default"
-          shape="round"
-          (click)="onSubmit()"
-          >{{ buttonLabel }}</ion-button
+        <ion-button color="tertiary" (click)="onSubmit()"
+        ><ion-icon name="bag-add-outline"></ion-icon
+        >{{ buttonLabel }}</ion-button
+      >
+      <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"
+        ><ion-icon name="trash-outline"></ion-icon> Eliminar
+        Cliente</ion-button
         >
         <!-- <ion-button type="submit" expand="default"  shape="round" (click)="doAlert()">eliminar cliente</ion-button> -->
       </form>
