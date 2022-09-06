@@ -97,6 +97,7 @@ export class FormProductComponent implements OnInit {
   save() {
     if (this.isEditing) {
       this.updateProfileProducts();
+      this.router.navigateByUrl('/products')
     } else {
       this.createProduct();
     }
