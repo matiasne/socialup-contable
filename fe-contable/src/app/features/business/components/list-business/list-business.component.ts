@@ -34,9 +34,10 @@ export class ListBusinessComponent implements OnInit {
     public helperService: HelperService,
     public businessService: BusinessService,
     public userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
+    this.refreshBusinesses();
     this.userService.getUserBusiness().subscribe({
       next: (response) => {
         this.businesses = response.data;
@@ -44,7 +45,7 @@ export class ListBusinessComponent implements OnInit {
     });
   }
 
-  refreshBusinesses(data: any) {
+  refreshBusinesses(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
     if (this.user._id) {
       this.userService
         .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
