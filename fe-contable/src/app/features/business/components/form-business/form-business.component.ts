@@ -103,6 +103,7 @@ export class FormBusinessComponent implements OnInit {
 
       this.save();
       this.formBusiness.reset();
+      this.router.navigateByUrl('/select-user-business')
     } else {
       this.toastService.show(
         ToastType.error,

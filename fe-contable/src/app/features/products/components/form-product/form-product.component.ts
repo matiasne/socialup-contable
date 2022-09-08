@@ -47,14 +47,8 @@ export class FormProductComponent implements OnInit {
   ngOnInit() {
     if (this.product._id != '') {
       this.isEditing = true;
-      this.productService.get(this.product._id).subscribe({
-        next: (data) => {
-          this.product = data;
-        },
-      });
-
+      this.productService.get(this.product._id)
       this.buttonLabel = 'Guardar';
-
       this.formProduct.setValue({
         name: this.product.name,
         description: this.product.description,
@@ -84,7 +78,6 @@ export class FormProductComponent implements OnInit {
       this.product.salePrice = this.formProduct.controls.salePrice.value;
       this.product.image = this.formProduct.controls.image.value;
       this.product.idBusiness = this.businessService.getBusinessId();
-
       this.save();
     } else {
       this.toastService.show(
@@ -97,6 +90,7 @@ export class FormProductComponent implements OnInit {
   save() {
     if (this.isEditing) {
       this.updateProfileProducts();
+      this.router.navigateByUrl('/products')
     } else {
       this.createProduct();
     }

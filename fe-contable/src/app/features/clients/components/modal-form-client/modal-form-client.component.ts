@@ -49,9 +49,11 @@ export class ModalFormClientComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
     if (this.client._id != '') {
       this.isEditing = true;
+      this.buttonLabel = 'Guardar';
       this.formClient.setValue({
         name: this.client.name,
         address: this.client.address,
@@ -117,7 +119,7 @@ export class ModalFormClientComponent implements OnInit {
       next: (data) => {
         this.toastService.show(
           ToastType.success,
-          'Se ha actualizaddo el prodcuto correctamente'
+          'Se ha actualizaddo el cliente correctamente'
         );
         this.handleSubmit.emit(data);
         this.modalCtrl.dismiss(data);
