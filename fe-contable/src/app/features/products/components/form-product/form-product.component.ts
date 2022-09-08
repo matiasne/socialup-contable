@@ -79,6 +79,7 @@ export class FormProductComponent implements OnInit {
       this.product.image = this.formProduct.controls.image.value;
       this.product.idBusiness = this.businessService.getBusinessId();
       this.save();
+      this.router.navigateByUrl('/products')
     } else {
       this.toastService.show(
         ToastType.error,
@@ -90,7 +91,6 @@ export class FormProductComponent implements OnInit {
   save() {
     if (this.isEditing) {
       this.updateProfileProducts();
-      this.router.navigateByUrl('/products')
     } else {
       this.createProduct();
     }
