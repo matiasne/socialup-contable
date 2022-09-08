@@ -37,11 +37,11 @@ export class ListBusinessComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshBusinesses();
     this.userService.getUserBusiness().subscribe({
       next: (response) => {
         this.businesses = response.data;
       },
+
     });
   }
 
