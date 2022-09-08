@@ -115,7 +115,7 @@ export class FormClientComponent implements OnInit {
       next: (data) => {
         this.toastService.show(
           ToastType.success,
-          'Se ha actualizaddo el prodcuto correctamente'
+          'Se ha actualizaddo el Cliente correctamente'
         );
         this.handleSubmit.emit(data);
       },
@@ -125,7 +125,7 @@ export class FormClientComponent implements OnInit {
     const alert = await this.alertController.create({
       header: 'ELIMINAR CUENTA',
       message:
-        'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+        'Desea eliminar su cuenta permanentemente.No podra volver a recuperarla.',
       buttons: [
         {
           text: 'Cancel',
@@ -146,7 +146,7 @@ export class FormClientComponent implements OnInit {
                 next: (data) => {
                   this.toastService.show(
                     ToastType.warning,
-                    'Se ha eliminado el cliente correctamente'
+                    'Se ha eliminado el Cliente correctamente'
                   );
                   this.router.navigate(['/list-client']);
                 },

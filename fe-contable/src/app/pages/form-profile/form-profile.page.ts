@@ -66,7 +66,7 @@ export class FormProfilePage implements OnInit {
           },
         },
         {
-          text: 'Okay',
+          text: 'Ok',
           id: 'confirm-button',
           handler: () => {
             this.userService._delete(this.session.user._id).subscribe({

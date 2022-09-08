@@ -61,9 +61,9 @@ export class BusinessPage implements OnInit {
 
   async doAlert() {
     const alert = await this.alertController.create({
-      header: 'ELIMINAR CUENTA',
+      header: 'ELIMINAR EMPRESA',
       message:
-        'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
+        'Desea eliminar su Empresa permanentemente.No podra volver a recuperarla.',
       buttons: [
         {
           text: 'Cancel',
@@ -84,7 +84,7 @@ export class BusinessPage implements OnInit {
                 next: (data) => {
                   this.toastService.show(
                     ToastType.warning,
-                    'Se ha eliminado la empresa correctamente'
+                    'Se ha eliminado la Empresa correctamente'
                   );
                   this.router.navigate(['/select-user-business']);
                 },

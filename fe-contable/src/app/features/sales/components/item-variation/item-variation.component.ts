@@ -33,8 +33,8 @@ export class ItemVariationComponent implements OnInit {
 
   async doAlert() {
     const alert = await this.alertController.create({
-      header: 'ELIMINAR CUENTA',
-      message: 'Desea quitar el Variacion de la lista.',
+      header: 'ELIMINAR VARIACIÓN',
+      message: 'Desea quitar el VariaciÓn de la lista.',
       buttons: [
         {
           text: 'Cancel',

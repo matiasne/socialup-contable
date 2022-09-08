@@ -115,7 +115,7 @@ export class FormProductComponent implements OnInit {
       next: (data) => {
         this.toastService.show(
           ToastType.success,
-          'Se ha actualizado el producto correctamente'
+          'Se ha actualizado el Producto correctamente'
         );
         this.handleSubmit.emit(data);
       },
@@ -127,7 +127,7 @@ export class FormProductComponent implements OnInit {
     );
     const alert = await this.alertController.create({
       header: 'ELIMINAR PRODUCTO',
-      message: 'Desea eliminar este producto.No podra recuperarlo.',
+      message: 'Desea eliminar este Producto.No podra recuperarlo.',
       buttons: [
         {
           text: 'Cancel',
