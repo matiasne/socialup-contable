@@ -41,22 +41,20 @@ export class ListBusinessComponent implements OnInit {
       next: (response) => {
         this.businesses = response.data;
       },
-
     });
+    this.refreshBusinesses();
   }
 
   refreshBusinesses(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
-    if (this.user._id) {
-      this.userService
-        .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
-        .subscribe({
-          next: (response) => {
-            this.businesses = response.data;
-            this.listItems.totalPages = response.paging.totalPages;
-            this.listItems.buttonController();
-          },
-        });
-    }
+    this.userService
+      .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
+      .subscribe({
+        next: (response) => {
+          this.businesses = response.data;
+          this.listItems.totalPages = response.paging.totalPages;
+          this.listItems.buttonController();
+        },
+      });
   }
 
   click(data) {
