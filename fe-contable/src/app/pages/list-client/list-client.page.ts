@@ -13,7 +13,9 @@ export class ListClientPage implements OnInit {
 
   constructor(public router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.listItems)
+  }
 
   ngAfterViewInit() {}
 

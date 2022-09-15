@@ -8,7 +8,7 @@
 <ion-content fullscreen="">
   <socialup-list-client
     #listItem
-    showEditButton="true"
+    [showEditButton]="true"
     (clickClient)="handleClickClient($event)"
   ></socialup-list-client>
   <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">

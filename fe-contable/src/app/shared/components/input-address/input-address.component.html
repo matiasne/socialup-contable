@@ -1,9 +1,7 @@
-  <form [formGroup]="directionForm">
-    <ion-item>
-      <input class="input" #autoCompleteInput formControlName="placeName" />
-    </ion-item>
-  </form>
-  <div #mapElement class="map"></div>
+
+  <input class="input" #autoCompleteInput [(ngModel)]="field"/>
+
+
 
   <div id="infowindow-content">
     <img src="" width="16" height="16" id="place-icon">

@@ -51,6 +51,7 @@ export class ListClientComponent implements OnInit {
       .getBusinessClient(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
+          console.log(response)
           this.clients = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
