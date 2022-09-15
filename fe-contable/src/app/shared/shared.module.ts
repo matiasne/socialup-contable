@@ -6,6 +6,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { ListItemsComponent } from './components/list-items/list-items.component';
+import { InputAddressComponent } from './components/input-address/input-address.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ListItemsComponent } from './components/list-items/list-items.component
     IonicModule,
     ImageCropperModule,
   ],
-  declarations: [CropImageComponent, ImageUploadComponent, ListItemsComponent],
-  exports: [ListItemsComponent, ImageUploadComponent],
+  declarations: [CropImageComponent, ImageUploadComponent, ListItemsComponent,InputAddressComponent],
+  exports: [ListItemsComponent, ImageUploadComponent,InputAddressComponent],
 })
 export class SharedModule {}

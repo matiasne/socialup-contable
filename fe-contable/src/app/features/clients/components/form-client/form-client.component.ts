@@ -67,7 +67,6 @@ export class FormClientComponent implements OnInit {
     } else {
       this.isEditing = false;
     }
-    this.dataCountries()
   }
 
   changeImage(event: any) {
@@ -160,22 +159,8 @@ export class FormClientComponent implements OnInit {
               });
           },
         },
-      ], 
+      ],
     });
     (await alert).present();
-  }
-   dataCountries(){
-     this.countriesService.getCountries('https://restcountries.com/v3.1/all').subscribe({
-      next:(data)=>{
-        console.log(data)
-this.countries =data
-        this.countries.forEach(element => {
-        this.nameProvince.push(element.name.common)
-       
-         });
-      },error:(err)=>{
-        console.log(err)
-      }
-    })
   }
 }
