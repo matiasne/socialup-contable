@@ -1,3 +1,10 @@
+<app-input-autocomplete
+  [label]="'Ejemplo'"
+  [items]="clients"
+  [keyValue]="'id'"
+  [keyLabel]="'name'"
+></app-input-autocomplete>
+
 <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
   >+ Cliente</ion-button
 >

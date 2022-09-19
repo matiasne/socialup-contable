@@ -30,17 +30,21 @@ import { SelectClientComponent } from '../select-client/select-client.component'
 })
 export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
-
+  public clients: Array<Client> = [];
   public buttonLabel = '';
 
   message =
     'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
-    public currentSaleService: CurrentSaleService
+    public currentSaleService: CurrentSaleService,
+    public clientService: ClientService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.clientService.get;
+    console.log(this.clients);
+  }
 
   async openModalClient() {
     const modalSelectClient = await this.modalCtrl.create({
