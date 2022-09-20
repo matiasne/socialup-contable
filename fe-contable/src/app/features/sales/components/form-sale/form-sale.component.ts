@@ -41,10 +41,7 @@ export class FormSaleComponent implements OnInit {
     public clientService: ClientService
   ) {}
 
-  ngOnInit() {
-    this.clientService.get;
-    console.log(this.clients);
-  }
+  ngOnInit() {}
 
   async openModalClient() {
     const modalSelectClient = await this.modalCtrl.create({

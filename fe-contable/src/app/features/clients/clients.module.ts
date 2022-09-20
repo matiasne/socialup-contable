@@ -7,6 +7,7 @@ import { ItemClientComponent } from './components/item-client/item-client.compon
 import { ListClientComponent } from './components/list-client/list-client.component';
 import { ModalFormClientComponent } from './components/modal-form-client/modal-form-client.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InputAutocompleteClientComponent } from './components/input-autocomplete-client/input-autocomplete-client.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ItemClientComponent,
     ListClientComponent,
     ModalFormClientComponent,
+    InputAutocompleteClientComponent,
   ],
   imports: [
     FormsModule,
@@ -27,6 +29,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ItemClientComponent,
     ListClientComponent,
     ModalFormClientComponent,
+    InputAutocompleteClientComponent,
   ],
 })
 export class ClientsModule {}

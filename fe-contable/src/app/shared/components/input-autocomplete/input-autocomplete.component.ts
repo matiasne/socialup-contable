@@ -72,7 +72,6 @@ export class InputAutocompleteComponent
   }
 
   removeFocus() {
-    console.log('blur');
     if (!this.selectedItem) {
       this.inputTextValue = '';
     }
