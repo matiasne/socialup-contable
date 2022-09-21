@@ -1,7 +1,33 @@
-<app-input-autocomplete
-  [label]="'Ejemplo'"
-  [items]="clients"
-  [keyValue]="'id'"
-  [keyLabel]="'name'"
->
-</app-input-autocomplete>
+<div class="autocomplete" *ngIf="isDesktop">
+  <ion-item>
+    <ion-label position="floating">{{ label }}</ion-label>
+    <ion-input
+      type="text"
+      id="popover-input"
+      [(ngModel)]="inputTextValue"
+      (ionChange)="search()"
+      debounce="500"
+    ></ion-input>
+  </ion-item>
+  <ion-popover
+    trigger="popover-input"
+    [triggerAction]="'click'"
+    keyboard-close="false"
+    [dismissOnSelect]="true"
+    [showBackdrop]="false"
+  >
+    <ng-template>
+      <ion-content class="pop-over">
+        <ion-list>
+          <ion-item
+            [button]="true"
+            *ngFor="let item of filteredItems"
+            (click)="add(item)"
+          >
+            {{ item[keyLabel] }}
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</div>

@@ -6,7 +6,6 @@ import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
 import { Client } from 'src/app/features/clients/models/client';
-import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
@@ -30,15 +29,13 @@ import { SelectClientComponent } from '../select-client/select-client.component'
 })
 export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
-  public clients: Array<Client> = [];
   public buttonLabel = '';
-
+  public client: any;
   message =
     'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
-    public currentSaleService: CurrentSaleService,
-    public clientService: ClientService
+    public currentSaleService: CurrentSaleService
   ) {}
 
   ngOnInit() {}
@@ -99,10 +96,15 @@ export class FormSaleComponent implements OnInit {
     return this.currentSaleService.currentSale.variations;
   }
 
+  debug() {
+    console.log(this.client);
+  }
+
   totalSaleProducts() {
     return this.currentSaleService.currentSale.total;
   }
   async openModalSaveSale() {
+    console.log(this.currentSaleService.currentSale);
     const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
       component: ModalFormSaleStatusComponent,
       componentProps: {

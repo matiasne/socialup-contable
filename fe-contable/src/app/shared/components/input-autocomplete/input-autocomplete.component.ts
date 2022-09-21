@@ -64,11 +64,15 @@ export class InputAutocompleteComponent
       this.filteredItems = this.items;
       return;
     }
-    this.filteredItems = this.items.filter((item) =>
-      item[this.keyLabel]
-        .toUpperCase()
-        .includes(this.inputTextValue.toUpperCase())
-    );
+
+    this.filteredItems = this.items.filter((item) => {
+      if (item[this.keyLabel])
+        return item[this.keyLabel]
+          .toUpperCase()
+          .includes(this.inputTextValue.toUpperCase());
+      //true o false
+      else return false;
+    });
   }
 
   removeFocus() {
@@ -82,6 +86,7 @@ export class InputAutocompleteComponent
 
   add(item: string) {
     this.value = item[this.keyValue];
+    console.log(item[this.keyValue]);
     this.inputTextValue = item[this.keyLabel];
     this.selectedItem = item;
     this.filteredItems = [];
