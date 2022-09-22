@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Platform } from '@ionic/angular';
 
 import { BusinessService } from 'src/app/features/business/service/business.service';
@@ -9,6 +16,13 @@ import { Client } from '../../models/client';
   selector: 'app-input-autocomplete-client',
   templateUrl: './input-autocomplete-client.component.html',
   styleUrls: ['./input-autocomplete-client.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputAutocompleteClientComponent),
+      multi: true,
+    },
+  ],
 })
 export class InputAutocompleteClientComponent extends InputAutocompleteComponent {
   @Output() emitClient = new EventEmitter<any[]>();

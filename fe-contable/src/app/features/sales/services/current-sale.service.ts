@@ -37,6 +37,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   addClient(client: Client) {
+    console.log(client);
     this.currentSale.client = client;
   }
   removeClient() {

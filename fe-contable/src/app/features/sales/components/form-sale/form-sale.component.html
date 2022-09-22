@@ -4,12 +4,16 @@
   [keyValue]="'id'"
   [keyLabel]="'name'"
 ></app-input-autocomplete> -->
-<app-input-autocomplete-client
-  (eventClick)="clientInSale()"
-  [keyLabel]="'name'"
-  [keyValue]="'_id'"
->
-</app-input-autocomplete-client>
+<form [formGroup]="formSaleClient">
+  <app-input-autocomplete-client
+    formControlName="saleClient"
+    [label]="'Cliente'"
+    [keyLabel]="'name'"
+    [keyValue]="'_id'"
+    (ionChange)="handleChange($event)"
+  >
+  </app-input-autocomplete-client>
+</form>
 <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
   >+ Cliente</ion-button
 >
@@ -39,9 +43,6 @@
     ><ion-icon name="add-outline"></ion-icon
   ></ion-fab-button>
 </ion-fab>
-
-{{ form }}
-
 <ion-footer collapse="fade" *ngIf="totalSaleProducts() > 0">
   <ion-title>{{ totalSaleProducts() | currency: "USD" }}</ion-title>
   <ion-button expand="full" (click)="openModalSaveSale()"

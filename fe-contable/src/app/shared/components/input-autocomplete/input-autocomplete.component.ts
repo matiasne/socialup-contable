@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Platform } from '@ionic/angular';
 
@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputAutocompleteComponent,
+      useExisting: forwardRef(() => InputAutocompleteComponent),
       multi: true,
     },
   ],

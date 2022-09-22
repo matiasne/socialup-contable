@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { instanceAvailability } from '@awesome-cordova-plugins/core';
 import { ModalController } from '@ionic/angular';
 import { timeStamp } from 'console';
@@ -10,6 +11,7 @@ import { ListProductComponentComponent } from 'src/app/features/products/compone
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
+import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
@@ -25,20 +27,29 @@ import { SelectClientComponent } from '../select-client/select-client.component'
   selector: 'socialup-form-sale',
   templateUrl: './form-sale.component.html',
   styleUrls: ['./form-sale.component.scss'],
-  providers: [],
+  providers: [InputAutocompleteComponent],
 })
 export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
   public buttonLabel = '';
-  public client: any;
+  public formSaleClient: FormGroup = new FormGroup({
+    saleClient: new FormControl('', Validators.required),
+  });
+  public sale: Sale;
+  public client: Client;
+  public items: any[] = [];
   message =
     'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
     public currentSaleService: CurrentSaleService
-  ) {}
+  ) {
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.formSaleClient);
+  }
 
   async openModalClient() {
     const modalSelectClient = await this.modalCtrl.create({
@@ -51,6 +62,10 @@ export class FormSaleComponent implements OnInit {
     const { data, role } = await modalSelectClient.onWillDismiss();
 
     this.currentSaleService.addClient(data);
+  }
+
+  handleChange(event) {
+    console.log(this.formSaleClient);
   }
 
   async openModalProduct() {
@@ -85,6 +100,7 @@ export class FormSaleComponent implements OnInit {
   }
 
   clientInSale() {
+    console.log(this.currentSaleService.currentSale.client);
     return this.currentSaleService.currentSale.client;
   }
 
@@ -94,10 +110,6 @@ export class FormSaleComponent implements OnInit {
 
   listSaleVariationAdded() {
     return this.currentSaleService.currentSale.variations;
-  }
-
-  debug() {
-    console.log(this.client);
   }
 
   totalSaleProducts() {
