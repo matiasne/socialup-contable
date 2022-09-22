@@ -11,12 +11,18 @@
     [keyLabel]="'name'"
     [keyValue]="'_id'"
     (ionChange)="handleChange($event)"
+    *ngIf="!isClient()"
   >
   </app-input-autocomplete-client>
+  <ion-button (click)="openModalClient()" *ngIf="!isClient()">
+    <ion-icon name="search-outline"></ion-icon>
+  </ion-button>
 </form>
-<ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
-  >+ Cliente</ion-button
->
+<div *ngIf="!isDesktop">
+  <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
+    >+ Cliente</ion-button
+  >
+</div>
 <socialup-item-client
   [client]="clientInSale()"
   *ngIf="isClient()"

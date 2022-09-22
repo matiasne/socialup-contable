@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { instanceAvailability } from '@awesome-cordova-plugins/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { timeStamp } from 'console';
 import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
 import { Client } from 'src/app/features/clients/models/client';
+import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
@@ -32,23 +33,31 @@ import { SelectClientComponent } from '../select-client/select-client.component'
 export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
   public buttonLabel = '';
+  public isDesktop = true;
   public formSaleClient: FormGroup = new FormGroup({
     saleClient: new FormControl('', Validators.required),
   });
   public sale: Sale;
   public client: Client;
   public items: any[] = [];
+
   message =
     'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
-    public currentSaleService: CurrentSaleService
+    public currentSaleService: CurrentSaleService,
+    public plt: Platform,
+    public clientService: ClientService
   ) {
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
+    console.log(this.isDesktop);
+    this.isDesktop = this.plt.is('desktop');
+    console.log(this.isDesktop);
   }
 
   ngOnInit() {
     console.log(this.formSaleClient);
+    console.log(this.isDesktop);
   }
 
   async openModalClient() {
@@ -64,8 +73,16 @@ export class FormSaleComponent implements OnInit {
     this.currentSaleService.addClient(data);
   }
 
-  handleChange(event) {
-    console.log(this.formSaleClient);
+  async handleChange(event) {
+    console.log(this.formSaleClient.value.saleClient);
+    console.log(event);
+    if (this.formSaleClient.value.saleClient) {
+      let data = await this.clientService
+        .get(this.formSaleClient.value.saleClient)
+        .toPromise();
+      console.log(data);
+      this.currentSaleService.addClient(data.client);
+    }
   }
 
   async openModalProduct() {
