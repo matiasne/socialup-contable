@@ -14,9 +14,11 @@
     *ngIf="!isClient()"
   >
   </app-input-autocomplete-client>
-  <ion-button (click)="openModalClient()" *ngIf="!isClient()">
-    <ion-icon name="search-outline"></ion-icon>
-  </ion-button>
+  <div *ngIf="isDesktop">
+    <ion-button (click)="openModalClient()" *ngIf="!isClient()">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+  </div>
 </form>
 <div *ngIf="!isDesktop">
   <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
