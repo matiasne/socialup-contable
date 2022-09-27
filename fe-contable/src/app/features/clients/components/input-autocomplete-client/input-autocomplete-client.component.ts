@@ -36,6 +36,7 @@ export class InputAutocompleteClientComponent extends InputAutocompleteComponent
     this.businessService.getBusinessClient(0, 0, this.searchWord).subscribe({
       next: (response) => {
         this.items = response.data;
+        this.value = '';
       },
     });
   }

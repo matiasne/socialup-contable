@@ -66,12 +66,15 @@ export class InputAutocompleteComponent
     }
 
     this.filteredItems = this.items.filter((item) => {
-      if (item[this.keyLabel])
+      if (item[this.keyLabel]) {
         return item[this.keyLabel]
           .toUpperCase()
           .includes(this.inputTextValue.toUpperCase());
-      //true o false
-      else return false;
+
+        //true o false
+      } else {
+        return false;
+      }
     });
   }
 
@@ -89,10 +92,12 @@ export class InputAutocompleteComponent
     console.log(item[this.keyValue]);
     this.inputTextValue = item[this.keyLabel];
     this.selectedItem = item;
+    this.selectedItem = '';
     this.filteredItems = [];
   }
 
   handleInputClick() {
+    console.log(this.isListOpen);
     if (this.isListOpen) {
       if (!this.selectedItem) {
         this.inputTextValue = '';

@@ -50,15 +50,11 @@ export class FormSaleComponent implements OnInit {
     public clientService: ClientService
   ) {
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
-    console.log(this.isDesktop);
+
     this.isDesktop = this.plt.is('desktop');
-    console.log(this.isDesktop);
   }
 
-  ngOnInit() {
-    console.log(this.formSaleClient);
-    console.log(this.isDesktop);
-  }
+  ngOnInit() {}
 
   async openModalClient() {
     const modalSelectClient = await this.modalCtrl.create({
@@ -74,13 +70,10 @@ export class FormSaleComponent implements OnInit {
   }
 
   async handleChange(event) {
-    console.log(this.formSaleClient.value.saleClient);
-    console.log(event);
     if (this.formSaleClient.value.saleClient) {
       let data = await this.clientService
         .get(this.formSaleClient.value.saleClient)
         .toPromise();
-      console.log(data);
       this.currentSaleService.addClient(data.client);
     }
   }
@@ -117,7 +110,6 @@ export class FormSaleComponent implements OnInit {
   }
 
   clientInSale() {
-    console.log(this.currentSaleService.currentSale.client);
     return this.currentSaleService.currentSale.client;
   }
 
