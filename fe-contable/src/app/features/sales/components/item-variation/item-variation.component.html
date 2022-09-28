@@ -1,11 +1,10 @@
 <ion-item>
-  <ion-label  >
+  <ion-label>
     <div>
-      <p>Tipo descuento: {{saleVariation.type}} </p>
-      <p>Valor descuento:{{ this.valueVariationView }}</p>
-      <p>Observación: {{saleVariation.description }}</p>
+      <p>Tipo {{ title }}: {{ saleVariation.type }}</p>
+      <p>Valor {{ title }}:{{ this.valueVariationView }}</p>
+      <p>Observación: {{ saleVariation.description }}</p>
     </div>
-
   </ion-label>
   <ion-button (click)="handleClickDelete()">Delete</ion-button>
   <ion-button (click)="handleClickEdit()">Edit</ion-button>

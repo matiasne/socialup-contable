@@ -6,7 +6,6 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -14,47 +13,29 @@ import { ToastService } from 'src/app/services/toast.service';
   selector: 'app-edit-client',
   templateUrl: './edit-client.page.html',
   styleUrls: ['./edit-client.page.scss'],
-  providers:[ClientService,HelperService, BusinessService  ]
 })
 export class EditClientPage implements OnInit {
-
-  public client:Client;
-  public business: Business;
-  public obsBusiness: any
+  public client: Client;
+  public obsBusiness: any;
 
   constructor(
     public clientService: ClientService,
     public toastService: ToastService,
     public businessService: BusinessService,
     public activateRoute: ActivatedRoute,
-    public selectedService: SelectedService,
     public router: Router,
-    public alertController: AlertController,
-
+    public alertController: AlertController
   ) {
-
-    this.client = new Client ('','','','','','','','','','','','')
-
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next: (data: any) => {
-        this.business = data
-        this.client.idBusiness = this.business._id;
-      }
-    })
-   
-   }
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
+  }
 
   ngOnInit() {
-    this.client = Client.adapt(JSON.parse(this.activateRoute.snapshot.paramMap.get('client')))
-    console.log(this.client._id)
+    this.client = Client.adapt(
+      JSON.parse(this.activateRoute.snapshot.paramMap.get('client'))
+    );
   }
 
-  submit(data){
- 
+  submit(data) {
+    this.router.navigateByUrl('/clients');
   }
-
-  
-
-
-
 }

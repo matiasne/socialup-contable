@@ -6,8 +6,8 @@ import { EditClientPage } from './edit-client.page';
 const routes: Routes = [
   {
     path: '',
-    component: EditClientPage
-  }
+    component: EditClientPage,
+  },
 ];
 
 @NgModule({

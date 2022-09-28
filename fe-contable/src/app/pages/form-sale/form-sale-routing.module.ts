@@ -6,8 +6,8 @@ import { FormSalePage } from './form-sale.page';
 const routes: Routes = [
   {
     path: '',
-    component: FormSalePage
-  }
+    component: FormSalePage,
+  },
 ];
 
 @NgModule({

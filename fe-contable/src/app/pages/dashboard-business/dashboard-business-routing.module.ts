@@ -6,8 +6,8 @@ import { DashboardBusinessPage } from './dashboard-business.page';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardBusinessPage
-  }
+    component: DashboardBusinessPage,
+  },
 ];
 
 @NgModule({

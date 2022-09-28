@@ -10,42 +10,39 @@ import { CurrentSaleService } from '../../services/current-sale.service';
   styleUrls: ['./modal-form-variation.component.scss'],
 })
 export class ModalFormVariationComponent implements OnInit {
-private salesVariation:Variation;
- 
-@Output()handleChange=new EventEmitter<any>();
- public typeVariation
- public title='Recargo'
+  private salesVariation: Variation;
+
+  @Output() handleChange = new EventEmitter<any>();
+  public typeVariation;
+  public title = 'Recargo';
   constructor(
-    private modalCtrl:ModalController,
+    private modalCtrl: ModalController,
     public navParams: NavParams,
-    public  currenteSale:CurrentSaleService
+    public currenteSale: CurrentSaleService
   ) {
     this.salesVariation = new Variation();
-   
-   }
-
-  ngOnInit() {
-    this.typeVariation = this.navParams.get('type')
-    if(this.typeVariation === 'discount'){
-      this.title='Descuento'
-      } 
-     }
-
-  refreshData(data){
-    this.salesVariation=data
-   
   }
 
-  submit(){
-    if(this.typeVariation === 'discount'){
+  ngOnInit() {
+    this.typeVariation = this.navParams.get('type');
+    if (this.typeVariation === 'discount') {
+      this.title = 'Descuento';
+    }
+  }
+
+  refreshData(data) {
+    this.salesVariation = data;
+  }
+
+  submit() {
+    if (this.typeVariation === 'discount') {
       this.salesVariation.value = -this.salesVariation.value;
     }
-    console.log(this.salesVariation)
+
     this.modalCtrl.dismiss(this.salesVariation);
   }
 
-  cancel(){
+  cancel() {
     this.modalCtrl.dismiss(undefined);
   }
-
 }

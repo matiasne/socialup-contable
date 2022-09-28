@@ -19,6 +19,8 @@ import { ModalFormSaleStatusComponent } from './components/modal-form-sale-statu
 import { ListSaleComponent } from './components/list-sale/list-sale.component';
 import { ItemSaleComponent } from './components/item-sale/item-sale.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalSelectProductComponent } from './components/modal-select-product/modal-select-product.component';
+import { SelectClientComponent } from './components/select-client/select-client.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ModalFormSaleStatusComponent,
     ListSaleComponent,
     ItemSaleComponent,
-  
+    ModalSelectProductComponent,
+    SelectClientComponent,
   ],
   imports: [
     FormsModule,
@@ -44,10 +47,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ClientsModule,
     SharedModule,
     ProductsModule,
-    
-    
   ],
-  exports:[
+  exports: [
     FormSaleComponent,
     ItemSaleProductComponent,
     ListSaleProductComponent,
@@ -60,8 +61,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ModalFormSaleStatusComponent,
     ListSaleComponent,
     ItemSaleComponent,
-
-  ]
-  
+  ],
 })
-export class SalesModule { }
+export class SalesModule {}

@@ -9,8 +9,8 @@ describe('FormForgotpasswordPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormForgotpasswordPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [FormForgotpasswordPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormForgotpasswordPage);

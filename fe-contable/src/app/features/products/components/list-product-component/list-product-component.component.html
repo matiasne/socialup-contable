@@ -1,15 +1,16 @@
-
 <ng-template #productTemplate let-item="item">
-  <app-item-product [product]="item"></app-item-product>
+  <app-item-product
+    [showEditButton]="showEditButton"
+    [product]="item"
+    (eventClickEdit)="handleClickEdit($event)"
+    (eventClick)="handleClick($event)"
+  ></app-item-product>
 </ng-template>
 
-
-  <app-list-items
-    #listItem
-    [items]="products"
-    [itemTemplate]="productTemplate"
-    [totalPages]="totalPages"
-    (handleSearch)="refreshProducts($event)"
-    (handleClickItem)="click($event)"
-  ></app-list-items>
-
+<app-list-items
+  #listItem
+  [items]="products"
+  [itemTemplate]="productTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshProducts($event)"
+></app-list-items>

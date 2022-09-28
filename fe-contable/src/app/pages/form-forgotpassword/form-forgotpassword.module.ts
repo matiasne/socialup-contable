@@ -17,8 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormForgotpasswordPageRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    
   ],
-  declarations: [FormForgotpasswordPage]
+  declarations: [FormForgotpasswordPage],
 })
 export class FormForgotpasswordPageModule {}

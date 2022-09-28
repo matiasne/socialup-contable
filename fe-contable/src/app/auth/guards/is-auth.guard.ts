@@ -1,18 +1,26 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { SessionService } from "../services/session.service";
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { SessionService } from '../services/session.service';
 
 @Injectable({
-    providedIn: "root"
+  providedIn: 'root',
 })
 export class isAuthRedirectGuard implements CanActivate {
-    constructor(private sessionService: SessionService, private router: Router) {}
+  constructor(private sessionService: SessionService, private router: Router) {}
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (this.sessionService.isAuthenticated()) {
-            this.router.navigateByUrl("/select-user-business");
-            return false;
-        }
-        return true;
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    if (this.sessionService.isAuthenticated()) {
+      this.router.navigateByUrl('/select-user-business');
+      return false;
     }
+    return true;
+  }
 }

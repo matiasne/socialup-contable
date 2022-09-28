@@ -7,7 +7,6 @@ import { ListProductPageRoutingModule } from './list-product-routing.module';
 import { ListProductPage } from './list-product.page';
 import { ProductsModule } from 'src/app/features/products/products.module';
 
-
 @NgModule({
   imports: [
     ProductsModule,
@@ -17,6 +16,6 @@ import { ProductsModule } from 'src/app/features/products/products.module';
     ListProductPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [ListProductPage]
+  declarations: [ListProductPage],
 })
 export class ListProductPageModule {}

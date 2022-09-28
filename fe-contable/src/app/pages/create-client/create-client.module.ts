@@ -15,8 +15,8 @@ import { ClientsModule } from 'src/app/features/clients/clients.module';
     FormsModule,
     ClientsModule,
     IonicModule,
-    CreateClientPageRoutingModule
+    CreateClientPageRoutingModule,
   ],
-  declarations: [CreateClientPage]
+  declarations: [CreateClientPage],
 })
 export class CreateClientPageModule {}

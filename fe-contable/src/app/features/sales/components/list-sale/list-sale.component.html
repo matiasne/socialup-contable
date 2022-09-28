@@ -1,14 +1,13 @@
 <ng-template #saleTemplate let-item="item">
-    <socialup-item-sale [sale]="item" ></socialup-item-sale>
-  </ng-template>
-  
-    <app-list-items
-      #listItem
-      [items]="sales"
-      [hideSearchBar]="false"
-      [itemTemplate]="saleTemplate"
-      [totalPages]="totalPages"
-      (handleSearch)="refreshSales($event)"
-    >
-  </app-list-items>
-  
+  <socialup-item-sale [sale]="item"></socialup-item-sale>
+</ng-template>
+
+<app-list-items
+  #listItem
+  [items]="sales"
+  [hideSearchBar]="false"
+  [itemTemplate]="saleTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshSales($event)"
+>
+</app-list-items>

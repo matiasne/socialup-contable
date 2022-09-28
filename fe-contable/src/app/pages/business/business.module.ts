@@ -1,6 +1,11 @@
 import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,10 +19,8 @@ import { BusinessModule } from 'src/app/features/business/business.module';
     CommonModule,
     IonicModule,
     BusinessPageRoutingModule,
-    BusinessModule
+    BusinessModule,
   ],
-  declarations: [BusinessPage]
+  declarations: [BusinessPage],
 })
-export class BusinessPageModule  {
- 
-}
+export class BusinessPageModule {}

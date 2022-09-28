@@ -9,8 +9,8 @@ describe('SelectUserBusinessPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectUserBusinessPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SelectUserBusinessPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SelectUserBusinessPage);

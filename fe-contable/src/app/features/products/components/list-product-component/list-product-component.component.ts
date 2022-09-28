@@ -1,6 +1,8 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -10,7 +12,6 @@ import { Business } from 'src/app/features/business/models/business';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { SelectedService } from 'src/app/services/global/selected.service';
 import { HelperService } from 'src/app/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -24,7 +25,9 @@ import { ListItemsComponent } from 'src/app/shared/components/list-items/list-it
 })
 export class ListProductComponentComponent implements OnInit {
   @ViewChild('listItem') listItems: ListItemsComponent;
+  @Input() showEditButton = false;
   @Output() clickProduct = new EventEmitter<Product>();
+  @Output() clickEditProduct = new EventEmitter<Product>();
 
   public products: Array<Product> = [];
   private business: Business;
@@ -37,54 +40,32 @@ export class ListProductComponentComponent implements OnInit {
     public sessionService: SessionService,
     public helperService: HelperService,
     public productService: ProductService,
-    public selectedService: SelectedService,
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.obsBusiness = this.selectedService.obsSelectedBusiness().subscribe({
-      next: (data: any) => {
-        this.business = data;
-        this.refreshProducts({ perPage: 10, pageCount: 1, searchWord: '' });
-      },
-    });
-
-    if (!this.business) {
-      this.router.navigate(['/list-business']);
-      this.toastService.show(
-        ToastType.warning,
-        'Necesita ingresar con una empresa'
-      );
-    }
+    this.refreshProducts();
   }
 
-  ngOnDestroy() {
-    this.obsBusiness.unsubscribe();
+  refreshProducts(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
+    this.businessService
+      .getBusinessProduct(data.pageCount, data.perPage, data.searchWord)
+      .subscribe({
+        next: (response) => {
+          this.products = response.data;
+          this.listItems.totalPages = response.paging.totalPages;
+          this.listItems.buttonController();
+        },
+      });
   }
 
-  refreshProducts(data: any) {
-    if (this.business._id) {
-      this.businessService
-        .getBusinessProduct(
-          this.business._id,
-          data.pageCount,
-          data.perPage,
-          data.searchWord
-        )
-        .subscribe({
-          next: (response) => {
-            console.log(response.data);
-            this.products = response.data;
-            this.listItems.totalPages = response.paging.totalPages;
-            this.listItems.buttonController();
-          },
-        });
-    }
-  }
-
-  click(data) {
+  handleClick(data) {
     this.clickProduct.emit(data);
+  }
+
+  handleClickEdit(product) {
+    this.clickEditProduct.emit(product);
   }
 }

@@ -12,44 +12,52 @@ import { SaleProduct } from '../../models/sale-product';
   selector: 'socialup-modal-form-product',
   templateUrl: './modal-form-product.component.html',
   styleUrls: ['./modal-form-product.component.scss'],
-  providers:[ HelperService,BusinessService, ClientService,ProductService ]
-  
+  providers: [],
 })
 export class ModalFormProductComponent implements OnInit {
-  @Input() saleProduct:SaleProduct;
+  @Input() saleProduct: SaleProduct;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public formSaleProduct: FormGroup;
-  public isEditing: boolean = false;  
+  public isEditing: boolean = false;
   public isSubmited: boolean = false;
-  public buttonLabel = "Añadir Producto"
-  
-  constructor(
-    private modalCtrl :ModalController
-  ) {
-    
-    this.saleProduct =  new SaleProduct('','','','','','','','',0,'',0,new Variation())
+  public buttonLabel = 'Añadir Producto';
+
+  constructor(private modalCtrl: ModalController) {
+    this.saleProduct = new SaleProduct(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      '',
+      0,
+      new Variation()
+    );
 
     this.formSaleProduct = new FormGroup({
       amount: new FormControl('', Validators.required),
       detail: new FormControl('', Validators.required),
       variationType: new FormControl(''),
       variationValue: new FormControl(''),
-      variationDescription: new FormControl('')
+      variationDescription: new FormControl(''),
     });
-   }
+  }
 
   ngOnInit() {}
 
-  handleClickSaleProduct(saleProduct){
-    this.modalCtrl.dismiss(saleProduct)
+  handleClickSaleProduct(saleProduct) {
+    this.modalCtrl.dismiss(saleProduct);
   }
-  submit(){
+  submit() {
     this.modalCtrl.dismiss(this.saleProduct);
   }
 
-  cancel(){
+  cancel() {
     this.modalCtrl.dismiss(undefined);
   }
-
 }

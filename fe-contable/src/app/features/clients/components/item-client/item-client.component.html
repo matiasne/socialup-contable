@@ -1,13 +1,22 @@
-<ion-item >
-  <ion-avatar style="margin-right: 10px; width: 100px; height: 100px ;" >
-    <img src={{client.image}}>
+<ion-item>
+  <ion-avatar
+    style="margin-right: 10px; width: 100px; height: 100px"
+    (click)="handleClick()"
+  >
+    <img src="{{ client.image }}" />
   </ion-avatar>
-  <ion-label  >
-   <h1><b>{{client.name}}</b></h1>
-    <h3>Nombre: {{client.name}}</h3> 
-    <h3>Apellido: {{client.surname}}</h3> 
-    <h3>Telefono: {{client.phone}}</h3>
+  <ion-label (click)="handleClick()">
+    <h1>
+      <b>{{ client.name }}</b>
+    </h1>
+    <h3>Nombre: {{ client.name }}</h3>
+    <h3>Apellido: {{ client.surname }}</h3>
+    <h3>Telefono: {{ client.phone }}</h3>
   </ion-label>
-  <ion-button *ngIf="showButton" (click)="handleClickDelete()" >Eliminar</ion-button>
-  <ion-button *ngIf="showButton" (click)="handleClickEditing()" >Editar</ion-button>
+  <ion-button *ngIf="showDeleteButton" (click)="handleClickDelete()"
+    >Eliminar</ion-button
+  >
+  <ion-button *ngIf="showEditButton" (click)="handleClickEditing()"
+    >Editar</ion-button
+  >
 </ion-item>

@@ -16,8 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     SharedModule,
     FormProfilePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [FormProfilePage]
+  declarations: [FormProfilePage],
 })
 export class FormProfilePageModule {}

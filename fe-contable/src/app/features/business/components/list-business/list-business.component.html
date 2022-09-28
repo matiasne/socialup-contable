@@ -2,11 +2,11 @@
   <app-item-business [business]="item"></app-item-business>
 </ng-template>
 <app-list-items
-#listItem
-[items]="businesses"
-[hideSearchBar]="true"
-[itemTemplate]="businessTemplate"
-[totalPages]="totalPages"
-(handleSearch)="refreshBusinesses($event)"
-(handleClickItem)="click($event)"
+  #listItem
+  [items]="businesses"
+  [hideSearchBar]="true"
+  [itemTemplate]="businessTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshBusinesses($event)"
+  (handleClickItem)="click($event)"
 ></app-list-items>

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,42 +26,42 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 //<ion-button type="submit" expand="default"  shape="round" (click)="formData" >Registrarme</ion-button>
-.container{
-    text-align: center;
-    height: 100%;
-     display:flex; 
-     align-items: center;
-    justify-content: center;
+.container {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.error-message{
-    color:red;
-    border-color:#f5c6cb;
-    margin-bottom:5px;
+.error-message {
+  color: red;
+  border-color: #f5c6cb;
+  margin-bottom: 5px;
 }
-.form{
-    text-align: center;
+.form {
+  text-align: center;
 }
-.title{
-    color: white;
-    text-align: center;
+.title {
+  color: white;
+  text-align: center;
 }
-.card{ 
-    display: flex;
-     justify-content: center;
+.card {
+  display: flex;
+  justify-content: center;
 }
 
-.avatar{
-    margin: auto;
+.avatar {
+  margin: auto;
 }
-.icon{
-    margin-left: 30px;
-    top:100px;
+.icon {
+  margin-left: 30px;
+  top: 100px;
 }
-.image-avatar{
-    width: 200px;
-    height: 200px;
+.image-avatar {
+  width: 200px;
+  height: 200px;
 }
-.fab{
-    margin-right: 2%;
-    margin-bottom: 1%;
+.fab {
+  margin-right: 2%;
+  margin-bottom: 1%;
 }

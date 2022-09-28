@@ -14,8 +14,8 @@ import { ListSalePage } from './list-sale.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ListSalePageRoutingModule
+    ListSalePageRoutingModule,
   ],
-  declarations: [ListSalePage]
+  declarations: [ListSalePage],
 })
 export class ListSalePageModule {}

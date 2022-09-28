@@ -1,31 +1,40 @@
 <div>
-  <ion-card >
-   <ion-card-content>
-    <form class="form"  [formGroup]="formVariation"   action="formSaleProduct"> 
-      <ion-row> 
-        <ion-item>
-          <ion-label ></ion-label>
+  <ion-card>
+    <ion-card-content>
+      <form class="form" [formGroup]="formVariation" action="formSaleProduct">
+        <ion-row>
           <ion-item>
-            <ion-label>Tipo</ion-label>
-             <ion-select formControlName="type" value="brown" okText="Ok" cancelText="Dismiss" >
-               <ion-select-option  [value]="variationTypes.empty"> </ion-select-option>
-               <ion-select-option  [value]="variationTypes.percentage">%</ion-select-option>
-               <ion-select-option  [value]="variationTypes.amount">$</ion-select-option>
-             </ion-select>
-           
-           </ion-item>
-        </ion-item>
-      </ion-row>
-      <ion-row> 
-        <ion-label></ion-label>
-          <ion-input formControlName="value" placeholder="Valor" type="number"> </ion-input>
-        <ion-label></ion-label>
-          <ion-input formControlName="description" placeholder="Descripcion "> </ion-input>
-      <!-- <ion-button color="tertiary" (click)="onSubmit()">{{buttonLabel}}</ion-button> -->
-      </ion-row>
-    
-    </form>
-   </ion-card-content>
+            <ion-label></ion-label>
+            <ion-item>
+              <ion-label>Tipo</ion-label>
+              <ion-select
+                formControlName="type"
+                value="brown"
+                okText="Ok"
+                cancelText="Dismiss"
+              >
+                <ion-select-option [value]="variationTypes.empty">
+                </ion-select-option>
+                <ion-select-option [value]="variationTypes.percentage"
+                  >%</ion-select-option
+                >
+                <ion-select-option [value]="variationTypes.amount"
+                  >$</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-label></ion-label>
+          <ion-input formControlName="value" placeholder="Valor" type="number">
+          </ion-input>
+          <ion-label></ion-label>
+          <ion-input formControlName="description" placeholder="Descripcion ">
+          </ion-input>
+          <!-- <ion-button color="tertiary" (click)="onSubmit()">{{buttonLabel}}</ion-button> -->
+        </ion-row>
+      </form>
+    </ion-card-content>
   </ion-card>
 </div>
-

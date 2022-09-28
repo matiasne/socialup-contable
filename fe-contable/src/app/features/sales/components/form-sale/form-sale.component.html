@@ -1,29 +1,36 @@
-<ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()">+ Cliente</ion-button>
-
-<ng-template #clientTemplate let-item="item">
-    <socialup-item-client [client]="item"></socialup-item-client>
-  </ng-template>
-
-<socialup-item-client  [client]="clientInSale()" *ngIf="isClient()"
-(handleClickRemove)="removeClient($event)"
-[showButton]="true"
+<ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
+  >+ Cliente</ion-button
+>
+<socialup-item-client
+  [client]="clientInSale()"
+  *ngIf="isClient()"
+  (eventClickRemove)="removeClient($event)"
+  [showDeleteButton]="true"
 ></socialup-item-client>
 
-<ion-button value="discount" (click)="openModalVariationTotal('discount')" >Descuento</ion-button>
-<ion-button value="surcharge" (click)="openModalVariationTotal('surcharge')">Recargo</ion-button>
+<ion-button value="discount" (click)="openModalVariationTotal('discount')"
+  >Descuento</ion-button
+>
+<ion-button value="surcharge" (click)="openModalVariationTotal('surcharge')"
+  >Recargo</ion-button
+>
 
-<app-list-variation  [items]="listSaleVariationAdded()"></app-list-variation>
+<app-list-variation [items]="listSaleVariationAdded()"></app-list-variation>
 
-<div >Productos:</div>
-<socialup-list-sale-product [items]="listSaleProductAdded()"></socialup-list-sale-product>
+<div>Productos:</div>
+<socialup-list-sale-product
+  [items]="listSaleProductAdded()"
+></socialup-list-sale-product>
 
-<ion-fab class="fab"  horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openModalProduct()"   ><ion-icon name="add-outline"></ion-icon></ion-fab-button>
-  </ion-fab> 
+<ion-fab class="fab" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openModalProduct()"
+    ><ion-icon name="add-outline"></ion-icon
+  ></ion-fab-button>
+</ion-fab>
 
-
-
-  <ion-footer collapse="fade" *ngIf="totalSaleProducts()>0  ">
-      <ion-title>{{totalSaleProducts() | currency: 'USD' }}</ion-title>
-      <ion-button expand="full" (click)="openModalSaveSale()" >Finalizar Venta</ion-button>
-  </ion-footer> 
+<ion-footer collapse="fade" *ngIf="totalSaleProducts() > 0">
+  <ion-title>{{ totalSaleProducts() | currency: "USD" }}</ion-title>
+  <ion-button expand="full" (click)="openModalSaveSale()"
+    >Finalizar Venta</ion-button
+  >
+</ion-footer>

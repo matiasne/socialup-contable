@@ -9,8 +9,8 @@ describe('ModalFormVariationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalFormVariationComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ModalFormVariationComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalFormVariationComponent);

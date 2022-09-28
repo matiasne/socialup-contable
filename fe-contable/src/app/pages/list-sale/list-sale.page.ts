@@ -8,14 +8,9 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'app-list-sale',
   templateUrl: './list-sale.page.html',
   styleUrls: ['./list-sale.page.scss'],
-  providers:[UserService, HelperService,BusinessService, ProductService]
 })
 export class ListSalePage implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-    
-  }
-
+  ngOnInit() {}
 }

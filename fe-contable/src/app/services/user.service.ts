@@ -10,7 +10,7 @@ import { Session } from '../auth/model/session';
 import { HelperService } from './helpers.service';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root',
 })
 export class UserService extends BaseCRUDService {
   public url: string;
@@ -31,15 +31,15 @@ export class UserService extends BaseCRUDService {
   update(user: User) {
     let formData = this.helperService.toFormData(user);
     return this.put(this.url + '/user/' + user._id, formData);
-  }  
+  }
 
   _delete(id): Observable<any> {
     return this.delete(this.url + '/user/' + id);
-  }  
+  }
 
   getUserBusiness(pageCount = 1, perPage = 10, searchWord = '') {
     let idUser = this.sessionService.getUserData()?._id;
-    if(idUser){
+    if (idUser) {
       return super.get(
         this.url +
           '/user/' +
@@ -52,6 +52,5 @@ export class UserService extends BaseCRUDService {
           searchWord
       );
     }
-   
   }
 }

@@ -7,11 +7,9 @@ import { Business } from 'src/app/features/business/models/business';
   styleUrls: ['./item-business.component.scss'],
 })
 export class ItemBusinessComponent implements OnInit {
+  @Input() business: Business;
 
-  @Input() business:Business;
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

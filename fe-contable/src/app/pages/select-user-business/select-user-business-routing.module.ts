@@ -6,8 +6,8 @@ import { SelectUserBusinessPage } from './select-user-business.page';
 const routes: Routes = [
   {
     path: '',
-    component: SelectUserBusinessPage
-  }
+    component: SelectUserBusinessPage,
+  },
 ];
 
 @NgModule({

@@ -7,25 +7,23 @@ import { FormProductComponent } from './components/form-product/form-product.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
-
 @NgModule({
   declarations: [
     ItemProductComponent,
     ListProductComponentComponent,
-    FormProductComponent
+    FormProductComponent,
   ],
   imports: [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CommonModule
+    CommonModule,
   ],
-  exports:[
+  exports: [
     ListProductComponentComponent,
-    FormProductComponent
-  ]
-  
+    FormProductComponent,
+    ItemProductComponent,
+  ],
 })
-export class ProductsModule { }
+export class ProductsModule {}

@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-form-sale',
   templateUrl: './form-sale.page.html',
   styleUrls: ['./form-sale.page.scss'],
-  providers:[]
+  providers: [],
 })
 export class FormSalePage implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

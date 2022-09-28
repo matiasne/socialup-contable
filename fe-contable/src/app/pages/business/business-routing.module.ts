@@ -6,15 +6,12 @@ import { BusinessPage } from './business.page';
 const routes: Routes = [
   {
     path: '',
-    component: BusinessPage
-  }
+    component: BusinessPage,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BusinessPageRoutingModule {
- 
-}
-
+export class BusinessPageRoutingModule {}

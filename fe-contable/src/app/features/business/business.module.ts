@@ -7,28 +7,23 @@ import { ItemBusinessComponent } from './components/item-business/item-business.
 import { ListBusinessComponent } from './components/list-business/list-business.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
-
-
 @NgModule({
   declarations: [
     FormBusinessComponent,
     ItemBusinessComponent,
-    ListBusinessComponent
+    ListBusinessComponent,
   ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
     CommonModule,
-    SharedModule
+    SharedModule,
   ],
-  exports:[
+  exports: [
     FormBusinessComponent,
     ItemBusinessComponent,
-    ListBusinessComponent
-    
-  ]
-  
+    ListBusinessComponent,
+  ],
 })
-export class BusinessModule { }
+export class BusinessModule {}

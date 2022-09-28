@@ -9,8 +9,8 @@ describe('FormVariationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormVariationComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [FormVariationComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormVariationComponent);
