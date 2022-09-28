@@ -22,7 +22,7 @@ const updateUserSchema = Joi.object({
   _id: Joi.string(),
   name: Joi.string().min(1).max(30),
   surname: Joi.string().min(1).max(30),
-  address:Joi.allow(),
+  address:Joi.allow(), //TODO validar signos
   gender:Joi.allow(),
   email:Joi.allow(),
   phone:Joi.allow(),

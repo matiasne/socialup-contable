@@ -5,8 +5,7 @@ var BusinessController = require("../controllers/business");
 var ProductController = require("../controllers/product");
 var md_auth = require("../middlewares/authenticated");
 var md_uploadFile = require("../middlewares/upload-file");
-const updateBusinessSchema = require("../validationSchema/updateBusinessSchema");
-const postBusinessSchema = require("../validationSchema/postBusinessSchema");
+const { postBusinessSchema, updateBusinessSchema } = require("../validationSchema/business.schema");
 const validationSchema = require("../middlewares/requestValidation");
 
 var api = express.Router();
