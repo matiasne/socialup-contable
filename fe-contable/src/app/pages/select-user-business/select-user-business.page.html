@@ -16,15 +16,11 @@
 
 <ion-content fullscreen="">
   <socialup-list-business
+    #list
     (clickBusiness)="handleClickBusiness($event)"
   ></socialup-list-business>
   <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['/business']"
-      ><ion-icon name="add-outline"></ion-icon
-    ></ion-fab-button>
-  </ion-fab>
-  <ion-fab class="fab" >
-    <ion-fab-button (click)="botonprueba()"
       ><ion-icon name="add-outline"></ion-icon
     ></ion-fab-button>
   </ion-fab>
