@@ -34,7 +34,7 @@ export class ListBusinessComponent implements OnInit {
     public helperService: HelperService,
     public businessService: BusinessService,
     public userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.userService.getUserBusiness().subscribe({
@@ -42,6 +42,7 @@ export class ListBusinessComponent implements OnInit {
         this.businesses = response.data;
       },
     });
+    console.log('refresh business');
     this.refreshBusinesses();
   }
 
@@ -50,6 +51,7 @@ export class ListBusinessComponent implements OnInit {
       .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
+          console.log(response);
           this.businesses = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
