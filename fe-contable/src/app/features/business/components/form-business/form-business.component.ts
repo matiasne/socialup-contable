@@ -102,7 +102,6 @@ export class FormBusinessComponent implements OnInit {
       this.business.phone = this.formBusiness.controls.phone.value;
       this.save();
       this.formBusiness.reset();
-      this.router.navigateByUrl('/select-user-business')
     } else {
       this.toastService.show(
         ToastType.error,
@@ -130,6 +129,7 @@ export class FormBusinessComponent implements OnInit {
             ToastType.success,
             'Se ha creado el negocio correctamente'
           );
+          this.handleSubmit.emit(data);
         },
       });
     }
