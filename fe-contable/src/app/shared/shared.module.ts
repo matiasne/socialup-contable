@@ -22,11 +22,13 @@ import { InputAutocompleteComponent } from './components/input-autocomplete/inpu
     ImageUploadComponent,
     ListItemsComponent,
     InputAutocompleteComponent,
+    InputAddressComponent,
   ],
   exports: [
     ListItemsComponent,
     ImageUploadComponent,
     InputAutocompleteComponent,
+    InputAddressComponent,
   ],
 })
 export class SharedModule {}
