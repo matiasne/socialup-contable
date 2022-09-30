@@ -9,9 +9,15 @@ import { ListClientComponent } from 'src/app/features/clients/components/list-cl
   providers: [],
 })
 export class ListClientPage implements OnInit {
-  @ViewChild('listItem') listItems: ListClientComponent;
+  @ViewChild('list') listItems: ListClientComponent;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if ((val.url = '/clients')) this.listItems.refreshClients();
+      }
+    });
+  }
 
   ngOnInit() {}
 
