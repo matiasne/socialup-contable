@@ -51,13 +51,11 @@ export class BusinessPage implements OnInit {
   }
   ngOnInit() {}
 
-  // onResetForm(){
-  //   this.formBusiness.reset();
-  // }
-
   public filesToUpload: Array<File>;
 
-  submit(data) {}
+  submit(data) {
+    this.router.navigate(['/select-user-business']);
+  }
 
   async doAlert() {
     const alert = await this.alertController.create({
