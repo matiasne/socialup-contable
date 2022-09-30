@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
 import { Status } from '../../models/status';
@@ -27,7 +28,10 @@ export class ModalFormSaleStatusComponent implements OnInit {
   public personalAccountAmount = 0;
   public sale: Sale;
   public formSale: FormGroup;
-  constructor(public currentSaleService: CurrentSaleService) {}
+  constructor(
+    public currentSaleService: CurrentSaleService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     console.log(this.currentSaleService.currentSale);
@@ -83,6 +87,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
     this.currentSaleService.add(this.currentSaleService.currentSale);
 
-    this.formSale.reset();
+    this.modalCtrl.dismiss(status);
   }
 }

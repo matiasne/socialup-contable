@@ -138,6 +138,7 @@ export class FormSaleComponent implements OnInit {
     if (data) {
       return this.currentSaleService.add(this.currentSaleService.currentSale);
     }
+    modalStatus.dismiss(data);
   }
 
   async openModalVariationTotal(type) {
