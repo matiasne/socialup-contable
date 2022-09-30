@@ -1,4 +1,4 @@
-<ion-content>
+<div>
   <ion-card>
     <ion-card-content>
       <form class="form" [formGroup]="formClient" action="formClient">
@@ -80,23 +80,10 @@
             ></ion-input>
           </ion-item>
         </ion-row>
-        <ion-row>
-          <ion-item>
-            <ion-label
-              >Ciudad
-              <ion-select
-                value="brown"
-                okText="Okay"
-                cancelText="Dismiss"
-                formControlName="city"
-              >
-                <ion-select-option value="f">Female</ion-select-option>
-                <ion-select-option value="m">Male</ion-select-option>
-              </ion-select>
-            </ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row>
+       <app-input-address
+       formControlName="address"
+       ></app-input-address>
+        <!-- <ion-row>
           <ion-item>
             <ion-label></ion-label>
             <ion-input
@@ -105,17 +92,15 @@
               placeholder="Dirección"
             ></ion-input>
           </ion-item>
-        </ion-row>
-        <ion-button color="tertiary" (click)="onSubmit()"
-        ><ion-icon name="bag-add-outline"></ion-icon
-        >{{ buttonLabel }}</ion-button
-      >
-      <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"
-        ><ion-icon name="trash-outline"></ion-icon> Eliminar
-        Cliente</ion-button
+        </ion-row> -->
+        <ion-button
+          type="submit"
+          expand="default"
+          shape="round"
+          (click)="onSubmit()"
+          >{{ buttonLabel }}</ion-button
         >
-        <!-- <ion-button type="submit" expand="default"  shape="round" (click)="doAlert()">eliminar cliente</ion-button> -->
       </form>
     </ion-card-content>
   </ion-card>
-</ion-content>
+</div>

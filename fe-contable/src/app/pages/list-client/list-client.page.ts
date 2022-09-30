@@ -19,7 +19,9 @@ export class ListClientPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.listItems)
+  }
 
   ngAfterViewInit() {}
 

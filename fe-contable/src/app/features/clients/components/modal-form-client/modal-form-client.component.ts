@@ -44,7 +44,6 @@ export class ModalFormClientComponent implements OnInit {
       documentType: new FormControl('', Validators.required),
       documentNumber: new FormControl('', Validators.required),
       postCode: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
       image: new FormControl(''),
     });
   }
@@ -63,7 +62,6 @@ export class ModalFormClientComponent implements OnInit {
         documentType: this.client.documentType,
         documentNumber: this.client.documentNumber,
         postCode: this.client.postCode,
-        city: this.client.city,
         image: this.client.image ? this.client.image : '',
       });
     } else {
@@ -81,7 +79,6 @@ export class ModalFormClientComponent implements OnInit {
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;
-      this.client.city = this.formClient.controls.city.value;
       this.client.address = this.formClient.controls.address.value;
       this.client.email = this.formClient.controls.email.value;
       this.client.phone = this.formClient.controls.phone.value;
