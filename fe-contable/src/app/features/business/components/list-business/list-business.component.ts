@@ -45,7 +45,9 @@ export class ListBusinessComponent implements OnInit {
     this.refreshBusinesses();
   }
 
-  refreshBusinesses(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
+  refreshBusinesses(
+    data: any = { perPage: 100, pageCount: 1, searchWord: '' }
+  ) {
     this.userService
       .getUserBusiness(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
