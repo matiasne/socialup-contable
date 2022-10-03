@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { instanceAvailability } from '@awesome-cordova-plugins/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { timeStamp } from 'console';
 import { element } from 'protractor';
 import { BusinessService } from 'src/app/features/business/service/business.service';
@@ -11,6 +12,7 @@ import { ListProductComponentComponent } from 'src/app/features/products/compone
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/services/helpers.service';
+import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
 import { CurrentSaleService } from '../../services/current-sale.service';
@@ -26,19 +28,31 @@ import { SelectClientComponent } from '../select-client/select-client.component'
   selector: 'socialup-form-sale',
   templateUrl: './form-sale.component.html',
   styleUrls: ['./form-sale.component.scss'],
-  providers: [],
+  providers: [InputAutocompleteComponent],
 })
 export class FormSaleComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter<any>();
-
   public buttonLabel = '';
+  public isDesktop = true;
+  public formSaleClient: FormGroup = new FormGroup({
+    saleClient: new FormControl('', Validators.required),
+  });
+  public sale: Sale;
+  public client: Client;
+  public items: any[] = [];
 
   message =
     'This modal example uses the modalController to present and dismiss modals.';
   constructor(
     private modalCtrl: ModalController,
-    public currentSaleService: CurrentSaleService
-  ) {}
+    public currentSaleService: CurrentSaleService,
+    public plt: Platform,
+    public clientService: ClientService
+  ) {
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
+
+    this.isDesktop = this.plt.is('desktop');
+  }
 
   ngOnInit() {}
 
@@ -53,6 +67,15 @@ export class FormSaleComponent implements OnInit {
     const { data, role } = await modalSelectClient.onWillDismiss();
 
     this.currentSaleService.addClient(data);
+  }
+
+  async handleChange(event) {
+    if (this.formSaleClient.value.saleClient) {
+      let data = await this.clientService
+        .get(this.formSaleClient.value.saleClient)
+        .toPromise();
+      this.currentSaleService.addClient(data.client);
+    }
   }
 
   async openModalProduct() {
@@ -102,6 +125,7 @@ export class FormSaleComponent implements OnInit {
     return this.currentSaleService.currentSale.total;
   }
   async openModalSaveSale() {
+    console.log(this.currentSaleService.currentSale);
     const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
       component: ModalFormSaleStatusComponent,
       componentProps: {
@@ -114,6 +138,7 @@ export class FormSaleComponent implements OnInit {
     if (data) {
       return this.currentSaleService.add(this.currentSaleService.currentSale);
     }
+    modalStatus.dismiss(data);
   }
 
   async openModalVariationTotal(type) {

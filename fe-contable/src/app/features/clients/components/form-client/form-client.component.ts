@@ -7,6 +7,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { ToastService } from 'src/app/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { CountriesService } from 'src/app/services/countries.service';
 
 @Component({
   selector: 'form-client',
@@ -23,13 +24,15 @@ export class FormClientComponent implements OnInit {
   public isSubmited: boolean = false;
   public buttonLabel = 'Crear Cliente';
   public buttonEdit = 'Editar Cliente';
-
+  public countries:any=[]
+  public nameProvince:any=[]
   constructor(
     private toastService: ToastService,
     public clientService: ClientService,
     public activateRoute: ActivatedRoute,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private countriesService:CountriesService
   ) {
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
@@ -41,7 +44,6 @@ export class FormClientComponent implements OnInit {
       documentType: new FormControl('', Validators.required),
       documentNumber: new FormControl('', Validators.required),
       postCode: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
       image: new FormControl(''),
     });
   }
@@ -58,9 +60,10 @@ export class FormClientComponent implements OnInit {
         documentType: this.client.documentType,
         documentNumber: this.client.documentNumber,
         postCode: this.client.postCode,
-        city: this.client.city,
+        city: this.client.city? this.client.city : '',
         image: this.client.image ? this.client.image : '',
       });
+      console.log(this.client.address )
     } else {
       this.isEditing = false;
     }
@@ -73,10 +76,10 @@ export class FormClientComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmited = true;
+    console.log(this.formClient)
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;
-      this.client.city = this.formClient.controls.city.value;
       this.client.address = this.formClient.controls.address.value;
       this.client.email = this.formClient.controls.email.value;
       this.client.phone = this.formClient.controls.phone.value;

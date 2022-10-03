@@ -1,6 +1,30 @@
-<ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
-  >+ Cliente</ion-button
->
+<!-- <app-input-autocomplete
+  [label]="'Ejemplo'"
+  [items]="clients"
+  [keyValue]="'id'"
+  [keyLabel]="'name'"
+></app-input-autocomplete> -->
+<form [formGroup]="formSaleClient">
+  <app-input-autocomplete-client
+    formControlName="saleClient"
+    [label]="'Cliente'"
+    [keyLabel]="'name'"
+    [keyValue]="'_id'"
+    (ionChange)="handleChange($event)"
+    *ngIf="!isClient()"
+  >
+  </app-input-autocomplete-client>
+  <div *ngIf="isDesktop">
+    <ion-button (click)="openModalClient()" *ngIf="!isClient()">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+  </div>
+</form>
+<div *ngIf="!isDesktop">
+  <ion-button expand="block" (click)="openModalClient()" *ngIf="!isClient()"
+    >+ Cliente</ion-button
+  >
+</div>
 <socialup-item-client
   [client]="clientInSale()"
   *ngIf="isClient()"
@@ -27,7 +51,6 @@
     ><ion-icon name="add-outline"></ion-icon
   ></ion-fab-button>
 </ion-fab>
-
 <ion-footer collapse="fade" *ngIf="totalSaleProducts() > 0">
   <ion-title>{{ totalSaleProducts() | currency: "USD" }}</ion-title>
   <ion-button expand="full" (click)="openModalSaveSale()"
