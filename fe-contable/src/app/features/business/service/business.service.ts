@@ -24,7 +24,6 @@ export class BusinessService extends BaseCRUDService {
   ) {
     super(_http, sessionService);
     this.url = GLOBAL.url + '/business';
-    console.log('AAAA');
   }
 
   public setSelectedBusiness(business: Business) {
@@ -97,7 +96,6 @@ export class BusinessService extends BaseCRUDService {
     searchWord = ''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
-    console.log(this.SelectedBusiness.value);
     return super.get(
       this.url +
         '/' +

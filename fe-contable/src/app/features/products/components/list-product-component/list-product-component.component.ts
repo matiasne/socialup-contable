@@ -43,7 +43,7 @@ export class ListProductComponentComponent implements OnInit {
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.refreshProducts();

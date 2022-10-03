@@ -34,7 +34,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.currentSaleService.currentSale);
     this.total = this.currentSaleService.currentSale.total;
   }
 

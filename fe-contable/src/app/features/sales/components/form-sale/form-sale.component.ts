@@ -125,7 +125,6 @@ export class FormSaleComponent implements OnInit {
     return this.currentSaleService.currentSale.total;
   }
   async openModalSaveSale() {
-    console.log(this.currentSaleService.currentSale);
     const modalStatus: HTMLIonModalElement = await this.modalCtrl.create({
       component: ModalFormSaleStatusComponent,
       componentProps: {
