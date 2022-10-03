@@ -36,10 +36,10 @@ export class ListSaleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.refreshSales({ perPage: 10, pageCount: 1, searchWord: '' });
+    this.refreshSales();
   }
 
-  refreshSales(data: any) {
+  refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
     this.businessService
       .getBusinessSales(data.pageCount, data.perPage, data.searchWord)
       .subscribe({

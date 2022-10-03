@@ -17,9 +17,7 @@ export class ItemSaleComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.sale.client.name);
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {}
 }
