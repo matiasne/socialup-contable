@@ -1,9 +1,7 @@
-"use strict";
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-
-var SaleSchema = Schema(
+const EstimateSchema = Schema(
   {
     idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
     idClient: { type: mongoose.Schema.Types.ObjectId, ref: "Clients" },
@@ -11,13 +9,11 @@ var SaleSchema = Schema(
     client: {},
     items: [],
     total: Number,
-    payments: [],
     variations: [],
-    billingDate: Date,
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("sale", SaleSchema);
+module.exports = mongoose.model("estimate", EstimateSchema);
