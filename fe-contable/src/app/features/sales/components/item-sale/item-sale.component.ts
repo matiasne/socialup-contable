@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
+import { element } from 'protractor';
 import { async } from 'rxjs';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
@@ -13,12 +14,18 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 })
 export class ItemSaleComponent implements OnInit {
   @Input() sale: Sale;
-  @Input() valor1: Number;
 
   constructor() {}
-
   ngOnInit() {
-    console.log(this.sale.client.name);
+    console.log(this.sale);
+  }
+  getTotalAmount() {
+    let total = 0;
+    this.sale.saleProducts.forEach((element) => {
+      total += Number(element.amount);
+    });
+
+    return total;
   }
 
   ionViewWillEnter() {}

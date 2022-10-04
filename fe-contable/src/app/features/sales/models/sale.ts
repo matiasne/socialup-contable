@@ -10,7 +10,7 @@ export class Sale {
   public saleProducts: Array<SaleProduct> = [];
   public variations: Array<Variation> = [];
   public total: number = 0;
-  public date: Date = new Date();
+  public createdAt:string;
   public status: Status;
   public payments: Array<Payment> = [];
   constructor(public business: Business) {}
