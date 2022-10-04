@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { User } from 'src/app/models/user';
@@ -14,7 +14,8 @@ import { SessionService } from 'src/app/auth/services/session.service';
   styleUrls: ['./form-business.component.scss'],
 })
 export class FormBusinessComponent implements OnInit {
-  @Input() business: Business;
+  @Input() businessId: Business;
+  private business: Business;
   @Input() user: User;
   @Output() handleSubmit = new EventEmitter<any>();
 
@@ -28,8 +29,8 @@ export class FormBusinessComponent implements OnInit {
     public sessionService: SessionService,
     public businessService: BusinessService,
     public toastService: ToastService,
-
-    public router: Router
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.business = new Business('', '', '', '', '', '', '', '');
 
@@ -59,21 +60,23 @@ export class FormBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.parseUrl(this.router.url));
-    if (this.business._id != '') {
+    console.log(this.businessId);
+    if (this.businessId) {
+      this.buttonLabel = 'Editar Empresa';
       this.isEditing = true;
-      this.businessService.get(this.business._id).subscribe({
-        next: (data) => {
-          this.business = data;
+      this.businessService.get(this.businessId).subscribe({
+        next: (business) => {
+          this.business = business;
+
+          this.formBusiness.setValue({
+            name: this.business.name,
+            address: this.business.address,
+            category: this.business.category,
+            email: this.business.email,
+            phone: this.business.phone,
+            image: this.business.image ? this.business.image : '',
+          });
         },
-      });
-      this.formBusiness.setValue({
-        name: this.business.name,
-        address: this.business.address,
-        category: this.business.category,
-        email: this.business.email,
-        phone: this.business.phone,
-        image: this.business.image ? this.business.image : '',
       });
     } else {
       this.isEditing = false;

@@ -44,7 +44,7 @@ export class BusinessService extends BaseCRUDService {
   }
 
   get(id): Observable<any> {
-    return super.get(this.url + '/' + id);
+    return super.get(this.url + '/' + id).pipe((item: any) => item.business);
   }
 
   update(business: Business): Observable<any> {

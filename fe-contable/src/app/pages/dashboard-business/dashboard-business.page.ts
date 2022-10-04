@@ -15,7 +15,7 @@ export class DashboardBusinessPage implements OnInit {
   editBusiness() {
     this.router.navigate([
       '/business',
-      { business: JSON.stringify(this.sessionservice.getBusiness()) },
+      { businessId: this.sessionservice.getBusiness()._id },
     ]);
   }
 }

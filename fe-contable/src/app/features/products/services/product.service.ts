@@ -21,7 +21,7 @@ export class ProductService extends BaseCRUDService {
   }
 
   get(id): Observable<any> {
-    return super.get(this.url + '/' + id);
+    return super.get(this.url + '/' + id).pipe((item: any) => item.product);
   }
 
   update(product: Product): Observable<any> {

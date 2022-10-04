@@ -15,7 +15,8 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
   styleUrls: ['./form-product.component.scss'],
 })
 export class FormProductComponent implements OnInit {
-  @Input() product: Product;
+  @Input() productId: string = '';
+  private product: Product;
   @Input() business: Business;
   @Output() handleSubmit = new EventEmitter<any>();
 
@@ -34,6 +35,15 @@ export class FormProductComponent implements OnInit {
   ) {
     this.product = new Product('', '', '', '', '', '', '', '');
 
+    if (this.productId) {
+      this.isEditing = true;
+      this.productService.get(this.productId).subscribe({
+        next: (product: any) => {
+          this.product = product;
+        },
+      });
+    }
+
     this.formProduct = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -47,7 +57,7 @@ export class FormProductComponent implements OnInit {
   ngOnInit() {
     if (this.product._id != '') {
       this.isEditing = true;
-      this.productService.get(this.product._id)
+      this.productService.get(this.product._id);
       this.buttonLabel = 'Guardar';
       this.formProduct.setValue({
         name: this.product.name,
@@ -79,7 +89,7 @@ export class FormProductComponent implements OnInit {
       this.product.image = this.formProduct.controls.image.value;
       this.product.idBusiness = this.businessService.getBusinessId();
       this.save();
-      this.router.navigateByUrl('/products')
+      this.router.navigateByUrl('/products');
     } else {
       this.toastService.show(
         ToastType.error,
