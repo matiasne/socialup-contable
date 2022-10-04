@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionService } from '../../auth/services/session.service';
 
 @Component({
   selector: 'app-dashboard-business',
@@ -6,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-business.page.scss'],
 })
 export class DashboardBusinessPage implements OnInit {
-  constructor() {}
+  constructor(public router: Router, private sessionservice: SessionService) {}
 
   ngOnInit() {}
+
+  editBusiness() {
+    this.router.navigate([
+      '/business',
+      { business: JSON.stringify(this.sessionservice.getBusiness()) },
+    ]);
+  }
 }

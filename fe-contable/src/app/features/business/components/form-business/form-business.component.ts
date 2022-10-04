@@ -59,6 +59,7 @@ export class FormBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.router.parseUrl(this.router.url));
     if (this.business._id != '') {
       this.isEditing = true;
       this.businessService.get(this.business._id).subscribe({
