@@ -39,9 +39,6 @@ export class ListProductPage implements OnInit {
   }
 
   handleClickEditProduct(product) {
-    this.router.navigate([
-      '/edit-product',
-      { product: JSON.stringify(product) },
-    ]);
+    this.router.navigate(['/edit-product', { productId: product._id }]);
   }
 }

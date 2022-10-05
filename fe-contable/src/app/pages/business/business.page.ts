@@ -28,7 +28,7 @@ import { ToastType } from 'src/app/models/toast.enum';
 })
 export class BusinessPage implements OnInit {
   public title: 'Perfil BUSINESS';
-  public business: Business;
+  public businessId:string ='';
   public user: User;
   public priority: string;
 
@@ -47,7 +47,9 @@ export class BusinessPage implements OnInit {
     public router: Router,
     public alertController: AlertController
   ) {
-    this.business = new Business('', '', '', '', '', '', '', '');
+    if (this.activateRoute.snapshot.params.businessId) {
+     this.businessId = this.activateRoute.snapshot.params.businessId;
+    }
   }
   ngOnInit() {}
 

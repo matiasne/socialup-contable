@@ -14,7 +14,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./edit-product.page.scss'],
 })
 export class EditProductPage implements OnInit {
-  public product: Product;
+  public productId: string = '';
   public business: Business;
   public obsBusiness: any;
   constructor(
@@ -25,14 +25,12 @@ export class EditProductPage implements OnInit {
     public router: Router,
     public alertController: AlertController
   ) {
-    this.product = new Product('', '', '', '', '', '', '', '');
+    if (this.activateRoute.snapshot.params.productId) {
+      this.productId = this.activateRoute.snapshot.params.productId;
+    }
   }
 
-  ngOnInit() {
-    this.product = Product.adapt(
-      JSON.parse(this.activateRoute.snapshot.paramMap.get('product'))
-    );
-  }
+  ngOnInit() {}
 
   submit(data) {}
 }
