@@ -1,12 +1,15 @@
 <ion-button>Cancelar Venta</ion-button>
 <ion-button>Presupuesto</ion-button>
 
-<!-- 
+<!--
 <input #inputCheck type="checkbox" (click)="check_en(value)">
 <input type="text" id="text1" [disabled]="!inputCheck.checked"> -->
 
 <ion-label>Efectivo</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckCash" value="cash"></ion-checkbox>
+<ion-checkbox
+  [(ngModel)]="inputCheckCash"
+  value="cash"
+  (ionChange)="calculate()"></ion-checkbox>
 <div *ngIf="inputCheckCash">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -16,7 +19,7 @@
   ></ion-input>
 </div>
 <ion-label>Tarjeta</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckCard" value="card"></ion-checkbox>
+<ion-checkbox [(ngModel)]="inputCheckCard" value="card" (ionChange)="calculate()"></ion-checkbox>
 <div *ngIf="inputCheckCard">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -26,7 +29,7 @@
   ></ion-input>
 </div>
 <ion-label>Cheque</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckCheck" value="check"></ion-checkbox>
+<ion-checkbox [(ngModel)]="inputCheckCheck" value="check" (ionChange)="calculate()"></ion-checkbox>
 <div *ngIf="inputCheckCheck">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -39,6 +42,7 @@
 <ion-checkbox
   [(ngModel)]="inputCheckPersonalAccount"
   value="personalAccount"
+  (ionChange)="calculate()"
 ></ion-checkbox>
 <div *ngIf="inputCheckPersonalAccount">
   <ion-label>Valor</ion-label>
@@ -49,7 +53,7 @@
   ></ion-input>
 </div>
 <ion-label>Transferencia</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckTransfer" value="transfer"></ion-checkbox>
+<ion-checkbox [(ngModel)]="inputCheckTransfer" value="transfer" (ionChange)="calculate()"></ion-checkbox>
 <div *ngIf="inputCheckTransfer">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -59,5 +63,7 @@
   ></ion-input>
 </div>
 
-<ion-button (click)="submit()">Pagar</ion-button>
-<p>{{ this.totalMostar }}</p>
+<ion-button (click)="submit()" [disabled]="isPaymentValid">Pagar</ion-button>
+<p>Su Compra {{ this.total }} - A pagar:{{ this.totalMostar }} - Su Vuelto:{{ this.totalVuelto }}</p>
+
+
