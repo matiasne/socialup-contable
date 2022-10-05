@@ -82,14 +82,16 @@ export class ModalFormSaleStatusComponent implements OnInit {
       this.totalVuelto.toFixed(2);
     }
 
-    // if (this.inputCheckCard) {
-    //   if (this.cardAmount > this.totalRemaining) {
-    //     alert('Monto mayor');
-    //     return;
-    //   }
-    // }
+    if (this.inputCheckCard) {
+      console.log('Tarjeta:' + this.cardAmount);
+      console.log('Faltante:' + this.totalRemaining);
+      if (this.cardAmount > this.total - this.cashAmount) {
+        alert('Monto mayor');
+        return;
+      }
+    }
 
-    // this.isPaymentValid = true;
+    this.isPaymentValid = true;
   }
   submit() {
     if (this.inputCheckCash) {
