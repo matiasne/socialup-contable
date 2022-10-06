@@ -16,9 +16,7 @@ export class ItemSaleComponent implements OnInit {
   @Input() sale: Sale;
 
   constructor() {}
-  ngOnInit() {
-    console.log(this.sale);
-  }
+  ngOnInit() {}
   getTotalAmount() {
     let total = 0;
     this.sale.saleProducts.forEach((element) => {
