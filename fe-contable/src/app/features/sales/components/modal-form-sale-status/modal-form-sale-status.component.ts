@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { exit } from 'process';
 import { TouchSequence } from 'selenium-webdriver';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
@@ -51,7 +52,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
   clickCheckboxBill() {}
 
   calculate() {
-    this.isPaymentValid = false;
     if (!this.inputCheckCash) {
       this.cashAmount = 0;
     }
@@ -83,15 +83,11 @@ export class ModalFormSaleStatusComponent implements OnInit {
     }
 
     if (this.inputCheckCard) {
-      console.log('Tarjeta:' + this.cardAmount);
-      console.log('Faltante:' + this.totalRemaining);
       if (this.cardAmount > this.total - this.cashAmount) {
         alert('Monto mayor');
         return;
       }
     }
-
-    this.isPaymentValid = true;
   }
   submit() {
     if (this.inputCheckCash) {
