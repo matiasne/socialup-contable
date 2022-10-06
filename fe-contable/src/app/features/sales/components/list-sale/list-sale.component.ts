@@ -24,6 +24,7 @@ export class ListSaleComponent implements OnInit {
   @Output() clickSales = new EventEmitter<Sale>();
 
   public sales: Array<Sale> = [];
+  public salesClient: Array<any> = [];
   public totalPages: number;
   private business: Business;
   public id: any;
@@ -45,6 +46,29 @@ export class ListSaleComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.sales = response.data;
+          this.sales.forEach((element) => {
+            if (element.client) {
+              this.salesClient.push(element.client.name);
+            }
+          });
+          this.listItems.totalPages = response.paging.totalPages;
+          this.listItems.buttonController();
+        },
+      });
+  }
+
+  findclient(data) {
+    console.log('Canario');
+    this.businessService
+      .getBusinessSales(data.pageCount, data.perPage, data.searchWord)
+      .subscribe({
+        next: (response) => {
+          this.sales = response.data;
+          let filtersales = this.sales.filter((sales) => sales.client);
+          let otrofilto = filtersales.filter((filtersales) =>
+            filtersales.client.name.includes(data.searchWord)
+          );
+          this.sales = otrofilto;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
         },
