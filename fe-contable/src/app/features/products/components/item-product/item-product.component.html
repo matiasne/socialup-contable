@@ -3,12 +3,18 @@
     (click)="handleClick()"
     style="margin-right: 10px; width: 100px; height: 100px"
   >
-    <img src="{{ product.image }}" />
+    <img *ngIf="product.image" src="{{ product.image }}" />
+    <div class="main-icon" *ngIf="!product.image">
+      <ion-icon name="cube-outline"></ion-icon>
+    </div>
   </ion-avatar>
   <ion-label (click)="handleClick()">
     <h3>Nombre: {{ product.name }}</h3>
     <h3>Descripcion: {{ product.description }}</h3>
-    <h3>Precio de Venta: {{ product.salePrice }}</h3>
+    <h3>
+      Precio de Venta:
+      {{ product.salePrice | currency: "ARS":"symbol":"4.2-2" }}
+    </h3>
   </ion-label>
   <ion-button *ngIf="showEditButton" (click)="handleClickEdit()"
     >Editar</ion-button
