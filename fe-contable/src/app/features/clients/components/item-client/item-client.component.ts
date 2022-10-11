@@ -29,22 +29,5 @@ export class ItemClientComponent implements OnInit {
   }
   handleClickEditing() {
     this.eventClickEdit.emit(this.client);
-    this.openModalNewClient(this.client);
-  }
-  async openModalNewClient(client) {
-    const modal = await this.modalCtrl.create({
-      id: '1',
-      component: ModalFormClientComponent,
-      componentProps: {
-        client: client,
-        other: { couldAlsoBeAnObject: true },
-      },
-    });
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (data) {
-    }
   }
 }

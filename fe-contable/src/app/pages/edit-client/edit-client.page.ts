@@ -15,7 +15,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./edit-client.page.scss'],
 })
 export class EditClientPage implements OnInit {
-  public client: Client;
+  public clientId: string = '';
   public obsBusiness: any;
 
   constructor(
@@ -25,14 +25,13 @@ export class EditClientPage implements OnInit {
     public activateRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController
-  ) {
-    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
-  }
+  ) {}
 
   ngOnInit() {
-    this.client = Client.adapt(
-      JSON.parse(this.activateRoute.snapshot.paramMap.get('client'))
-    );
+    console.log(this.activateRoute.snapshot.params.clientId);
+    if (this.activateRoute.snapshot.params.clientId) {
+      this.clientId = this.activateRoute.snapshot.params.clientId;
+    }
   }
 
   submit(data) {

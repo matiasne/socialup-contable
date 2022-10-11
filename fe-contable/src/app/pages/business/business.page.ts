@@ -28,7 +28,7 @@ import { ToastType } from 'src/app/models/toast.enum';
 })
 export class BusinessPage implements OnInit {
   public title: 'Perfil BUSINESS';
-  public businessId:string ='';
+  public businessId: string = '';
   public user: User;
   public priority: string;
 
@@ -48,7 +48,7 @@ export class BusinessPage implements OnInit {
     public alertController: AlertController
   ) {
     if (this.activateRoute.snapshot.params.businessId) {
-     this.businessId = this.activateRoute.snapshot.params.businessId;
+      this.businessId = this.activateRoute.snapshot.params.businessId;
     }
   }
   ngOnInit() {}
@@ -57,45 +57,5 @@ export class BusinessPage implements OnInit {
 
   submit(data) {
     this.router.navigate(['/select-user-business']);
-  }
-
-  async doAlert() {
-    const alert = await this.alertController.create({
-      header: 'ELIMINAR CUENTA',
-      message:
-        'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          id: 'cancel-button',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        },
-        {
-          text: 'Ok',
-          id: 'confirm-button',
-          handler: () => {
-            this.businessService
-              ._delete(this.activateRoute.snapshot.params.id)
-              .subscribe({
-                next: (data) => {
-                  this.toastService.show(
-                    ToastType.warning,
-                    'Se ha eliminado la empresa correctamente'
-                  );
-                  this.router.navigate(['/select-user-business']);
-                },
-                error: (err) => {
-                  console.log(err);
-                },
-              });
-          },
-        },
-      ],
-    });
-    (await alert).present();
   }
 }

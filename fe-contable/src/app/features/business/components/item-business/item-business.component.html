@@ -1,6 +1,9 @@
 <ion-item>
   <ion-avatar style="margin-right: 10px; width: 100px; height: 100px">
-    <img src="{{ business.image }}" />
+    <img *ngIf="business.image" src="{{ business.image }}" />
+    <div class="main-icon" *ngIf="!business.image">
+      <ion-icon name="storefront-outline"></ion-icon>
+    </div>
   </ion-avatar>
   <ion-label>
     <h1>
