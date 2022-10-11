@@ -3,7 +3,10 @@
     style="margin-right: 10px; width: 100px; height: 100px"
     (click)="handleClick()"
   >
-    <img src="{{ client.image }}" />
+    <img *ngIf="client.image" src="{{ client.image }}" />
+    <div class="main-icon" *ngIf="!client.image">
+      <ion-icon name="person"></ion-icon>
+    </div>
   </ion-avatar>
   <ion-label (click)="handleClick()">
     <h1>
