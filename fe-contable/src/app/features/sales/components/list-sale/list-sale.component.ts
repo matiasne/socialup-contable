@@ -19,6 +19,9 @@ import { Sale } from '../../models/sale';
   styleUrls: ['./list-sale.component.scss'],
 })
 export class ListSaleComponent implements OnInit {
+  onTimeChange(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   @Input() items = [];
   @ViewChild('listItem') listItems: ListItemsComponent;
   @Output() clickSales = new EventEmitter<Sale>();
@@ -29,6 +32,10 @@ export class ListSaleComponent implements OnInit {
   private business: Business;
   public id: any;
   public obsBusiness: any;
+  public searchWord: string = '';
+  public dateFrom: any;
+  public dateTo: any;
+  selectedTime: any;
 
   constructor(
     public businessService: BusinessService,
@@ -46,36 +53,17 @@ export class ListSaleComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.sales = response.data;
-          this.sales.forEach((element) => {
-            if (element.client) {
-              this.salesClient.push(element.client.name);
-            }
-          });
-          this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
         },
       });
   }
 
-  findclient(data) {
-    console.log('Canario');
-    this.businessService
-      .getBusinessSales(data.pageCount, data.perPage, data.searchWord)
-      .subscribe({
-        next: (response) => {
-          this.sales = response.data;
-          let filtersales = this.sales.filter((sales) => sales.client);
-          let otrofilto = filtersales.filter((filtersales) =>
-            filtersales.client.name.includes(data.searchWord)
-          );
-          this.sales = otrofilto;
-          this.listItems.totalPages = response.paging.totalPages;
-          this.listItems.buttonController();
-        },
-      });
+  showdate() {
+    console.log(this.dateFrom);
+    console.log(this.dateTo);
   }
 
   click(data) {
-    this.clickSales.emit(data);
+    console.log(this.searchWord);
   }
 }

@@ -2,12 +2,51 @@
   <socialup-item-sale [sale]="item"></socialup-item-sale>
 </ng-template>
 
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item button="true" id="date-from">
+        <ion-label>Desde</ion-label>
+        <ion-input
+          value="{{ dateFrom | date: 'dd.MM.yyyy hh:mm' }}"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="date-from" show-backdrop="false">
+        <ng-template>
+        <ion-datetime [(ngModel)]="dateFrom"
+        (ionChange)="showdate()"
+        ></ion-datetime>
+        </ng-template>
+        </ion-popover>
+        </ion-item>
+    </ion-col>
+        <ion-col>
+      <ion-item button="true" id="date-to">
+        <ion-label>Hasta</ion-label>
+        <ion-input
+          value="{{ dateTo | date: 'dd.MM.yyyy hh:mm' }}"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="date-to" show-backdrop="false">
+        <ng-template>
+        <ion-datetime [(ngModel)]="dateTo"
+        (ionChange)="showdate()"
+        ></ion-datetime>
+        </ng-template>
+        </ion-popover>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+
 <app-list-items
   #listItem
   [items]="sales"
   [hideSearchBar]="false"
   [itemTemplate]="saleTemplate"
   [totalPages]="totalPages"
-  (handleSearch)="findclient($event)"
+  (ngModel)="searchWord"
 >
 </app-list-items>
