@@ -16,24 +16,20 @@ import { BusinessService } from './features/business/service/business.service';
 })
 export class AppComponent implements OnInit {
   public appPages = [
-    { title: 'Business', url: '/business', icon: 'heart' },
-    { title: 'Profile', url: '/form-profile', icon: 'archive' },
+    { title: 'Profile', url: '/form-profile', icon: 'person' },
     {
       title: 'Recuperar Contraseña',
       url: '/form-forgotpassword',
-      icon: 'trash',
+      icon: 'lock-closed',
     },
     {
-      title: 'Lista de Empresas',
+      title: 'Negocios',
       url: '/select-user-business',
-      icon: 'warning',
+      icon: 'storefront',
     },
-    { title: 'Producto', url: '/product', icon: 'warning' },
-    { title: 'Lista Producto', url: '/products', icon: 'mail' },
-    { title: 'Cliente', url: '/create-client', icon: 'mail' },
-    { title: 'Lista Cliente', url: '/clients', icon: 'mail' },
-    { title: 'Venta', url: '/form-sale', icon: 'mail' },
-    { title: 'Lista de Ventas', url: '/list-sale', icon: 'mail' },
+    { title: 'Productos', url: '/products', icon: 'grid' },
+    { title: 'Clientes', url: '/clients', icon: 'people' },
+    { title: 'Ventas', url: '/list-sale', icon: 'receipt' },
   ];
 
   public showMenu = false;

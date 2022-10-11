@@ -14,7 +14,7 @@ import { SessionService } from 'src/app/auth/services/session.service';
   styleUrls: ['./form-business.component.scss'],
 })
 export class FormBusinessComponent implements OnInit {
-  @Input() businessId: Business;
+  @Input() businessId: string;
   private business: Business;
   @Input() user: User;
   @Output() handleSubmit = new EventEmitter<any>();

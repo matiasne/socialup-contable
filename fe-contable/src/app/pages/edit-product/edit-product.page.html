@@ -1,13 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
-    <ion-title>edit-product</ion-title>
+    <ion-title>Editar Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <socialup-form-product
-    [business]="business"
     [productId]="productId"
     (handleSubmit)="submit($event)"
   ></socialup-form-product>

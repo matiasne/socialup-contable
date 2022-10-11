@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ClientService } from 'src/app/features/clients/services/client.service';
@@ -15,8 +14,8 @@ import { CountriesService } from 'src/app/services/countries.service';
   styleUrls: ['./form-client.component.scss'],
 })
 export class FormClientComponent implements OnInit {
-  @Input() client: Client;
-  @Input() business: Business;
+  @Input() clientId: string;
+  private client: Client;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public formClient: FormGroup;
@@ -24,17 +23,16 @@ export class FormClientComponent implements OnInit {
   public isSubmited: boolean = false;
   public buttonLabel = 'Crear Cliente';
   public buttonEdit = 'Editar Cliente';
-  public countries:any=[]
-  public nameProvince:any=[]
+  public countries: any = [];
+  public nameProvince: any = [];
   constructor(
     private toastService: ToastService,
     public clientService: ClientService,
     public activateRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController,
-    private countriesService:CountriesService
+    private countriesService: CountriesService
   ) {
-    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -49,21 +47,27 @@ export class FormClientComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.client._id != '') {
+    if (this.clientId != '') {
       this.isEditing = true;
-      this.formClient.setValue({
-        name: this.client.name,
-        address: this.client.address,
-        surname: this.client.surname,
-        email: this.client.email,
-        phone: this.client.phone,
-        documentType: this.client.documentType,
-        documentNumber: this.client.documentNumber,
-        postCode: this.client.postCode,
-        city: this.client.city? this.client.city : '',
-        image: this.client.image ? this.client.image : '',
+      this.clientService.get(this.clientId).subscribe({
+        next: (data: Client) => {
+          this.client = data;
+          console.log(this.client);
+          this.formClient.patchValue({
+            name: this.client.name,
+            address: this.client.address,
+            surname: this.client.surname,
+            email: this.client.email,
+            phone: this.client.phone,
+            documentType: this.client.documentType,
+            documentNumber: this.client.documentNumber,
+            postCode: this.client.postCode,
+            city: this.client.city ? this.client.city : '',
+            image: this.client.image ? this.client.image : '',
+          });
+          console.log(this.client.address);
+        },
       });
-      console.log(this.client.address )
     } else {
       this.isEditing = false;
     }
@@ -76,7 +80,7 @@ export class FormClientComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmited = true;
-    console.log(this.formClient)
+    console.log(this.formClient);
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;

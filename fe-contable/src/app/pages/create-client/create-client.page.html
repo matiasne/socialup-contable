@@ -1,14 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
-    <ion-title>Create Client</ion-title>
+    <ion-title>Nuevo Cliente</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form-client
-    [business]="business"
-    [client]="client"
-    (handleSubmit)="submit($event)"
-  ></form-client>
+  <form-client (handleSubmit)="submit($event)"></form-client>
 </ion-content>

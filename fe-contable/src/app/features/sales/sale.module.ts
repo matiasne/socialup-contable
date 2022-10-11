@@ -7,7 +7,6 @@ import { ClientsModule } from '../clients/clients.module';
 import { ItemSaleProductComponent } from './components/item-sale-product/item-sale-product.component';
 import { ListSaleProductComponent } from './components/list-sale-product/list-sale-product.component';
 import { ModalFormProductComponent } from './components/modal-form-product/modal-form-product.component';
-import { FormSalePageRoutingModule } from 'src/app/pages/form-sale/form-sale-routing.module';
 import { FormSaleProductComponent } from './components/form-sale-product/form-sale-product.component';
 import { ProductsModule } from '../products/products.module';
 import { FormVariationComponent } from './components/form-variation/form-variation.component';

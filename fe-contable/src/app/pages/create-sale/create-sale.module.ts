@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FormSalePageRoutingModule } from './form-sale-routing.module';
+import { CreateSalePageRoutingModule } from './create-sale-routing.module';
 
-import { FormSalePage } from './form-sale.page';
+import { CreateSalePage } from './create-sale.page';
 import { SalesModule } from 'src/app/features/sales/sale.module';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormSalePageRoutingModule,
+    CreateSalePageRoutingModule,
     SalesModule,
-    SharedModule,
   ],
-  declarations: [FormSalePage],
+  declarations: [CreateSalePage],
 })
-export class FormSalePageModule {}
+export class CreateSalePageModule {}

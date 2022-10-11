@@ -6,6 +6,7 @@ import { BaseCRUDService } from '../../../services/base-crud.service';
 import { HelperService } from '../../../services/helpers.service';
 import { Client } from '../models/client';
 import { SessionService } from 'src/app/auth/services/session.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService extends BaseCRUDService {
@@ -21,7 +22,7 @@ export class ClientService extends BaseCRUDService {
   }
 
   get(id): Observable<any> {
-    return super.get(this.url + '/' + id);
+    return super.get(this.url + '/' + id).pipe(map((resp: any) => resp.client));
   }
 
   update(client: Client): Observable<any> {

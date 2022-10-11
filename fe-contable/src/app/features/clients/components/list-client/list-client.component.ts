@@ -26,6 +26,7 @@ export class ListClientComponent implements OnInit {
 
   @Input() showEditButton = false;
   @Output() eventClient = new EventEmitter<Client>();
+  @Output() clickEditClient = new EventEmitter<Client>();
 
   public clients: Array<Client> = [];
   public id: any;
@@ -51,7 +52,7 @@ export class ListClientComponent implements OnInit {
       .getBusinessClient(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
-          console.log(response)
+          console.log(response);
           this.clients = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
@@ -61,5 +62,9 @@ export class ListClientComponent implements OnInit {
 
   handleClick(client) {
     this.eventClient.emit(client);
+  }
+
+  handleClickEdit(client) {
+    this.clickEditClient.emit(client);
   }
 }

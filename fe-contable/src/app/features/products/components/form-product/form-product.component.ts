@@ -1,7 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/features/products/models/product';
-import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ToastService } from 'src/app/services/toast.service';
 import { ProductService } from '../../services/product.service';
@@ -14,10 +20,9 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
   templateUrl: './form-product.component.html',
   styleUrls: ['./form-product.component.scss'],
 })
-export class FormProductComponent implements OnInit {
+export class FormProductComponent implements OnInit, AfterViewInit {
   @Input() productId: string = '';
   private product: Product;
-  @Input() business: Business;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public isEditing: boolean = false;
@@ -35,15 +40,6 @@ export class FormProductComponent implements OnInit {
   ) {
     this.product = new Product('', '', '', '', '', '', '', '');
 
-    if (this.productId) {
-      this.isEditing = true;
-      this.productService.get(this.productId).subscribe({
-        next: (product: any) => {
-          this.product = product;
-        },
-      });
-    }
-
     this.formProduct = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -54,23 +50,34 @@ export class FormProductComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    if (this.product._id != '') {
+  ngOnInit(): void {}
+
+  ngAfterContentInit() {
+    console.log(this.productId);
+    if (this.productId != '') {
       this.isEditing = true;
-      this.productService.get(this.product._id);
-      this.buttonLabel = 'Guardar';
-      this.formProduct.setValue({
-        name: this.product.name,
-        description: this.product.description,
-        code: this.product.code,
-        costPrice: this.product.costPrice,
-        salePrice: this.product.salePrice,
-        image: this.product.image ? this.product.image : '',
+      this.productService.get(this.productId).subscribe({
+        next: (product: any) => {
+          console.log(product);
+          this.product = product;
+
+          this.buttonLabel = 'Guardar';
+          this.formProduct.setValue({
+            name: this.product.name,
+            description: this.product.description,
+            code: this.product.code,
+            costPrice: this.product.costPrice,
+            salePrice: this.product.salePrice,
+            image: this.product.image ? this.product.image : '',
+          });
+        },
       });
     } else {
       this.isEditing = false;
     }
   }
+
+  ngAfterViewInit() {}
 
   changeImage(event: any) {
     this.formProduct.patchValue({
@@ -126,9 +133,6 @@ export class FormProductComponent implements OnInit {
     });
   }
   async doAlert() {
-    this.product = Product.adapt(
-      JSON.parse(this.activateRoute.snapshot.paramMap.get('product'))
-    );
     const alert = await this.alertController.create({
       header: 'ELIMINAR PRODUCTO',
       message: 'Desea eliminar este producto.No podra recuperarlo.',

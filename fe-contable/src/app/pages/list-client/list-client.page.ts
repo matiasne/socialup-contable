@@ -20,12 +20,16 @@ export class ListClientPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.listItems)
+    console.log(this.listItems);
   }
 
   ngAfterViewInit() {}
 
   handleClickClient(client) {
     this.router.navigate(['/edit-client', { client: JSON.stringify(client) }]);
+  }
+
+  handleClickEditClient(client) {
+    this.router.navigate(['/edit-client', { clientId: client._id }]);
   }
 }

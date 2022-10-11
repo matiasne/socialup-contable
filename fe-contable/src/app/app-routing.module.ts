@@ -59,26 +59,10 @@ const routes: Routes = [
     canActivate: [isAuthRedirectGuard],
   },
   {
-    path: 'product',
-    loadChildren: () =>
-      import('./pages/form-product/form-product.module').then(
-        (m) => m.FormProductPageModule
-      ),
-    canActivate: [unselectedBusinessRedirectGuard],
-  },
-  {
     path: 'products',
     loadChildren: () =>
       import('./pages/list-product/list-product.module').then(
         (m) => m.ListProductPageModule
-      ),
-    canActivate: [unselectedBusinessRedirectGuard],
-  },
-  {
-    path: 'product/:id',
-    loadChildren: () =>
-      import('./pages/form-product/form-product.module').then(
-        (m) => m.FormProductPageModule
       ),
     canActivate: [unselectedBusinessRedirectGuard],
   },
@@ -107,10 +91,10 @@ const routes: Routes = [
     canActivate: [unselectedBusinessRedirectGuard],
   },
   {
-    path: 'form-sale',
+    path: 'create-sale',
     loadChildren: () =>
-      import('./pages/form-sale/form-sale.module').then(
-        (m) => m.FormSalePageModule
+      import('./pages/create-sale/create-sale.module').then(
+        (m) => m.CreateSalePageModule
       ),
     canActivate: [unselectedBusinessRedirectGuard],
   },
@@ -145,6 +129,21 @@ const routes: Routes = [
         (m) => m.ListSalePageModule
       ),
     canActivate: [unselectedBusinessRedirectGuard],
+  },
+  {
+    path: 'create-product',
+    loadChildren: () =>
+      import('./pages/create-product/create-product.module').then(
+        (m) => m.CreateProductPageModule
+      ),
+    canActivate: [unselectedBusinessRedirectGuard],
+  },
+  {
+    path: 'create-sale',
+    loadChildren: () =>
+      import('./pages/create-sale/create-sale.module').then(
+        (m) => m.CreateSalePageModule
+      ),
   },
 ];
 
