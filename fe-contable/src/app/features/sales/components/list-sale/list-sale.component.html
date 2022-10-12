@@ -38,13 +38,25 @@
     </ion-col>
   </ion-row>
 </ion-grid>
+<ion-searchbar
+
+  placeholder="Search"
+  debounce="500"
+  [(ngModel)]="searchWord"
+
+  showCancelButton="focus"
+  cancelButtonText="Custom Cancel"
+></ion-searchbar>
+<ion-button (click)="click()">
+  Ahi va
+</ion-button>
 
 
 
 <app-list-items
   #listItem
   [items]="sales"
-  [hideSearchBar]="false"
+  [hideSearchBar]="true"
   [itemTemplate]="saleTemplate"
   [totalPages]="totalPages"
   (ngModel)="searchWord"

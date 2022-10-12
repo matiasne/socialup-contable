@@ -32,10 +32,12 @@ export class ListSaleComponent implements OnInit {
   private business: Business;
   public id: any;
   public obsBusiness: any;
-  public searchWord: string = '';
+  public searchWord: any;
   public dateFrom: any;
   public dateTo: any;
   selectedTime: any;
+  public perPage: number = 10;
+  public pageCount: number = 1;
 
   constructor(
     public businessService: BusinessService,
@@ -49,7 +51,7 @@ export class ListSaleComponent implements OnInit {
 
   refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
     this.businessService
-      .getBusinessSales(data.pageCount, data.perPage, data.searchWord)
+      .getBusinessSales(data.pageCount, data.perPage, data.searchWord, '', '')
       .subscribe({
         next: (response) => {
           this.sales = response.data;
@@ -58,12 +60,28 @@ export class ListSaleComponent implements OnInit {
       });
   }
 
-  showdate() {
+  showdate() {}
+
+  click() {
+    this.businessService
+      .getBusinessSales(
+        this.perPage,
+        this.pageCount,
+        this.searchWord,
+        this.dateFrom,
+        this.dateTo
+      )
+      .subscribe({
+        next: (response) => {
+          this.sales = response.data;
+          this.listItems.buttonController();
+        },
+      });
+
+    console.log(this.perPage);
+    console.log(this.pageCount);
     console.log(this.dateFrom);
     console.log(this.dateTo);
-  }
-
-  click(data) {
     console.log(this.searchWord);
   }
 }

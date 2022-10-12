@@ -77,7 +77,9 @@ export class BusinessService extends BaseCRUDService {
   getBusinessSales(
     pageCount = 1,
     perPage = 10,
-    searchWord = ''
+    searchWord = '',
+    dateFrom = '',
+    dateTo = ''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
     return super.get(
@@ -89,7 +91,11 @@ export class BusinessService extends BaseCRUDService {
         '&perPage=' +
         perPage +
         '&searchWord=' +
-        searchWord
+        searchWord +
+        '&dateFrom=' +
+        dateFrom +
+        '&dateTo=' +
+        dateTo
     );
   }
 
