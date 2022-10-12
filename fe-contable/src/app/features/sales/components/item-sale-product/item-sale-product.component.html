@@ -10,7 +10,7 @@
       <p>Detalle: {{ saleProduct.detail }}</p>
       <p>Cantidad: {{ saleProduct.amount }}</p>
       <p>Precio unitario: {{ saleProduct.salePrice | currency: "USD" }}</p>
-      <div *ngIf="saleProduct.variation.type != 'empty'">
+      <div *ngIf="saleProduct.variation.type !== 'empty'">
         <p>Tipo {{ title }}: {{ saleProduct.variation.type }}</p>
         <p>Valor {{ title }}:{{ this.valueVariationView }}</p>
         <p>Observación: {{ saleProduct.variation.description }}</p>
@@ -18,6 +18,8 @@
       <p>Sub Total: {{ saleProduct.subTotal | currency: "USD" }}</p>
     </div>
   </ion-label>
-  <ion-button (click)="handleClickDelete()">Delete</ion-button>
-  <ion-button (click)="handleClickEdit()">Edit</ion-button>
+  <ion-button *ngIf="showDelete" (click)="handleClickDelete()"
+    >Delete</ion-button
+  >
+  <ion-button *ngIf="showEdit" (click)="handleClickEdit()">Edit</ion-button>
 </ion-item>

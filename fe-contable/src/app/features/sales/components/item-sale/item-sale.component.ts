@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
-import { element } from 'protractor';
+import { element, EventEmitter } from 'protractor';
 import { async } from 'rxjs';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';
@@ -17,7 +17,7 @@ export class ItemSaleComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    console.log(this.sale);
+    // console.log(this.sale);
   }
   getTotalAmount() {
     let total = 0;

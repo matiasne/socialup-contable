@@ -7,11 +7,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Sale } from '../../models/sale';
+import { ModalDetailComponent } from '../modal-detail/modal-detail.component';
 
 @Component({
   selector: 'socialup-list-sale-component',
@@ -30,6 +32,7 @@ export class ListSaleComponent implements OnInit {
   public obsBusiness: any;
 
   constructor(
+    private modalCtrl: ModalController,
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService
@@ -52,6 +55,23 @@ export class ListSaleComponent implements OnInit {
   }
 
   click(data) {
-    this.clickSales.emit(data);
+    this.openModalSale(data);
+  }
+  async openModalSale(data) {
+    console.log(data);
+    const modal = await this.modalCtrl.create({
+      id: '1',
+      component: ModalDetailComponent,
+      componentProps: {
+        sale: data,
+        other: { couldAlsoBeAnObject: true },
+      },
+    });
+    modal.present();
+
+    const { role } = await modal.onWillDismiss();
+
+    if (data) {
+    }
   }
 }
