@@ -91,27 +91,36 @@ export class ModalFormSaleStatusComponent implements OnInit {
   }
   submit() {
     if (this.inputCheckCash) {
-      let payment: Payment = new Payment(paymentTypes.cash, this.cashAmount);
+      let payment: Payment = new Payment(
+        paymentTypes.cash.value,
+        this.cashAmount
+      );
       this.currentSaleService.addPayment(payment);
     }
     if (this.inputCheckCard) {
-      let payment: Payment = new Payment(paymentTypes.card, this.cardAmount);
+      let payment: Payment = new Payment(
+        paymentTypes.creditCard.value,
+        this.cardAmount
+      );
       this.currentSaleService.addPayment(payment);
     }
     if (this.inputCheckPersonalAccount) {
       let payment: Payment = new Payment(
-        paymentTypes.personalAccount,
+        paymentTypes.personalAccount.value,
         this.personalAccountAmount
       );
       this.currentSaleService.addPayment(payment);
     }
     if (this.inputCheckCheck) {
-      let payment: Payment = new Payment(paymentTypes.check, this.checkAmount);
+      let payment: Payment = new Payment(
+        paymentTypes.check.value,
+        this.checkAmount
+      );
       this.currentSaleService.addPayment(payment);
     }
     if (this.inputCheckTransfer) {
       let payment: Payment = new Payment(
-        paymentTypes.transfer,
+        paymentTypes.transfer.value,
         this.transferAmount
       );
       this.currentSaleService.addPayment(payment);

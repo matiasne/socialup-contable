@@ -38,20 +38,27 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<ion-searchbar
-
-  placeholder="Search"
-  debounce="500"
-  [(ngModel)]="searchWord"
-
-  showCancelButton="focus"
-  cancelButtonText="Custom Cancel"
-></ion-searchbar>
-<ion-button (click)="click()">
-  Ahi va
+<ion-button (click)="openModalClient()">
+  <ion-icon name="search-outline"></ion-icon>
+</ion-button>
+  <ion-item *ngIf="this.clientfilter">
+    {{this.clientfilter.name}}
+      </ion-item>
+<ion-button
+   (click)="click()">
 </ion-button>
 
-
+<ion-list>
+  <ion-item>
+    <ion-select
+    [multiple]="true"
+    placeholder="Elija el tipo de Pago"
+    (ionChange)="handleChange($event)"
+    >
+      <ion-select-option *ngFor="let item of paymentTypes | keyvalue" value={{item.key}}>{{item.value['name']}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
 
 <app-list-items
   #listItem
