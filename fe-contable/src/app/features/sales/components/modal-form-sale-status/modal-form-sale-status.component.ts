@@ -121,4 +121,13 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
     this.modalCtrl.dismiss(status);
   }
+
+  cancelSale() {
+    let saleStatus: Status = new Status();
+    saleStatus.isCanceled = true;
+    this.currentSaleService.addStatus(saleStatus);
+    this.currentSaleService.add(this.currentSaleService.currentSale);
+    this.modalCtrl.dismiss(status);
+    console.log(this.currentSaleService);
+  }
 }
