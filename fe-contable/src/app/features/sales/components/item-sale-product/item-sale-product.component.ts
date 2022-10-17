@@ -14,6 +14,10 @@ export class ItemSaleProductComponent implements OnInit {
   @Input() saleProduct: SaleProduct;
   @Input() valor1: Number;
   @Input() saleVariation: Variation;
+
+  @Input() showDelete: boolean = false;
+  @Input() showEdit: boolean = false;
+
   public valueVariationView: number;
   public typeVariation;
   public title = 'Recargo';
