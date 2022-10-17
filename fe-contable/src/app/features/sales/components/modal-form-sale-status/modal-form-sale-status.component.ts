@@ -41,6 +41,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
   ngOnInit() {
     this.total = this.currentSaleService.currentSale.total;
     this.calculate();
+    this.isPaymentValid = true;
   }
 
   clickButtonCash() {}
@@ -52,6 +53,8 @@ export class ModalFormSaleStatusComponent implements OnInit {
   clickCheckboxBill() {}
 
   calculate() {
+    this.isPaymentValid = true;
+    this.totalVuelto = 0;
     if (!this.inputCheckCash) {
       this.cashAmount = 0;
     }
@@ -77,9 +80,11 @@ export class ModalFormSaleStatusComponent implements OnInit {
       this.checkAmount -
       this.transferAmount;
     this.totalMostar = this.totalRemaining.toFixed(2);
-    if (this.totalRemaining < 0) {
+    if (this.totalRemaining <= 0) {
       this.totalVuelto = Math.abs(this.totalRemaining);
       this.totalVuelto.toFixed(2);
+      this.totalMostar = '0,00';
+      this.isPaymentValid = false;
     }
 
     if (this.inputCheckCard) {
@@ -117,6 +122,14 @@ export class ModalFormSaleStatusComponent implements OnInit {
       this.currentSaleService.addPayment(payment);
     }
 
+    console.log(this.totalRemaining);
+
+    if (this.totalRemaining <= 0) {
+      let saleStatus: Status = new Status();
+      saleStatus.isPayed = true;
+      this.currentSaleService.addStatus(saleStatus);
+    }
+
     this.currentSaleService.add(this.currentSaleService.currentSale);
 
     this.modalCtrl.dismiss(status);
@@ -128,6 +141,5 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.currentSaleService.addStatus(saleStatus);
     this.currentSaleService.add(this.currentSaleService.currentSale);
     this.modalCtrl.dismiss(status);
-    console.log(this.currentSaleService);
   }
 }
