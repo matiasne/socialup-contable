@@ -1,3 +1,12 @@
-<p>
-  list-box works!
-</p>
+<ng-template #boxTemplate let-item="item">
+  <app-item-box ></app-item-box>
+</ng-template>
+
+<app-list-items
+  #listItem
+  [items]="boxes"
+  [hideSearchBar]="true"
+  [itemTemplate]="boxTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshBoxes($event)"
+></app-list-items>

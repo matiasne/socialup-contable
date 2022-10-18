@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list-box</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Cajas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="">
+  <app-list-box
+    #list
 
+  ></app-list-box>
+  <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/create-box']"
+      ><ion-icon name="add-outline"></ion-icon
+    ></ion-fab-button>
+  </ion-fab>
 </ion-content>
