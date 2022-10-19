@@ -1,3 +1,17 @@
-<p>
-  item-box works!
-</p>
+<ion-item>
+  <ion-avatar
+    (click)="handleClick()"
+    style="margin-right: 10px; width: 100px; height: 100px"
+  >
+    <img *ngIf="box.image" src="{{ box.image }}" />
+    <div class="main-icon" *ngIf="!box.image">
+      <ion-icon name="cube-outline"></ion-icon>
+    </div>
+  </ion-avatar>
+  <ion-label (click)="handleClick()">
+    <h3>Nombre: {{ box.name }}</h3>
+  </ion-label>
+  <ion-button *ngIf="showEditButton" (click)="handleClickEdit()"
+    >Editar</ion-button
+  >
+</ion-item>

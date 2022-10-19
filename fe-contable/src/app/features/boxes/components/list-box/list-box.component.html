@@ -1,5 +1,7 @@
 <ng-template #boxTemplate let-item="item">
-  <app-item-box ></app-item-box>
+  <app-item-box
+  [box]="item"
+  ></app-item-box>
 </ng-template>
 
 <app-list-items

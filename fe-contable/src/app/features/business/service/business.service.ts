@@ -123,7 +123,7 @@ export class BusinessService extends BaseCRUDService {
       this.url +
         '/' +
         idBusiness +
-        '/boxes?pageCount=' +
+        '/box?pageCount=' +
         pageCount +
         '&perPage=' +
         perPage +
