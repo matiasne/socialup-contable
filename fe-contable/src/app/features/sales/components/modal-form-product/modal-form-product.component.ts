@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { Variation } from '../../models/variation';
 import { SaleProduct } from '../../models/sale-product';
 

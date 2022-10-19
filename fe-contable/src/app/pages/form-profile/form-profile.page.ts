@@ -11,12 +11,12 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Session } from 'src/app/auth/model/session';
 import { AlertController, ToastController } from '@ionic/angular';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
-import { GLOBAL } from 'src/app/services/global';
-import { HelperService } from 'src/app/services/helpers.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { GLOBAL } from 'src/app/shared/services/global';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ToastType } from 'src/app/models/toast.enum';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { AuthService } from 'src/app/auth/services/auth.service';

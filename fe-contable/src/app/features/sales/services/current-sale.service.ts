@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Client } from '../../clients/models/client';
 import { Sale } from '../models/sale';
 import { SaleProduct } from '../models/sale-product';
-import { BaseCRUDService } from '../../../services/base-crud.service';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
 import { Observable } from 'rxjs';
-import { GLOBAL } from 'src/app/services/global';
+import { GLOBAL } from 'src/app/shared/services/global';
 import { Variation, VariationType } from '../models/variation';
 import { element } from 'protractor';
 import { Status } from '../models/status';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { Business } from 'src/app/features/business/models/business';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
