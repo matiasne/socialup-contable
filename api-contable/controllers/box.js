@@ -37,12 +37,10 @@ async function getBoxs(req, res) {
 }
 
 async function createBox(req, res) {
-  const params = req.body;
 
   const boxRepo = new boxRepository();
-
   try {
-    const data = await boxRepo.create(params);
+    const data = await boxRepo.create(req.body);
 
     res.status(200).send({ data });
   } catch (err) {

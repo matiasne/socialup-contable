@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CreateBoxPageRoutingModule } from './create-box-routing.module';
 
 import { CreateBoxPage } from './create-box.page';
+import { BoxModule } from 'src/app/features/boxes/box.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateBoxPageRoutingModule
+    CreateBoxPageRoutingModule,
+    BoxModule,
   ],
-  declarations: [CreateBoxPage]
+  declarations: [CreateBoxPage],
 })
 export class CreateBoxPageModule {}
