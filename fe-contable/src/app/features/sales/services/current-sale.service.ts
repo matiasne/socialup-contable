@@ -116,7 +116,6 @@ export class CurrentSaleService extends BaseCRUDService {
 
   addStatus(status: Status) {
     this.currentSale.status = status;
-    console.log(this.currentSale.status);
   }
 
   addPayment(payment: Payment) {
