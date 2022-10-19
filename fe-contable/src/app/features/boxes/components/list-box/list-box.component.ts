@@ -17,7 +17,7 @@ import { ListItemsComponent } from 'src/app/shared/components/list-items/list-it
 import { Box } from '../../models/box';
 
 @Component({
-  selector: 'app-list-box',
+  selector: 'socialup-list-box',
   templateUrl: './list-box.component.html',
   styleUrls: ['./list-box.component.scss'],
 })

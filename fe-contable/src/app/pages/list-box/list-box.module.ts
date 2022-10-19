@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ListBoxPageRoutingModule } from './list-box-routing.module';
 
 import { ListBoxPage } from './list-box.page';
+import { BoxModule } from 'src/app/features/boxes/box.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListBoxPageRoutingModule
+    ListBoxPageRoutingModule,
+    BoxModule,
   ],
-  declarations: [ListBoxPage]
+  declarations: [ListBoxPage],
 })
 export class ListBoxPageModule {}
