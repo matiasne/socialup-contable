@@ -7,6 +7,7 @@ const BoxSchema = Schema(
     name: String,
     status: String,
     actualAumont: String,
+    image: String,
   },
   {
     timestamps: true,

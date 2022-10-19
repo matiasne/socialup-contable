@@ -64,8 +64,8 @@ async function updateBox(req, res) {
 }
 
 async function deleteBox(req, res) {
-  const boxId = req.params.id;
-
+  const boxId = req.params._id;
+  console.log(boxId);
   try {
     const boxRepo = new boxRepository();
 

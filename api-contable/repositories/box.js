@@ -6,15 +6,21 @@ class BoxRepository extends BaseRepository {
     super(Box);
   }
 
-  async getByBusinessId(idBusiness, offset, limit, orderBy, searchWord) {
+  async getByBusinessId(
+    idBusiness,
+    offset = 0,
+    limit = 0,
+    orderBy = "timestamp",
+    searchWord = ""
+  ) {
     let box = await this.model
-      .find({ idBusiness: id, name: new RegExp(searchWord, "i") })
+      .find({ idBusiness: idBusiness, name: new RegExp(searchWord, "i") })
       .skip(offset)
       .limit(limit)
       .exec();
 
     let total = await this.model
-      .find({ idBusiness: id, name: new RegExp(searchWord, "i") })
+      .find({ idBusiness: idBusiness, name: new RegExp(searchWord, "i") })
       .count();
 
     let totalPages = 1;
