@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GLOBAL } from '../../../services/global';
+import { GLOBAL } from '../../../shared/services/global';
 import { Business } from '../models/business';
-import { BaseCRUDService } from '../../../services/base-crud.service';
-import { HelperService } from '../../../services/helpers.service';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
+import { HelperService } from '../../../shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
 
@@ -77,7 +77,10 @@ export class BusinessService extends BaseCRUDService {
   getBusinessSales(
     pageCount = 1,
     perPage = 10,
-    searchWord = ''
+    idClient = '',
+    dateFrom = '',
+    dateTo = '',
+    paymentType = 'empty'
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
     return super.get(
@@ -88,8 +91,14 @@ export class BusinessService extends BaseCRUDService {
         pageCount +
         '&perPage=' +
         perPage +
-        '&searchWord=' +
-        searchWord
+        '&idClient=' +
+        idClient +
+        '&dateFrom=' +
+        dateFrom +
+        '&dateTo=' +
+        dateTo +
+        '&paymentType=' +
+        paymentType
     );
   }
 
@@ -104,6 +113,26 @@ export class BusinessService extends BaseCRUDService {
         '/' +
         idBusiness +
         '/clients?pageCount=' +
+        pageCount +
+        '&perPage=' +
+        perPage +
+        '&searchWord=' +
+        searchWord
+    );
+  }
+
+  getBusinessBox(
+    pageCount = 1,
+    perPage = 10,
+    searchWord = ''
+  ): Observable<any> {
+    let idBusiness = this.SelectedBusiness.value._id;
+
+    return super.get(
+      this.url +
+        '/' +
+        idBusiness +
+        '/box?pageCount=' +
         pageCount +
         '&perPage=' +
         perPage +

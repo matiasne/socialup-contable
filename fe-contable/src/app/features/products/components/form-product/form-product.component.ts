@@ -9,7 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -167,5 +167,12 @@ export class FormProductComponent implements OnInit, AfterViewInit {
       ],
     });
     (await alert).present();
+  }
+  clickService() {
+    this.productService._delete(this.product._id).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    });
   }
 }

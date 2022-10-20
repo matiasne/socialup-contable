@@ -5,7 +5,7 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { User } from 'src/app/models/user';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 
 @Component({
@@ -60,7 +60,6 @@ export class FormBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.businessId);
     if (this.businessId) {
       this.buttonLabel = 'Editar Empresa';
       this.isEditing = true;

@@ -4,7 +4,7 @@ import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController, NavParams } from '@ionic/angular';
 import { BusinessService } from 'src/app/features/business/service/business.service';
@@ -47,7 +47,6 @@ export class ModalFormClientComponent implements OnInit {
       image: new FormControl(''),
     });
   }
-
 
   ngOnInit() {
     if (this.client._id != '') {

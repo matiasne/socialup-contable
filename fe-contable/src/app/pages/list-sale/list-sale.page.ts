@@ -4,8 +4,8 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { ListSaleComponent } from 'src/app/features/sales/components/list-sale/list-sale.component';
-import { HelperService } from 'src/app/services/helpers.service';
-import { UserService } from 'src/app/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-list-sale',

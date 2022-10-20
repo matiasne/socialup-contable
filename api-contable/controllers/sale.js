@@ -3,7 +3,9 @@
 var saleRepository = require("../repositories/sale");
 
 async function saveSale(req, res) {
+  
   var params = req.body;
+  console.log(params)
   try {
     let saleRepo = new saleRepository();
     let sale = await saleRepo.create(params);
@@ -13,12 +15,15 @@ async function saveSale(req, res) {
   }
 }
 async function getSales(req, res) {
-  var idBusiness = req.params.idBusiness;
-  var pageCount = req.query.pageCount;
-  var perPage = req.query.perPage;
-  var searchWord = req.query.searchWord;
-  var orderBy = req.query.orderBy;
+  //  var idBusiness = req.params.idBusiness;
+  //  var pageCount = req.query.pageCount;
+  //  var perPage = req.query.perPage;
+  //  var searchWord = req.query.searchWord;
+  //  var orderBy = req.query.orderBy;
 
+  console.log(req.query)
+  
+  const { idBusiness, pageCount, orderBy, perPage, searchWord, dateFrom, dateTo } = req.query
   var offset = (pageCount - 1) * perPage;
 
   var limit = perPage;
@@ -31,10 +36,13 @@ async function getSales(req, res) {
       offset,
       limit,
       orderBy,
-      searchWord
+      searchWord,
+      dateFrom,
+      dateTo
     );
     res.status(200).send(data);
   } catch (error) {
+    console.log(error)
     res.status(400).send({ message: error });
   }
 }

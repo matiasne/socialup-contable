@@ -9,8 +9,8 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/models/user';
-import { HelperService } from 'src/app/services/helpers.service';
-import { UserService } from '../../services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-register',

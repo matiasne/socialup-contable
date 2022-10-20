@@ -11,7 +11,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
 import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/sale-product';

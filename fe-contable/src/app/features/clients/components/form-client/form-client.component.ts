@@ -3,10 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastType } from 'src/app/models/toast.enum';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { CountriesService } from 'src/app/services/countries.service';
+import { CountriesService } from 'src/app/shared/services/countries.service';
 
 @Component({
   selector: 'form-client',

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Session } from 'protractor';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/models/user';
-import { HelperService } from 'src/app/services/helpers.service';
-import { UserService } from 'src/app/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-form-forgotpassword',

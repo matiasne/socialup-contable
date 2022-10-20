@@ -6,6 +6,8 @@
       <p>Observación: {{ saleVariation.description }}</p>
     </div>
   </ion-label>
-  <ion-button (click)="handleClickDelete()">Delete</ion-button>
-  <ion-button (click)="handleClickEdit()">Edit</ion-button>
+  <ion-button *ngIf="showDelete" (click)="handleClickDelete()"
+    >Delete</ion-button
+  >
+  <ion-button *ngIf="showEdit" (click)="handleClickEdit()">Edit</ion-button>
 </ion-item>
