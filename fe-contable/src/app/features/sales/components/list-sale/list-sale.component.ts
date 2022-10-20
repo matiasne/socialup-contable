@@ -11,7 +11,7 @@ import { ModalController } from '@ionic/angular';
 import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Client } from 'src/app/features/clients/models/client';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
@@ -50,7 +50,6 @@ export class ListSaleComponent implements OnInit {
   public paymentTypeFilter: string;
 
   constructor(
-    private modalCtrl: ModalController,
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService,

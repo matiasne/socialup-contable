@@ -16,33 +16,33 @@ export class ModalDetailComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.sale);
-    this.renameSale();
+    //  this.renameSale();
   }
 
   closeModal() {
     this.modalCtrl.dismiss(onclick);
   }
-  renameSale() {
-    this.sale.payments.forEach((element) => {
-      if (element.type == paymentTypes.cash) {
-        element['tipo'] = 'Efectivo';
-      }
+  // renameSale() {
+  //   this.sale.payments.forEach((element) => {
+  //     if (element.type == paymentTypes.cash) {
+  //       element['tipo'] = 'Efectivo';
+  //     }
 
-      if (element.type == paymentTypes.card) {
-        element['tipo'] = 'Tarjeta';
-      }
-      if (element.type == paymentTypes.personalAccount) {
-        element['tipo'] = 'Cuenta Corriente';
-      }
-      if (element.type == paymentTypes.transfer) {
-        element['tipo'] = 'Transeferencia';
-      }
-      if (element.type == paymentTypes.check) {
-        element['tipo'] = 'Cheque';
-      }
-      if (element.type == paymentTypes.empty) {
-        element['tipo'] = 'empty';
-      }
-    });
-  }
+  //     if (element.type == paymentTypes.card) {
+  //       element['tipo'] = 'Tarjeta';
+  //     }
+  //     if (element.type == paymentTypes.personalAccount) {
+  //       element['tipo'] = 'Cuenta Corriente';
+  //     }
+  //     if (element.type == paymentTypes.transfer) {
+  //       element['tipo'] = 'Transeferencia';
+  //     }
+  //     if (element.type == paymentTypes.check) {
+  //       element['tipo'] = 'Cheque';
+  //     }
+  //     if (element.type == paymentTypes.empty) {
+  //       element['tipo'] = 'empty';
+  //     }
+  //   });
+  // }
 }

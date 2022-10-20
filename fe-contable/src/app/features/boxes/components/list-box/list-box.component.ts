@@ -11,8 +11,8 @@ import { SessionService } from 'src/app/auth/services/session.service';
 import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
-import { HelperService } from 'src/app/services/helpers.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Box } from '../../models/box';
 
