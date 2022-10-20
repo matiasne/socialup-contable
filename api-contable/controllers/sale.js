@@ -13,18 +13,21 @@ async function saveSale(req, res) {
   }
 }
 async function getSales(req, res) {
-  //  var idBusiness = req.params.idBusiness;
-  //  var pageCount = req.query.pageCount;
-  //  var perPage = req.query.perPage;
-  //  var searchWord = req.query.searchWord;
-  //  var orderBy = req.query.orderBy;
+  const idBusiness = req.params.idBusiness;
+  const {
+    pageCount,
+    orderBy,
+    perPage,
+    searchWord,
+    dateFrom,
+    dateTo,
+    saleStatus,
+    payment,
+  } = req.query;
 
-  console.log(req.query)
-  
-  const { idBusiness, pageCount, orderBy, perPage, searchWord, dateFrom, dateTo } = req.query
-  var offset = (pageCount - 1) * perPage;
+  const offset = (pageCount - 1) * perPage;
 
-  var limit = perPage;
+  const limit = perPage;
 
   let saleRepo = new saleRepository();
 
@@ -36,11 +39,13 @@ async function getSales(req, res) {
       orderBy,
       searchWord,
       dateFrom,
-      dateTo
+      dateTo,
+      saleStatus,
+      payment
     );
     res.status(200).send(data);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).send({ message: error });
   }
 }
