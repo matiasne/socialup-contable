@@ -60,7 +60,6 @@ export class FormBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.businessId);
     if (this.businessId) {
       this.buttonLabel = 'Editar Empresa';
       this.isEditing = true;

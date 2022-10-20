@@ -1,0 +1,14 @@
+<ng-template #boxTemplate let-item="item">
+  <app-item-box
+  [box]="item"
+  ></app-item-box>
+</ng-template>
+
+<app-list-items
+  #listItem
+  [items]="boxes"
+  [hideSearchBar]="true"
+  [itemTemplate]="boxTemplate"
+  [totalPages]="totalPages"
+  (handleSearch)="refreshBoxes($event)"
+></app-list-items>

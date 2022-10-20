@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Cajas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="">
+  <socialup-list-box
+    #list
+  ></socialup-list-box>
+  <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/create-box']"
+      ><ion-icon name="add-outline"></ion-icon
+    ></ion-fab-button>
+  </ion-fab>
+</ion-content>
