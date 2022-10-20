@@ -78,9 +78,10 @@ export class ListSaleComponent implements OnInit {
   click() {
     this.businessService
       .getBusinessSales(
-        this.perPage,
         this.pageCount,
         this.clientfilterselected,
+        this.perPage,
+        this.searchWord,
         this.dateFrom,
         this.dateTo,
         this.paymentTypeFilter
