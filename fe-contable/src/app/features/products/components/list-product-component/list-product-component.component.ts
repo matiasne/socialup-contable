@@ -12,9 +12,9 @@ import { Business } from 'src/app/features/business/models/business';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProductService } from '../../services/product.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 

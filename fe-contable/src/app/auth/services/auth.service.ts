@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SessionService } from './session.service';
-import { GLOBAL } from '../../services/global';
+import { GLOBAL } from '../../shared/services/global';
 import { User } from 'src/app/models/user';
 import { Session } from '../model/session';
 

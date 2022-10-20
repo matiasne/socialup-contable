@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController, ToastOptions } from '@ionic/angular';
-import { ToastType } from '../models/toast.enum';
+import { ToastType } from '../../models/toast.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {

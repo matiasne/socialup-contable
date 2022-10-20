@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GLOBAL } from './global';
-import { LoginPage } from '../pages/login/login.page';
-import { User } from '../models/user';
+import { LoginPage } from '../../pages/login/login.page';
+import { User } from '../../models/user';
 import { BaseCRUDService } from './base-crud.service';
-import { SessionService } from '../auth/services/session.service';
-import { Session } from '../auth/model/session';
+import { SessionService } from '../../auth/services/session.service';
+import { Session } from '../../auth/model/session';
 import { HelperService } from './helpers.service';
 
 @Injectable({

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GLOBAL } from './global';
-import { LoginPage } from '../pages/login/login.page';
-import { User } from '../models/user';
-import { SessionService } from '../auth/services/session.service';
+import { LoginPage } from '../../pages/login/login.page';
+import { User } from '../../models/user';
+import { SessionService } from '../../auth/services/session.service';
 @Injectable()
 export class BaseCRUDService {
   constructor(

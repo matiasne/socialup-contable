@@ -10,8 +10,8 @@ import { Client } from 'src/app/features/clients/models/client';
 import { Business } from 'src/app/features/business/models/business';
 import { User } from 'src/app/models/user';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { HelperService } from 'src/app/services/helpers.service';
-import { UserService } from 'src/app/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { SessionService } from 'src/app/auth/services/session.service';
 
