@@ -5,7 +5,7 @@ var UserController = require('../controllers/user');
 var BusinessController = require('../controllers/business');
 var md_auth = require('../middlewares/authenticated');
 var md_uploadFile = require('../middlewares/upload-file')
-const {createUserSchema, updateUserSchema, getUserLogin} = require('../validationSchema/userRegister');
+const {createUserSchema, updateUserSchema, getUserLogin} = require('../validationSchema/user.schema');
 const validationSchema = require('../middlewares/requestValidation');
 
 var api = express.Router();
