@@ -79,9 +79,8 @@ export class ListSaleComponent implements OnInit {
     this.businessService
       .getBusinessSales(
         this.pageCount,
-        this.clientfilterselected,
         this.perPage,
-        this.searchWord,
+        this.clientfilterselected,
         this.dateFrom,
         this.dateTo,
         this.paymentTypeFilter
