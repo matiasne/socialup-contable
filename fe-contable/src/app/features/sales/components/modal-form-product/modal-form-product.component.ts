@@ -6,7 +6,7 @@ import { ClientService } from 'src/app/features/clients/services/client.service'
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/shared/services/helpers.service';
 import { Variation } from '../../models/variation';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 
 @Component({
   selector: 'socialup-modal-form-product',

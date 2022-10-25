@@ -7,7 +7,7 @@ import { Product } from 'src/app/features/products/models/product';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { HelperService } from 'src/app/shared/services/helpers.service';
 import { Variation, VariationType } from '../../models/variation';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
 

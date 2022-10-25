@@ -19,7 +19,7 @@
     ></app-item-variation>
 
     <div *ngFor="let payment of sale.payments">
-      <strong>Tipo de pago: </strong>{{ payment["tipo"] }} <br />
+      <strong>Tipo de pago: </strong>{{ payment.type }} <br />
       <strong>Monto: </strong> {{ payment.amount | currency: "USD" }}
     </div>
     <p><strong>Total:</strong> {{ sale.total | currency: "USD" }}</p>
