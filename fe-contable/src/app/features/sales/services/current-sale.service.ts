@@ -3,7 +3,7 @@ import { HelperService } from 'src/app/shared/services/helpers.service';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Client } from '../../clients/models/client';
 import { Sale } from '../models/sale';
-import { SaleProduct } from '../models/sale-product';
+import { SaleProduct } from '../models/SaleProduct';
 import { BaseCRUDService } from '../../../shared/services/base-crud.service';
 import { Observable } from 'rxjs';
 import { GLOBAL } from 'src/app/shared/services/global';

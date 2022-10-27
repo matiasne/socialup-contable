@@ -13,7 +13,7 @@ import { ProductService } from 'src/app/features/products/services/product.servi
 import { HelperService } from 'src/app/shared/services/helpers.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 
 @Component({
   selector: 'socialup-list-sale-product',

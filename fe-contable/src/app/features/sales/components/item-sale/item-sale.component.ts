@@ -3,7 +3,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { element, EventEmitter } from 'protractor';
 import { async } from 'rxjs';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 

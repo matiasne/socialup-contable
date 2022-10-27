@@ -12,15 +12,16 @@
           class="ion-text-end"
         ></ion-input>
         <ion-popover trigger="date-from" show-backdrop="false">
-        <ng-template>
-        <ion-datetime [(ngModel)]="dateFrom"
-        (ionChange)="showdate()"
-        ></ion-datetime>
-        </ng-template>
+          <ng-template>
+            <ion-datetime
+              [(ngModel)]="dateFrom"
+              (ionChange)="showdate()"
+            ></ion-datetime>
+          </ng-template>
         </ion-popover>
-        </ion-item>
+      </ion-item>
     </ion-col>
-        <ion-col>
+    <ion-col>
       <ion-item button="true" id="date-to">
         <ion-label>Hasta</ion-label>
         <ion-input
@@ -28,34 +29,37 @@
           class="ion-text-end"
         ></ion-input>
         <ion-popover trigger="date-to" show-backdrop="false">
-        <ng-template>
-        <ion-datetime [(ngModel)]="dateTo"
-        (ionChange)="showdate()"
-        ></ion-datetime>
-        </ng-template>
+          <ng-template>
+            <ion-datetime
+              [(ngModel)]="dateTo"
+              (ionChange)="showdate()"
+            ></ion-datetime>
+          </ng-template>
         </ion-popover>
-        </ion-item>
+      </ion-item>
     </ion-col>
   </ion-row>
 </ion-grid>
 <ion-button (click)="openModalClient()">
   <ion-icon name="search-outline"></ion-icon>
 </ion-button>
-  <ion-item *ngIf="this.clientfilter">
-    {{this.clientfilter.name}}
-      </ion-item>
-<ion-button
-   (click)="click()">
-</ion-button>
+<ion-item *ngIf="this.clientfilter">
+  {{ this.clientfilter.name }}
+</ion-item>
+<ion-button (click)="click()"> </ion-button>
 
 <ion-list>
   <ion-item>
     <ion-select
-    [multiple]="true"
-    placeholder="Elija el tipo de Pago"
-    (ionChange)="handleChange($event)"
+      [multiple]="true"
+      placeholder="Elija el tipo de Pago"
+      (ionChange)="handleChange($event)"
     >
-      <ion-select-option *ngFor="let item of paymentTypes | keyvalue" value={{item.key}}>{{item.value['name']}}</ion-select-option>
+      <ion-select-option
+        *ngFor="let item of paymentTypes | keyvalue"
+        value="{{ item.key }}"
+        >{{ item.value["name"] }}</ion-select-option
+      >
     </ion-select>
   </ion-item>
 </ion-list>
@@ -66,6 +70,7 @@
   [hideSearchBar]="true"
   [itemTemplate]="saleTemplate"
   [totalPages]="totalPages"
-  (ngModel)="searchWord"
+  (ngModel)="(searchWord)"
+  (handleClickItem)="openModalSale($event)"
 >
 </app-list-items>

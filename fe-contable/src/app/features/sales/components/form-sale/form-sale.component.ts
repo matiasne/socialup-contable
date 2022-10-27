@@ -14,7 +14,7 @@ import { ProductService } from 'src/app/features/products/services/product.servi
 import { HelperService } from 'src/app/shared/services/helpers.service';
 import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
