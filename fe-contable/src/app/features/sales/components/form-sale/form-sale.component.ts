@@ -1,24 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { instanceAvailability } from '@awesome-cordova-plugins/core';
 import { ModalController, Platform } from '@ionic/angular';
-import { timeStamp } from 'console';
-import { element } from 'protractor';
-import { BusinessService } from 'src/app/features/business/service/business.service';
-import { ListClientComponent } from 'src/app/features/clients/components/list-client/list-client.component';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { ListProductComponentComponent } from 'src/app/features/products/components/list-product-component/list-product-component.component';
 import { Product } from 'src/app/features/products/models/product';
-import { ProductService } from 'src/app/features/products/services/product.service';
-import { HelperService } from 'src/app/shared/services/helpers.service';
 import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
 import { SaleProduct } from '../../models/SaleProduct';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
-
-import { ModalFormProductComponent } from '../modal-form-product/modal-form-product.component';
 import { ModalFormSaleStatusComponent } from '../modal-form-sale-status/modal-form-sale-status.component';
 import { ModalFormVariationComponent } from '../modal-form-variation/modal-form-variation.component';
 import { ModalSelectProductComponent } from '../modal-select-product/modal-select-product.component';
@@ -114,7 +104,7 @@ export class FormSaleComponent implements OnInit {
   }
 
   listSaleProductAdded() {
-    return this.currentSaleService.currentSale.saleProducts;
+    return this.currentSaleService.currentSale.item;
   }
 
   listSaleVariationAdded() {

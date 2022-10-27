@@ -14,16 +14,20 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 })
 export class ItemSaleComponent implements OnInit {
   @Input() sale: Sale;
-
+  public total = 0;
   constructor() {}
+
   ngOnInit() {}
+
   getTotalAmount() {
-    let total = 0;
-    this.sale.saleProducts.forEach((element) => {
-      total += Number(element.amount);
+    console.log('lalala');
+
+    console.log(this.sale.item);
+    this.sale.item.forEach((element) => {
+      this.total += Number(element.amount);
     });
 
-    return total;
+    return this.total;
   }
 
   ionViewWillEnter() {}

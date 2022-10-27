@@ -5,10 +5,8 @@ import { Client } from '../../clients/models/client';
 import { Sale } from '../models/sale';
 import { SaleProduct } from '../models/SaleProduct';
 import { BaseCRUDService } from '../../../shared/services/base-crud.service';
-import { Observable } from 'rxjs';
 import { GLOBAL } from 'src/app/shared/services/global';
 import { Variation, VariationType } from '../models/variation';
-import { element } from 'protractor';
 import { Status } from '../models/status';
 import { Payment } from '../models/payment';
 import { SessionService } from 'src/app/auth/services/session.service';
@@ -45,7 +43,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   addSaleProduct(saleProduct: SaleProduct) {
-    this.currentSale.saleProducts.push(saleProduct);
+    this.currentSale.item.push(saleProduct);
 
     this.refreshTotal();
   }
@@ -66,7 +64,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   deleteSaleProduct(saleProduct: SaleProduct) {
-    this.currentSale.saleProducts = this.currentSale.saleProducts.filter(
+    this.currentSale.item = this.currentSale.item.filter(
       (item) => item !== saleProduct
     );
     this.refreshTotal();
@@ -74,7 +72,7 @@ export class CurrentSaleService extends BaseCRUDService {
 
   async refreshTotal() {
     this.currentSale.total = 0;
-    for await (let product of this.currentSale.saleProducts) {
+    for await (let product of this.currentSale.item) {
       this.currentSale.total += product.subTotal;
     }
 
