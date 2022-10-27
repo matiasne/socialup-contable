@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { instanceAvailability } from '@awesome-cordova-plugins/core';
 import { ModalController, Platform } from '@ionic/angular';

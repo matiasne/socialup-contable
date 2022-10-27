@@ -22,7 +22,7 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 })
 export class FormProductComponent implements OnInit, AfterViewInit {
   @Input() productId: string = '';
-  private product: Product;
+  public product: Product;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public isEditing: boolean = false;

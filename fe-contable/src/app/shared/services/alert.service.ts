@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController, ToastOptions } from '@ionic/angular';
+import { Subject } from 'rxjs';
 import { ToastType } from '../../models/toast.enum';
 
 @Injectable({ providedIn: 'root' })
-export class ToastService {
+export class AlertService {
+  public item = new Subject<any>();
   constructor(private alertController: AlertController) {}
 
   async presentAlert() {
@@ -21,7 +23,7 @@ export class ToastService {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  async presentAlertConfirm() {
+  async presentAlertConfirm(data: any) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirm!',
@@ -39,6 +41,7 @@ export class ToastService {
           text: 'Okay',
           handler: () => {
             console.log('Confirm Okay');
+            this.item.next(data);
           },
         },
       ],
