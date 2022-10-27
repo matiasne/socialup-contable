@@ -9,14 +9,28 @@ import { AlertService } from '../../services/alert.service';
 export class ButtonAlertDeleteComponent implements OnInit {
   @Input() buttonLabel: string;
   @Input() item: any;
+  @Input() itemId: any;
   @Output() eventClick = new EventEmitter<any>();
   constructor(private alertService: AlertService) {}
 
-  ngOnInit() {
-    this.alertService.item.subscribe((item) => (this.item = item));
-  }
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {}
 
   onClick() {
     this.alertService.presentAlertConfirm(this.item);
+    this.alertService.currentItem.subscribe((item) => {
+      this.item = item;
+      console.log(this.item);
+      this.eventClick.emit(this.item);
+    });
+  }
+
+  clickDelete() {
+    this.alertService.currentItem.subscribe((item) => {
+      this.item = item;
+      console.log(this.item);
+      this.eventClick.emit(this.item);
+    });
   }
 }

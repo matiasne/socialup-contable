@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController, ToastOptions } from '@ionic/angular';
-import { Subject } from 'rxjs';
-import { ToastType } from '../../models/toast.enum';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
-  public item = new Subject<any>();
+  public currentItem = new Subject<any>();
   constructor(private alertController: AlertController) {}
 
+  getClientes$(): Observable<any> {
+    return this.currentItem.asObservable();
+  }
   async presentAlert() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -40,8 +42,8 @@ export class AlertService {
         {
           text: 'Okay',
           handler: () => {
-            console.log('Confirm Okay');
-            this.item.next(data);
+            console.log(data);
+            this.currentItem.next(data);
           },
         },
       ],
