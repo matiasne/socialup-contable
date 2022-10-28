@@ -22,7 +22,7 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 })
 export class FormProductComponent implements OnInit, AfterViewInit {
   @Input() productId: string = '';
-  private product: Product;
+  public product: Product;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public isEditing: boolean = false;
@@ -58,7 +58,6 @@ export class FormProductComponent implements OnInit, AfterViewInit {
       this.isEditing = true;
       this.productService.get(this.productId).subscribe({
         next: (product: any) => {
-          console.log(product);
           this.product = product;
 
           this.buttonLabel = 'Guardar';
@@ -169,10 +168,14 @@ export class FormProductComponent implements OnInit, AfterViewInit {
     (await alert).present();
   }
   clickService() {
-    this.productService._delete(this.product._id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-    });
+    console.log('lalal');
+    if (this.productId) {
+      console.log(this.productId);
+      this.productService._delete(this.productId).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+      });
+    }
   }
 }

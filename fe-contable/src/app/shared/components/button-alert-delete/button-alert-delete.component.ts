@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Console } from 'console';
 import { AlertService } from '../../services/alert.service';
 
 @Component({
@@ -10,21 +9,28 @@ import { AlertService } from '../../services/alert.service';
 export class ButtonAlertDeleteComponent implements OnInit {
   @Input() buttonLabel: string;
   @Input() item: any;
-  @Output() dataId = new EventEmitter<any>();
-
-  constructor(public alertService: AlertService) {}
+  @Input() itemId: any;
+  @Output() eventClick = new EventEmitter<any>();
+  constructor(private alertService: AlertService) {}
 
   ngOnInit() {}
 
-  clickToService() {
-    console.log();
+  ngAfterViewInit(): void {}
+
+  onClick() {
     this.alertService.presentAlertConfirm(this.item);
+    this.alertService.currentItem.subscribe((item) => {
+      this.item = item;
+      console.log(this.item);
+      this.eventClick.emit(this.item);
+    });
   }
+
   clickDelete() {
     this.alertService.currentItem.subscribe((item) => {
       this.item = item;
-    // });
-    console.log(this.item);
-    this.dataId.emit(this.item);
+      console.log(this.item);
+      this.eventClick.emit(this.item);
+    });
   }
 }

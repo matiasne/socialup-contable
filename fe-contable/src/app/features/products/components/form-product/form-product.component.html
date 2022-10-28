@@ -73,6 +73,12 @@
           Producto</ion-button
         >
       </form>
+      <app-button-alert-delete
+        [buttonLabel]="'Producto'"
+        [item]="this.product"
+        (eventClick)="clickService()"
+        [itemId]="this.productId"
+      ></app-button-alert-delete>
     </ion-card-content>
   </ion-card>
 </div>
