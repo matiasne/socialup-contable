@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { exit } from 'process';
-import { TouchSequence } from 'selenium-webdriver';
+import { Box } from 'src/app/features/boxes/models/box';
+import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
 import { Status } from '../../models/status';
@@ -31,17 +31,25 @@ export class ModalFormSaleStatusComponent implements OnInit {
   public personalAccountAmount = 0;
   public sale: Sale;
   public formSale: FormGroup;
+  public boxSelected: Box;
+  public boxes: Array<Box> = [];
 
   public isPaymentValid = false;
   constructor(
     public currentSaleService: CurrentSaleService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public businessService: BusinessService
   ) {}
 
   ngOnInit() {
     this.total = this.currentSaleService.currentSale.total;
     this.calculate();
     this.isPaymentValid = true;
+    this.businessService.getBusinessBox().subscribe({
+      next: (boxes: any) => {
+        this.boxes = boxes;
+      },
+    });
   }
 
   clickButtonCash() {}
@@ -150,5 +158,10 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.currentSaleService.addStatus(saleStatus);
     this.currentSaleService.add(this.currentSaleService.currentSale);
     this.modalCtrl.dismiss(status);
+  }
+
+  handleChangeBox(event) {
+    console.log(event.target.value);
+    this.currentSaleService.addBox(event.target.value);
   }
 }

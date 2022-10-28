@@ -1,9 +1,20 @@
+<ion-list>
+  <ion-item>
+    <ion-select
+    placeholder="Elija la Caja"
+    (ionChange)="handleChangeBox($event)"
+  >
+    <ion-select-option
+      *ngFor="let item of boxes | keyvalue"
+      value="{{ item.key }}"
+      >{{ item.value["name"] }}</ion-select-option
+    >
+  </ion-select>
+  </ion-item>
+</ion-list>
+
 <ion-button (click)="cancelSale()">Cancelar Venta</ion-button>
 <ion-button>Presupuesto</ion-button>
-
-<!--
-<input #inputCheck type="checkbox" (click)="check_en(value)">
-<input type="text" id="text1" [disabled]="!inputCheck.checked"> -->
 
 <ion-label>Efectivo</ion-label>
 <ion-checkbox
