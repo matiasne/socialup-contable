@@ -8,12 +8,11 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Client } from 'src/app/features/clients/models/client';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
-import { Payment, paymentTypes } from '../../models/payment';
+import { paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { SelectClientComponent } from '../select-client/select-client.component';
@@ -35,7 +34,6 @@ export class ListSaleComponent implements OnInit {
   public sales: Array<Sale> = [];
   public salesClient: Array<any> = [];
   public totalPages: number;
-  private business: Business;
   public id: any;
   public obsBusiness: any;
   public searchWord: any;
@@ -107,7 +105,6 @@ export class ListSaleComponent implements OnInit {
     this.paymentTypeFilter = event.target.value;
   }
   async openModalSale(data) {
-    console.log(data);
     const modal = await this.modalCtrl.create({
       id: '1',
       component: ModalDetailComponent,

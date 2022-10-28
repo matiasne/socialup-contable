@@ -19,13 +19,6 @@ class saleRepository extends BaseRepository {
   ) {
     let query = "";
 
-    console.log(`offset: ${offset}`);
-    console.log(`limit: ${limit}`);
-    console.log(`dateFrom: ${dateFrom}`);
-    console.log(`dateTo: ${dateTo}`);
-    console.log(`searchWord: ${searchWord}`);
-    console.log(`saleStatus: ${saleStatus}`);
-    console.log(`payment: ${payment}`);
 
     //Defino el id de la empresa a consultar
     query = `'business._id': '${idBusiness}',`;
@@ -53,7 +46,6 @@ class saleRepository extends BaseRepository {
     //if (payment != "") {
     //  query += `"payment.type": new RegExp(${searchWord}, "i"),`;
     //}
-    console.log(query);
     /*
       Opciones de la consulta:
       Business Id
@@ -86,7 +78,6 @@ class saleRepository extends BaseRepository {
       .limit(limit) // .sort({ createdAt: -1 })
       .exec();
 
-    console.log(sales);
     let total = await this.model
       .find({ "business._id": idBusiness, name: new RegExp(searchWord, "i") })
       .count();

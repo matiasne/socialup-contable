@@ -9,7 +9,7 @@ var SaleSchema = Schema(
     idClient: { type: mongoose.Schema.Types.ObjectId, ref: "Clients" },
     business: {},
     client: {},
-    items: [],
+    item: [],
     total: Number,
     payments: [],
     variations: [],

@@ -13,6 +13,9 @@ class BaseRepository {
 
   async create(entity) {
     try {
+      console.log('LALALA')
+      console.log(entity)
+      console.log('LALALA')
       return await this.model.create(entity);
     } catch (err) {
       console.log(err);

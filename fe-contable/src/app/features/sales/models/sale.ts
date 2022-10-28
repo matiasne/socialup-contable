@@ -7,7 +7,7 @@ import { Payment } from './payment';
 
 export class Sale {
   public client: Client;
-  public saleProducts: Array<SaleProduct> = [];
+  public item: Array<SaleProduct> = [];
   public variations: Array<Variation> = [];
   public total: number = 0;
   public createdAt: string;

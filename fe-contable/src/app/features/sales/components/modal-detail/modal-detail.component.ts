@@ -2,7 +2,6 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/SaleProduct';
 
 @Component({
   selector: 'app-modal-detail',
@@ -15,7 +14,6 @@ export class ModalDetailComponent implements OnInit {
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {
-    console.log(this.sale);
     this.renameSale();
   }
 
