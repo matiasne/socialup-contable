@@ -1,11 +1,5 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
-import { element, EventEmitter } from 'protractor';
-import { async } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/SaleProduct';
-import { CurrentSaleService } from '../../services/current-sale.service';
-import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
 @Component({
   selector: 'socialup-item-sale',
@@ -17,16 +11,14 @@ export class ItemSaleComponent implements OnInit {
   public total = 0;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getTotalAmount();
+  }
 
   getTotalAmount() {
-    console.log('lalala');
-
-    console.log(this.sale.item);
     this.sale.item.forEach((element) => {
       this.total += Number(element.amount);
     });
-
     return this.total;
   }
 

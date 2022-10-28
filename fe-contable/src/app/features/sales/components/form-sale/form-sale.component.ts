@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, Platform } from '@ionic/angular';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { Product } from 'src/app/features/products/models/product';
 import { InputAutocompleteComponent } from 'src/app/shared/components/input-autocomplete/input-autocomplete.component';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/SaleProduct';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 import { ModalFormSaleStatusComponent } from '../modal-form-sale-status/modal-form-sale-status.component';
@@ -53,7 +52,6 @@ export class FormSaleComponent implements OnInit {
     });
     modalSelectClient.present();
 
-    // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modalSelectClient.onWillDismiss();
 
     this.currentSaleService.addClient(data);
@@ -64,7 +62,7 @@ export class FormSaleComponent implements OnInit {
       let data = await this.clientService
         .get(this.formSaleClient.value.saleClient)
         .toPromise();
-      this.currentSaleService.addClient(data.client);
+      this.currentSaleService.addClient(data);
     }
   }
 
@@ -74,7 +72,6 @@ export class FormSaleComponent implements OnInit {
     });
     modal.present();
 
-    // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
 
     if (data) this.openModalSaleProduct(data);
@@ -89,7 +86,6 @@ export class FormSaleComponent implements OnInit {
     });
     modal2.present();
 
-    // const { data, role } = await modal.onWillDismiss();
     let { data, role } = await modal2.onWillDismiss();
 
     if (data) this.currentSaleService.addSaleProduct(data);
