@@ -51,7 +51,7 @@ export class ListBoxComponent implements OnInit {
       .getBusinessBox(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
-          console.log(response.data);
+          console.log(response);
           this.boxes = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();

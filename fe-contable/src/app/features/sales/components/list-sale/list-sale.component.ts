@@ -116,8 +116,5 @@ export class ListSaleComponent implements OnInit {
     modal.present();
 
     const { role } = await modal.onWillDismiss();
-
-    if (data) {
-    }
   }
 }

@@ -12,6 +12,7 @@ import { Payment } from '../models/payment';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { BusinessService } from '../../business/service/business.service';
 import { Business } from '../../business/models/business';
+import { Box } from '../../boxes/models/box';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService {
@@ -52,6 +53,11 @@ export class CurrentSaleService extends BaseCRUDService {
     this.currentSale.variations.push(variation);
     this.refreshTotal();
   }
+
+  addBox(box: Box) {
+    this.currentSale.box = box;
+  }
+
   deleteSaleVariation(variation: Variation) {
     this.currentSale.variations = this.currentSale.variations.filter(
       (item) => item !== variation
