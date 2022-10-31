@@ -48,6 +48,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
         this.boxes = boxes.data;
+        console.log(boxes);
       },
     });
   }

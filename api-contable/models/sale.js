@@ -15,7 +15,7 @@ var SaleSchema = Schema(
     variations: [],
     billingDate: Date,
     status: [],
-    box: String
+    box: {}
   },
   {
     timestamps: true,

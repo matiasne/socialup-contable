@@ -56,6 +56,7 @@ export class CurrentSaleService extends BaseCRUDService {
 
   addBox(box: Box) {
     this.currentSale.box = box;
+    console.log(this.currentSale);
   }
 
   deleteSaleVariation(variation: Variation) {
@@ -96,6 +97,8 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   add(sale: Sale) {
+    console.log(sale);
+
     this.post(this.url, sale).subscribe({
       next: (data) => {
         this.reset();

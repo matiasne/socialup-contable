@@ -6,7 +6,7 @@
   >
     <ion-select-option
       *ngFor="let item of boxes"
-      value="{{ item._id }}"
+      [value]= "item"
       >{{ item ["name"] }}</ion-select-option
     >
   </ion-select>
