@@ -5,9 +5,9 @@
     (ionChange)="handleChangeBox($event)"
   >
     <ion-select-option
-      *ngFor="let item of boxes | keyvalue"
-      value="{{ item.key }}"
-      >{{ item.value["name"] }}</ion-select-option
+      *ngFor="let item of boxes"
+      value="{{ item._id }}"
+      >{{ item ["name"] }}</ion-select-option
     >
   </ion-select>
   </ion-item>

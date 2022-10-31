@@ -128,19 +128,17 @@ export class BusinessService extends BaseCRUDService {
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
 
-    return super
-      .get(
-        this.url +
-          '/' +
-          idBusiness +
-          '/box?pageCount=' +
-          pageCount +
-          '&perPage=' +
-          perPage +
-          '&searchWord=' +
-          searchWord
-      )
-      .pipe(map((data) => data.data));
+    return super.get(
+      this.url +
+        '/' +
+        idBusiness +
+        '/box?pageCount=' +
+        pageCount +
+        '&perPage=' +
+        perPage +
+        '&searchWord=' +
+        searchWord
+    );
   }
 
   register(business: Business): Observable<any> {

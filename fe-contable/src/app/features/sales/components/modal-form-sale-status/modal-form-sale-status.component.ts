@@ -47,7 +47,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.isPaymentValid = true;
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
-        this.boxes = boxes;
+        this.boxes = boxes.data;
       },
     });
   }
@@ -139,8 +139,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
       this.currentSaleService.addPayment(payment);
     }
 
-    console.log(this.totalRemaining);
-
     if (this.totalRemaining <= 0) {
       let saleStatus: Status = new Status();
       saleStatus.isPayed = true;
@@ -161,7 +159,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
   }
 
   handleChangeBox(event) {
-    console.log(event.target.value);
     this.currentSaleService.addBox(event.target.value);
   }
 }
