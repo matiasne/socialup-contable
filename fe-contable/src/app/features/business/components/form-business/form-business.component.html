@@ -69,4 +69,10 @@
     (click)="onSubmit()"
     >{{ buttonLabel }}</ion-button
   >
+  <app-button-alert-delete
+    [buttonLabel]="'Empresa'"
+    [item]="this.business"
+    (eventClick)="clickService()"
+    [itemId]="this.businessId"
+  ></app-button-alert-delete>
 </form>

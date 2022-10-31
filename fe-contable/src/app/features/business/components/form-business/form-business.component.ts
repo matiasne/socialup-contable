@@ -15,7 +15,7 @@ import { SessionService } from 'src/app/auth/services/session.service';
 })
 export class FormBusinessComponent implements OnInit {
   @Input() businessId: string;
-  private business: Business;
+  public business: Business;
   @Input() user: User;
   @Output() handleSubmit = new EventEmitter<any>();
 
@@ -148,5 +148,15 @@ export class FormBusinessComponent implements OnInit {
     this.formBusiness.patchValue({
       image: event,
     });
+  }
+  clickService() {
+    if (this.businessId) {
+      console.log(this.businessId);
+      this.businessService._delete(this.businessId).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+      });
+    }
   }
 }

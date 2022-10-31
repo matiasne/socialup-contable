@@ -1,5 +1,9 @@
 <ng-template #saleVariationTemplate let-item="item">
-  <app-item-variation [saleVariation]="item"></app-item-variation>
+  <app-item-variation
+    [saleVariation]="item"
+    [showDelete]="true"
+    [showEdit]="false"
+  ></app-item-variation>
 </ng-template>
 
 <app-list-items
@@ -8,7 +12,5 @@
   [hideSearchBar]="true"
   [itemTemplate]="saleVariationTemplate"
   (handleSearch)="refreshSaleVariation($event)"
-  [showDelete]="true"
-  [showEdit]="true"
 >
 </app-list-items>
