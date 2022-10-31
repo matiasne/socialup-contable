@@ -98,11 +98,12 @@
           (click)="onSubmit()"
           >{{ buttonLabel }}</ion-button
         >
-
-        <ion-button color="danger" (click)="doAlert()" *ngIf="isEditing"
-          ><ion-icon name="trash-outline"></ion-icon> Eliminar
-          Cliente</ion-button
-        >
+        <app-button-alert-delete
+          [buttonLabel]="'Cliente'"
+          [item]="this.client"
+          (eventClick)="clickService()"
+          [itemId]="this.clientId"
+        ></app-button-alert-delete>
       </form>
     </ion-card-content>
   </ion-card>

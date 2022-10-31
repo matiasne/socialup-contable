@@ -15,7 +15,7 @@ import { CountriesService } from 'src/app/shared/services/countries.service';
 })
 export class FormClientComponent implements OnInit {
   @Input() clientId: string;
-  private client: Client;
+  public client: Client;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public formClient: FormGroup;
@@ -47,13 +47,13 @@ export class FormClientComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.clientId != '') {
+    if (this.clientId == '') {
       this.isEditing = true;
       this.clientService.get(this.clientId).subscribe({
         next: (data: Client) => {
           this.client = data;
           console.log(this.client);
-          this.formClient.patchValue({
+          this.formClient.setValue({
             name: this.client.name,
             address: this.client.address,
             surname: this.client.surname,
@@ -74,13 +74,13 @@ export class FormClientComponent implements OnInit {
   }
 
   changeImage(event: any) {
-    this.formClient.patchValue({
+    this.formClient.setValue({
       image: event,
     });
   }
   onSubmit() {
     this.isSubmited = true;
-    console.log(this.formClient);
+    console.log(this.formClient.controls);
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;
@@ -132,41 +132,14 @@ export class FormClientComponent implements OnInit {
       },
     });
   }
-  async doAlert() {
-    const alert = await this.alertController.create({
-      header: 'Eliminar Cliente',
-      message:
-        'Desea eliminar su cuenta permanentemente.No podra volvr a recuperarla.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          id: 'cancel-button',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+  clickService() {
+    console.log('lalal');
+    if (this.clientId) {
+      this.clientService._delete(this.clientId).subscribe({
+        next: (data) => {
+          console.log(data);
         },
-        {
-          text: 'Ok',
-          id: 'confirm-button',
-          handler: () => {
-            this.clientService._delete(this.client._id).subscribe({
-              next: (data) => {
-                this.toastService.show(
-                  ToastType.warning,
-                  'Se ha eliminado el cliente correctamente'
-                );
-                this.router.navigate(['/clients']);
-              },
-              error: (err) => {
-                console.log(err);
-              },
-            });
-          },
-        },
-      ],
-    });
-    (await alert).present();
+      });
+    }
   }
 }
