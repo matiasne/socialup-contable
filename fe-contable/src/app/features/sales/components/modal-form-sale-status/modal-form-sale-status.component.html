@@ -1,15 +1,13 @@
 <ion-list>
   <ion-item>
     <ion-select
-    placeholder="Elija la Caja"
-    (ionChange)="handleChangeBox($event)"
-  >
-    <ion-select-option
-      *ngFor="let item of boxes"
-      [value]= "item"
-      >{{ item ["name"] }}</ion-select-option
+      placeholder="Elija la Caja"
+      (ionChange)="handleChangeBox($event)"
     >
-  </ion-select>
+      <ion-select-option *ngFor="let item of boxes" [value]="item">{{
+        item["name"]
+      }}</ion-select-option>
+    </ion-select>
   </ion-item>
 </ion-list>
 
@@ -20,7 +18,8 @@
 <ion-checkbox
   [(ngModel)]="inputCheckCash"
   value="cash"
-  (ionChange)="calculate()"></ion-checkbox>
+  (ionChange)="calculate()"
+></ion-checkbox>
 <div *ngIf="inputCheckCash">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -30,7 +29,11 @@
   ></ion-input>
 </div>
 <ion-label>Tarjeta</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckCard" value="card" (ionChange)="calculate()"></ion-checkbox>
+<ion-checkbox
+  [(ngModel)]="inputCheckCard"
+  value="card"
+  (ionChange)="calculate()"
+></ion-checkbox>
 <div *ngIf="inputCheckCard">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -40,7 +43,11 @@
   ></ion-input>
 </div>
 <ion-label>Cheque</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckCheck" value="check" (ionChange)="calculate()"></ion-checkbox>
+<ion-checkbox
+  [(ngModel)]="inputCheckCheck"
+  value="check"
+  (ionChange)="calculate()"
+></ion-checkbox>
 <div *ngIf="inputCheckCheck">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -64,7 +71,11 @@
   ></ion-input>
 </div>
 <ion-label>Transferencia</ion-label>
-<ion-checkbox [(ngModel)]="inputCheckTransfer" value="transfer" (ionChange)="calculate()"></ion-checkbox>
+<ion-checkbox
+  [(ngModel)]="inputCheckTransfer"
+  value="transfer"
+  (ionChange)="calculate()"
+></ion-checkbox>
 <div *ngIf="inputCheckTransfer">
   <ion-label>Valor</ion-label>
   <ion-input
@@ -73,8 +84,12 @@
     [(ngModel)]="transferAmount"
   ></ion-input>
 </div>
-
+<app-button-emit-invoice [item]="'Emitir'" *ngIf="!isPaymentValid"
+  >Pagar</app-button-emit-invoice
+>
 <ion-button (click)="submit()" [disabled]="isPaymentValid">Pagar</ion-button>
-<p>Su Compra {{ this.total }} - A pagar:{{ this.totalMostar }} - Su Vuelto:{{ this.totalVuelto }}</p>
-
-
+<p>
+  Su Compra {{ this.total }} - A pagar:{{ this.totalMostar }} - Su Vuelto:{{
+    this.totalVuelto
+  }}
+</p>
