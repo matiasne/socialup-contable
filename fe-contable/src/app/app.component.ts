@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     { title: 'Clientes', url: '/clients', icon: 'people' },
     { title: 'Ventas', url: '/list-sale', icon: 'receipt' },
     { title: 'Cajas', url: '/list-box', icon: 'wallet' },
+    { title: 'Home Business', url: '/dashboard-business', icon: 'home' },
   ];
 
   public showMenu = false;
