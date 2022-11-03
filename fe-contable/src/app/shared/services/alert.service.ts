@@ -43,6 +43,7 @@ export class AlertService {
           text: 'Okay',
           handler: () => {
             console.log(data);
+            data = 'desde el servicio';
             this.currentItem.next(data);
           },
         },

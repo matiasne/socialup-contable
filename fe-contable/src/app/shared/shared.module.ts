@@ -9,6 +9,7 @@ import { ListItemsComponent } from './components/list-items/list-items.component
 import { InputAddressComponent } from './components/input-address/input-address.component';
 import { InputAutocompleteComponent } from './components/input-autocomplete/input-autocomplete.component';
 import { ButtonAlertDeleteComponent } from './components/button-alert-delete/button-alert-delete.component';
+import { ButtonEmitInvoiceComponent } from './components/button-emit-invoice/button-emit-invoice.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ButtonAlertDeleteComponent } from './components/button-alert-delete/but
     InputAutocompleteComponent,
     InputAddressComponent,
     ButtonAlertDeleteComponent,
+    ButtonEmitInvoiceComponent,
   ],
   exports: [
     ListItemsComponent,
@@ -32,6 +34,7 @@ import { ButtonAlertDeleteComponent } from './components/button-alert-delete/but
     InputAutocompleteComponent,
     InputAddressComponent,
     ButtonAlertDeleteComponent,
+    ButtonEmitInvoiceComponent,
   ],
 })
 export class SharedModule {}

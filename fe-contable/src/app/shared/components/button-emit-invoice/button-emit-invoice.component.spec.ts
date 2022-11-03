@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ButtonAlertDeleteComponent } from './button-alert-delete.component';
+import { ButtonEmitInvoiceComponent } from './button-emit-invoice.component';
 
-describe('ButtonAlertDeleteComponent', () => {
-  let component: ButtonAlertDeleteComponent;
-  let fixture: ComponentFixture<ButtonAlertDeleteComponent>;
+describe('ButtonEmitInvoiceComponent', () => {
+  let component: ButtonEmitInvoiceComponent;
+  let fixture: ComponentFixture<ButtonEmitInvoiceComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonAlertDeleteComponent ],
+      declarations: [ ButtonEmitInvoiceComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ButtonAlertDeleteComponent);
+    fixture = TestBed.createComponent(ButtonEmitInvoiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
