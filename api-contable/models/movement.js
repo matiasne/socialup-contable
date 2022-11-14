@@ -6,7 +6,7 @@ const MovementSchema = Schema(
     idSale: { type: mongoose.Schema.Types.ObjectId, ref: "Sales" },
     amount: String,
     type: String,
-    boxAmount: String
+    boxAmount: Number
   },
   {
     timestamps: true,
