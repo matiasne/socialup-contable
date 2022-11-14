@@ -1,5 +1,6 @@
 "use strict";
 
+const MovementRepository = require("../repositories/movement");
 var saleRepository = require("../repositories/sale");
 
 async function saveSale(req, res) {
@@ -9,6 +10,16 @@ async function saveSale(req, res) {
     let saleRepo = new saleRepository();
     let sale = await saleRepo.create(params);
     res.status(200).send({ sale: sale });
+    let movementRepo = new MovementRepository(); 
+    params.payments.forEach(async element => {
+        let m = {
+          idSale : sale._id,
+          amount : sale.total,
+          type: element.type,
+          boxAmount: element.amount
+      }
+    await movementRepo.create(m);
+     });
   } catch (error) {
     res.status(400).send({ message: error });
   }
