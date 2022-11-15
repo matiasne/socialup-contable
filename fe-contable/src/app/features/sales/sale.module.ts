@@ -21,6 +21,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalSelectProductComponent } from './components/modal-select-product/modal-select-product.component';
 import { SelectClientComponent } from './components/select-client/select-client.component';
 import { ModalDetailComponent } from './components/modal-detail/modal-detail.component';
+import { BoxModule } from '../boxes/box.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ModalDetailComponent } from './components/modal-detail/modal-detail.com
     ClientsModule,
     SharedModule,
     ProductsModule,
+    BoxModule,
   ],
   exports: [
     FormSaleComponent,
