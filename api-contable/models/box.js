@@ -6,7 +6,7 @@ const BoxSchema = Schema(
     idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
     name: String,
     status: String,
-    actualAumont: String,
+    actualAmount: Number,
     image: String,
   },
   {
