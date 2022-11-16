@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { IonSelect, ModalController } from '@ionic/angular';
 import { Box } from 'src/app/features/boxes/models/box';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Payment, paymentTypes } from '../../models/payment';
@@ -14,6 +14,7 @@ import { CurrentSaleService } from '../../services/current-sale.service';
   styleUrls: ['./modal-form-sale-status.component.scss'],
 })
 export class ModalFormSaleStatusComponent implements OnInit {
+
   public status: Status;
   public total: number = 0;
   public totalRemaining: number = 0;
@@ -33,6 +34,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
   public formSale: FormGroup;
   public boxSelected: Box;
   public boxes: Array<Box> = [];
+  public boxchoised = false;
 
   public isPaymentValid = false;
   constructor(
@@ -42,9 +44,13 @@ export class ModalFormSaleStatusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.total = this.currentSaleService.currentSale.total;
     this.calculate();
-    this.isPaymentValid = true;
+
+      this.isPaymentValid = true;
+
+
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
         this.boxes = boxes.data;
@@ -62,7 +68,10 @@ export class ModalFormSaleStatusComponent implements OnInit {
   clickCheckboxBill() {}
 
   calculate() {
-    this.isPaymentValid = true;
+
+      this.isPaymentValid = true;
+
+
     this.totalVuelto = 0;
     if (!this.inputCheckCash) {
       this.cashAmount = 0;
@@ -93,7 +102,9 @@ export class ModalFormSaleStatusComponent implements OnInit {
       this.totalVuelto = Math.abs(this.totalRemaining);
       this.totalVuelto.toFixed(2);
       this.totalMostar = '0,00';
+      if (this.boxchoised){
       this.isPaymentValid = false;
+      }
     }
 
     if (this.inputCheckCard) {
@@ -104,6 +115,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
     }
   }
   submit() {
+
     if (this.inputCheckCash) {
       let payment: Payment = new Payment(
         paymentTypes.cash.value,
@@ -142,7 +154,10 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
     if (this.totalRemaining <= 0) {
       let saleStatus: Status = new Status();
+
       saleStatus.isPayed = true;
+
+
       this.currentSaleService.addStatus(saleStatus);
     }
 
@@ -161,5 +176,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
   handleChangeBox(event) {
     this.currentSaleService.addBox(event.target.value);
+    this.boxchoised = true
+    this.calculate();
   }
 }

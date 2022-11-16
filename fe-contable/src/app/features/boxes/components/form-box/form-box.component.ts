@@ -24,6 +24,7 @@ export class FormBoxComponent implements OnInit {
     this.formBox = new FormGroup({
       name: new FormControl('', Validators.compose([Validators.required])),
       image: new FormControl(''),
+      actualAmount: new FormControl('',Validators.compose([Validators.required])),
     });
   }
 
@@ -33,6 +34,7 @@ export class FormBoxComponent implements OnInit {
     this.formBox.setValue({
       name: this.box.name,
       image: this.box.image ? this.box.image : '',
+      actualAmount: this.box.actualAmount
     });
   }
 
@@ -45,6 +47,7 @@ export class FormBoxComponent implements OnInit {
   createProduct() {
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
+    this.box.actualAmount = this.formBox.controls.actualAmount.value
     this.boxService.add(this.box).subscribe({
       next: (data) => {
         this.handleSubmit.emit(data);
