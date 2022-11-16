@@ -55,8 +55,10 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   addBox(box: Box) {
+    console.log (box)
     this.currentSale.box = box;
-    console.log(this.currentSale);
+    this.businessService.setSelectedBox(box)
+    console.log(this.currentSale)
   }
 
   deleteSaleVariation(variation: Variation) {

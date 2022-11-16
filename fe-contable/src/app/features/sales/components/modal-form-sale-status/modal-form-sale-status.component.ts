@@ -160,8 +160,8 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
       this.currentSaleService.addStatus(saleStatus);
     }
-
-    this.currentSaleService.add(this.currentSaleService.currentSale);
+    console.log (this.currentSaleService.currentSale)
+        this.currentSaleService.add(this.currentSaleService.currentSale);
 
     this.modalCtrl.dismiss(status);
   }
@@ -178,5 +178,6 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.currentSaleService.addBox(event.target.value);
     this.boxchoised = true
     this.calculate();
+
   }
 }

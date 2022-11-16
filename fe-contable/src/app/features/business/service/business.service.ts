@@ -7,6 +7,7 @@ import { BaseCRUDService } from '../../../shared/services/base-crud.service';
 import { HelperService } from '../../../shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
+import { Box } from '../../boxes/models/box';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,12 @@ export class BusinessService extends BaseCRUDService {
   ) {
     super(_http, sessionService);
     this.url = GLOBAL.url + '/business';
+  }
+
+  public setSelectedBox(box:Box){
+    console.log(box)
+    this.sessionService.updateBox(box)
+
   }
 
   public setSelectedBusiness(business: Business) {

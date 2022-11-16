@@ -7,6 +7,7 @@ var saleRepository = require("../repositories/sale");
 async function saveSale(req, res) {
   
   var params = req.body;
+  console.log(params)
   try {
     let saleRepo = new saleRepository();
     let sale = await saleRepo.create(params);
@@ -23,7 +24,6 @@ async function saveSale(req, res) {
     }
   await movementRepo.create(m);
   box.actualAmount = Number(box.actualAmount) + Number(element.amount)
-  console.log (box.actualAmount)
     }
 
     await boxRepository.update(box._id,box)

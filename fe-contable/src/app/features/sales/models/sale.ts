@@ -15,5 +15,5 @@ export class Sale {
   public status: Status;
   public payments: Array<Payment> = [];
   public box: Box;
-  constructor(public business: Business) {}
+  constructor(public business: Business, ) {}
 }
