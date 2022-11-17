@@ -2,8 +2,8 @@
   <ion-item>
     <ion-select
       placeholder="Elija la Caja"
-      (ionChange)="handleChangeBox($event)"
-    >
+      [(ngModel)] = "selectedBox"
+      (ionChange)="handleChangeBox($event)"    >
       <ion-select-option *ngFor="let item of boxes" [value]="item">{{
         item["name"]
       }}</ion-select-option>
