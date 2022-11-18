@@ -10,10 +10,13 @@ async function saveSale(req, res) {
   try {
     let saleRepo = new saleRepository();
     let sale = await saleRepo.create(params);
+    console.log(params)
+    console.log(sale)
     res.status(200).send({ sale: sale });
+    
     let movementRepo = new MovementRepository(); 
     let boxRepository = new BoxRepository();
-    let box = await boxRepository.get(sale.box._id)
+    let box = await boxRepository.get(params.boxId)
     for await (let element of sale.payments){
       let m = {
         idSale : sale._id,

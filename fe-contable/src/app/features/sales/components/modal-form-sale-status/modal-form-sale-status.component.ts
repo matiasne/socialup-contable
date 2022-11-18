@@ -36,7 +36,7 @@ export class ModalFormSaleStatusComponent implements OnInit {
   public boxSelected: Box;
   public boxes: Array<Box> = [];
   public boxchoised = false;
-  public selectedBox:Box;
+  public selectedBoxId:string;
 
   public isPaymentValid = false;
   constructor(
@@ -57,11 +57,11 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
         this.boxes = boxes.data;
-        console.log(boxes);
+        this.selectedBoxId = this.boxService.getSelectedBox()
       },
     });
 
-    this.selectedBox = this.boxService.getSelectedBox()
+
   }
 
   clickButtonCash() {}
@@ -180,8 +180,8 @@ export class ModalFormSaleStatusComponent implements OnInit {
   }
 
   handleChangeBox(event) {
-    this.currentSaleService.addBox(this.selectedBox);
-    this.boxService.setSelectedBox(this.selectedBox);
+    this.currentSaleService.addBox(this.selectedBoxId);
+    this.boxService.setSelectedBox(this.selectedBoxId);
     this.boxchoised = true
     this.calculate();
   }

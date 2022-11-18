@@ -4,7 +4,6 @@ import { Variation } from './variation';
 import { SaleProduct } from './SaleProduct';
 import { Status } from './status';
 import { Payment } from './payment';
-import { Box } from '../../boxes/models/box';
 
 export class Sale {
   public client: Client;
@@ -14,6 +13,6 @@ export class Sale {
   public createdAt: string;
   public status: Status;
   public payments: Array<Payment> = [];
-  public box: Box;
+  public boxId: string;
   constructor(public business: Business) {}
 }

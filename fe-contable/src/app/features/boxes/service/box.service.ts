@@ -42,11 +42,11 @@ export class BoxService extends BaseCRUDService {
     return this.delete(this.url + '/' + id);
   }
 
-  setSelectedBox(box:Box){
-    localStorage.setItem("selectedBox",JSON.stringify(box))
+  setSelectedBox(boxId:string){
+    localStorage.setItem("selectedBoxId",boxId)
   }
 
-  getSelectedBox():Box{
-    return JSON.parse(localStorage.getItem("selectedBox"));
+  getSelectedBox():string{
+    return localStorage.getItem("selectedBoxId");
   }
 }

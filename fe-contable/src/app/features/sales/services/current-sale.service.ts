@@ -54,8 +54,8 @@ export class CurrentSaleService extends BaseCRUDService {
     this.refreshTotal();
   }
 
-  addBox(box: Box) {
-    this.currentSale.box = box;
+  addBox(box: string) {
+    this.currentSale.boxId = box;
     console.log(this.currentSale);
   }
 
