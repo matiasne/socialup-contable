@@ -39,7 +39,7 @@ export class ProductService extends BaseCRUDService {
   }
 
   _delete(id): Observable<any> {
-    console.log(id);
+
     return this.delete(this.url + '/' + id);
   }
 }

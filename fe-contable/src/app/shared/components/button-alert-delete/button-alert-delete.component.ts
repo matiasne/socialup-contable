@@ -21,7 +21,7 @@ export class ButtonAlertDeleteComponent implements OnInit {
     this.alertService.presentAlertConfirm(this.item);
     this.alertService.currentItem.subscribe((item) => {
       this.item = item;
-      console.log(this.item);
+
       this.eventClick.emit(this.item);
     });
   }
@@ -29,7 +29,7 @@ export class ButtonAlertDeleteComponent implements OnInit {
   clickDelete() {
     this.alertService.currentItem.subscribe((item) => {
       this.item = item;
-      console.log(this.item);
+
       this.eventClick.emit(this.item);
     });
   }

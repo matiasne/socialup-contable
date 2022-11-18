@@ -22,7 +22,7 @@ export class AlertService {
     await alert.present();
 
     const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+
   }
 
   async presentAlertConfirm(data: any) {
@@ -36,13 +36,13 @@ export class AlertService {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           },
         },
         {
           text: 'Okay',
           handler: () => {
-            console.log(data);
+
             this.currentItem.next(data);
           },
         },

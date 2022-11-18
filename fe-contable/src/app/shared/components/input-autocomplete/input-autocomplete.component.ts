@@ -89,7 +89,7 @@ export class InputAutocompleteComponent
 
   add(item: string) {
     this.value = item[this.keyValue];
-    console.log(item[this.keyValue]);
+
     this.inputTextValue = item[this.keyLabel];
     this.selectedItem = item;
     this.selectedItem = '';
@@ -97,7 +97,7 @@ export class InputAutocompleteComponent
   }
 
   handleInputClick() {
-    console.log(this.isListOpen);
+
     if (this.isListOpen) {
       if (!this.selectedItem) {
         this.inputTextValue = '';
@@ -110,7 +110,7 @@ export class InputAutocompleteComponent
   }
 
   handleKeypreesed(data: any) {
-    console.log(data);
+
     this.inputTextValue += data.key;
   }
 }

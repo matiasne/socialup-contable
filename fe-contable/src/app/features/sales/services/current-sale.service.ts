@@ -36,7 +36,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   addClient(client: Client) {
-    console.log(client);
+
     this.currentSale.client = client;
   }
   removeClient() {
@@ -56,7 +56,7 @@ export class CurrentSaleService extends BaseCRUDService {
 
   addBox(box: string) {
     this.currentSale.boxId = box;
-    console.log(this.currentSale);
+
   }
 
   deleteSaleVariation(variation: Variation) {
@@ -97,7 +97,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   add(sale: Sale) {
-    console.log(sale);
+
 
     this.post(this.url, sale).subscribe({
       next: (data) => {

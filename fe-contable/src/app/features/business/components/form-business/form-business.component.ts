@@ -29,8 +29,6 @@ export class FormBusinessComponent implements OnInit {
     public sessionService: SessionService,
     public businessService: BusinessService,
     public toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router
   ) {
     this.business = new Business('', '', '', '', '', '', '', '');
 
@@ -151,10 +149,8 @@ export class FormBusinessComponent implements OnInit {
   }
   clickService() {
     if (this.businessId) {
-      console.log(this.businessId);
       this.businessService._delete(this.businessId).subscribe({
         next: (data) => {
-          console.log(data);
         },
       });
     }

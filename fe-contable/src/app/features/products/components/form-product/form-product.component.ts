@@ -53,7 +53,7 @@ export class FormProductComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterContentInit() {
-    console.log(this.productId);
+
     if (this.productId != '') {
       this.isEditing = true;
       this.productService.get(this.productId).subscribe({
@@ -133,12 +133,12 @@ export class FormProductComponent implements OnInit, AfterViewInit {
   }
 
   clickService() {
-    console.log('lalal');
+
     if (this.productId) {
-      console.log(this.productId);
+
       this.productService._delete(this.productId).subscribe({
         next: (data) => {
-          console.log(data);
+
         },
       });
     }

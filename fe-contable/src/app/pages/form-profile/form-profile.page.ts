@@ -62,7 +62,7 @@ export class FormProfilePage implements OnInit {
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           },
         },
         {
@@ -72,7 +72,7 @@ export class FormProfilePage implements OnInit {
             this.userService._delete(this.session.user._id).subscribe({
               next: (data) => {
                 this.authService.logout();
-                console.log('Confirm Okay');
+
               },
               error: (err) => {
                 console.log(err);

@@ -31,7 +31,6 @@ export class FormClientComponent implements OnInit {
     public activateRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController,
-    private countriesService: CountriesService
   ) {
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -52,7 +51,6 @@ export class FormClientComponent implements OnInit {
       this.clientService.get(this.clientId).subscribe({
         next: (data: Client) => {
           this.client = data;
-          console.log(this.client);
           this.formClient.setValue({
             name: this.client.name,
             address: this.client.address,
@@ -65,7 +63,6 @@ export class FormClientComponent implements OnInit {
             city: this.client.city ? this.client.city : '',
             image: this.client.image ? this.client.image : '',
           });
-          console.log(this.client.address);
         },
       });
     } else {
@@ -80,7 +77,6 @@ export class FormClientComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmited = true;
-    console.log(this.formClient.controls);
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;
@@ -133,11 +129,9 @@ export class FormClientComponent implements OnInit {
     });
   }
   clickService() {
-    console.log('lalal');
     if (this.clientId) {
       this.clientService._delete(this.clientId).subscribe({
         next: (data) => {
-          console.log(data);
         },
       });
     }

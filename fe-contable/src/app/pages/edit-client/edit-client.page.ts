@@ -28,7 +28,7 @@ export class EditClientPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.activateRoute.snapshot.params.clientId);
+
     if (this.activateRoute.snapshot.params.clientId) {
       this.clientId = this.activateRoute.snapshot.params.clientId;
     }
