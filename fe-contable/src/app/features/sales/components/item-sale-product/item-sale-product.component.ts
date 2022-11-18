@@ -48,7 +48,7 @@ export class ItemSaleProductComponent implements OnInit {
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           },
         },
         {

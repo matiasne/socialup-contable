@@ -54,7 +54,7 @@ export class ListProductComponentComponent implements OnInit {
       .getBusinessProduct(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
-          console.log(response.paging);
+
           this.products = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();

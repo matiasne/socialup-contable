@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IonSelect, ModalController } from '@ionic/angular';
 import { Box } from 'src/app/features/boxes/models/box';
+import { BoxService } from 'src/app/features/boxes/service/box.service';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { Payment, paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
@@ -35,12 +36,14 @@ export class ModalFormSaleStatusComponent implements OnInit {
   public boxSelected: Box;
   public boxes: Array<Box> = [];
   public boxchoised = false;
+  public selectedBoxId:string;
 
   public isPaymentValid = false;
   constructor(
     public currentSaleService: CurrentSaleService,
     private modalCtrl: ModalController,
-    public businessService: BusinessService
+    public businessService: BusinessService,
+    public boxService:BoxService
   ) {}
 
   ngOnInit() {
@@ -54,9 +57,11 @@ export class ModalFormSaleStatusComponent implements OnInit {
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
         this.boxes = boxes.data;
-        console.log(boxes);
+        this.selectedBoxId = this.boxService.getSelectedBox()
       },
     });
+
+
   }
 
   clickButtonCash() {}
@@ -175,7 +180,8 @@ export class ModalFormSaleStatusComponent implements OnInit {
   }
 
   handleChangeBox(event) {
-    this.currentSaleService.addBox(event.target.value);
+    this.currentSaleService.addBox(this.selectedBoxId);
+    this.boxService.setSelectedBox(this.selectedBoxId);
     this.boxchoised = true
     this.calculate();
   }

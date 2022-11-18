@@ -30,7 +30,7 @@ export class SelectClientComponent implements OnInit {
   ngOnInit() {}
 
   handleClick(client) {
-    console.log(client);
+
     this.modalCtrl.dismiss(client, '', 'select');
   }
 
@@ -43,7 +43,7 @@ export class SelectClientComponent implements OnInit {
 
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
-    console.log(data);
+
     if (data) {
       this.handleClick(data);
     }

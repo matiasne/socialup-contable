@@ -35,7 +35,7 @@ export class ListProductPage implements OnInit {
   ngOnInit() {}
 
   handleClickProduct(product) {
-    console.log('!!!!');
+
   }
 
   handleClickEditProduct(product) {

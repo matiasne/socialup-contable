@@ -41,4 +41,12 @@ export class BoxService extends BaseCRUDService {
   _delete(id): Observable<any> {
     return this.delete(this.url + '/' + id);
   }
+
+  setSelectedBox(boxId:string){
+    localStorage.setItem("selectedBoxId",boxId)
+  }
+
+  getSelectedBox():string{
+    return localStorage.getItem("selectedBoxId");
+  }
 }

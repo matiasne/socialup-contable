@@ -14,10 +14,10 @@ export class ButtonEmitInvoiceComponent implements OnInit {
 
   onClick() {
     this.alertService.presentAlertConfirm(this.item);
-    console.log(this.item);
+
     this.alertService.getClientes$().subscribe((item) => {
       this.item = item;
-      console.log(this.item);
+
     });
   }
 }

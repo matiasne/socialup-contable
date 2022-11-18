@@ -27,7 +27,7 @@ export class EditProductPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.activateRoute.snapshot.params.productId);
+
     if (this.activateRoute.snapshot.params.productId) {
       this.productId = this.activateRoute.snapshot.params.productId;
     }
