@@ -35,7 +35,7 @@ async function getSales(req, res) {
     pageCount,
     orderBy,
     perPage,
-    searchWord,
+    idClient,
     dateFrom,
     dateTo,
     saleStatus,
@@ -54,12 +54,13 @@ async function getSales(req, res) {
       offset,
       limit,
       orderBy,
-      searchWord,
+      idClient,
       dateFrom,
       dateTo,
       saleStatus,
       payment
     );
+    console.log(data);
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
