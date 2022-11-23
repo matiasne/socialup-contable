@@ -42,6 +42,8 @@ async function getSales(req, res) {
     payment,
   } = req.query;
 
+  console.log(req.query);
+
   const offset = (pageCount - 1) * perPage;
 
   const limit = perPage;
@@ -60,7 +62,6 @@ async function getSales(req, res) {
       saleStatus,
       payment
     );
-    console.log(data);
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
