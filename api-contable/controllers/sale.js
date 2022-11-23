@@ -39,10 +39,8 @@ async function getSales(req, res) {
     dateFrom,
     dateTo,
     saleStatus,
-    payment,
+    paymentType,
   } = req.query;
-
-  console.log(req.query);
 
   const offset = (pageCount - 1) * perPage;
 
@@ -60,7 +58,7 @@ async function getSales(req, res) {
       dateFrom,
       dateTo,
       saleStatus,
-      payment
+      paymentType
     );
     res.status(200).send(data);
   } catch (error) {

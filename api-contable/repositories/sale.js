@@ -18,7 +18,6 @@ class saleRepository extends BaseRepository {
     payment
   ) {
     let query = {};
-
     //Defino el id de la empresa a consultar
     query["business._id"]  = idBusiness;
 
@@ -38,47 +37,24 @@ class saleRepository extends BaseRepository {
       query["client._id"]  = idClient;
     }
 
-    //if (saleStatus != "") {
-    //  query += `"client.name": new RegExp(${searchWord}, "i"),`;
-    //}
+    // if (saleStatus != "") {
+    //   query["status"]  = saleStatus;
+    // }
 
-    //if (payment != "") {
-    //  query += `"payment.type": new RegExp(${searchWord}, "i"),`;
-    //}
-    /*
-      Opciones de la consulta:
-      Business Id
-      "business._id": id,
-      
-      Fecha Desde
-        createdAt: { $gte: new Date(${dateFrom})}
-      Fecha hasta
-        createdAt: { $lte: new Date(${dateTo})
-      Ambas Fechas
-        createdAt: { $gte: new Date(${dateFrom}), $lte: new Date(${dateTo}) }
-    
-      serchWord
-        "client.name": new RegExp(searchWord, "i")
-      
-      saleStatus
-        status: ${saleStatus}
-
-      Payment
-        payment: ${payment}
-
-      orferBy
-        Definir el ordenamiento
-    
-    */
-        console.log(query);
+    if (payment != "") {
+      const items = payment.split(',');
+      console.log(items)
+      for (let i=0; i < items.length; i++ ) {
+        
+        query["payments."+i+".type"]  = items[i];
+      }
+    }
+       console.log(query)
     let sales = await this.model
       .find(query)
-      // .skip(offset)
-      // .limit(limit) // .sort({ createdAt: -1 })
-      
-
+       .skip(offset)
+       .limit(limit) // .sort({ createdAt: -1 })
     
-
     let total = await this.model.find({ "business._id": idBusiness }).count();
 
     let totalPages = 1;
