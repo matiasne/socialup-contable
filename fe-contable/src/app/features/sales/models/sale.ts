@@ -6,6 +6,8 @@ import { Status } from './status';
 import { Payment } from './payment';
 
 export class Sale {
+  public idClient: String;
+  public idBusiness: String;
   public client: Client;
   public item: Array<SaleProduct> = [];
   public variations: Array<Variation> = [];

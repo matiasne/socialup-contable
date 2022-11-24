@@ -8,6 +8,7 @@ const BoxSchema = Schema(
     status: String,
     actualAmount: Number,
     image: String,
+    dailyAmount: Number,
   },
   {
     timestamps: true,
