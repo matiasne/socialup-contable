@@ -41,13 +41,10 @@ class saleRepository extends BaseRepository {
     //   query["status"]  = saleStatus;
     // }
 
-    if (payment != "") {
+    if (payment != "empty") {
       const items = payment.split(',');
-      console.log(items)
-      for (let i=0; i < items.length; i++ ) {
-        
-        query["payments."+i+".type"]  = items[i];
-      }
+      
+      query["payments.type"]  = { $in: items };
     }
        console.log(query)
     let sales = await this.model
