@@ -14,7 +14,7 @@ var SaleSchema = Schema(
     payments: [],
     variations: [],
     billingDate: Date,
-    status: [],
+    status: {},
     boxId: String
   },
   {

@@ -11,76 +11,48 @@ class saleRepository extends BaseRepository {
     offset,
     limit,
     orderBy,
-    searchWord,
+    idClient,
     dateFrom,
     dateTo,
     saleStatus,
     payment
   ) {
-    let query = "";
-
-
+    let query = {};
     //Defino el id de la empresa a consultar
-    query = `'business._id': '${idBusiness}',`;
+    query["business._id"]  = idBusiness;
 
     if (dateFrom != "" && dateTo != "") {
-      query += ` "$and": [ {'createdAt': { $gte: new Date('${dateFrom}'), $lte: new Date('${dateTo}') }}],`;
+      query["createdAt"]  = { $gte: new Date(dateFrom), $lte: new Date(dateTo) };
     }
 
     if (dateFrom != "" && dateTo == "") {
-      query += `"createdAt": { $gte: new Date('${dateFrom}') },`;
+      query["createdAt"]  = { $gte: new Date(dateFrom) };
     }
 
     if (dateFrom == "" && dateTo != "") {
-      query += `"createdAt": { $lte: new Date('${dateTO}') },`;
+      query["createdAt"]  = { $lte: new Date(dateTo) };
     }
 
-    if (searchWord != "") {
-      query += `"client.name": {$regex: /${searchWord}/i},`;
+    if (idClient != "") {
+      query["client._id"]  = idClient;
     }
 
-    //if (saleStatus != "") {
-    //  query += `"client.name": new RegExp(${searchWord}, "i"),`;
-    //}
+    // if (saleStatus != "") {
+    //   query["status"]  = saleStatus;
+    // }
 
-    //if (payment != "") {
-    //  query += `"payment.type": new RegExp(${searchWord}, "i"),`;
-    //}
-    /*
-      Opciones de la consulta:
-      Business Id
-      "business._id": id,
+    if (payment != "empty") {
+      const items = payment.split(',');
       
-      Fecha Desde
-        createdAt: { $gte: new Date(${dateFrom})}
-      Fecha hasta
-        createdAt: { $lte: new Date(${dateTo})
-      Ambas Fechas
-        createdAt: { $gte: new Date(${dateFrom}), $lte: new Date(${dateTo}) }
-    
-      serchWord
-        "client.name": new RegExp(searchWord, "i")
-      
-      saleStatus
-        status: ${saleStatus}
-
-      Payment
-        payment: ${payment}
-
-      orferBy
-        Definir el ordenamiento
-    
-    */
-
+      query["payments.type"]  = { $in: items };
+    }
+       console.log(query)
     let sales = await this.model
-      .find({ query })
-      .skip(offset)
-      .limit(limit) // .sort({ createdAt: -1 })
-      .exec();
-
-    let total = await this.model
-      .find({ "business._id": idBusiness, name: new RegExp(searchWord, "i") })
-      .count();
+      .find(query)
+       .skip(offset)
+       .limit(limit) // .sort({ createdAt: -1 })
+    
+    let total = await this.model.find({ "business._id": idBusiness }).count();
 
     let totalPages = 1;
     if (limit) totalPages = Math.ceil(total / parseInt(limit));

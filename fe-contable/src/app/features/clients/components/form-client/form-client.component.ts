@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { CountriesService } from 'src/app/shared/services/countries.service';
+import { SessionService } from 'src/app/auth/services/session.service';
 
 @Component({
   selector: 'form-client',
@@ -31,7 +32,9 @@ export class FormClientComponent implements OnInit {
     public activateRoute: ActivatedRoute,
     public router: Router,
     public alertController: AlertController,
+    public sessionService: SessionService
   ) {
+    this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -77,12 +80,14 @@ export class FormClientComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmited = true;
+    console.log(this.client);
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;
       this.client.address = this.formClient.controls.address.value;
       this.client.email = this.formClient.controls.email.value;
       this.client.phone = this.formClient.controls.phone.value;
+      this.client.idBusiness = this.sessionService.getBusiness()._id;
       this.client.postCode = this.formClient.controls.postCode.value;
       this.client.documentType = this.formClient.controls.documentType.value;
       this.client.documentNumber =
@@ -131,8 +136,7 @@ export class FormClientComponent implements OnInit {
   clickService() {
     if (this.clientId) {
       this.clientService._delete(this.clientId).subscribe({
-        next: (data) => {
-        },
+        next: (data) => {},
       });
     }
   }
