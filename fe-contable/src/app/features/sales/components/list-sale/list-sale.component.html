@@ -62,8 +62,20 @@
       >
     </ion-select>
   </ion-item>
-</ion-list>
 
+</ion-list>
+<ion-list>
+  <ion-item>
+    <ion-select
+    [multiple]="true"
+      placeholder="Elija la Caja"
+      (ionChange)="handleChangeBox($event)">
+      <ion-select-option *ngFor="let item of boxes" [value]="item._id">{{
+        item["name"]
+      }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
 <app-list-items
   #listItem
   [items]="sales"

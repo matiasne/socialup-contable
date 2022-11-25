@@ -1,5 +1,6 @@
 "use strict";
 
+const box = require("../models/box");
 const BoxRepository = require("../repositories/box");
 const MovementRepository = require("../repositories/movement");
 var saleRepository = require("../repositories/sale");
@@ -40,8 +41,9 @@ async function getSales(req, res) {
     dateTo,
     saleStatus,
     paymentType,
+    box 
   } = req.query;
-
+console.log(req.query)
   const offset = (pageCount - 1) * perPage;
 
   const limit = perPage;
@@ -58,8 +60,10 @@ async function getSales(req, res) {
       dateFrom,
       dateTo,
       saleStatus,
-      paymentType
+      paymentType,
+      box
     );
+    
     res.status(200).send(data);
   } catch (error) {
     console.log(error);

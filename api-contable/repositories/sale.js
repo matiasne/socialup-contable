@@ -15,7 +15,8 @@ class saleRepository extends BaseRepository {
     dateFrom,
     dateTo,
     saleStatus,
-    payment
+    payment,
+    box
   ) {
     let query = {};
     //Defino el id de la empresa a consultar
@@ -36,7 +37,10 @@ class saleRepository extends BaseRepository {
     if (idClient != "") {
       query["client._id"]  = idClient;
     }
-
+    if(box !=""){
+      const i = box.split(',');
+      query["boxId"] = {$in:i}
+    }
     // if (saleStatus != "") {
     //   query["status"]  = saleStatus;
     // }
@@ -46,6 +50,7 @@ class saleRepository extends BaseRepository {
       
       query["payments.type"]  = { $in: items };
     }
+console.log(query)
 
     let sales = await this.model
       .find(query)

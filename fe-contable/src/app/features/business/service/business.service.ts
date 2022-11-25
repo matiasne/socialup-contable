@@ -80,10 +80,11 @@ export class BusinessService extends BaseCRUDService {
     idClient = '',
     dateFrom = '',
     dateTo = '',
-    paymentType = 'empty'
+    paymentType = 'empty',
+    box =''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
-
+console.log(box)
     return super.get(
       this.url +
         '/' +
@@ -99,7 +100,9 @@ export class BusinessService extends BaseCRUDService {
         '&dateTo=' +
         dateTo +
         '&paymentType=' +
-        paymentType
+        paymentType+
+        '&box='+
+        box
     );
   }
 

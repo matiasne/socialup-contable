@@ -17,6 +17,7 @@ import { Sale } from '../../models/sale';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { SelectClientComponent } from '../select-client/select-client.component';
 import { ModalDetailComponent } from '../modal-detail/modal-detail.component';
+import { Box } from 'src/app/features/boxes/models/box';
 
 @Component({
   selector: 'socialup-list-sale-component',
@@ -46,7 +47,8 @@ export class ListSaleComponent implements OnInit {
   public clientfilterselected: string;
   public paymentTypes = paymentTypes;
   public paymentTypeFilter: string;
-
+  public boxFilter:string
+  public boxes: Array<Box> = [];
   constructor(
     public businessService: BusinessService,
     public router: Router,
@@ -58,6 +60,11 @@ export class ListSaleComponent implements OnInit {
   ngOnInit() {
     this.refreshSales();
     delete this.paymentTypes.empty;
+    this.businessService.getBusinessBox().subscribe({
+      next: (boxes: any) => {
+        this.boxes = boxes.data;
+      },
+    });
   }
 
   refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
@@ -82,7 +89,8 @@ export class ListSaleComponent implements OnInit {
         this.clientfilterselected,
         this.dateFrom,
         this.dateTo,
-        this.paymentTypeFilter
+        this.paymentTypeFilter,
+        this.boxFilter
       )
       .subscribe({
         next: (response) => {
@@ -117,5 +125,8 @@ export class ListSaleComponent implements OnInit {
     modal.present();
 
     const { role } = await modal.onWillDismiss();
+  }
+  handleChangeBox(event) {
+this.boxFilter = event.target.value
   }
 }
