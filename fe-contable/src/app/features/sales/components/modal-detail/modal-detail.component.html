@@ -25,5 +25,5 @@
     <p><strong>Total:</strong> {{ sale.total | currency: "USD" }}</p>
   </div>
 
-  <div>Caja: {{ sale.boxId }}</div>
+  <div>Caja: {{ sale.boxId["name"]}}</div>
 </ion-content>

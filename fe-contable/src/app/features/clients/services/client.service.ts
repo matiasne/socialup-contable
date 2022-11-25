@@ -33,8 +33,6 @@ export class ClientService extends BaseCRUDService {
   add(client: Client): Observable<any> {
     delete client._id;
     let formData = this.helperService.toFormData(client);
-    console.log(formData);
-    console.log(this.url);
     return this.post(this.url, formData);
   }
 

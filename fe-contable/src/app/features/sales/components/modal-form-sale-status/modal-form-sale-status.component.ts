@@ -165,6 +165,9 @@ export class ModalFormSaleStatusComponent implements OnInit {
 
       this.currentSaleService.addStatus(saleStatus);
     }
+    this.currentSaleService.currentSale.idClient = this.currentSaleService.currentSale.client._id || '';
+
+    this.currentSaleService.currentSale.idBusiness = this.currentSaleService.currentSale.business._id;
 
     this.currentSaleService.add(this.currentSaleService.currentSale);
 

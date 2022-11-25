@@ -46,11 +46,12 @@ class saleRepository extends BaseRepository {
       
       query["payments.type"]  = { $in: items };
     }
-       console.log(query)
+
     let sales = await this.model
       .find(query)
        .skip(offset)
-       .limit(limit) // .sort({ createdAt: -1 })
+       .limit(limit)
+       .populate('boxId') // .sort({ createdAt: -1 })
     
     let total = await this.model.find({ "business._id": idBusiness }).count();
 

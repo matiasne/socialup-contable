@@ -80,7 +80,6 @@ export class FormClientComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmited = true;
-    console.log(this.client);
     if (this.formClient.valid) {
       this.client.name = this.formClient.controls.name.value;
       this.client.image = this.formClient.controls.image.value;

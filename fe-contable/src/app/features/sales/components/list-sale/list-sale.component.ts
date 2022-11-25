@@ -75,7 +75,6 @@ export class ListSaleComponent implements OnInit {
   showdate() {}
 
   click() {
-    console.log('hola');
     this.businessService
       .getBusinessSales(
         this.pageCount,
@@ -87,7 +86,6 @@ export class ListSaleComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          console.log(response.data);
           this.sales = response.data;
           this.listItems.buttonController();
         },
