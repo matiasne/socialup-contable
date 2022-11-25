@@ -5,7 +5,6 @@ export class HelperService {
   constructor() {}
 
   toFormData<T>(formValue: T) {
-    console.log(formValue);
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
