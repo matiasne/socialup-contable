@@ -13,7 +13,7 @@ class BaseRepository {
 
   async create(entity) {
     try {
-      console.log(entity)
+
       return await this.model.create(entity);
     } catch (err) {
       console.log(err);

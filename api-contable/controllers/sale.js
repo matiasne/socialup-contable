@@ -60,7 +60,6 @@ async function getSales(req, res) {
       saleStatus,
       paymentType
     );
-   console.log(data);
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
