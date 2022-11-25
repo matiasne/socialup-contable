@@ -69,6 +69,7 @@
     <ion-select
     [multiple]="true"
       placeholder="Elija la Caja"
+
       (ionChange)="handleChangeBox($event)">
       <ion-select-option *ngFor="let item of boxes" [value]="item._id">{{
         item["name"]

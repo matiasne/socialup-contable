@@ -49,6 +49,7 @@ export class ListSaleComponent implements OnInit {
   public paymentTypeFilter: string;
   public boxFilter:string
   public boxes: Array<Box> = [];
+  public filter:Object
   constructor(
     public businessService: BusinessService,
     public router: Router,
@@ -65,6 +66,8 @@ export class ListSaleComponent implements OnInit {
         this.boxes = boxes.data;
       },
     });
+
+
   }
 
   refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
@@ -82,6 +85,14 @@ export class ListSaleComponent implements OnInit {
   showdate() {}
 
   click() {
+    this.filter = {
+      dateFrom:this.dateFrom,
+      dateTo:this.dateTo,
+      clientfilterselected:this.clientfilterselected,
+      paymentTypeFilter:this.paymentTypeFilter,
+      boxFilter:this.boxFilter
+    }
+    this.currentSaleService.setSelectedFilter(this.filter)
     this.businessService
       .getBusinessSales(
         this.pageCount,

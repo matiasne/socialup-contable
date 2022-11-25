@@ -33,6 +33,8 @@ export class CurrentSaleService extends BaseCRUDService {
       this.currentSale = new Sale(business);
       this.currentBussines = business;
     });
+
+
   }
 
   addClient(client: Client) {
@@ -129,5 +131,15 @@ export class CurrentSaleService extends BaseCRUDService {
 
   reset() {
     this.currentSale = new Sale(this.currentBussines);
+  }
+  setSelectedFilter(filter:any){
+    console.log(filter)
+localStorage.setItem("selectedFilter",JSON.stringify(filter))
+console.log(localStorage.getItem(JSON.parse("selectedFilter")))
+  }
+
+  getSelectedFilter():string{
+
+     return localStorage.getItem(JSON.parse("selectedFilter"));
   }
 }
