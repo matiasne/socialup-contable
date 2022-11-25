@@ -9,13 +9,13 @@
     <div>
       <p>Detalle: {{ saleProduct.detail }}</p>
       <p>Cantidad: {{ saleProduct.amount }}</p>
-      <p>Precio unitario: {{ saleProduct.salePrice | currency: "USD" }}</p>
+      <p>Precio unitario: {{ saleProduct.salePrice | currency: "ARS" }}</p>
       <div *ngIf="saleProduct.variation.type !== 'empty'">
         <p>Tipo {{ title }}: {{ saleProduct.variation.type }}</p>
         <p>Valor {{ title }}:{{ this.valueVariationView }}</p>
         <p>Observación: {{ saleProduct.variation.description }}</p>
       </div>
-      <p>Sub Total: {{ saleProduct.subTotal | currency: "USD" }}</p>
+      <p>Sub Total: {{ saleProduct.subTotal | currency: "ARS" }}</p>
     </div>
   </ion-label>
   <ion-button *ngIf="showDelete" (click)="handleClickDelete()"

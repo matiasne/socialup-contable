@@ -13,7 +13,7 @@
     <h3>Descripcion: {{ product.description }}</h3>
     <h3>
       Precio de Venta:
-      {{ product.salePrice | currency: "ARS":"symbol":"4.2-2" }}
+      {{ product.salePrice | currency: "ARS" }}
     </h3>
   </ion-label>
   <ion-button *ngIf="showEditButton" (click)="handleClickEdit()"
