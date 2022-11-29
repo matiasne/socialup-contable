@@ -1,4 +1,6 @@
 import {
+  AfterContentInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -25,9 +27,7 @@ import { Box } from 'src/app/features/boxes/models/box';
   styleUrls: ['./list-sale.component.scss'],
 })
 export class ListSaleComponent implements OnInit {
-  onTimeChange(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
+
   @Input() items = [];
   @ViewChild('listItem') listItems: ListItemsComponent;
   @Output() clickSales = new EventEmitter<Sale>();
@@ -50,16 +50,19 @@ export class ListSaleComponent implements OnInit {
   public boxFilter:string
   public boxes: Array<Box> = [];
   public filter:Object
+  private cd :ChangeDetectorRef
   constructor(
     public businessService: BusinessService,
     public router: Router,
     public toastService: ToastService,
     public modalCtrl: ModalController,
     public currentSaleService: CurrentSaleService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
-    this.refreshSales();
+
     delete this.paymentTypes.empty;
     this.businessService.getBusinessBox().subscribe({
       next: (boxes: any) => {
@@ -68,12 +71,26 @@ export class ListSaleComponent implements OnInit {
     });
 
 
+
+  const f =this.currentSaleService.getSelectedFilter()
+
+  this.dateFrom=  f.dateFrom
+  this.dateTo= f.dateTo
+  this.clientfilter = f.clientfilter
+  this.paymentTypeFilter = f.paymentTypeFilter
+  this.boxFilter=f.boxFilter
+  this.refreshSales()
+
+
   }
+
+
 
   refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
     this.businessService
-      .getBusinessSales(data.pageCount, data.perPage, data.searchWord, '', '')
-      .subscribe({
+      .getBusinessSales(data.pageCount, data.perPage, this.clientfilterselected,  this.dateFrom,
+        this.dateTo, this.paymentTypeFilter, this.boxFilter)
+        .subscribe({
         next: (response) => {
           this.sales = response.data;
           this.listItems.totalPages = response.paging.totalPages;
@@ -88,7 +105,7 @@ export class ListSaleComponent implements OnInit {
     this.filter = {
       dateFrom:this.dateFrom,
       dateTo:this.dateTo,
-      clientfilterselected:this.clientfilterselected,
+      clientfilter:this.clientfilter,
       paymentTypeFilter:this.paymentTypeFilter,
       boxFilter:this.boxFilter
     }
@@ -120,9 +137,11 @@ export class ListSaleComponent implements OnInit {
     const { data, role } = await modalSelectClient.onWillDismiss();
     this.clientfilter = data;
     this.clientfilterselected = data._id;
+
   }
   handleChange(event) {
-    this.paymentTypeFilter = event.target.value;
+
+    // this.paymentTypeFilter = event.target.value;
   }
   async openModalSale(data) {
     const modal = await this.modalCtrl.create({
@@ -138,6 +157,6 @@ export class ListSaleComponent implements OnInit {
     const { role } = await modal.onWillDismiss();
   }
   handleChangeBox(event) {
-this.boxFilter = event.target.value
+//this.boxFilter = event.target.value
   }
 }

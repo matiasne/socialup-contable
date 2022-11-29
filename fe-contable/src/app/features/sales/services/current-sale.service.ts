@@ -135,11 +135,10 @@ export class CurrentSaleService extends BaseCRUDService {
   setSelectedFilter(filter:any){
     console.log(filter)
 localStorage.setItem("selectedFilter",JSON.stringify(filter))
-console.log(localStorage.getItem(JSON.parse("selectedFilter")))
+
   }
 
-  getSelectedFilter():string{
-
-     return localStorage.getItem(JSON.parse("selectedFilter"));
+  getSelectedFilter(){
+     return JSON.parse(localStorage.getItem("selectedFilter"));
   }
 }

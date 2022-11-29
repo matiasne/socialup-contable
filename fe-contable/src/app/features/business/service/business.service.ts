@@ -84,7 +84,7 @@ export class BusinessService extends BaseCRUDService {
     box =''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
-console.log(box)
+
     return super.get(
       this.url +
         '/' +
