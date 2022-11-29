@@ -15,7 +15,7 @@ class saleRepository extends BaseRepository {
     dateFrom,
     dateTo,
     saleStatus,
-    payment,
+    paymentType,
     box
   ) {
     let query = {};
@@ -37,7 +37,7 @@ class saleRepository extends BaseRepository {
     if (idClient != "") {
       query["client._id"]  = idClient;
     }
-    if(box !=""){
+    if(box != ""){
       const i = box.split(',');
       query["boxId"] = {$in:i}
     }
@@ -45,8 +45,8 @@ class saleRepository extends BaseRepository {
     //   query["status"]  = saleStatus;
     // }
 
-    if (payment != "empty") {
-      const items = payment.split(',');
+    if (paymentType != "empty" && paymentType != "") {
+      const items = paymentType.split(',');
       
       query["payments.type"]  = { $in: items };
     }

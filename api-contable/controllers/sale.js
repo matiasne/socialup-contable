@@ -43,7 +43,7 @@ async function getSales(req, res) {
     paymentType,
     box 
   } = req.query;
-console.log(req.query)
+
   const offset = (pageCount - 1) * perPage;
 
   const limit = perPage;
