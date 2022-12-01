@@ -30,9 +30,7 @@ export class ListProductComponentComponent implements OnInit {
   @Output() clickEditProduct = new EventEmitter<Product>();
 
   public products: Array<Product> = [];
-  private business: Business;
   public id: any;
-  private obsBusiness: any;
   public totalPages: number;
 
   constructor(
@@ -42,7 +40,6 @@ export class ListProductComponentComponent implements OnInit {
     public productService: ProductService,
     public businessService: BusinessService,
     public router: Router,
-    public toastService: ToastService
   ) {}
 
   ngOnInit(): void {

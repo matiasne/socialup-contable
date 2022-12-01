@@ -29,13 +29,14 @@
       ></ion-input>
     </ion-item>
   </ion-row>
-
+<ion-button  color="success" [disabled]="openBox">Abrir</ion-button>
+<ion-button color="danger" [disabled]="!openBox">Cerrar</ion-button>
   <ion-button
     type="submit"
     expand="default"
     shape="round"
-    (click)="createProduct()"
+    (click)="createBox()"
 
-    ></ion-button
+    >Crear Caja</ion-button
   >
 </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-box',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListBoxPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public router:Router
+  ) { }
 
   ngOnInit() {
   }
+  handleClickBox(box) {
 
+  }
+
+  handleClickEditBox(box) {
+    console.log(box._id)
+    this.router.navigate(['/edit-box', { boxId: box._id }]);
+  }
 }

@@ -1,7 +1,8 @@
 <ng-template #boxTemplate let-item="item">
   <app-item-box
-  [box]="item"
   [showEditButton]="true"
+  [box]="item"
+  (eventClickEdit)="handleClickEdit($event)"
   ></app-item-box>
 </ng-template>
 

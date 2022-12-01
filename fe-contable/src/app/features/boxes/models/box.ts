@@ -1,4 +1,4 @@
-export enum stateTypes {
+export enum statusTypes {
   open = 'open',
   close = 'close',
 }
@@ -9,7 +9,7 @@ export class Box {
     public idBusiness: string,
     public image: string,
     public name: string,
-    public state: stateTypes = stateTypes.close, //definir emun
+    public status: statusTypes = statusTypes.close,
     public actualAmount: number,
     public dailyAmount: number
   ) {}

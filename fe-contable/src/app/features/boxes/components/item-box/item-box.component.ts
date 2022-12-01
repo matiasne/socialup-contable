@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Console } from 'console';
 import { Box } from '../../models/box';
 
 @Component({
@@ -18,10 +19,12 @@ export class ItemBoxComponent implements OnInit {
   ngOnInit() {}
 
   handleClickEdit() {
+
     this.eventClickEdit.emit(this.box);
   }
 
   handleClick() {
+
     this.eventClick.emit(this.box);
   }
 }
