@@ -99,6 +99,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   add(sale: Sale) {
+
     this.post(this.url, sale).subscribe({
       next: (data) => {
         this.reset();

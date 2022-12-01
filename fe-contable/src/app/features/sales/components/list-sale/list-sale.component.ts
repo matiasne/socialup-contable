@@ -92,6 +92,7 @@ export class ListSaleComponent implements OnInit {
         this.dateTo, this.paymentTypeFilter, this.boxFilter)
         .subscribe({
         next: (response) => {
+          console.log(response.data)
           this.sales = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();
@@ -135,9 +136,11 @@ export class ListSaleComponent implements OnInit {
     });
     modalSelectClient.present();
     const { data, role } = await modalSelectClient.onWillDismiss();
-    this.clientfilter = data;
-    this.clientfilterselected = data._id;
 
+    this.clientfilter = data;
+    if(data){
+    this.clientfilterselected = data._id;
+    }
   }
   handleChange(event) {
 
