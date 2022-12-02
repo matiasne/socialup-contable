@@ -7,6 +7,7 @@
     >
     </app-image-upload>
   </div>
+  <ion-toggle color="success" [checked]="statusBox " slot="end" (ionChange)="openCloseBox($event)"></ion-toggle>
   <ion-row>
     <ion-item>
       <ion-icon name="storefront-outline"></ion-icon>
@@ -29,8 +30,7 @@
       ></ion-input>
     </ion-item>
   </ion-row>
-<ion-button  color="success" [disabled]="openBox">Abrir</ion-button>
-<ion-button color="danger" [disabled]="!openBox">Cerrar</ion-button>
+
   <ion-button
     type="submit"
     expand="default"

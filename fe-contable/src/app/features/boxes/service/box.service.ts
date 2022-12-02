@@ -29,7 +29,11 @@ export class BoxService extends BaseCRUDService {
   }
 
   update(box: Box): Observable<any> {
+
+    console.log(box)
+
     let formData = this.helperService.toFormData(box);
+
     return this.put(this.url + '/' + box._id, formData);
   }
 

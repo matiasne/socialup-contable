@@ -13,7 +13,8 @@ import { BoxService } from '../../service/box.service';
 export class FormBoxComponent implements OnInit {
   private box: Box;
   public formBox: FormGroup;
-  public openBox:boolean= false
+  public openBox='close'
+  public statusBox:boolean=false
   @Input() boxId: string = '';
   @Output() handleSubmit = new EventEmitter<any>();
 
@@ -34,13 +35,17 @@ export class FormBoxComponent implements OnInit {
 
       this.boxService.get(this.boxId).subscribe({
         next: (box: Box) => {
-
+          console.log(box)
           this.box = box
+          if(this.box.status =='open'){
+           this.statusBox = true
+          }
+
           this.formBox.setValue({
             name: this.box.name,
             actualAmount: this.box.actualAmount,
-            // status:this.box.status,
             image: this.box.image ? this.box.image : '',
+
           });
         },
       });
@@ -59,10 +64,24 @@ export class FormBoxComponent implements OnInit {
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
     this.box.actualAmount = this.formBox.controls.actualAmount.value
+    this.box.status =statusTypes.close
     this.boxService.add(this.box).subscribe({
       next: (data) => {
         this.handleSubmit.emit(data);
       },
     });
+  }
+
+  openCloseBox(event){
+if(event.target.checked ){
+  this.box.status=statusTypes.open
+    }else{
+      this.box.status=statusTypes.close
+      }
+      this.boxService.update(this.box).subscribe({
+        next:(data)=>{
+
+        }
+      })
   }
 }
