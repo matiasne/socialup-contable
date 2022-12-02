@@ -37,7 +37,7 @@ export class FormBoxComponent implements OnInit {
         next: (box: Box) => {
           console.log(box)
           this.box = box
-          if(this.box.status =='open'){
+          if(this.box.status == statusTypes.open){
            this.statusBox = true
           }
 
