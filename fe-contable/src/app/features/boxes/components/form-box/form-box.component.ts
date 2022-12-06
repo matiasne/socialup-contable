@@ -13,6 +13,7 @@ import { BoxService } from '../../service/box.service';
 export class FormBoxComponent implements OnInit {
   private box: Box;
   public formBox: FormGroup;
+  public buttonLabel='Crear caja'
   public openBox='close'
   public statusBox:boolean=false
   @Input() boxId: string = '';
@@ -32,10 +33,9 @@ export class FormBoxComponent implements OnInit {
 
   ngOnInit() {
     if (this.boxId != '') {
-
+this.buttonLabel='Actualizar Caja'
       this.boxService.get(this.boxId).subscribe({
         next: (box: Box) => {
-          console.log(box)
           this.box = box
           if(this.box.status == statusTypes.open){
            this.statusBox = true
@@ -60,8 +60,27 @@ export class FormBoxComponent implements OnInit {
     });
   }
 
+updateBox(){
+    this.box.name = this.formBox.controls.name.value;
+    this.box.idBusiness = this.businessService.getBusinessId();
+    this.box.actualAmount = this.formBox.controls.actualAmount.value
+    this.boxService.update(this.box).subscribe({
+      next:(data)=>{
+
+      }
+    })
+}
+submit(){
+if(this.boxId){
+  this.buttonLabel ='Actualizar Caja'
+  this.updateBox()
+}else{
+this.createBox()
+}
+}
 
   createBox() {
+
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
     this.box.actualAmount = this.formBox.controls.actualAmount.value
@@ -76,8 +95,10 @@ export class FormBoxComponent implements OnInit {
   openCloseBox(event){
 if(event.target.checked ){
   this.box.status=statusTypes.open
+
     }else{
       this.box.status=statusTypes.close
+
       }
       this.boxService.update(this.box).subscribe({
         next:(data)=>{

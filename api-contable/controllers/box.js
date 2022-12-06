@@ -56,7 +56,7 @@ async function updateBox(req, res) {
   try {
     const boxRepo = new boxRepository();
     const data = await boxRepo.update(boxId, update);
-    console.log(data)
+
     res.status(200).send({ data });
   } catch (err) {
     res.status(400).send({ message: err.message });
