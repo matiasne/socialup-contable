@@ -7,7 +7,6 @@ function getBox(req, res) {
     .get(req.params._id)
     .then((data) => {
       res.status(200).send({ data });
-      console.log(data)
     })
     .catch((err) => {
       res.status(404).send({ message: err.message });
@@ -50,13 +49,14 @@ async function createBox(req, res) {
 }
 
 async function updateBox(req, res) {
-  console.log(req.params._id)
+
   const boxId = req.params._id;
   const update = req.body;
 
   try {
     const boxRepo = new boxRepository();
     const data = await boxRepo.update(boxId, update);
+    console.log(data)
     res.status(200).send({ data });
   } catch (err) {
     res.status(400).send({ message: err.message });

@@ -60,6 +60,7 @@ export class FormBoxComponent implements OnInit {
     });
   }
 
+
   createBox() {
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
