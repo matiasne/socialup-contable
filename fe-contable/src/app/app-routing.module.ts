@@ -152,6 +152,10 @@ const routes: Routes = [
     path: 'create-box',
     loadChildren: () => import('./pages/create-box/create-box.module').then( m => m.CreateBoxPageModule)
   },
+  {
+    path: 'edit-box',
+    loadChildren: () => import('./pages/edit-box/edit-box.module').then( m => m.EditBoxPageModule)
+  },
 
 ];
 

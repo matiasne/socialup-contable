@@ -52,7 +52,7 @@ export class BusinessService extends BaseCRUDService {
 
   update(business: Business): Observable<any> {
     let formData = this.helperService.toFormData(business);
-    return this.put(this.url + business._id, formData);
+    return this.put(this.url +'/'+ business._id, formData);
   }
 
   getBusinessProduct(

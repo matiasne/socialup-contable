@@ -50,7 +50,7 @@ class saleRepository extends BaseRepository {
       
       query["payments.type"]  = { $in: items };
     }
-console.log(query)
+
 
     let sales = await this.model
       .find(query)

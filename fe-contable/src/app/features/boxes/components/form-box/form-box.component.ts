@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TouchSequence } from 'selenium-webdriver';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { Box, stateTypes } from '../../models/box';
+import { Box, statusTypes } from '../../models/box';
 import { BoxService } from '../../service/box.service';
 
 @Component({
@@ -13,14 +13,17 @@ import { BoxService } from '../../service/box.service';
 export class FormBoxComponent implements OnInit {
   private box: Box;
   public formBox: FormGroup;
-
+  public buttonLabel='Crear caja'
+  public openBox='close'
+  public statusBox:boolean=false
+  @Input() boxId: string = '';
   @Output() handleSubmit = new EventEmitter<any>();
 
   constructor(
     public boxService: BoxService,
     public businessService: BusinessService
   ) {
-    this.box = new Box('', '', '', '', stateTypes.close, 0, 0);
+    this.box = new Box('', '', '', '', statusTypes.close, 0, 0);
     this.formBox = new FormGroup({
       name: new FormControl('', Validators.compose([Validators.required])),
       image: new FormControl(''),
@@ -28,15 +31,28 @@ export class FormBoxComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.boxId != '') {
+this.buttonLabel='Actualizar Caja'
+      this.boxService.get(this.boxId).subscribe({
+        next: (box: Box) => {
+          this.box = box
+          if(this.box.status == statusTypes.open){
+           this.statusBox = true
+          }
 
-  ngAfterContentInit() {
-    this.formBox.setValue({
-      name: this.box.name,
-      image: this.box.image ? this.box.image : '',
-      actualAmount: this.box.actualAmount
-    });
+          this.formBox.setValue({
+            name: this.box.name,
+            actualAmount: this.box.actualAmount,
+            image: this.box.image ? this.box.image : '',
+
+          });
+        },
+      });
+    }
   }
+
+
 
   changeImage(event: any) {
     this.formBox.patchValue({
@@ -44,14 +60,50 @@ export class FormBoxComponent implements OnInit {
     });
   }
 
-  createProduct() {
+updateBox(){
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
     this.box.actualAmount = this.formBox.controls.actualAmount.value
+    this.boxService.update(this.box).subscribe({
+      next:(data)=>{
+
+      }
+    })
+}
+submit(){
+if(this.boxId){
+  this.buttonLabel ='Actualizar Caja'
+  this.updateBox()
+}else{
+this.createBox()
+}
+}
+
+  createBox() {
+
+    this.box.name = this.formBox.controls.name.value;
+    this.box.idBusiness = this.businessService.getBusinessId();
+    this.box.actualAmount = this.formBox.controls.actualAmount.value
+    this.box.status =statusTypes.close
     this.boxService.add(this.box).subscribe({
       next: (data) => {
         this.handleSubmit.emit(data);
       },
     });
+  }
+
+  openCloseBox(event){
+if(event.target.checked ){
+  this.box.status=statusTypes.open
+
+    }else{
+      this.box.status=statusTypes.close
+
+      }
+      this.boxService.update(this.box).subscribe({
+        next:(data)=>{
+
+        }
+      })
   }
 }

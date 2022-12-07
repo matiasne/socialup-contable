@@ -29,6 +29,7 @@ export class ProductService extends BaseCRUDService {
 
   update(product: Product): Observable<any> {
     let formData = this.helperService.toFormData(product);
+
     return this.put(this.url + '/' + product._id, formData);
   }
 

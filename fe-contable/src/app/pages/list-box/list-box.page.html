@@ -8,6 +8,9 @@
 <ion-content fullscreen="">
   <socialup-list-box
     #list
+    [showEditButton]="true"
+    (clickBox)="handleClickBox($event)"
+    (clickEditBox)="handleClickEditBox($event)"
   ></socialup-list-box>
   <ion-fab class="fab" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['/create-box']"

@@ -49,12 +49,14 @@ async function createBox(req, res) {
 }
 
 async function updateBox(req, res) {
+
   const boxId = req.params._id;
   const update = req.body;
 
   try {
     const boxRepo = new boxRepository();
     const data = await boxRepo.update(boxId, update);
+
     res.status(200).send({ data });
   } catch (err) {
     res.status(400).send({ message: err.message });

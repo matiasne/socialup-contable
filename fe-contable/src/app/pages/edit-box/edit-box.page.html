@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Editar Caja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-form-box
+    [boxId]="boxId"
+    (handleSubmit)="submit($event)"
+  ></app-form-box>
+</ion-content>

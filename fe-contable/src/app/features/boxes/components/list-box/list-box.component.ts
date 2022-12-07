@@ -13,6 +13,7 @@ import { HelperService } from 'src/app/shared/services/helpers.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { Box } from '../../models/box';
+import { Console } from 'console';
 
 @Component({
   selector: 'socialup-list-box',
@@ -35,7 +36,6 @@ export class ListBoxComponent implements OnInit {
     public helperService: HelperService,
     public businessService: BusinessService,
     public router: Router,
-    public toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +55,7 @@ export class ListBoxComponent implements OnInit {
   }
 
   handleClick(data) {
+
     this.clickBox.emit(data);
   }
 
