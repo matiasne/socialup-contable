@@ -14,13 +14,16 @@ async function saveSale(req, res) {
     let movementRepo = new MovementRepository();
     let boxRepository = new BoxRepository();
     let box = await boxRepository.get(params.boxId);
+
     for await (let element of sale.payments) {
       let m = {
         idSale: sale._id,
+        idBox: box._id,
         amount: sale.total,
         type: element.type,
         boxAmount: element.amount,
       };
+      console.log(m)
       await movementRepo.create(m);
       box.actualAmount = Number(box.actualAmount) + Number(element.amount);
     }
@@ -41,7 +44,7 @@ async function getSales(req, res) {
     dateTo,
     saleStatus,
     paymentType,
-    box 
+    box
   } = req.query;
 
   const offset = (pageCount - 1) * perPage;
@@ -63,7 +66,7 @@ async function getSales(req, res) {
       paymentType,
       box
     );
-    
+
     res.status(200).send(data);
   } catch (error) {
     console.log(error);

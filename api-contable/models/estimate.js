@@ -16,4 +16,4 @@ const EstimateSchema = Schema(
   }
 );
 
-module.exports = mongoose.model("estimate", EstimateSchema);
+module.exports = mongoose.model("Estimate", EstimateSchema);

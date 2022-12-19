@@ -12,6 +12,7 @@ const product_routes = require("./routes/product");
 const client_routes = require("./routes/client");
 const sale_routes = require("./routes/sale");
 const box_routes = require("./routes/box");
+const movement_routes = require("./routes/movement");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -34,5 +35,6 @@ app.use("/api", business_routes);
 app.use("/api", product_routes);
 app.use("/api", client_routes);
 app.use("/api", sale_routes);
+app.use("/api", movement_routes);
 
 module.exports = app;

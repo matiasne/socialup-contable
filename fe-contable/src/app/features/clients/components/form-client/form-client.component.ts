@@ -135,7 +135,7 @@ export class FormClientComponent implements OnInit {
   clickService() {
     if (this.clientId) {
       this.clientService._delete(this.clientId).subscribe({
-        next: (data) => {},
+        next: (data) => { },
       });
     }
   }

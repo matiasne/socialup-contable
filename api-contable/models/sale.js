@@ -15,11 +15,11 @@ var SaleSchema = Schema(
     variations: [],
     billingDate: Date,
     status: {},
-    boxId: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
+    boxId: { type: mongoose.Schema.Types.ObjectId, ref: "Boxes" },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("sale", SaleSchema);
+module.exports = mongoose.model("Sale", SaleSchema);
