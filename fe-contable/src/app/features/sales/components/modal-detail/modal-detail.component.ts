@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Business } from 'src/app/features/business/models/business';
 import { paymentTypes } from '../../models/payment';
 import { Sale } from '../../models/sale';
+import { CurrentSaleService } from '../../services/current-sale.service';
 
 @Component({
   selector: 'app-modal-detail',
@@ -9,12 +11,25 @@ import { Sale } from '../../models/sale';
   styleUrls: ['./modal-detail.component.scss'],
 })
 export class ModalDetailComponent implements OnInit {
-  @Input() sale: Sale;
+  @Input() sale: Sale = new Sale(new Business('', '', '', '', '', '', '', ''));
+  @Input() idSale: string = '';
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private currentSaleService: CurrentSaleService) { }
 
-  ngOnInit() {
-    this.renameSale();
+  async ngOnInit() {
+    if (this.idSale != '') {
+      await this.currentSaleService.getSale(this.idSale).subscribe({
+        next: (data) => {
+          console.log(data.payments)
+          this.sale = data
+          this.renameSale();
+        }
+      })
+    } else {
+      this.renameSale();
+    }
+    console.log(this.sale)
+
   }
 
   closeModal() {

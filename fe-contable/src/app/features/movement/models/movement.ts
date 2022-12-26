@@ -5,6 +5,7 @@ export class Movement {
         public amount: string,
         public type: string,
         public boxAmount: number,
+        public createdAt: string
     ) { }
     public static adapt(item: any): Movement {
         return new Movement(
@@ -13,7 +14,7 @@ export class Movement {
             item.amount,
             item.type,
             item.boxAmount,
-
+            item.createdAt
         )
     }
 }

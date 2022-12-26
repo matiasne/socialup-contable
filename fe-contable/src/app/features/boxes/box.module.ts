@@ -6,18 +6,18 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormBoxComponent } from './components/form-box/form-box.component';
 import { ListBoxComponent } from './components/list-box/list-box.component';
 import { ItemBoxComponent } from './components/item-box/item-box.component';
-import { ListMovementComponent } from './components/list-movement/list-movement.component';
-import { ItemMovementComponent } from './components/item-movement/item-movement.component';
+import { MovementsModule } from '../movement/movement.module';
 
 @NgModule({
-  declarations: [FormBoxComponent, ListBoxComponent, ItemBoxComponent, ListMovementComponent, ItemMovementComponent],
+  declarations: [FormBoxComponent, ListBoxComponent, ItemBoxComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
     CommonModule,
     SharedModule,
+    MovementsModule
   ],
-  exports: [FormBoxComponent, ListBoxComponent, ItemBoxComponent, ListMovementComponent, ItemMovementComponent],
+  exports: [FormBoxComponent, ListBoxComponent, ItemBoxComponent],
 })
 export class BoxModule { }

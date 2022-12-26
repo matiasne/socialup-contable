@@ -3,20 +3,11 @@
     <p>Fecha: {{ sale.createdAt | date: "short" }}</p>
   </h1>
   <div>
-    <socialup-item-client
-      *ngIf="sale.client"
-      [client]="sale.client"
-    ></socialup-item-client>
+    <socialup-item-client *ngIf="sale.client" [client]="sale.client"></socialup-item-client>
 
-    <socialup-item-sale-product
-      *ngFor="let product of sale.item"
-      [saleProduct]="product"
-    ></socialup-item-sale-product>
+    <socialup-item-sale-product *ngFor="let product of sale.item" [saleProduct]="product"></socialup-item-sale-product>
 
-    <app-item-variation
-      *ngFor="let variations of sale.variations"
-      [saleVariation]="variations"
-    ></app-item-variation>
+    <app-item-variation *ngFor="let variations of sale.variations" [saleVariation]="variations"></app-item-variation>
 
     <div *ngFor="let payment of sale.payments">
       <strong>Tipo de pago: </strong>{{ payment["tipo"] }} <br />

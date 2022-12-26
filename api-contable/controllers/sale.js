@@ -74,7 +74,21 @@ async function getSales(req, res) {
   }
 }
 
+function getSale(req, res) {
+  const idSale = req.params._id;
+  let saleRepo = new saleRepository();
+
+  saleRepo
+    .get(idSale)
+    .then((data) => {
+      res.status(200).send({ data });
+    })
+    .catch((err) => {
+      res.status(404).send({ message: "no se encontro venta" });
+    });
+}
 module.exports = {
   saveSale,
   getSales,
+  getSale,
 };

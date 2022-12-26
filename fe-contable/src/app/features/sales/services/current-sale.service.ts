@@ -13,6 +13,8 @@ import { SessionService } from 'src/app/auth/services/session.service';
 import { BusinessService } from '../../business/service/business.service';
 import { Business } from '../../business/models/business';
 import { Box } from '../../boxes/models/box';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService {
@@ -133,13 +135,17 @@ export class CurrentSaleService extends BaseCRUDService {
   reset() {
     this.currentSale = new Sale(this.currentBussines);
   }
-  setSelectedFilter(filter:any){
+  setSelectedFilter(filter: any) {
     console.log(filter)
-localStorage.setItem("selectedFilter",JSON.stringify(filter))
+    localStorage.setItem("selectedFilter", JSON.stringify(filter))
 
   }
 
-  getSelectedFilter(){
-     return JSON.parse(localStorage.getItem("selectedFilter"));
+  getSelectedFilter() {
+    return JSON.parse(localStorage.getItem("selectedFilter"));
+  }
+
+  getSale(idSale: string): Observable<any> {
+    return super.get(this.url + '/' + idSale).pipe(map((resp: any) => resp.data));
   }
 }
