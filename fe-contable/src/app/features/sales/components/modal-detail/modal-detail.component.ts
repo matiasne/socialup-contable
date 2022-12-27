@@ -14,22 +14,25 @@ export class ModalDetailComponent implements OnInit {
   @Input() sale: Sale = new Sale(new Business('', '', '', '', '', '', '', ''));
   @Input() idSale: string = '';
 
-  constructor(private modalCtrl: ModalController, private currentSaleService: CurrentSaleService) { }
+  constructor(private modalCtrl: ModalController, private currentSaleService: CurrentSaleService) {
+
+
+
+
+  }
 
   async ngOnInit() {
     if (this.idSale != '') {
       await this.currentSaleService.getSale(this.idSale).subscribe({
         next: (data) => {
-          console.log(data.payments)
           this.sale = data
-          this.renameSale();
+          console.log(data)
         }
       })
+      this.renameSale();
     } else {
       this.renameSale();
     }
-    console.log(this.sale)
-
   }
 
   closeModal() {
@@ -40,14 +43,12 @@ export class ModalDetailComponent implements OnInit {
       if (element.type == paymentTypes.cash.value) {
         element['tipo'] = 'Efectivo';
       }
-
       if (element.type == paymentTypes.creditCard.value) {
         element['tipo'] = 'Tarjeta Crédito';
       }
       if (element.type == paymentTypes.debitCard.value) {
         element['tipo'] = 'Tarjeta Debito ';
       }
-
       if (element.type == paymentTypes.personalAccount.value) {
         element['tipo'] = 'Cuenta Corriente';
       }

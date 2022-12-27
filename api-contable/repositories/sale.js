@@ -20,26 +20,26 @@ class saleRepository extends BaseRepository {
   ) {
     let query = {};
     //Defino el id de la empresa a consultar
-    query["business._id"]  = idBusiness;
+    query["business._id"] = idBusiness;
 
     if (dateFrom != "" && dateTo != "") {
-      query["createdAt"]  = { $gte: new Date(dateFrom), $lte: new Date(dateTo) };
+      query["createdAt"] = { $gte: new Date(dateFrom), $lte: new Date(dateTo) };
     }
 
     if (dateFrom != "" && dateTo == "") {
-      query["createdAt"]  = { $gte: new Date(dateFrom) };
+      query["createdAt"] = { $gte: new Date(dateFrom) };
     }
 
     if (dateFrom == "" && dateTo != "") {
-      query["createdAt"]  = { $lte: new Date(dateTo) };
+      query["createdAt"] = { $lte: new Date(dateTo) };
     }
 
     if (idClient != "") {
-      query["client._id"]  = idClient;
+      query["client._id"] = idClient;
     }
-    if(box != ""){
+    if (box != "") {
       const i = box.split(',');
-      query["boxId"] = {$in:i}
+      query["boxId"] = { $in: i }
     }
     // if (saleStatus != "") {
     //   query["status"]  = saleStatus;
@@ -47,17 +47,17 @@ class saleRepository extends BaseRepository {
 
     if (paymentType != "empty" && paymentType != "") {
       const items = paymentType.split(',');
-      
-      query["payments.type"]  = { $in: items };
+
+      query["payments.type"] = { $in: items };
     }
 
 
     let sales = await this.model
       .find(query)
-       .skip(offset)
-       .limit(limit)
-       .populate('boxId') // .sort({ createdAt: -1 })
-    
+      .skip(offset)
+      .limit(limit)
+      .populate('box') // .sort({ createdAt: -1 })
+
     let total = await this.model.find({ "business._id": idBusiness }).count();
 
     let totalPages = 1;
@@ -76,6 +76,14 @@ class saleRepository extends BaseRepository {
     };
 
     return response;
+  }
+  async get_sale(idSale) {
+    let sale = await this.model
+      .findById(idSale)
+      //.skip(offset)
+      //.limit(limit)
+      .populate('box') // .sort({ createdAt: -1 })
+    return sale;
   }
 }
 

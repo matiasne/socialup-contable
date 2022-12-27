@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const MovementSchema = Schema(
   {
-    idSale: { type: mongoose.Schema.Types.ObjectId, ref: "Sale" },
-    idBox: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
+    sale: { type: mongoose.Schema.Types.ObjectId, ref: "Sale" },
+    box: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
     amount: String,
     type: String,
     boxAmount: Number

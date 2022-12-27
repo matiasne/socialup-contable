@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const EstimateSchema = Schema(
   {
-    idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
-    idClient: { type: mongoose.Schema.Types.ObjectId, ref: "Clients" },
-    business: {},
-    client: {},
+    business: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
+    client: { type: mongoose.Schema.Types.ObjectId, ref: "Clients" },
+    _business: {},
+    _client: {},
     items: [],
     total: Number,
     variations: [],

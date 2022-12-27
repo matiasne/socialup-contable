@@ -52,7 +52,7 @@ export class BusinessService extends BaseCRUDService {
 
   update(business: Business): Observable<any> {
     let formData = this.helperService.toFormData(business);
-    return this.put(this.url +'/'+ business._id, formData);
+    return this.put(this.url + '/' + business._id, formData);
   }
 
   getBusinessProduct(
@@ -64,14 +64,14 @@ export class BusinessService extends BaseCRUDService {
 
     return super.get(
       this.url +
-        '/' +
-        idBusiness +
-        '/products?pageCount=' +
-        pageCount +
-        '&perPage=' +
-        perPage +
-        '&searchWord=' +
-        searchWord
+      '/' +
+      idBusiness +
+      '/products?pageCount=' +
+      pageCount +
+      '&perPage=' +
+      perPage +
+      '&searchWord=' +
+      searchWord
     );
   }
   getBusinessSales(
@@ -81,28 +81,28 @@ export class BusinessService extends BaseCRUDService {
     dateFrom = '',
     dateTo = '',
     paymentType = 'empty',
-    box =''
+    box = ''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
 
     return super.get(
       this.url +
-        '/' +
-        idBusiness +
-        '/sales?pageCount=' +
-        pageCount +
-        '&perPage=' +
-        perPage +
-        '&idClient=' +
-        idClient +
-        '&dateFrom=' +
-        dateFrom +
-        '&dateTo=' +
-        dateTo +
-        '&paymentType=' +
-        paymentType+
-        '&box='+
-        box
+      '/' +
+      idBusiness +
+      '/sales?pageCount=' +
+      pageCount +
+      '&perPage=' +
+      perPage +
+      '&idClient=' +
+      idClient +
+      '&dateFrom=' +
+      dateFrom +
+      '&dateTo=' +
+      dateTo +
+      '&paymentType=' +
+      paymentType +
+      '&box=' +
+      box
     );
   }
 
@@ -114,14 +114,14 @@ export class BusinessService extends BaseCRUDService {
     let idBusiness = this.SelectedBusiness.value._id;
     return super.get(
       this.url +
-        '/' +
-        idBusiness +
-        '/clients?pageCount=' +
-        pageCount +
-        '&perPage=' +
-        perPage +
-        '&searchWord=' +
-        searchWord
+      '/' +
+      idBusiness +
+      '/clients?pageCount=' +
+      pageCount +
+      '&perPage=' +
+      perPage +
+      '&searchWord=' +
+      searchWord
     );
   }
 
@@ -134,14 +134,14 @@ export class BusinessService extends BaseCRUDService {
 
     return super.get(
       this.url +
-        '/' +
-        idBusiness +
-        '/box?pageCount=' +
-        pageCount +
-        '&perPage=' +
-        perPage +
-        '&searchWord=' +
-        searchWord
+      '/' +
+      idBusiness +
+      '/box?pageCount=' +
+      pageCount +
+      '&perPage=' +
+      perPage +
+      '&searchWord=' +
+      searchWord
     );
   }
 

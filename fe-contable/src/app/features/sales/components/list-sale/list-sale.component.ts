@@ -47,10 +47,10 @@ export class ListSaleComponent implements OnInit {
   public clientfilterselected: string;
   public paymentTypes = paymentTypes;
   public paymentTypeFilter: string;
-  public boxFilter:string
+  public boxFilter: string
   public boxes: Array<Box> = [];
-  public filter:Object
-  private cd :ChangeDetectorRef
+  public filter: Object
+  private cd: ChangeDetectorRef
   constructor(
     public businessService: BusinessService,
     public router: Router,
@@ -72,14 +72,14 @@ export class ListSaleComponent implements OnInit {
 
 
 
-  const f =this.currentSaleService.getSelectedFilter()
+    const f = this.currentSaleService.getSelectedFilter()
 
-  this.dateFrom=  f.dateFrom
-  this.dateTo= f.dateTo
-  this.clientfilter = f.clientfilter
-  this.paymentTypeFilter = f.paymentTypeFilter
-  this.boxFilter=f.boxFilter
-  this.refreshSales()
+    this.dateFrom = f.dateFrom
+    this.dateTo = f.dateTo
+    this.clientfilter = f.clientfilter
+    this.paymentTypeFilter = f.paymentTypeFilter
+    this.boxFilter = f.boxFilter
+    this.refreshSales()
 
 
   }
@@ -88,9 +88,9 @@ export class ListSaleComponent implements OnInit {
 
   refreshSales(data: any = { perPage: 10, pageCount: 1, searchWord: '' }) {
     this.businessService
-      .getBusinessSales(data.pageCount, data.perPage, this.clientfilterselected,  this.dateFrom,
+      .getBusinessSales(data.pageCount, data.perPage, this.clientfilterselected, this.dateFrom,
         this.dateTo, this.paymentTypeFilter, this.boxFilter)
-        .subscribe({
+      .subscribe({
         next: (response) => {
           console.log(response.data)
           this.sales = response.data;
@@ -100,15 +100,15 @@ export class ListSaleComponent implements OnInit {
       });
   }
 
-  showdate() {}
+  showdate() { }
 
   click() {
     this.filter = {
-      dateFrom:this.dateFrom,
-      dateTo:this.dateTo,
-      clientfilter:this.clientfilter,
-      paymentTypeFilter:this.paymentTypeFilter,
-      boxFilter:this.boxFilter
+      dateFrom: this.dateFrom,
+      dateTo: this.dateTo,
+      clientfilter: this.clientfilter,
+      paymentTypeFilter: this.paymentTypeFilter,
+      boxFilter: this.boxFilter
     }
     this.currentSaleService.setSelectedFilter(this.filter)
     this.businessService
@@ -138,8 +138,8 @@ export class ListSaleComponent implements OnInit {
     const { data, role } = await modalSelectClient.onWillDismiss();
 
     this.clientfilter = data;
-    if(data){
-    this.clientfilterselected = data._id;
+    if (data) {
+      this.clientfilterselected = data._id;
     }
   }
   handleChange(event) {
@@ -158,8 +158,9 @@ export class ListSaleComponent implements OnInit {
     modal.present();
 
     const { role } = await modal.onWillDismiss();
+    console.log
   }
   handleChangeBox(event) {
-//this.boxFilter = event.target.value
+    //this.boxFilter = event.target.value
   }
 }

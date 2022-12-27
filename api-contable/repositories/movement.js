@@ -11,7 +11,7 @@ class MovementRepository extends BaseRepository {
       .find({ idBox: idBox })
       //.skip(offset)
       //.limit(limit)
-      .populate('idBox')
+      .populate('box')
     //.exec();
 
     return movements;

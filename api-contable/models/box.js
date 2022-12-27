@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const BoxSchema = Schema(
   {
-    idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
+    business: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
     name: String,
     status: String,
     actualAmount: Number,

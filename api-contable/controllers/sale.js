@@ -79,7 +79,7 @@ function getSale(req, res) {
   let saleRepo = new saleRepository();
 
   saleRepo
-    .get(idSale)
+    .get_sale(idSale)
     .then((data) => {
       res.status(200).send({ data });
     })
