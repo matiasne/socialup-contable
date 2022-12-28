@@ -6,6 +6,17 @@ class BoxRepository extends BaseRepository {
     super(Box);
   }
 
+  async create(entity) {
+    entity.business = entity.idBusiness;
+    delete entity.idBusiness;
+    try {
+
+      return await this.model.create(entity);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async getByBusinessId(
     idBusiness,
     offset = 0,
@@ -14,13 +25,13 @@ class BoxRepository extends BaseRepository {
     searchWord = ""
   ) {
     let box = await this.model
-      .find({ idBusiness: idBusiness, name: new RegExp(searchWord, "i") })
+      .find({ business: idBusiness, name: new RegExp(searchWord, "i") })
       .skip(offset)
       .limit(limit)
       .exec();
 
     let total = await this.model
-      .find({ idBusiness: idBusiness, name: new RegExp(searchWord, "i") })
+      .find({ business: idBusiness, name: new RegExp(searchWord, "i") })
       .count();
 
     let totalPages = 1;

@@ -7,15 +7,15 @@ var SaleSchema = Schema(
   {
     business: { type: mongoose.Schema.Types.ObjectId, ref: "Businesses" },
     client: { type: mongoose.Schema.Types.ObjectId, ref: "Clients" },
-    _business: {},
-    _client: {},
+    businessAtDate: {},
+    clientAtDate: {},
     item: [],
     total: Number,
     payments: [],
     variations: [],
     billingDate: Date,
     status: {},
-    box: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
+    idBox: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
   },
   {
     timestamps: true,

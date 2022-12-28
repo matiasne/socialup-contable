@@ -50,7 +50,7 @@ export class FormProductComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterContentInit() {
 
@@ -76,7 +76,7 @@ export class FormProductComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   changeImage(event: any) {
     this.formProduct.patchValue({

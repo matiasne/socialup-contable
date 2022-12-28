@@ -21,8 +21,7 @@ function getProduct(req, res) {
 
 async function getProducts(req, res) {
   //pageCount  perPage
-
-  var idBusiness = req.params.idBusiness;
+  var business = req.params.idBusiness;
   var pageCount = req.query.pageCount;
   var perPage = req.query.perPage;
   var searchWord = req.query.searchWord;
@@ -36,7 +35,7 @@ async function getProducts(req, res) {
 
   try {
     let data = await productRepo.getByBusinessId(
-      idBusiness,
+      business,
       offset,
       limit,
       orderBy,
@@ -59,7 +58,7 @@ async function addProduct(req, res) {
     }
 
     var tokenPayload = jwtHanlder.getDataToken(req.headers.authorization);
-    params.userId = tokenPayload.sub;
+    //params.userId = tokenPayload.sub;
 
     let product = await productRepo.create(params);
 

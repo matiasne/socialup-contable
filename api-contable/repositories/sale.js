@@ -20,7 +20,7 @@ class saleRepository extends BaseRepository {
   ) {
     let query = {};
     //Defino el id de la empresa a consultar
-    query["business._id"] = idBusiness;
+    query["businessAtDate._id"] = idBusiness;
 
     if (dateFrom != "" && dateTo != "") {
       query["createdAt"] = { $gte: new Date(dateFrom), $lte: new Date(dateTo) };
@@ -35,11 +35,11 @@ class saleRepository extends BaseRepository {
     }
 
     if (idClient != "") {
-      query["client._id"] = idClient;
+      query["clientAtDate._id"] = idClient;
     }
     if (box != "") {
       const i = box.split(',');
-      query["boxId"] = { $in: i }
+      query["box"] = { $in: i }
     }
     // if (saleStatus != "") {
     //   query["status"]  = saleStatus;
@@ -50,7 +50,6 @@ class saleRepository extends BaseRepository {
 
       query["payments.type"] = { $in: items };
     }
-
 
     let sales = await this.model
       .find(query)

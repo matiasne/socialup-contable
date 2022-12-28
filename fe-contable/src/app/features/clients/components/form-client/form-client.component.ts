@@ -37,7 +37,7 @@ export class FormClientComponent implements OnInit {
     this.client = new Client('', '', '', '', '', '', '', '', '', '', '', '');
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
-      address: new FormControl('', Validators.required),
+      address: new FormControl('',),
       surname: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),

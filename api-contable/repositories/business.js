@@ -5,6 +5,21 @@ class BusinessRepository extends BaseRepository {
   constructor() {
     super(Business);
   }
+
+
+  async create(entity) {
+
+    entity.user = entity.idUser;
+    delete entity.idUser;
+
+    try {
+      return await this.model.create(entity);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
   async getByUserId(
     id,
     offset = 0,
@@ -13,12 +28,12 @@ class BusinessRepository extends BaseRepository {
     searchWord = ""
   ) {
     let businesses = await this.model
-      .find({ idUser: id, name: new RegExp(searchWord, "i") })
+      .find({ user: id, name: new RegExp(searchWord, "i") })
       .skip(offset)
       .limit(limit)
       .exec();
     let total = await this.model
-      .find({ idUser: id, name: new RegExp(searchWord, "i") })
+      .find({ user: id, name: new RegExp(searchWord, "i") })
       .count();
     let totalPages = 1;
     if (limit) totalPages = Math.ceil(total / parseInt(limit));

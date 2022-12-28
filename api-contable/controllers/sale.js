@@ -17,13 +17,12 @@ async function saveSale(req, res) {
 
     for await (let element of sale.payments) {
       let m = {
-        idSale: sale._id,
-        idBox: box._id,
+        sale: sale._id,
+        box: box._id,
         amount: sale.total,
         type: element.type,
         boxAmount: element.amount,
       };
-      console.log(m)
       await movementRepo.create(m);
       box.actualAmount = Number(box.actualAmount) + Number(element.amount);
     }

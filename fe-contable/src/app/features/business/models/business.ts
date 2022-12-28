@@ -10,7 +10,7 @@ export class Business {
     public email: string,
     public phone: string,
     public idUser: string
-  ) {}
+  ) { }
 
   public static adapt(item: any): Business {
     return new Business(

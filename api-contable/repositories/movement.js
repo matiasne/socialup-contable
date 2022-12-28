@@ -6,9 +6,20 @@ class MovementRepository extends BaseRepository {
     super(Movement);
   }
 
+  async create(entity) {
+    entity.business = entity.idBusiness;
+    delete entity.idBusiness;
+    try {
+
+      return await this.model.create(entity);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async getMovementByBox(idBox) {
     let movements = await this.model
-      .find({ idBox: idBox })
+      .find({ box: idBox })
       //.skip(offset)
       //.limit(limit)
       .populate('box')

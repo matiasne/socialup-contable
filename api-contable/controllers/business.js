@@ -44,6 +44,7 @@ async function getUserBusinesses(req, res) {
 
 async function addBusiness(req, res) {
   var params = req.body;
+
   let businessRepo = new businessRepository();
 
   try {
@@ -53,7 +54,7 @@ async function addBusiness(req, res) {
     }
 
     var tokenPayload = jwtHanlder.getDataToken(req.headers.authorization);
-    params.userId = tokenPayload.sub;
+    //params.user = tokenPayload.sub;
 
     let business = await businessRepo.create(params);
 
