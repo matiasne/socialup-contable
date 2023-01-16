@@ -14,6 +14,12 @@
             auto-hide="false"
             *ngFor="let p of appPages; let i = index"
           >
+          <!-- { title: 'Productos', url: '/products', icon: 'grid' },
+          { title: 'Clientes', url: '/clients', icon: 'people' },
+          { title: 'Ventas', url: '/list-sale', icon: 'receipt' },
+          { title: 'Cajas', url: '/list-box', icon: 'wallet' },
+          { title: 'Home Business', url: '/dashboard-business', icon: 'home' }, -->
+
             <ion-item
               routerDirection="root"
               [routerLink]="[p.url]"
@@ -29,6 +35,26 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item *ngIf="showMenuBusiness" [routerLink]="['/products']">
+            <ion-icon name="grid"></ion-icon>
+            <ion-label >Productos</ion-label>
+          </ion-item>
+          <ion-item  *ngIf="showMenuBusiness" [routerLink]="['/clients']">
+            <ion-icon name="people"></ion-icon>
+            <ion-label >Clientes</ion-label>
+          </ion-item>
+          <ion-item  *ngIf="showMenuBusiness" [routerLink]="['/list-sale']">
+            <ion-icon name="receipt"></ion-icon>
+            <ion-label >Ventas</ion-label>
+          </ion-item>
+          <ion-item  *ngIf="showMenuBusiness"  [routerLink]="['/list-box']">
+            <ion-icon name="wallet"></ion-icon>
+            <ion-label >Cajas</ion-label>
+          </ion-item>
+          <ion-item  *ngIf="showMenuBusiness"[routerLink]="['/dashboard-business']">
+            <ion-icon name="home"></ion-icon>
+            <ion-label >MI EMPRESA</ion-label>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

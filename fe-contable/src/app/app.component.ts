@@ -17,23 +17,14 @@ import { BusinessService } from './features/business/service/business.service';
 export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Profile', url: '/form-profile', icon: 'person' },
-    {
-      title: 'Recuperar Contraseña',
-      url: '/form-forgotpassword',
-      icon: 'lock-closed',
-    },
+
     {
       title: 'Negocios',
       url: '/select-user-business',
       icon: 'storefront',
     },
-    { title: 'Productos', url: '/products', icon: 'grid' },
-    { title: 'Clientes', url: '/clients', icon: 'people' },
-    { title: 'Ventas', url: '/list-sale', icon: 'receipt' },
-    { title: 'Cajas', url: '/list-box', icon: 'wallet' },
-    { title: 'Home Business', url: '/dashboard-business', icon: 'home' },
   ];
-
+  public showMenuBusiness=false
   public showMenu = false;
   public user: User = new User('', '', '', '', '', '', '', '', '');
   public business: Business = new Business('', '', '', '', '', '', '', '');
@@ -57,6 +48,7 @@ export class AppComponent implements OnInit {
             //esto es para cuando se reinicia el navegador
             this.business = Business.adapt(session.business);
             this.businessService.loadSelectedBusiness(this.business);
+            this.showMenuBusiness=true
           }
         }
 

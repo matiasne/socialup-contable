@@ -77,19 +77,23 @@ async function loginUser(req, res) {
   var email = params.email;
   var password = params.password;
 
+
   try {
+    console.log(email)
     let userRepo = new userRepository();
     let user = await userRepo.getUserEmail(email);
+    console.log(user)
     bcrypt.compare(password, user.password, function (err, check) {
       if (check) {
         let token = jwtHanlder.createToken(user);
 
         res.status(200).send({ user: user, token: token });
       } else {
-        res.status(400).send({ message: err });
+        res.status(400).send({ message: "Contraseña incorrecta" });
       }
     });
   } catch (error) {
+    console.log(error)
     res.status(400).send({ message: error });
   }
 }

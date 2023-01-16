@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Business } from '../../features/business/models/business';
 import { Session } from '../model/session';
 import { User } from '../../models/user';
+import { Console } from 'console';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
@@ -67,6 +68,7 @@ export class SessionService {
   }
 
   getBusiness() {
+
     return this.currentSessionSubj.value?.business;
   }
 
