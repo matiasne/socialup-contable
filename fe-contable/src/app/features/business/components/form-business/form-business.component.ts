@@ -22,13 +22,13 @@ export class FormBusinessComponent implements OnInit {
   public formBusiness: FormGroup;
   public isSubmitted = false;
   public isEditing: boolean = false;
-  public buttonLabel = 'Crear Empresa';
+  public buttonLabel = 'Crear empresa';
   public FormGroup: FormControl;
 
   constructor(
     public sessionService: SessionService,
     public businessService: BusinessService,
-    public toastService: ToastService,
+    public toastService: ToastService
   ) {
     this.business = new Business('', '', '', '', '', '', '', '');
 
@@ -59,10 +59,11 @@ export class FormBusinessComponent implements OnInit {
 
   ngOnInit() {
     if (this.businessId) {
-      this.buttonLabel = 'Editar Empresa';
+      this.buttonLabel = 'Editar empresa';
       this.isEditing = true;
       this.businessService.get(this.businessId).subscribe({
-        next: (business) => {
+        next: (business: Business) => {
+          console.log(business);
           this.business = business;
 
           this.formBusiness.setValue({
@@ -85,7 +86,7 @@ export class FormBusinessComponent implements OnInit {
         this.business = data;
         this.toastService.show(
           ToastType.success,
-          'Se ha actualizaddo el prodcuto correctamente'
+          'Se ha actualizado el producto correctamente'
         );
         this.handleSubmit.emit(data);
       },
@@ -102,11 +103,11 @@ export class FormBusinessComponent implements OnInit {
       this.business.email = this.formBusiness.controls.email.value;
       this.business.phone = this.formBusiness.controls.phone.value;
       this.save();
-      this.formBusiness.reset();
+      //this.formBusiness.reset();
     } else {
       this.toastService.show(
         ToastType.error,
-        'Por Favor complete todo los campos'
+        'Por favor complete todos los campos'
       );
     }
   }
@@ -150,8 +151,7 @@ export class FormBusinessComponent implements OnInit {
   clickService() {
     if (this.businessId) {
       this.businessService._delete(this.businessId).subscribe({
-        next: (data) => {
-        },
+        next: (data) => {},
       });
     }
   }

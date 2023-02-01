@@ -15,7 +15,7 @@ var SaleSchema = Schema(
     variations: [],
     billingDate: Date,
     status: {},
-    idBox: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
+    box: { type: mongoose.Schema.Types.ObjectId, ref: "Box" },
   },
   {
     timestamps: true,

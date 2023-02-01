@@ -5,7 +5,7 @@
     </h1>
     <div>
       <p *ngIf="sale.client">client : {{ sale.client.name }}</p>
-      <p >Caja: {{ sale.boxId["name"] }}</p>
+      <p>Caja: {{ sale.box.name }}</p>
       <p>Productos: {{ this.total }}</p>
       <p>Total: {{ sale.total | currency: "ARS" }}</p>
     </div>

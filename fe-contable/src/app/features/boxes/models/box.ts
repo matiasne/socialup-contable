@@ -3,6 +3,18 @@ export enum statusTypes {
   close = 'close',
 }
 
+export interface IBoxResponseDTO {
+  actualAmount: number;
+  createdAt: string;
+  dailyAmount: number;
+  image: string;
+  name: string;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+
 export class Box {
   constructor(
     public _id: string,
@@ -12,7 +24,7 @@ export class Box {
     public status: statusTypes = statusTypes.close,
     public actualAmount: number,
     public dailyAmount: number
-  ) {}
+  ) { }
 
   public static adapt(item: any): Box {
     return new Box(
@@ -20,9 +32,12 @@ export class Box {
       item.idBusiness,
       item.image,
       item.name,
-      item.state,
+      item.status,
       item.actualAmount,
       item.dailyAmount
     );
   }
 }
+
+
+

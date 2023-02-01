@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Console } from 'console';
-import { Box, statusTypes } from '../../models/box';
+import { Box, IBoxResponseDTO, statusTypes } from '../../models/box';
 import { BoxService } from '../../service/box.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { BoxService } from '../../service/box.service';
   styleUrls: ['./item-box.component.scss'],
 })
 export class ItemBoxComponent implements OnInit {
-  public statusBox:boolean=false
+  public statusBox: boolean = false
   @Input() box: Box;
   @Input() showEditButton = false;
   @Input() boxId: string = '';
@@ -19,17 +19,17 @@ export class ItemBoxComponent implements OnInit {
   @Output() eventClick = new EventEmitter<any>();
 
   constructor(public router: Router,
-    public boxService: BoxService) {}
+    public boxService: BoxService) { }
 
   ngOnInit() {
     this.boxService.get(this.box._id).subscribe({
       next: (box: Box) => {
-        this.box = box
-        if(this.box.status == statusTypes.open){
-         this.statusBox = true
-  }
-  }
-  })
+        this.box = box;
+        if (this.box.status == statusTypes.open) {
+          this.statusBox = true
+        }
+      }
+    })
   }
 
   handleClickEdit() {
@@ -37,20 +37,20 @@ export class ItemBoxComponent implements OnInit {
     this.eventClickEdit.emit(this.box);
   }
   handleClickStatus(event) {
-    if(event.target.checked ){
-      this.box.status=statusTypes.open
+    if (event.target.checked) {
+      this.box.status = statusTypes.open
 
-        }else{
-          this.box.status=statusTypes.close
+    } else {
+      this.box.status = statusTypes.close
 
-          }
-          this.boxService.update(this.box).subscribe({
-            next:(data)=>{
+    }
+    this.boxService.update(this.box).subscribe({
+      next: (data) => {
 
-            }
-          })
-          this.eventClickStatus.emit(this.box);
       }
+    })
+    this.eventClickStatus.emit(this.box);
+  }
 
 
   handleClick() {

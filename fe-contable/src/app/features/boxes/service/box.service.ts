@@ -6,7 +6,7 @@ import { BaseCRUDService } from '../../../shared/services/base-crud.service';
 import { HelperService } from '../../../shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
-import { Box } from '../models/box';
+import { Box, IBoxResponseDTO } from '../models/box';
 
 @Injectable({ providedIn: 'root' })
 export class BoxService extends BaseCRUDService {
@@ -21,33 +21,39 @@ export class BoxService extends BaseCRUDService {
     this.url = GLOBAL.url + '/box';
   }
 
-  get(id): Observable<any> {
+  get(id): Observable<Box> {
 
     return super
       .get(this.url + '/' + id)
-      .pipe(map((item: any) => item.data));
+      .pipe(map((response: any) => {
+        return Box.adapt(response.data);
+      }));
   }
 
-  update(box: Box): Observable<any> {
+  update(box: Box): Observable<Box> {
     let formData = this.helperService.toFormData(box);
-    return this.put(this.url + '/' + box._id, formData);
+    return this.put(this.url + '/' + box._id, formData).pipe(map((response: any) => {
+      return Box.adapt(response.data);
+    }));;
   }
 
-  add(box: Box): Observable<any> {
+  add(box: Box): Observable<Box> {
     delete box._id;
     let formData = this.helperService.toFormData(box);
-    return this.post(this.url, formData);
+    return this.post(this.url, formData).pipe(map((response: any) => {
+      return Box.adapt(response.data);
+    }));;
   }
 
   _delete(id): Observable<any> {
     return this.delete(this.url + '/' + id);
   }
 
-  setSelectedBox(boxId:string){
-    localStorage.setItem("selectedBoxId",boxId)
+  setSelectedBox(boxId: string) {
+    localStorage.setItem("selectedBoxId", boxId)
   }
 
-  getSelectedBox():string{
+  getSelectedBox(): string {
     return localStorage.getItem("selectedBoxId");
   }
 }

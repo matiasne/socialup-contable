@@ -10,8 +10,9 @@ function getBusiness(req, res) {
 
   let business = businessRepo
     .get(req.params.id)
-    .then((business) => {
-      res.status(200).send({ business: business });
+    .then((data) => {
+      console.log(data);
+      res.status(200).send({ data });
     })
     .catch((err) => {
       res.status(404).send({ message: "no hay" });

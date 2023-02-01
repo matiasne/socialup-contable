@@ -6,6 +6,26 @@ class saleRepository extends BaseRepository {
     super(Sale);
   }
 
+  async create(entity) {
+
+    entity.businessAtDate = entity.business;
+    delete entity.business;
+    entity.business = entity.idBusiness;
+    delete entity.idBusiness;
+    entity.clientAtDate = entity.client;
+    delete entity.client;
+    entity.client = entity.idClient;
+    delete entity.idClient;
+    entity.box = entity.boxId;
+    delete entity.boxId;
+    try {
+
+      return await this.model.create(entity);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async getByBusinessId(
     idBusiness,
     offset,
@@ -20,7 +40,7 @@ class saleRepository extends BaseRepository {
   ) {
     let query = {};
     //Defino el id de la empresa a consultar
-    query["businessAtDate._id"] = idBusiness;
+    query["business"] = idBusiness;
 
     if (dateFrom != "" && dateTo != "") {
       query["createdAt"] = { $gte: new Date(dateFrom), $lte: new Date(dateTo) };
@@ -50,14 +70,14 @@ class saleRepository extends BaseRepository {
 
       query["payments.type"] = { $in: items };
     }
-
+    // console.log(query)
     let sales = await this.model
       .find(query)
-      .skip(offset)
-      .limit(limit)
+      // .skip(offset)
+      // .limit(limit)
       .populate('box') // .sort({ createdAt: -1 })
 
-    let total = await this.model.find({ "business._id": idBusiness }).count();
+    let total = await this.model.find({ "business": idBusiness }).count();
 
     let totalPages = 1;
     if (limit) totalPages = Math.ceil(total / parseInt(limit));
@@ -73,7 +93,7 @@ class saleRepository extends BaseRepository {
         totalPages: totalPages,
       },
     };
-
+    console.log(response)
     return response;
   }
   async get_sale(idSale) {

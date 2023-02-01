@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TouchSequence } from 'selenium-webdriver';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { Box, statusTypes } from '../../models/box';
+import { Box, IBoxResponseDTO, statusTypes } from '../../models/box';
 import { BoxService } from '../../service/box.service';
 
 @Component({
@@ -13,9 +13,9 @@ import { BoxService } from '../../service/box.service';
 export class FormBoxComponent implements OnInit {
   private box: Box;
   public formBox: FormGroup;
-  public buttonLabel='Crear caja'
-  public openBox='close'
-  public statusBox:boolean=false
+  public buttonLabel = 'Crear caja'
+  public openBox = 'close'
+  public statusBox: boolean = false
   @Input() boxId: string = '';
   @Output() handleSubmit = new EventEmitter<any>();
 
@@ -27,18 +27,22 @@ export class FormBoxComponent implements OnInit {
     this.formBox = new FormGroup({
       name: new FormControl('', Validators.compose([Validators.required])),
       image: new FormControl(''),
-      actualAmount: new FormControl('',Validators.compose([Validators.required])),
+      actualAmount: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
   ngOnInit() {
     if (this.boxId != '') {
-this.buttonLabel='Actualizar Caja'
+      this.buttonLabel = 'Actualizar Caja'
       this.boxService.get(this.boxId).subscribe({
         next: (box: Box) => {
-          this.box = box
-          if(this.box.status == statusTypes.open){
-           this.statusBox = true
+
+          this.box = box;
+
+          console.log(this.box)
+
+          if (this.box.status == statusTypes.open) {
+            this.statusBox = true
           }
 
           this.formBox.setValue({
@@ -60,31 +64,31 @@ this.buttonLabel='Actualizar Caja'
     });
   }
 
-updateBox(){
+  updateBox() {
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
     this.box.actualAmount = this.formBox.controls.actualAmount.value
     this.boxService.update(this.box).subscribe({
-      next:(data)=>{
+      next: (data) => {
 
       }
     })
-}
-submit(){
-if(this.boxId){
-  this.buttonLabel ='Actualizar Caja'
-  this.updateBox()
-}else{
-this.createBox()
-}
-}
+  }
+  submit() {
+    if (this.boxId) {
+      this.buttonLabel = 'Actualizar Caja'
+      this.updateBox()
+    } else {
+      this.createBox()
+    }
+  }
 
   createBox() {
 
     this.box.name = this.formBox.controls.name.value;
     this.box.idBusiness = this.businessService.getBusinessId();
     this.box.actualAmount = this.formBox.controls.actualAmount.value
-    this.box.status =statusTypes.close
+    this.box.status = statusTypes.close
     this.boxService.add(this.box).subscribe({
       next: (data) => {
         this.handleSubmit.emit(data);
@@ -92,18 +96,18 @@ this.createBox()
     });
   }
 
-  openCloseBox(event){
-if(event.target.checked ){
-  this.box.status=statusTypes.open
+  openCloseBox(event) {
+    if (event.target.checked) {
+      this.box.status = statusTypes.open
 
-    }else{
-      this.box.status=statusTypes.close
+    } else {
+      this.box.status = statusTypes.close
+
+    }
+    this.boxService.update(this.box).subscribe({
+      next: (data) => {
 
       }
-      this.boxService.update(this.box).subscribe({
-        next:(data)=>{
-
-        }
-      })
+    })
   }
 }
