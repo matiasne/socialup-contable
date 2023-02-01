@@ -1,0 +1,15 @@
+import { Route, Routes } from "react-router-dom";
+import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
+import { FormLogin } from "./pages/formLogin/formLogin";
+import { FormRegister } from "./pages/formRegister/formRegister";
+
+export const AppRouter = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<div>Ingrese la url de la pagina</div>} />
+      <Route path="/login" element={<FormLogin />} />
+      <Route path="/register" element={<FormRegister />} />
+      <Route path="/forgot-password" element={<FormForgotPassword />} />
+    </Routes>
+  );
+};
