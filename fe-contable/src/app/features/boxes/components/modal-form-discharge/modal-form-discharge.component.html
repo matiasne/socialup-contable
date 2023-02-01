@@ -1,0 +1,19 @@
+<ion-content [formGroup]="formDischarge">
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Monto
+      </ion-label>
+      <ion-input
+      formControlName="amountDischarge"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Motivo
+      </ion-label>
+      <ion-input
+      formControlName="detailDischarge"></ion-input>
+    </ion-item>
+    <ion-button (click)="openAlert()"></ion-button>
+  </ion-card>
+</ion-content>
