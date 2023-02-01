@@ -17,6 +17,7 @@ import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
 import { Card } from "@mui/material";
+import { AxiosInterceptors } from "../../interceptors/axios.interceptor";
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -25,9 +26,10 @@ export const FormLogin = () => {
     email: "",
     password: "",
   });
+
   useEffect(() => {
-    document.title = `You clicked ${formValue.email} times`;
-  });
+    AxiosInterceptors.UserInterceptors(setForm);
+  }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
