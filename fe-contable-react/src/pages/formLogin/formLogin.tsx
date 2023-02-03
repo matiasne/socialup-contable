@@ -43,7 +43,7 @@ export const FormLogin = () => {
   };
   const submit = (e: any) => {
     e.preventDefault();
-    AxiosInterceptors.Usuario(formValue.email, formValue.password);
+    AxiosInterceptors.authenticate(formValue.email, formValue.password);
   };
 
   return (
