@@ -1,5 +1,5 @@
-import Person from "./models/person";
-import User from "./models/user";
+import Person from "./schema/person";
+import User from "./schema/user";
 import jwt from 'jsonwebtoken';
 import { UserInputError } from "apollo-server-core";
 
