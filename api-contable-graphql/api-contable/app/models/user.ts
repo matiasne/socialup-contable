@@ -1,16 +1,29 @@
-import mongoose from "mongoose";
+export interface IUserDTO {
+    name:string;
+    pass:string;
+}
 
-const schema = new mongoose. Schema({
-     username: { type: String,
-        required: true,
-        unique: true,
-        minlength: 3
-      },
-        friends: [
-            {
-             ref: 'Person',
-             type: mongoose.Schema.Types.ObjectId
-            }
-        ]
-    })
-export default mongoose.model('User', schema)
+export interface IUser{
+     username:string;
+     password:string;
+}
+
+export class User implements IUser{  
+
+    constructor(
+        public username:string,
+        public password:string
+    ){
+
+    }
+
+    public static adapt(item: any): User {
+        return new User(
+          item.username,
+          item.password
+        );
+      }
+
+}
+
+

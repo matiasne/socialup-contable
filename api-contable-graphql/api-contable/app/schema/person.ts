@@ -24,6 +24,4 @@ const schema = new mongoose.Schema({
     }
 })
 
-//schema.plugin(uniqueValidator);
-
 export default mongoose.model('Person', schema);

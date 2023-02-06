@@ -17,6 +17,7 @@ const Schema = gql`
 
   type User {
     username: String!
+    password: String!
     id: ID!
   }
 
@@ -31,7 +32,7 @@ const Schema = gql`
       street: String!
       city: String!
     ): Person
-    createUser(username: String!): User
+    createUser(username: String!, password: String!): User
     login(username: String!, password: String!): Token
   }
 `;
