@@ -8,4 +8,4 @@ export interface IUser {
   confirmPassword: string;
 }
 
-export type ILoginUser = Pick<IUser, "id" | "email" | "password">;
+export type ILoginUser = Pick<IUser, "email" | "password">;

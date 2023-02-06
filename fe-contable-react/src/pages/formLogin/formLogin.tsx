@@ -22,14 +22,13 @@ import { AxiosInterceptors } from "../../interceptors/axios.interceptor";
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [formValue, setForm] = useState<ILoginUser>({
-    id: "",
     email: "",
     password: "",
   });
 
-  useEffect(() => {
-    AxiosInterceptors.UserInterceptors(setForm);
-  }, []);
+  // useEffect(() => {
+  //   AxiosInterceptors.Usuario(formValue);
+  // }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -44,8 +43,7 @@ export const FormLogin = () => {
   };
   const submit = (e: any) => {
     e.preventDefault();
-
-    console.log(formValue);
+    AxiosInterceptors.authenticate(formValue.email, formValue.password);
   };
 
   return (
