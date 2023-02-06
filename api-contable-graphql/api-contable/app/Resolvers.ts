@@ -1,4 +1,9 @@
-import Person from "./models/person";
+import Person from "./schema/person";
+import User from "./schema/user";
+import jwt from 'jsonwebtoken';
+import { UserInputError } from "apollo-server-core";
+
+
 
 const Resolvers = {
   Query: {
@@ -18,6 +23,35 @@ const Resolvers = {
       
       return newPerson.save(); //return the new object's result
     },
+    createUser: (root: any, args: any) => {
+      const user = new User({ username: args.username, password: args.password})
+
+      return user.save().catch(error => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        })
+      })
+    },
+    login: async (root:any, args:any) => {
+      const user = await User.findOne({ username: args.username, password: args.password})
+
+      console.log(user)
+
+      if (!user){
+        throw new UserInputError('wrong credentials')
+      }
+
+      const userForToken = {
+        username: user.username,
+        password: user.password,
+        id: user._id
+      }
+
+      return {
+        value: jwt.sign(userForToken, "SOCIALUP")
+      }
+    }
   },
+    
 };
 export default Resolvers;
