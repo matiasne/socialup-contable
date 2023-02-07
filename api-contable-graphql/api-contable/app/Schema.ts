@@ -12,10 +12,27 @@ const Schema = gql`
     personCount: Int!
     allPersons(phone: String): [Person]!
     findPerson(name: String!): Person
+    me: User
+  }
+
+  type User {
+    username: String!
+    id: ID!
+  }
+
+  type Token {
+    value: String!
   }
 
   type Mutation {
-    addPerson(name: String!, phone: String, street: String!, city: String!): Person
+    addPerson(
+      name: String!
+      phone: String
+      street: String!
+      city: String!
+    ): Person
+    createUser(username: String!): User
+    login(username: String!, password: String!): Token
   }
 `;
 
