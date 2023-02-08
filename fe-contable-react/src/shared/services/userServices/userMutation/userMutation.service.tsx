@@ -8,4 +8,6 @@ const Login = gql`
   }
 `;
 
-export { Login };
+export const UserMutationServices = {
+  Login,
+};

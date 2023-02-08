@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -17,9 +17,8 @@ import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
 import { Card } from "@mui/material";
-import { AxiosInterceptors } from "../../interceptors/axios.interceptor";
-import { useMutation, useQuery } from "@apollo/client";
-import { Login } from "../../shared/query/userQuery";
+import { useMutation } from "@apollo/client";
+import { UserServices } from "../../shared/services/userServices/userServices";
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -27,10 +26,12 @@ export const FormLogin = () => {
     email: "",
     password: "",
   });
-  const [mutateFunction, { loading, error, data }] = useMutation(Login);
+  const [mutateFunction, { loading, error, data }] = useMutation(
+    UserServices.UserMutationServices.Login
+  );
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
-  if (data) console.log(data);
+  if (data) console.log(data.login.value);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
