@@ -1,29 +1,26 @@
-import mongoose from "mongoose";
-//import uniqueValidator from "mongoose-unique-validator";
+export interface IPerson{
+    name:string;
+    phone: string,
+    street: string,
+    city: string,
+}
 
-const schema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        minlenght: 5
-    },
-    phone: {
-        type: String,
-        minlenght: 5
-    },
-    street: {
-        type: String,
-        require: true,
-        minlenght: 5
-    },
-    city: {
-        type: String,
-        required: true,
-        minlenght: 3
+
+export class Person implements IPerson {    
+
+    constructor(
+      public name: string,
+      public phone: string,
+      public street: string,
+      public city: string
+    ) {}
+  
+    public static adapt(item: any): Person {
+      return new Person(
+        item.name,
+        item.phone,
+        item.street,
+        item.city
+      );
     }
-})
-
-//schema.plugin(uniqueValidator);
-
-export default mongoose.model('Person', schema);
+  }
