@@ -1,14 +1,11 @@
 import { gql } from "@apollo/client";
 
-const GET_LOCATIONS = gql`
-  query GetLocations {
-    locations {
-      id
-      name
-      description
-      photo
+const Login = gql`
+  mutation Mutation($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
     }
   }
 `;
 
-export { GET_LOCATIONS };
+export { Login };

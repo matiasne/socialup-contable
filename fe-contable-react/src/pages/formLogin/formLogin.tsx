@@ -18,6 +18,8 @@ import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
 import { Card } from "@mui/material";
 import { AxiosInterceptors } from "../../interceptors/axios.interceptor";
+import { useMutation, useQuery } from "@apollo/client";
+import { Login } from "../../shared/query/userQuery";
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -25,10 +27,10 @@ export const FormLogin = () => {
     email: "",
     password: "",
   });
-
-  // useEffect(() => {
-  //   AxiosInterceptors.Usuario(formValue);
-  // }, []);
+  const [mutateFunction, { loading, error, data }] = useMutation(Login);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+  if (data) console.log(data);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -43,7 +45,9 @@ export const FormLogin = () => {
   };
   const submit = (e: any) => {
     e.preventDefault();
-    AxiosInterceptors.authenticate(formValue.email, formValue.password);
+    mutateFunction({
+      variables: { username: formValue.email, password: formValue.password },
+    });
   };
 
   return (
