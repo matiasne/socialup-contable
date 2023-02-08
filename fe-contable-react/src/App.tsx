@@ -1,16 +1,15 @@
 import "./App.css";
 import "./pages/formRegister/formRegister.tsx";
-import { FormRegister } from "./pages/formRegister/formRegister";
-import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
-import { FormLogin } from "./pages/formLogin/formLogin";
+import { AppRouter } from "./Routes";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <FormForgotPassword />
-        <FormRegister />
-        <FormLogin />
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
       </header>
     </div>
   );
