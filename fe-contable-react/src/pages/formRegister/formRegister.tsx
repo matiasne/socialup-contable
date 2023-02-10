@@ -12,17 +12,32 @@ import Button from "@mui/material/Button";
 import style from "./styleFormRegister.module.css";
 import { Card } from "@mui/material";
 import { IUser } from "../../models/user";
+import { useMutation } from "@apollo/client";
+import { UserServices } from "../../shared/services/userServices/userServices";
 
 export const FormRegister = () => {
   const [formValue, setFormValue] = useState<IUser>({
     id: "",
     name: "",
-    phone: "",
-    address: "",
+    surname: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role: "",
+    image: "",
+    address: "",
+    gender: "",
+    phone: "",
   });
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const [mutateFunction, { loading, error, data }] = useMutation(
+    UserServices.UserMutationServices.register
+  );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+  if (data) console.log(data);
 
   const handleInputChange = (event: any) => {
     setFormValue({
@@ -31,7 +46,7 @@ export const FormRegister = () => {
     });
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -43,6 +58,10 @@ export const FormRegister = () => {
 
   const submit = (event: any) => {
     event.preventDefault();
+    mutateFunction({
+      variables: { name: formValue.name, surname: formValue.surname, phone: formValue.phone, address: formValue.address,
+          email: formValue.email, password: formValue.password },
+    });
   };
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -56,6 +75,16 @@ export const FormRegister = () => {
               onChange={handleInputChange}
               name="name"
               value={formValue.name}
+            />
+          </Box>
+          <Box>
+            <TextField
+              label="Surname"
+              sx={{ m: 1, width: "25ch" }}
+              type="text"
+              onChange={handleInputChange}
+              name="surname"
+              value={formValue.surname}
             />
           </Box>
           <Box>
