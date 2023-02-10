@@ -10,8 +10,15 @@ module.exports = {
     //create our mutation:
     createUser: (root: any, args: any) => {
       const user = new User({
-        username: args.username,
+        name: args.name,
+        surname: args.surname,
+        email: args.email,
         password: args.password,
+        role: args.role,
+        image: args.image,
+        address: args.address,
+        gender: args.gender,
+        phone: args.phone,
       });
 
       return user.save().catch((error) => {
@@ -22,7 +29,7 @@ module.exports = {
     },
     login: async (root: any, args: any) => {
       const user = await User.findOne({
-        username: args.username,
+        email: args.email,
         password: args.password,
       });
 
@@ -31,7 +38,7 @@ module.exports = {
       }
 
       const userForToken = {
-        username: user.username,
+        email: user.email,
         password: user.password,
         id: user._id,
       };

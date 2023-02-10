@@ -2,8 +2,15 @@ import { gql } from "apollo-server-express";
 
 module.exports = gql`
   type User {
-    username: String!
+    name: String!
+    surname: String!
+    email: String!
     password: String!
+    role: String
+    image: String
+    address: String
+    gender: String
+    phone: String
     id: ID!
   }
 
@@ -16,7 +23,17 @@ module.exports = gql`
   }
 
   type Mutation {
-    createUser(username: String!, password: String!): User
-    login(username: String!, password: String!): Token
+    createUser(
+      name: String!
+      surname: String!
+      email: String!
+      password: String!
+      role: String
+      image: String
+      address: String
+      gender: String
+      phone: String
+    ): User
+    login(email: String!, password: String!): Token
   }
 `;
