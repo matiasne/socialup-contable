@@ -1,58 +1,7 @@
-import Person from "./schema/person";
-import User from "./schema/user";
-import jwt from "jsonwebtoken";
-import { UserInputError } from "apollo-server-core";
+import path from "path";
+import { mergeResolvers } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
 
-const Resolvers = {
-  Query: {
-    personCount: () => Person.collection.countDocuments({}),
-    allPersons: async (root: any, args: any) => {
-      return Person.collection.find({});
-    },
-    findPerson: (root: any, args: any) => {
-      const { name } = args;
-      return Person.collection.findOne({ name });
-    },
-  },
-  Mutation: {
-    //create our mutation:
-    addPerson: (root: any, args: any) => {
-      const newPerson = new Person({ ...args });
+const resolversArray = loadFilesSync(path.join(__dirname, "./resolvers"));
 
-      return newPerson.save(); //return the new object's result
-    },
-    createUser: (root: any, args: any) => {
-      const user = new User({
-        username: args.username,
-        password: args.password,
-      });
-
-      return user.save().catch((error) => {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
-        });
-      });
-    },
-    login: async (root: any, args: any) => {
-      const user = await User.findOne({
-        username: args.username,
-        password: args.password,
-      });
-
-      if (!user) {
-        throw new UserInputError("wrong credentials");
-      }
-
-      const userForToken = {
-        username: user.username,
-        password: user.password,
-        id: user._id,
-      };
-
-      return {
-        value: jwt.sign(userForToken, "SOCIALUP"),
-      };
-    },
-  },
-};
-export default Resolvers;
+export default mergeResolvers(resolversArray);

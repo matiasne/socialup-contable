@@ -27,7 +27,7 @@ export const FormLogin = () => {
     password: "",
   });
   const [mutateFunction, { loading, error, data }] = useMutation(
-    UserServices.UserMutationServices.Login
+    UserServices.UserMutationServices.login
   );
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
@@ -47,7 +47,7 @@ export const FormLogin = () => {
   const submit = (e: any) => {
     e.preventDefault();
     mutateFunction({
-      variables: { username: formValue.email, password: formValue.password },
+      variables: { email: formValue.email, password: formValue.password },
     });
   };
 
