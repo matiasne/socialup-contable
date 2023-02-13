@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid/Grid";
 import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography";
 import React from "react";
-
 export const NavBar = () => {
   return (
     <Box sx={{ flexBrow: 1 }}>
@@ -22,8 +21,12 @@ export const NavBar = () => {
               </Grid>
               <Grid item>
                 <Stack direction="row" spacing={2}>
-                  <Button variant="contained">Login</Button>
-                  <Button variant="contained">Register</Button>
+                  <Button variant="contained" href="/login">
+                    Login
+                  </Button>
+                  <Button variant="contained" href="/register">
+                    Register
+                  </Button>
                 </Stack>
               </Grid>
             </Grid>
