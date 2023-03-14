@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-express";
-
-module.exports = gql`
+module.exports = `#graphql
   type User {
     name: String!
     surname: String!
@@ -11,6 +9,8 @@ module.exports = gql`
     address: String
     gender: String
     phone: String
+    id: ID!
+    business: [Business]
   }
 
   type Query {
