@@ -11,7 +11,6 @@ module.exports = gql`
     address: String
     gender: String
     phone: String
-    id: ID!
   }
 
   type Query {
