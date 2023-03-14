@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -16,9 +16,14 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
-import { Card } from "@mui/material";
+import { Card, CircularProgress } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { UserServices } from "../../shared/services/userServices/userServices";
+import {
+  getSessionServices,
+  setSessionService,
+} from "../../auth/services/session.service";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -29,9 +34,21 @@ export const FormLogin = () => {
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.login
   );
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (data) console.log(data.login.value);
+
+  if (loading)
+    return (
+      <div>
+        <CircularProgress color="success" />
+        Loading...
+      </div>
+    );
+  if (error) {
+    setSessionService("token", "");
+    return <p>Error : {error.message}</p>;
+  }
+  if (data) {
+    setSessionService("token", data.login.value);
+  }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -49,6 +66,7 @@ export const FormLogin = () => {
     mutateFunction({
       variables: { email: formValue.email, password: formValue.password },
     });
+    getSessionServices();
   };
 
   return (
