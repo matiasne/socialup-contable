@@ -8,6 +8,7 @@ module.exports = `#graphql
     image: String
     phone: String
     _id: ID!
+    product: [Product]
   }
 
   type Query {

@@ -11,11 +11,13 @@ module.exports = gql`
   }
 
   type Query {
-    product: Product
+    findProduct: [Product]
+    findOneProduct(id: ID!): Product
   }
 
   type Mutation {
     createProduct(
+      business: String!
       name: String!
       description: String
       codigo: String

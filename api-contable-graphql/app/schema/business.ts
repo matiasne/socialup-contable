@@ -8,5 +8,6 @@ const schema = new mongoose.Schema({
   email: { type: String, required: false, unique: false, minlength: 2 },
   image: { type: String, required: false, unique: false, minlength: 2 },
   phone: { type: String, required: false, unique: false, minlength: 2 },
+  product: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 export default mongoose.model("Business", schema);
