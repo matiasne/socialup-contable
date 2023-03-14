@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 import "dotenv/config";
 
 import typesDefs from "./typeDefs";
-import resolvers from "./resolvers";
+import resolvers from "./Resolvers";
 
 async function startApolloServer() {
   const app = express();
