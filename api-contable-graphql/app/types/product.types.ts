@@ -8,6 +8,7 @@ module.exports = gql`
     costPrice: String
     salePrice: String
     image: String
+    id: ID!
   }
 
   type Query {
