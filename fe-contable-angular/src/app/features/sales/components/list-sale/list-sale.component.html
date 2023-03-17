@@ -1,0 +1,91 @@
+<ng-template #saleTemplate let-item="item">
+  <socialup-item-sale [sale]="item"></socialup-item-sale>
+</ng-template>
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item button="true" id="date-from">
+        <ion-label>Desde</ion-label>
+        <ion-input
+          value="{{ dateFrom | date: 'dd.MM.yyyy hh:mm' }}"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="date-from" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              [(ngModel)]="dateFrom"
+              (ionChange)="showdate()"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item button="true" id="date-to">
+        <ion-label>Hasta</ion-label>
+        <ion-input
+          value="{{ dateTo | date: 'dd.MM.yyyy hh:mm' }}"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="date-to" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              [(ngModel)]="dateTo"
+              (ionChange)="showdate()"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-button (click)="openModalClient()">
+  <ion-icon name="search-outline"></ion-icon>
+</ion-button>
+<ion-item *ngIf="this.clientfilter"  >
+  {{ this.clientfilter.name }}
+</ion-item>
+<ion-button (click)="click()"> <ion-icon name="funnel-outline"></ion-icon></ion-button>
+
+<ion-list>
+  <ion-item>
+    <ion-select
+      [multiple]="true"
+      placeholder="Elija el tipo de Pago"
+      [(ngModel)]="paymentTypeFilter "
+      (ionChange)="handleChange($event)"
+
+    >
+      <ion-select-option
+        *ngFor="let item of paymentTypes | keyvalue "
+        value="{{ item.key }}"
+        >{{ item.value["name"] }}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
+
+</ion-list>
+<ion-list>
+  <ion-item>
+    <ion-select
+    [multiple]="true"
+      placeholder="Elija la Caja"
+      [(ngModel)]="boxFilter"
+      (ionChange)="handleChangeBox($event)">
+      <ion-select-option *ngFor="let item of boxes" [value]="item._id">{{
+        item["name"]
+      }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+<app-list-items
+  #listItem
+  [items]="sales"
+  [hideSearchBar]="true"
+  [itemTemplate]="saleTemplate"
+  [totalPages]="totalPages"
+  (ngModel)="(searchWord)"
+  (handleClickItem)="openModalSale($event)"
+>
+</app-list-items>

@@ -1,0 +1,95 @@
+<ion-list>
+  <ion-item>
+    <ion-select
+      placeholder="Elija la Caja"
+      [(ngModel)] = "selectedBoxId"
+      (ionChange)="handleChangeBox($event)"    >
+      <ion-select-option *ngFor="let item of boxes" [value]="item._id">{{
+        item["name"]
+      }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+<ion-button (click)="cancelSale()">Cancelar Venta</ion-button>
+<ion-button>Presupuesto</ion-button>
+
+<ion-label>Efectivo</ion-label>
+<ion-checkbox
+  [(ngModel)]="inputCheckCash"
+  value="cash"
+  (ionChange)="calculate()"
+></ion-checkbox>
+<div *ngIf="inputCheckCash">
+  <ion-label>Valor</ion-label>
+  <ion-input
+    type="number"
+    (ionChange)="calculate()"
+    [(ngModel)]="cashAmount"
+  ></ion-input>
+</div>
+<ion-label>Tarjeta</ion-label>
+<ion-checkbox
+  [(ngModel)]="inputCheckCard"
+  value="card"
+  (ionChange)="calculate()"
+></ion-checkbox>
+<div *ngIf="inputCheckCard">
+  <ion-label>Valor</ion-label>
+  <ion-input
+    type="number"
+    (ionChange)="calculate()"
+    [(ngModel)]="cardAmount"
+  ></ion-input>
+</div>
+<ion-label>Cheque</ion-label>
+<ion-checkbox
+  [(ngModel)]="inputCheckCheck"
+  value="check"
+  (ionChange)="calculate()"
+></ion-checkbox>
+<div *ngIf="inputCheckCheck">
+  <ion-label>Valor</ion-label>
+  <ion-input
+    type="number"
+    (ionChange)="calculate()"
+    [(ngModel)]="checkAmount"
+  ></ion-input>
+</div>
+<ion-label>C/Corriente</ion-label>
+<ion-checkbox
+  [(ngModel)]="inputCheckPersonalAccount"
+  value="personalAccount"
+  (ionChange)="calculate()"
+></ion-checkbox>
+<div *ngIf="inputCheckPersonalAccount">
+  <ion-label>Valor</ion-label>
+  <ion-input
+    type="number"
+    (ionChange)="calculate()"
+    [(ngModel)]="personalAccountAmount"
+  ></ion-input>
+</div>
+<ion-label>Transferencia</ion-label>
+<ion-checkbox
+  [(ngModel)]="inputCheckTransfer"
+  value="transfer"
+  (ionChange)="calculate()"
+></ion-checkbox>
+<div *ngIf="inputCheckTransfer">
+  <ion-label>Valor</ion-label>
+  <ion-input
+    type="number"
+    (ionChange)="calculate()"
+    [(ngModel)]="transferAmount"
+  ></ion-input>
+</div>
+<app-button-emit-invoice [item]="'Emitir'" *ngIf="!isPaymentValid"
+  >Pagar</app-button-emit-invoice
+>
+<ion-button (click)="submit()" [disabled]="isPaymentValid">Pagar</ion-button>
+<p>
+  Su Compra {{ this.total }} - A pagar:{{ this.totalMostar }} - Su Vuelto:{{
+    this.totalVuelto
+  }}
+</p>
