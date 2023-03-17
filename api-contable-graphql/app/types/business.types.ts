@@ -8,11 +8,13 @@ module.exports = `#graphql
     image: String
     phone: String
     _id: ID!
+    products: [Product]
   }
 
   type Query {
     findBusiness: [Business],
     findOneBusiness(id: ID!): Business,
+    
   }
 
   type Mutation {

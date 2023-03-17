@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 //import mongoose from "mongoose";
 
 const schema = new mongoose.Schema({
+  business: { type: mongoose.Schema.Types.ObjectId, ref: "Business" },
   name: { type: String, required: true, unique: false, minlength: 2 },
   description: { type: String, required: false, unique: false, minlength: 2 },
   codigo: { type: String, required: false, unique: false, minlength: 3 },
