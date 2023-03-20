@@ -3,12 +3,8 @@ import Container from "@mui/material/Container/Container";
 import Grid from "@mui/material/Grid/Grid";
 import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography";
-<<<<<<< HEAD
-import React from "react";
-=======
 import { useNavigate } from "react-router-dom";
 
->>>>>>> SU-menudesplegable
 export const NavBar = () => {
   const navigate = useNavigate();
   return (
@@ -43,23 +39,8 @@ export const NavBar = () => {
                   </Stack>
                 </Grid>
               </Grid>
-<<<<<<< HEAD
-              <Grid item>
-                <Stack direction="row" spacing={2}>
-                  <Button variant="contained" href="/login">
-                    Login
-                  </Button>
-                  <Button variant="contained" href="/register">
-                    Register
-                  </Button>
-                </Stack>
-              </Grid>
-            </Grid>
-          </Container>
-=======
             </Container>
           </div>
->>>>>>> SU-menudesplegable
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -16,20 +16,8 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
-<<<<<<< HEAD
 import { Card, CircularProgress } from "@mui/material";
-import { useMutation } from "@apollo/client";
 import { UserServices } from "../../shared/services/userServices/userServices";
-import {
-  getSessionServices,
-  setSessionService,
-} from "../../auth/services/session.service";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
-=======
-import { Card } from "@mui/material";
-import { AxiosInterceptors } from "../../interceptors/axios.interceptor";
-import NavBarMenu from "../../shared/NavBar/NavBarMenu";
->>>>>>> SU-menudesplegable
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -164,3 +152,16 @@ export const FormLogin = () => {
     </div>
   );
 };
+function useMutation(
+  login: any
+): [any, { loading: any; error: any; data: any }] {
+  throw new Error("Function not implemented.");
+}
+
+function setSessionService(arg0: string, arg1: string) {
+  throw new Error("Function not implemented.");
+}
+
+function getSessionServices() {
+  throw new Error("Function not implemented.");
+}
