@@ -10,6 +10,6 @@ const schema = new mongoose.Schema({
   address: { type: String, required: false, unique: false, minlength: 3 },
   gender: { type: String, required: false, unique: false, minlength: 3 },
   phone: { type: String, required: false, unique: false, minlength: 3 },
-  businesses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Businesses" }],
+  businesses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Business" }],
 });
 export default mongoose.model("User", schema);

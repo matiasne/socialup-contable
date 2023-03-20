@@ -1,7 +1,7 @@
 import Business from "../schema/business";
+import Product from "../schema/product";
 import User from "../schema/user";
 import { GraphQLError } from "graphql";
-import jwt from "jsonwebtoken";
 
 module.exports = {
   Query: {
@@ -14,6 +14,11 @@ module.exports = {
       const business = await Business.findById(idBusiness);
 
       return business;
+    },
+  },
+  Business: {
+    products: async (business: any) => {
+      return await Product.find({ where: { business: business } });
     },
   },
   Mutation: {

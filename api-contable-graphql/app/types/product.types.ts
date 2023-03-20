@@ -8,14 +8,17 @@ module.exports = gql`
     costPrice: String
     salePrice: String
     image: String
+    id: ID!
   }
 
   type Query {
-    product: Product
+    findProduct: [Product]
+    findOneProduct(id: ID!): Product
   }
 
   type Mutation {
     createProduct(
+      business: String!
       name: String!
       description: String
       codigo: String
