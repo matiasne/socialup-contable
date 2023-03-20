@@ -18,7 +18,7 @@ module.exports = {
   },
   Business: {
     products: async (business: any) => {
-      return await Product.find({ where: { business: business } });
+      return await Product.find({ business: business._id });
     },
   },
   Mutation: {
