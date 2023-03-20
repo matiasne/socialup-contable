@@ -18,6 +18,11 @@ import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
 import { Card, CircularProgress } from "@mui/material";
 import { UserServices } from "../../shared/services/userServices/userServices";
+import { useMutation } from "@apollo/client/react";
+import {
+  getSessionServices,
+  setSessionService,
+} from "../../auth/services/session.service";
 
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -152,16 +157,3 @@ export const FormLogin = () => {
     </div>
   );
 };
-function useMutation(
-  login: any
-): [any, { loading: any; error: any; data: any }] {
-  throw new Error("Function not implemented.");
-}
-
-function setSessionService(arg0: string, arg1: string) {
-  throw new Error("Function not implemented.");
-}
-
-function getSessionServices() {
-  throw new Error("Function not implemented.");
-}

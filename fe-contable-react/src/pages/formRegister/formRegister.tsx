@@ -15,6 +15,7 @@ import { useMutation } from "@apollo/client/react";
 
 interface FormData {
   Name: string;
+  Surname: string;
   Phone: string;
   HomeAddress: string;
   Email: string;
@@ -31,16 +32,20 @@ export const FormRegister = () => {
   } = useForm<FormData>();
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.register
-    )
-
-
+  );
 
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
     mutateFunction({
-      variables: { name:values.Name,surname:values.Name, email:values.Email, password:values.Password,address:values.HomeAddress,phone:values.Phone,},
+      variables: {
+        name: values.Name,
+        surname: values.Surname,
+        email: values.Email,
+        password: values.Password,
+        address: values.HomeAddress,
+        phone: values.Phone,
+      },
     });
-
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -77,6 +82,25 @@ export const FormRegister = () => {
               })}
               {...(errors.Name?.type === "minLength" && {
                 helperText: "El nombre es demaciado corto",
+                error: true,
+              })}
+            />
+          </Box>
+          <Box>
+            <TextField
+              label="Surname"
+              sx={{ m: 1, width: "25ch" }}
+              type="text"
+              {...register("Surname", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.Surname?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.Surname?.type === "minLength" && {
+                helperText: "El apellido es demaciado corto",
                 error: true,
               })}
             />
