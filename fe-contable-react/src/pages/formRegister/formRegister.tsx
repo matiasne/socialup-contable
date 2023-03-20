@@ -10,6 +10,8 @@ import style from "./styleFormRegister.module.css";
 import { Card } from "@mui/material";
 import NavBarMenu from "../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
+import { UserServices } from "../../shared/services/userServices/userServices";
+import { useMutation } from "@apollo/client/react";
 
 interface FormData {
   Name: string;
@@ -27,8 +29,18 @@ export const FormRegister = () => {
     getValues,
     formState: { errors },
   } = useForm<FormData>();
+  const [mutateFunction, { loading, error, data }] = useMutation(
+    UserServices.UserMutationServices.register
+    )
+
+
+
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
+    mutateFunction({
+      variables: { name:values.Name,surname:values.Name, email:values.Email, password:values.Password,address:values.HomeAddress,phone:values.Phone,},
+    });
+
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
