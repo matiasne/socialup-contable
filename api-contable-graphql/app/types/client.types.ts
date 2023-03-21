@@ -35,5 +35,19 @@ module.exports = gql`
       documentNumber: String
       surname: String
     ): Client
+    updateClient(
+      _id: String!
+      name: String!
+      image: String
+      city: String
+      address: String
+      email: String!
+      phone: String
+      postCode: String
+      documentType: String
+      documentNumber: String
+      surname: String
+    ): Client
+    deleteClient(_id: String!): String
   }
 `;

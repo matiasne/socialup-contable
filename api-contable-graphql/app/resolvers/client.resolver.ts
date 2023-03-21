@@ -1,7 +1,6 @@
 import { UserInputError } from "apollo-server-core";
 import Client from "../schema/client";
 import Business from "../schema/business";
-import Product from "../schema/product";
 
 module.exports = {
   Query: {
@@ -38,6 +37,28 @@ module.exports = {
           invalidArgs: args,
         });
       });
+    },
+    updateClient: async (root: any, args: any) => {
+      const { _id, ...updates } = args;
+      const client = await Client.findByIdAndUpdate(_id, updates, {
+        new: true,
+      });
+      if (!client) {
+        throw new UserInputError("Client not found", {
+          invalidArgs: args,
+        });
+      }
+      return client;
+    },
+    deleteClient: async (root: any, args: any) => {
+      const { _id } = args;
+      const client = await Client.findByIdAndDelete(_id);
+      if (!client) {
+        throw new UserInputError("Client not found", {
+          invalidArgs: args,
+        });
+      }
+      return "Client deleted successfully";
     },
   },
 };
