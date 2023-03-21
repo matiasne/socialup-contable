@@ -27,5 +27,15 @@ module.exports = gql`
       salePrice: String
       image: String
     ): Product
+    updateProduct(
+      _id: String!
+      name: String
+      description: String
+      codigo: String
+      costPrice: String
+      salePrice: String
+      image: String
+    ): Product
+    deleteProduct(_id: String!): String
   }
 `;
