@@ -1,11 +1,16 @@
 export interface IUser {
   id: string;
   name: string;
-  address: string;
+  surname: string;
   email: string;
-  phone: string;
   password: string;
   confirmPassword: string;
+  role: string;
+  image: string;
+  address: string;
+  gender: string;
+  phone: string;
+
 }
 
-export type ILoginUser = Pick<IUser, "id" | "email" | "password">;
+export type ILoginUser = Pick<IUser, "email" | "password">;
