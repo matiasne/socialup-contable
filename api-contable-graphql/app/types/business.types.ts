@@ -36,5 +36,8 @@ module.exports = `#graphql
       image: String
       phone: String
     ): Business
+    deleteBusiness(
+      _id: String!
+    ): String
   }
 `;
