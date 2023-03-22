@@ -31,16 +31,20 @@ export const FormRegister = () => {
   } = useForm<FormData>();
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.register
-    )
-
-
+  );
 
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
     mutateFunction({
-      variables: { name:values.Name,surname:values.Name, email:values.Email, password:values.Password,address:values.HomeAddress,phone:values.Phone,},
+      variables: {
+        name: values.Name,
+        surname: values.Name,
+        email: values.Email,
+        password: values.Password,
+        address: values.HomeAddress,
+        phone: values.Phone,
+      },
     });
-
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -56,7 +60,12 @@ export const FormRegister = () => {
   return (
     <Box
       component="form"
-      sx={{ display: "flex", flexWrap: "wrap", mt: "5%", p: "3%" }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
       onSubmit={onSubmit}
     >
       <Card sx={{ pb: 1 }}>
