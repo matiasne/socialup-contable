@@ -14,7 +14,9 @@ module.exports = `#graphql
   }
 
   type Query {
-    me: User
+    me: User,
+    findUser: [User],
+    findOneUser(id: ID!): User,
   }
 
   type Token {
