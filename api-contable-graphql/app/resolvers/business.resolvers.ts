@@ -27,7 +27,6 @@ module.exports = {
     //create our mutation:
     addBusiness: async (root: any, args: any) => {
       const user = await User.findById(args.user);
-      console.log(user);
       const business = new Business({
         user: user,
         name: args.name,
