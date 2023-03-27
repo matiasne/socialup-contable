@@ -27,5 +27,17 @@ module.exports = `#graphql
       image: String
       phone: String
     ): Business
+    updateBusiness(
+      _id: String!
+      name: String
+      address: String
+      category: String
+      email: String
+      image: String
+      phone: String
+    ): Business
+    deleteBusiness(
+      _id: String!
+    ): String
   }
 `;

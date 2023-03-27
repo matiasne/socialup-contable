@@ -34,5 +34,27 @@ module.exports = {
         });
       });
     },
+    updateProduct: async (root: any, args: any) => {
+      const { _id, ...updates } = args;
+      const product = await Product.findByIdAndUpdate(_id, updates, {
+        new: true,
+      });
+      if (!product) {
+        throw new UserInputError("Product not found", {
+          invalidArgs: args,
+        });
+      }
+      return product;
+    },
+    deleteProduct: async (root: any, args: any) => {
+      const { _id } = args;
+      const product = await Product.findByIdAndDelete(_id);
+      if (!product) {
+        throw new UserInputError("Product not found", {
+          invalidArgs: args,
+        });
+      }
+      return "Product deleted successfully";
+    },
   },
 };

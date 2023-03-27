@@ -1,10 +1,25 @@
 import User from "../schema/user";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
+import Business from "../schema/business";
 
 module.exports = {
   Query: {
-    //personCount: () => User.collection.countDocuments({}),
+    findUser: async () => {
+      return await User.find();
+    },
+    findOneUser: async (root: any, args: any) => {
+      const idUser = args.id;
+
+      const user = await User.findById(idUser);
+
+      return user;
+    },
+  },
+  User: {
+    business: async (user: any) => {
+      return await Business.find({ user: user._id });
+    },
   },
   Mutation: {
     //create our mutation:
