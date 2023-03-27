@@ -1,23 +1,17 @@
-import {
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-} from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import React from "react";
 
-export interface IProps {
-  //deberia venir <ListItem></ListItem>
-  data: any[];
+interface IProps {
+  items: any[];
+  renderItem: (item: any) => React.ReactNode;
 }
 
-export const ListItems = (item: IProps) => {
+export const ListItems = ({ items, renderItem }: IProps) => {
   return (
     <div>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {item.data.map((data, i) => {
-          return <ListItem key={i}>{data.item}</ListItem>;
+        {items.map((item: any, i: any) => {
+          return <ListItem key={i}>{renderItem(item)}</ListItem>;
         })}
       </List>
     </div>
