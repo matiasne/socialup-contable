@@ -33,14 +33,11 @@ export const FormRegister = () => {
     UserServices.UserMutationServices.register
     )
 
-
-
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
     mutateFunction({
       variables: { name:values.Name,surname:values.Name, email:values.Email, password:values.Password,address:values.HomeAddress,phone:values.Phone,},
     });
-
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
