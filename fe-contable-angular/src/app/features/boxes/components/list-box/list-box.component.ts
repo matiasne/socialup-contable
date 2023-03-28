@@ -25,6 +25,7 @@ export class ListBoxComponent implements OnInit {
   @Input() showEditButton = false;
   @Output() clickBox = new EventEmitter<Box>();
   @Output() clickEditBox = new EventEmitter<Box>();
+  @Output() clickStatusBox = new EventEmitter<Box>();
 
   public boxes: Array<Box> = [];
   public id: any;
@@ -61,5 +62,8 @@ export class ListBoxComponent implements OnInit {
 
   handleClickEdit(box) {
     this.clickEditBox.emit(box);
+  }
+  handleClickStatus(box) {
+    this.clickStatusBox.emit(box);
   }
 }
