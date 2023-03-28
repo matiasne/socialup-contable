@@ -1,11 +1,9 @@
 import Business from "../schema/business";
 import Product from "../schema/product";
-import Client from "../schema/client";
 import User from "../schema/user";
 import Sale from "../schema/sale";
 import Box from "../schema/box";
 import { GraphQLError } from "graphql";
-import { UserInputError } from "apollo-server-core";
 
 module.exports = {
   Query: {
@@ -31,6 +29,11 @@ module.exports = {
     addSale: async (root: any, args: any) => {
       const client = await User.findById(args.client);
       const business = await Business.findById(args.business);
+
+      if (!business) {
+        return false;
+      }
+
       const product = await Promise.all(
         args.product.map(async (productId: string) => {
           return await Product.findById(productId);
@@ -39,9 +42,17 @@ module.exports = {
       const box = await Box.findById(args.box);
 
       const sale = new Sale({
-        business: business,
+        idBusiness: business,
+        actualBusiness: {
+          name: business.name,
+          address: business.address,
+          category: business.category,
+          email: business.email,
+          image: business.image,
+          phone: business.phone,
+        },
         client: client,
-        product: [Product],
+        product: product,
         total: args.total,
         payments: args.payments,
         variations: args.variations,
@@ -49,7 +60,7 @@ module.exports = {
         satus: args.status,
         box: box,
       });
-
+      console.log(sale);
       return sale.save().catch((error: any) => {
         console.log(error);
         throw new GraphQLError("Error creando la venta.", {

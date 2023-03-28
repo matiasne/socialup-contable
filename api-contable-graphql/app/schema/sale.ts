@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 //import mongoose from "mongoose";
 
 const schema = new mongoose.Schema({
-  business: { type: mongoose.Schema.Types.ObjectId, ref: "Business" },
+  idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Business" },
+  actualBusiness: { type: Object, required: false },
   client: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
   product: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   total: { type: Number, required: false, unique: false, minlength: 1 },

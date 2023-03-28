@@ -4,7 +4,8 @@ import { Client } from "./client";
 import { Product } from "./product";
 
 export interface ISaleDTO {
-  business: Business;
+  idBusiness: Business;
+  business: any;
   client: Client;
   product: [Product];
   total: String;
@@ -16,7 +17,8 @@ export interface ISaleDTO {
 }
 
 export interface ISale {
-  business: Business;
+  idBusiness: Business;
+  actualBusiness: IActualBusiness;
   client: Client;
   product: [Product];
   total: String;
@@ -26,9 +28,16 @@ export interface ISale {
   satus: String;
   box: Box;
 }
+
+export interface IActualBusiness {
+  name: String;
+  address?: String;
+}
+
 export class Sale implements ISale {
   constructor(
-    public business: Business,
+    public idBusiness: Business,
+    public actualBusiness: IActualBusiness,
     public client: Client,
     public product: [Product],
     public total: String,
@@ -41,6 +50,7 @@ export class Sale implements ISale {
 
   public static adapt(item: any): Sale {
     return new Sale(
+      item.idBusiness,
       item.business,
       item.client,
       item.product,
