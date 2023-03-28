@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
   idBusiness: { type: mongoose.Schema.Types.ObjectId, ref: "Business" },
   actualBusiness: { type: Object, required: false },
   client: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
+  actualClient: { type: Object, required: false },
   product: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   total: { type: Number, required: false, unique: false, minlength: 1 },
   payments: { type: String, required: false, unique: false, minlength: 1 },
