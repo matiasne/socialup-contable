@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { Box, Button, Card, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../../shared/services/userServices/userServices";
-import { IProduct } from "../models/product";
+//import { IProduct } from "../models/product";
 import style from "./styleFormProduct.module.css";
 
 export const FormProductComponent = () => {
