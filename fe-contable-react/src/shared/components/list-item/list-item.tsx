@@ -7,11 +7,14 @@ interface IProps {
 }
 
 export const ListItems = ({ items, renderItem }: IProps) => {
+  console.log(items);
   return (
     <div>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {items.map((item: any, i: any) => {
-          return <ListItem key={i}>{renderItem(item)}</ListItem>;
+        {items.map((item: any) => {
+          return item.map((data: any, i: any) => {
+            return <ListItem key={i}>{renderItem(data)}</ListItem>;
+          });
         })}
       </List>
     </div>

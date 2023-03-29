@@ -1,6 +1,4 @@
 import {
-  List,
-  ListItem,
   ListItemText,
   ListItemAvatar,
   Avatar,
@@ -8,17 +6,17 @@ import {
   IconButton,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
+import { IProduct } from "../../models/product.interface";
 
-function ListaProductos(props: { productos: any }) {
-  const productos = props.productos;
-  const listaProductos = productos.map((producto: any) => (
-    <ListItem key={producto.nombre}>
+function ItemProduct(props: IProduct) {
+  return (
+    <>
       <ListItemAvatar>
-        <Avatar alt={producto.nombre} src={producto.imagen} />
+        <Avatar />
       </ListItemAvatar>
       <ListItemText
-        primary={producto.nombre}
-        secondary={`Precio: ${producto.precio}`}
+        primary={props.name}
+        secondary={`Precio: ${props.salePrice}`}
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="editar">
@@ -28,9 +26,8 @@ function ListaProductos(props: { productos: any }) {
           <Delete />
         </IconButton>
       </ListItemSecondaryAction>
-    </ListItem>
-  ));
-  return <List>{listaProductos}</List>;
+    </>
+  );
 }
 
-export default ListaProductos;
+export default ItemProduct;

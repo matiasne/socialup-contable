@@ -1,15 +1,14 @@
 import { useMutation } from "@apollo/client";
 import { Box, Button, Card, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { UserServices } from "../../../shared/services/userServices/userServices";
-import { IProduct } from "../models/product";
+import { UserServices } from "../../../../shared/services/userServices/userServices";
+import { IProduct } from "../../models/product.interface";
 import style from "./styleFormProduct.module.css";
 
 export const FormProductComponent = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<IProduct>();
   const [mutateFunction, { loading, error, data }] = useMutation(
@@ -19,12 +18,12 @@ export const FormProductComponent = () => {
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
-        name: values.Name,
-        description: values.Description,
-        code: values.Code,
-        costPrice: values.CostPrice,
-        salePrice: values.SalePrice,
-        image: values.Image,
+        name: values.name,
+        description: values.description,
+        code: values.code,
+        costPrice: values.costPrice,
+        salePrice: values.salePrice,
+        image: values.image,
       },
     });
   });
@@ -50,11 +49,11 @@ export const FormProductComponent = () => {
               label="Name"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("Name", {
+              {...register("name", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.Name?.type === "required" && {
+              {...(errors.name?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -65,11 +64,11 @@ export const FormProductComponent = () => {
               label="Description"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("Description", {
+              {...register("description", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.Description?.type === "required" && {
+              {...(errors.description?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -80,11 +79,11 @@ export const FormProductComponent = () => {
               label="Code"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("Code", {
+              {...register("code", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.Code?.type === "required" && {
+              {...(errors.code?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -95,11 +94,11 @@ export const FormProductComponent = () => {
               label="CostPrice"
               sx={{ m: 1, width: "35ch" }}
               type="price"
-              {...register("CostPrice", {
+              {...register("costPrice", {
                 required: true,
                 minLength: 1,
               })}
-              {...(errors.CostPrice?.type === "required" && {
+              {...(errors.costPrice?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -110,11 +109,11 @@ export const FormProductComponent = () => {
               label="SalePrice"
               sx={{ m: 1, width: "35ch" }}
               type="price"
-              {...register("SalePrice", {
+              {...register("salePrice", {
                 required: true,
                 minLength: 1,
               })}
-              {...(errors.SalePrice?.type === "required" && {
+              {...(errors.salePrice?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
