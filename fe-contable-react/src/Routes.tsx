@@ -3,6 +3,8 @@ import { ProtectedRoutes } from "./auth/guards/authProvider";
 import { ListProduct } from "./features/products/components/list-product/list-product";
 import { BoxCreate } from "./pages/createBox/create-box.page";
 import { SaleCreate } from "./pages/createSale/create-sale.page";
+import { getSessionServices } from "./auth/services/session.service";
+import { FormProductComponent } from "./features/products/components/formProduct";
 import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
 import { FormLogin } from "./pages/formLogin/formLogin";
 import { FormProfile } from "./pages/formProfile/formProfile";
@@ -22,6 +24,7 @@ export const AppRouter = () => {
       <Route path="/sale" element={<SaleCreate />} />
       <Route path="/products" element={<ListProduct />} />
       <Route path="/dialogs" element={<Dialog />} />
+      <Route path="/product" element={<FormProductComponent />} />
     </Routes>
   );
 };
