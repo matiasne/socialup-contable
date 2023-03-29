@@ -5,6 +5,7 @@ import { SaleCreate } from "./pages/createSale/create-sale.page";
 import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
 import { FormLogin } from "./pages/formLogin/formLogin";
 import { FormRegister } from "./pages/formRegister/formRegister";
+import { Dialog } from "./shared/Components/modal/Dialogs";
 
 export const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRouter = () => {
       <Route path="/home" element={<FormForgotPassword />} />
       <Route path="/box" element={<BoxCreate />} />
       <Route path="/sale" element={<SaleCreate />} />
+      <Route path="/dialogs" element={<Dialog />} />
     </Routes>
   );
 };

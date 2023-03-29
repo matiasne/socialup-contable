@@ -15,6 +15,8 @@ import { UserServices } from "../../../shared/services/userServices/userServices
 import { ISale } from "../models/sale";
 import { useMutation } from "@apollo/client";
 import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
+import ConfirmationDialog from "../../../shared/Components/modal/ConfitmationDialog";
+
 export const FormSalesComponent = () => {
   const {
     register,
@@ -108,31 +110,10 @@ export const FormSalesComponent = () => {
                   control={<Radio />}
                   label="%"
                 />
-                <FormControlLabel value="cash" control={<Radio />} label="$" />
+                <FormControlLabel value="male" control={<Radio />} label="$" />
               </RadioGroup>
             </Box>
-            <Box>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Producto"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("item", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.item?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.item?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-            </Box>
+            <Box></Box>
             <Box>
               <TextField
                 InputProps={{
@@ -170,6 +151,7 @@ export const FormSalesComponent = () => {
                 Terminar Venta
               </Button>
             </Grid>
+            <Box></Box>
           </div>
         </Card>
       </Box>
