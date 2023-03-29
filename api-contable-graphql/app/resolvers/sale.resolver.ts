@@ -82,6 +82,9 @@ module.exports = {
         product: product,
         actualProduct: actualProducts,
         box: box,
+        actualBox: {
+          name: box.name,
+        },
       });
       console.log(sale);
       return sale.save().catch((error: any) => {

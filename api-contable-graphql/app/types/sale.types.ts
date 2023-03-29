@@ -7,6 +7,7 @@ module.exports = gql`
     client: Client
     actualClient: String
     product: Product
+    box: Box
     total: Float
     payments: [String]
     variations: [String]
@@ -25,6 +26,7 @@ module.exports = gql`
       business: String
       client: String
       product: [String]
+      box: String
       total: Float
       payments: [String]
       variations: [String]
