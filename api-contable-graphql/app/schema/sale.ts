@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
   client: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
   actualClient: { type: Object, required: false },
   product: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  actualProduct: [{ type: Object, required: false }],
   total: { type: Number, required: false, unique: false, minlength: 1 },
   payments: { type: String, required: false, unique: false, minlength: 1 },
   variations: { type: String, required: false, unique: false, minlength: 1 },

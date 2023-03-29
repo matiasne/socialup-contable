@@ -39,6 +39,20 @@ module.exports = {
           return await Product.findById(productId);
         })
       );
+
+      const actualProducts = await Promise.all(
+        args.product.map(async (productId: string) => {
+          let p = await Product.findById(productId);
+          const producto = {
+            name: p.name,
+            codigo: p.codigo,
+            costPrice: p.costPrice,
+            salePrice: p.salePrice,
+            image: p.image,
+          };
+          return producto;
+        })
+      );
       const box = await Box.findById(args.box);
 
       const sale = new Sale({
@@ -66,11 +80,7 @@ module.exports = {
           surname: client?.surname,
         },
         product: product,
-        total: args.total,
-        payments: args.payments,
-        variations: args.variations,
-        billingDate: args.billingDate,
-        satus: args.status,
+        actualProduct: actualProducts,
         box: box,
       });
       console.log(sale);
