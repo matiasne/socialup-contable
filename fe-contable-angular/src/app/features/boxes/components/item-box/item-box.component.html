@@ -11,8 +11,11 @@
   <ion-label (click)="handleClick()">
     <h3>Nombre: {{ box.name }}</h3>
     <h3>Total: {{ box.actualAmount }}</h3>
+    <h3>Estado: {{ box.status }}</h3>
   </ion-label>
-  <ion-button *ngIf="showEditButton" (click)="handleClickEdit()"
+  <ion-toggle color="success" [checked]="statusBox " (ionChange)="handleClickStatus($event)" ></ion-toggle>
+  <ion-button *ngIf="showEditButton" (click)="handleClickEdit() "
     >Editar</ion-button
   >
+
 </ion-item>
