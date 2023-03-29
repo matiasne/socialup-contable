@@ -1,13 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { Box, Button, Card, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD:fe-contable-react/src/features/products/components/form-product/formProduct.tsx
 import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IProduct } from "../../models/product.interface";
-=======
-import { UserServices } from "../../../shared/services/userServices/userServices";
-//import { IProduct } from "../models/product";
->>>>>>> su#19:fe-contable-react/src/features/products/components/formProduct.tsx
 import style from "./styleFormProduct.module.css";
 
 export const FormProductComponent = () => {

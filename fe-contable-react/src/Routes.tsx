@@ -19,15 +19,7 @@ export const AppRouter = () => {
       <Route path="/home" element={<FormForgotPassword />} />
       <Route path="/box" element={<BoxCreate />} />
       <Route path="/sale" element={<SaleCreate />} />
-<<<<<<< HEAD
       <Route path="/products" element={<ListProduct />} />
-=======
-      <Route
-        path="/products"
-        element={<ListaProductos productos={productos} />}
-      />
-      <Route path="/profile" element={<FormProfile />} />
->>>>>>> su#19
     </Routes>
   );
 };
