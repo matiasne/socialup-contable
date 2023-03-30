@@ -11,10 +11,8 @@ export const ListItems = ({ items, renderItem }: IProps) => {
   return (
     <div>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {items.map((item: any) => {
-          return item.map((data: any, i: any) => {
-            return <ListItem key={i}>{renderItem(data)}</ListItem>;
-          });
+        {items.map((item: any, i) => {
+          return <ListItem key={i}>{renderItem(item)}</ListItem>;
         })}
       </List>
     </div>

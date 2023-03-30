@@ -24,7 +24,7 @@ const productos: IProduct[] = [
 export const ListProduct = () => {
   return (
     <div>
-      <ListItems items={[productos]} renderItem={ItemProduct}></ListItems>
+      <ListItems items={productos} renderItem={ItemProduct}></ListItems>
     </div>
   );
 };
