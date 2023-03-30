@@ -22,9 +22,19 @@ const productos: IProduct[] = [
 ];
 
 export const ListProduct = () => {
+  const action = (item: IProduct) => {
+    console.log(item);
+  };
+
   return (
     <div>
-      <ListItems items={productos} renderItem={ItemProduct}></ListItems>
+      <ListItems
+        items={productos}
+        renderItem={ItemProduct}
+        handleItemClick={(item: IProduct) => {
+          action(item);
+        }}
+      ></ListItems>
     </div>
   );
 };

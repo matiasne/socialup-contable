@@ -4,9 +4,10 @@ import React from "react";
 interface IProps {
   items: any[];
   renderItem: (item: any) => React.ReactNode;
+  handleItemClick: (item: any) => void;
 }
 
-export const ListItems = ({ items, renderItem }: IProps) => {
+export const ListItems = ({ items, renderItem, handleItemClick }: IProps) => {
   console.log(items);
   return (
     <div>
@@ -21,7 +22,9 @@ export const ListItems = ({ items, renderItem }: IProps) => {
         {items.map((item: any, i) => {
           return (
             <>
-              <ListItem key={i}>{renderItem(item)}</ListItem>
+              <ListItem key={i} onClick={() => handleItemClick(item)}>
+                {renderItem(item)}{" "}
+              </ListItem>
               <Divider />
             </>
           );
