@@ -23,11 +23,8 @@ export const AppRouter = () => {
       <Route path="/box" element={<BoxCreate />} />
       <Route path="/sale" element={<SaleCreate />} />
       <Route path="/products" element={<ListProduct />} />
-<<<<<<< HEAD
-=======
       <Route path="/dialogs" element={<Dialog />} />
       <Route path="/product" element={<FormProductComponent />} />
->>>>>>> 1114222e8053afd3e8e61e2ebd175b69e59a7af6
     </Routes>
   );
 };
