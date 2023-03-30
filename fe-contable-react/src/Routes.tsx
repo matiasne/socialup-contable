@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoutes } from "./auth/guards/authProvider";
+import FormClient from "./features/Clients/components/FormClient/formClient";
 import { ListProduct } from "./features/products/components/list-product/list-product";
 import { BoxCreate } from "./pages/createBox/create-box.page";
 import { SaleCreate } from "./pages/createSale/create-sale.page";
@@ -24,6 +25,7 @@ export const AppRouter = () => {
       <Route path="/sale" element={<SaleCreate />} />
       <Route path="/products" element={<ListProduct />} />
       <Route path="/dialogs" element={<Dialog />} />
+      <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
     </Routes>
   );
