@@ -11,6 +11,7 @@ import { FormLogin } from "./pages/formLogin/formLogin";
 import { FormProfile } from "./pages/formProfile/formProfile";
 import { FormRegister } from "./pages/formRegister/formRegister";
 import { Dialog } from "./shared/Components/modal/Dialogs";
+import ItemBox from "./features/Boxes/Components/item-box/item-box";
 
 export const AppRouter = () => {
   return (
