@@ -12,3 +12,7 @@ export interface IClient {
   documentNumber: string;
   surname: string;
 }
+export type IiClient = Pick<
+  IClient,
+  "name" | "phone" | "surname" | "image" | "email"
+>;

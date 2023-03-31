@@ -6,7 +6,7 @@ import React, {
   ListItemSecondaryAction,
   ListItemText,
 } from "@mui/material";
-import { IClient } from "../../models/clients";
+import { IClient } from "../../models/client";
 
 function ItemClient(props: IClient) {
   return (
@@ -29,3 +29,4 @@ function ItemClient(props: IClient) {
     </>
   );
 }
+export default ItemClient;

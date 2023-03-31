@@ -12,6 +12,7 @@ import { FormProfile } from "./pages/formProfile/formProfile";
 import { FormRegister } from "./pages/formRegister/formRegister";
 import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
+import { ListClient } from "./features/Clients/components/ListClient/listClient";
 
 export const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ export const AppRouter = () => {
       <Route path="/dialogs" element={<Dialog />} />
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
+      <Route path="/listClient" element={<ListClient />} />
     </Routes>
   );
 };

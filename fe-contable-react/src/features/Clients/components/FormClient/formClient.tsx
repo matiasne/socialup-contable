@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { numberPhone } from "./numberPhone";
 import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
-import { IClient } from "../../model/client";
+import { IClient } from "../../models/client";
 import { type } from "os";
 import {
   Card,
