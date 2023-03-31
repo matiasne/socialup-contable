@@ -7,3 +7,5 @@ export interface IBox {
   ActualAmount: number;
   DailyAmount: number;
 }
+
+export type IitemBox = Pick<IBox, "Name" | "ActualAmount">;
