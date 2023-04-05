@@ -10,3 +10,5 @@ export interface ISale {
   payments: string;
   boxId: string;
 }
+
+export type IitemSale = Pick<ISale, "client" | "item" | "total" | "payments">;

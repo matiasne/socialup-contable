@@ -2,7 +2,7 @@ import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IBox, IitemBox } from "../../models/box";
 import ItemBox from "../item-box/item-box";
 
-const productos: IitemBox[] = [
+const caja: IitemBox[] = [
   {
     Name: "Producto 1",
     ActualAmount: 1,
@@ -25,7 +25,7 @@ export const ListBox = () => {
   return (
     <div>
       <ListItems
-        items={productos}
+        items={caja}
         renderItem={ItemBox}
         handleItemClick={(item: IBox) => {
           action(item);
