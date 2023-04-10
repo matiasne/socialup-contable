@@ -10,6 +10,7 @@ import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword"
 import { FormLogin } from "./pages/formLogin/formLogin";
 import { FormProfile } from "./pages/formProfile/formProfile";
 import { FormRegister } from "./pages/formRegister/formRegister";
+import AvatarWithInput from "./shared/Components/avatar";
 import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/ListClient/listClient";
