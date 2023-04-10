@@ -16,12 +16,29 @@ function AvatarWithInput() {
     y: 0,
   });
   const editorRef = useRef<AvatarEditor | null>(null);
+  const [image, setImage] = useState<string>("");
+  const [scale, setScale] = useState<number>(1);
+  const [position, setPosition] = useState<{ x: number; y: number }>({
+    x: 0.5,
+    y: 0.5,
+  });
+  const [croppedImage, setCroppedImage] = useState<string>("");
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const editorRef = useRef<AvatarEditor | null>(null);
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
 
     if (file) {
       const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageSrc = e.target?.result;
+        setImage(imageSrc as string);
       reader.onload = (e) => {
         const imageSrc = e.target?.result;
         setImage(imageSrc as string);
