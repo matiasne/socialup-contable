@@ -24,6 +24,7 @@ export interface IUser {
 
 export class User implements IUser {
   constructor(
+    public _id: string,
     public name: string,
     public surname: string,
     public email: string,
@@ -37,6 +38,7 @@ export class User implements IUser {
 
   public static adapt(item: any): User {
     return new User(
+      item._id,
       item.name,
       item.surname,
       item.email,

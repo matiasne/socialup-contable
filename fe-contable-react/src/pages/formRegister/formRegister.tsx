@@ -1,52 +1,53 @@
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import React, { useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import style from "./styleFormRegister.module.css";
 import { Card } from "@mui/material";
-import { IUser } from "../../models/user";
-import { useMutation } from "@apollo/client";
+import NavBarMenu from "../../shared/NavBar/NavBarMenu";
+import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
+import { useMutation } from "@apollo/client/react";
+
+interface FormData {
+  Name: string;
+  Phone: string;
+  HomeAddress: string;
+  Email: string;
+  Password: string;
+  ConfirmPassword: string;
+}
 
 export const FormRegister = () => {
-  const [formValue, setFormValue] = useState<IUser>({
-    id: "",
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    role: "",
-    image: "",
-    address: "",
-    gender: "",
-    phone: "",
-  });
-
-  const [showPassword, setShowPassword] = React.useState(false);
-
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<FormData>();
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.register
   );
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (data) console.log(data);
 
-  const handleInputChange = (event: any) => {
-    setFormValue({
-      ...formValue,
-      [event.target.name]: event.target.value,
+  const onSubmit = handleSubmit((values) => {
+    alert(JSON.stringify(values));
+    mutateFunction({
+      variables: {
+        name: values.Name,
+        surname: values.Name,
+        email: values.Email,
+        password: values.Password,
+        address: values.HomeAddress,
+        phone: values.Phone,
+      },
     });
-  };
+  });
 
-  
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -56,35 +57,37 @@ export const FormRegister = () => {
     event.preventDefault();
   };
 
-  const submit = (event: any) => {
-    event.preventDefault();
-    mutateFunction({
-      variables: { name: formValue.name, surname: formValue.surname, phone: formValue.phone, address: formValue.address,
-          email: formValue.email, password: formValue.password },
-    });
-  };
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Card sx={{ p: 1 }}>
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+      onSubmit={onSubmit}
+    >
+      <Card sx={{ pb: 1 }}>
         <div>
+          <NavBarMenu></NavBarMenu>
           <Box>
             <TextField
               label="Name"
               sx={{ m: 1, width: "25ch" }}
               type="text"
-              onChange={handleInputChange}
-              name="name"
-              value={formValue.name}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Surname"
-              sx={{ m: 1, width: "25ch" }}
-              type="text"
-              onChange={handleInputChange}
-              name="surname"
-              value={formValue.surname}
+              {...register("Name", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.Name?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.Name?.type === "minLength" && {
+                helperText: "El nombre es demaciado corto",
+                error: true,
+              })}
             />
           </Box>
           <Box>
@@ -92,9 +95,19 @@ export const FormRegister = () => {
               label="Phone"
               sx={{ m: 1, width: "25ch" }}
               type="tel"
-              onChange={handleInputChange}
-              name="phone"
-              value={formValue.phone}
+              {...register("Phone", {
+                required: true,
+
+                minLength: 2,
+              })}
+              {...(errors.Phone?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.Phone?.type === "minLenght" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
             />
           </Box>
           <Box>
@@ -102,9 +115,19 @@ export const FormRegister = () => {
               label="Home address"
               sx={{ m: 1, width: "25ch" }}
               type="text"
-              onChange={handleInputChange}
-              name="address"
-              value={formValue.address}
+              {...register("HomeAddress", {
+                required: true,
+
+                minLength: 2,
+              })}
+              {...(errors.HomeAddress?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.HomeAddress?.type === "minLength" && {
+                helperText: "La direccion es demaciada corta",
+                error: true,
+              })}
             />
           </Box>
           <Box>
@@ -112,22 +135,41 @@ export const FormRegister = () => {
               label="Email"
               sx={{ m: 1, width: "25ch" }}
               type="email"
-              onChange={handleInputChange}
-              name="email"
-              value={formValue.email}
+              {...register("Email", {
+                required: true,
+                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                minLength: 2,
+              })}
+              {...(errors.Email?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.Email?.type === "pattern" && {
+                helperText: "Ingrese un Email valido",
+                error: true,
+              })}
             />
           </Box>
           <Box>
-            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                onChange={handleInputChange}
-                name="password"
-                value={formValue.password}
-                type={showPassword ? "text" : "password"}
-                endAdornment={
+            <TextField
+              sx={{ m: 1, width: "25ch" }}
+              type={showPassword ? "text" : "password"}
+              label="Password"
+              {...register("Password", {
+                required: true,
+
+                minLength: 2,
+              })}
+              {...(errors.Password?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.Password?.type === "minLength" && {
+                helperText: "La contraseña es demaciado corta",
+                error: true,
+              })}
+              InputProps={{
+                endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
@@ -138,22 +180,30 @@ export const FormRegister = () => {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
+                ),
+              }}
+            />
           </Box>
           <Box>
-            <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Confirm password
-              </InputLabel>
-              <OutlinedInput
-                onChange={handleInputChange}
-                name="confirmPassword"
-                value={formValue.confirmPassword}
-                type={showPassword ? "text" : "password"}
-                endAdornment={
+            <TextField
+              sx={{ m: 1, width: "25ch" }}
+              type={showPassword ? "text" : "password"}
+              label="Confirm Password"
+              {...register("ConfirmPassword", {
+                required: true,
+                minLength: 2,
+                validate: (value) => value === getValues("Password"),
+              })}
+              {...(errors.ConfirmPassword?.type === "required" && {
+                helperText: "Campo Obligatorio",
+                error: true,
+              })}
+              {...(errors.ConfirmPassword?.type === "validate" && {
+                helperText: "Las Contraseñas deben Coincidir",
+                error: true,
+              })}
+              InputProps={{
+                endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
@@ -164,14 +214,13 @@ export const FormRegister = () => {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-                }
-                label="Confirm password"
-              />
-            </FormControl>
+                ),
+              }}
+            />
           </Box>
           <Box>
             <Button
-              onClick={submit}
+              onClick={onSubmit}
               className={style.submit}
               variant="contained"
             >

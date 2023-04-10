@@ -1,14 +1,29 @@
 import User from "../schema/user";
-import { UserInputError } from "apollo-server-core";
+import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
+import Business from "../schema/business";
 
 module.exports = {
   Query: {
-    //personCount: () => User.collection.countDocuments({}),
+    findUser: async () => {
+      return await User.find();
+    },
+    findOneUser: async (root: any, args: any) => {
+      const idUser = args.id;
+
+      const user = await User.findById(idUser);
+
+      return user;
+    },
+  },
+  User: {
+    business: async (user: any) => {
+      return await Business.find({ user: user._id });
+    },
   },
   Mutation: {
     //create our mutation:
-    createUser: (root: any, args: any) => {
+    createUser: async (root: any, args: any) => {
       const user = new User({
         name: args.name,
         surname: args.surname,
@@ -21,9 +36,11 @@ module.exports = {
         phone: args.phone,
       });
 
-      return user.save().catch((error) => {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
+      return await user.save().catch((error) => {
+        throw new GraphQLError("Error creando el usuario.", {
+          extensions: {
+            code: "ERROR_CREATING_USER",
+          },
         });
       });
     },
@@ -34,7 +51,7 @@ module.exports = {
       });
 
       if (!user) {
-        throw new UserInputError("wrong credentials");
+        throw new GraphQLError("wrong credentials");
       }
 
       const userForToken = {

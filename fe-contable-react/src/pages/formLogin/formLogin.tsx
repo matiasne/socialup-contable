@@ -16,40 +16,54 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
 import { ILoginUser } from "../../models/user";
-import { Card } from "@mui/material";
-import { useMutation } from "@apollo/client";
+import { Card, CircularProgress } from "@mui/material";
 import { UserServices } from "../../shared/services/userServices/userServices";
+import { useMutation } from "@apollo/client/react";
+import { useForm } from "react-hook-form";
 
+interface FormData {
+  Email: string;
+  Password: string;
+}
 export const FormLogin = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [formValue, setForm] = useState<ILoginUser>({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<FormData>();
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.login
   );
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (data) console.log(data.login.value);
+
+  if (loading)
+    return (
+      <div>
+        <CircularProgress color="success" />
+        Loading...
+      </div>
+    );
+  if (error) {
+    setSessionService("token", "");
+    return <p>Error : {error.message}</p>;
+  }
+  if (data) {
+    setSessionService("token", data.login.value);
+  }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
-  const handleInputChange = (event: any) => {
-    setForm({
-      ...formValue,
-      [event.target.name]: event.target.value,
-    });
-  };
-  const submit = (e: any) => {
-    e.preventDefault();
+
+  const onSubmit = handleSubmit((values) => {
+    alert(JSON.stringify(values));
     mutateFunction({
-      variables: { email: formValue.email, password: formValue.password },
+      variables: { email: values.Email, password: values.Password },
     });
-  };
+  });
 
   return (
     <div className={style.Body}>
@@ -61,53 +75,69 @@ export const FormLogin = () => {
             alt=""
           />
         </div>
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
+        <Box>
           <TextField
             label="Email"
-            variant="standard"
+            sx={{ m: 1, width: "25ch" }}
             type="email"
-            name="email"
-            required
-            value={formValue.email}
-            onChange={handleInputChange}
-          ></TextField>
-        </FormControl>
+            {...register("Email", {
+              required: true,
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              minLength: 2,
+            })}
+            {...(errors.Email?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+            {...(errors.Email?.type === "pattern" && {
+              helperText: "Ingrese un Email valido",
+              error: true,
+            })}
+          />
+        </Box>
         <Box>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">
-              Password
-            </InputLabel>
-            <Input
-              value={formValue.password}
-              name="password"
-              onChange={handleInputChange}
-              id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            {...register("Password", {
+              required: true,
+
+              minLength: 2,
+            })}
+            {...(errors.Password?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+            {...(errors.Password?.type === "minLength" && {
+              helperText: "La contraseña es demaciado corta",
+              error: true,
+            })}
+            InputProps={{
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
+                    edge="end"
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              }
-            />
-          </FormControl>
+              ),
+            }}
+          />
         </Box>
         <Box>
-          <Button variant="contained" endIcon={<SendIcon />} onClick={submit}>
+          <Button variant="contained" endIcon={<SendIcon />} onClick={onSubmit}>
             Sign In
           </Button>
         </Box>
-        {formValue.email && formValue.password !== "" && (
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-        )}
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
         <Grid>
           <Link
             className={style.forgotPassword}
@@ -140,3 +170,7 @@ export const FormLogin = () => {
     </div>
   );
 };
+
+function setSessionService(arg0: string, arg1: string) {
+  throw new Error("Function not implemented.");
+}
