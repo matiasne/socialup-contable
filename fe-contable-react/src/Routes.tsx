@@ -14,6 +14,7 @@ import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/ListClient/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
+import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 
 export const AppRouter = () => {
   return (
@@ -25,6 +26,7 @@ export const AppRouter = () => {
       <Route path="/register" element={<FormRegister />} />
       <Route path="/home" element={<FormForgotPassword />} />
       <Route path="/box" element={<BoxCreate />} />
+      <Route path="/business" element={<BusinessCreate />} />
       <Route path="/sale" element={<SaleCreate />} />
       <Route path="/products" element={<ListProduct />} />
       <Route path="/dialogs" element={<Dialog />} />

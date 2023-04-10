@@ -50,6 +50,8 @@ module.exports = {
         password: args.password,
       });
 
+      console.log(user);
+
       if (!user) {
         throw new GraphQLError("wrong credentials");
       }
