@@ -1,12 +1,13 @@
 import { gql } from "apollo-server-express";
 
-
-
 module.exports = gql`
   type Sale {
-    business: Business
+    idBusiness: Business
+    actualBusiness: String
     client: Client
-    product: [Product]
+    actualClient: String
+    product: Product
+    box: Box
     total: Float
     payments: [String]
     variations: [String]
@@ -25,6 +26,7 @@ module.exports = gql`
       business: String
       client: String
       product: [String]
+      box: String
       total: Float
       payments: [String]
       variations: [String]

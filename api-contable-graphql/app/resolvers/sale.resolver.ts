@@ -1,13 +1,9 @@
 import Business from "../schema/business";
 import Product from "../schema/product";
-import Client from "../schema/client";
-import User from "../schema/user";
 import Sale from "../schema/sale";
 import Box from "../schema/box";
+import Client from "../schema/client";
 import { GraphQLError } from "graphql";
-import { UserInputError } from "apollo-server-core";
-
-
 
 module.exports = {
   Query: {
@@ -27,34 +23,72 @@ module.exports = {
       return await Sale.find({ business: business._id });
     },
   },
-  /*
-  Client: {
-    sale: async (client: any) => {
-      return await Sale.find({ client: client._id })
-    },
-  },
-*/
+
   Mutation: {
     //create our mutation:
     addSale: async (root: any, args: any) => {
-      const client = await User.findById(args.client);
+      const client = await Client.findById(args.client);
       const business = await Business.findById(args.business);
-      const product = await Product.findById(args.product);
+
+      if (!business) {
+        return false;
+      }
+
+      const product = await Promise.all(
+        args.product.map(async (productId: string) => {
+          return await Product.findById(productId);
+        })
+      );
+
+      const actualProducts = await Promise.all(
+        args.product.map(async (productId: string) => {
+          let p = await Product.findById(productId);
+          const producto = {
+            name: p.name,
+            codigo: p.codigo,
+            costPrice: p.costPrice,
+            salePrice: p.salePrice,
+            image: p.image,
+          };
+          return producto;
+        })
+      );
       const box = await Box.findById(args.box);
 
       const sale = new Sale({
-        business: business,
-        client: client,
-        product: [product],
-        total: args.total,
-        payments: [args.payments],
-        variations: [args.variations],
-        billingDate: args.billingDate,
-        satus: args.status,
-        box: box
-      });
+        idBusiness: business,
+        actualBusiness: {
+          name: business.name,
+          address: business.address,
+          category: business.category,
+          email: business.email,
+          image: business.image,
+          phone: business.phone,
+        },
 
+        client: client,
+        actualClient: {
+          name: client?.name,
+          image: client?.image,
+          city: client?.city,
+          address: client?.adress,
+          email: client?.email,
+          phone: client?.phone,
+          postCode: client?.postCode,
+          documentType: client?.documentType,
+          documentNumber: client?.documentNumber,
+          surname: client?.surname,
+        },
+        product: product,
+        actualProduct: actualProducts,
+        box: box,
+        actualBox: {
+          name: box.name,
+        },
+      });
+      console.log(sale);
       return sale.save().catch((error: any) => {
+        console.log(error);
         throw new GraphQLError("Error creando la venta.", {
           extensions: {
             code: "ERROR_CREATING_SALE",
@@ -62,37 +96,5 @@ module.exports = {
         });
       });
     },
-
-    updateBusiness: async (root: any, args: any) => {
-      const { _id, ...updates } = args;
-      const sale = await Sale.findByIdAndUpdate(_id, updates, {
-        new: true,
-      });
-      if (!sale) {
-        throw new UserInputError("Sale not found", {
-          invalidArgs: args,
-        });
-      }
-      return sale;
-    },
-    /*
-    deleteBusiness: async (root: any, args: any) => {
-      const idBusiness = args._id;
-      const business = await Business.findById(idBusiness);
-      if (business) {
-        await Product.deleteMany({ business: business._id });
-        await Client.deleteMany({ business: business._id });
-        await Business.findByIdAndDelete(business._id);
-        return "Negocio Borrado";
-      } else {
-        throw new GraphQLError("Error eliminando el negocio.", {
-          extensions: {
-            code: "ERROR_DELETING_BUSINESS",
-          },
-        });
-      }
-    },
-*/
-
   },
 };

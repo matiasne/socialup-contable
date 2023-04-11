@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { IBox } from "../models/box";
+import { BoxMutationServices } from "../Services/box.services";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -76,14 +77,14 @@ export const FormBoxComponent = () => {
     formState: { errors },
   } = useForm<IBox>();
   const [mutateFunction, { loading, error, data }] = useMutation(
-    UserServices.UserMutationServices.register
+    BoxMutationServices.CreateBox
   );
-
+console.log(data)
   const onSubmit = handleSubmit((values) => {
+
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
-        _id: values._id,
         idBusiness: values.idBusiness,
         image: values.Image,
         name: values.Name,

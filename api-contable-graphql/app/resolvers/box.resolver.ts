@@ -27,6 +27,8 @@ module.exports = {
         dailyAmount: args.dailyAmount,
       });
 
+      console.log(box);
+
       return box.save().catch((error: any) => {
         throw new UserInputError(error.message, {
           invalidArgs: args,

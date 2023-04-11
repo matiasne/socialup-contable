@@ -1,8 +1,11 @@
-import { Input, TextField } from "@mui/material";
+import { Label, Padding } from "@mui/icons-material";
+import { Box, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 import "./formBusiness.css";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { BusinessMutationServices } from "../Services/business.services";
 
 interface FormValues {
   BusinessName: string;
@@ -19,21 +22,22 @@ const FormBusinessComponent: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      BusinessName: "",
-      Phone: "",
-      Mail: "",
-      Address: "",
-      BusinessCategory: "",
-      Image: "",
-      touched: "",
-    },
-  });
+  } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    alert(JSON.stringify(data));
-  };
+  const [mutateFunction, { loading, error, data }] = useMutation(
+    BusinessMutationServices.AddBusiness
+  );
+  console.log(data);
+
+  const onSubmit = handleSubmit((values: any) => {
+    alert(JSON.stringify(values));
+    mutateFunction({
+      variables: {
+        user: "63e693ce447082f41bcc0c5f",
+        name: "Harcode",
+      },
+    });
+  });
 
   const [imageUrl, setImageUrl] = React.useState<string | undefined>();
 
@@ -51,10 +55,8 @@ const FormBusinessComponent: React.FC = () => {
     }
   };
 
-  console.log("touched", errors);
-
   return (
-    <FormControl component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box>
       <label htmlFor="image">UPLOAD IMAGE</label>
       <Input type="file" id="image" onChange={handleImageChange} />
       <br />
@@ -79,8 +81,8 @@ const FormBusinessComponent: React.FC = () => {
         {...register("BusinessCategory")}
       />
 
-      <Input type="submit" />
-    </FormControl>
+      <button onClick={onSubmit} />
+    </Box>
   );
 };
 
