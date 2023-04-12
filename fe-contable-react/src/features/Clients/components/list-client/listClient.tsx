@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IClient, IiClient } from "../../models/client";
-import ItemClient from "../ItemClient/itemClient";
+import ItemClient from "../item-client/itemClient";
 
 const clients: IiClient[] = [
   {

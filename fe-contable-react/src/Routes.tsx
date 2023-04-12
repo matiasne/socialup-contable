@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoutes } from "./auth/guards/authProvider";
-import FormClient from "./features/Clients/components/FormClient/formClient";
+import FormClient from "./features/Clients/components/form-client/formClient";
 import { ListProduct } from "./features/products/components/list-product/list-product";
 import { BoxCreate } from "./pages/createBox/create-box.page";
 import { SaleCreate } from "./pages/createSale/create-sale.page";
@@ -11,7 +11,7 @@ import { FormRegister } from "./pages/formRegister/formRegister";
 import AvatarWithInput from "./shared/Components/avatar";
 import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
-import { ListClient } from "./features/Clients/components/ListClient/listClient";
+import { ListClient } from "./features/Clients/components/list-client/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
 import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 
