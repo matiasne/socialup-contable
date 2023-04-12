@@ -5,7 +5,7 @@ import * as React from "react";
 import "./formBusiness.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { BusinessMutationServices } from "../Services/business.services";
+import { BusinessMutationServices } from "../../Services/business.services";
 
 interface FormValues {
   BusinessName: string;
@@ -27,9 +27,9 @@ const FormBusinessComponent: React.FC = () => {
   const [mutateFunction, { loading, error, data }] = useMutation(
     BusinessMutationServices.AddBusiness
   );
-  console.log(data)
+  console.log(data);
 
-  const onSubmit=handleSubmit((values: any) => {
+  const onSubmit = handleSubmit((values: any) => {
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
@@ -37,11 +37,8 @@ const FormBusinessComponent: React.FC = () => {
         name: "Harcode",
       },
     });
-  
   });
 
- 
-  
   const [imageUrl, setImageUrl] = React.useState<string | undefined>();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +55,8 @@ const FormBusinessComponent: React.FC = () => {
     }
   };
 
-  
-
   return (
-    <Box  >
+    <Box>
       <label htmlFor="image">UPLOAD IMAGE</label>
       <Input type="file" id="image" onChange={handleImageChange} />
       <br />
@@ -86,7 +81,7 @@ const FormBusinessComponent: React.FC = () => {
         {...register("BusinessCategory")}
       />
 
-      <button  onClick={onSubmit} />
+      <button onClick={onSubmit} />
     </Box>
   );
 };

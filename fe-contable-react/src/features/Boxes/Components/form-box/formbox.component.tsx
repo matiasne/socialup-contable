@@ -13,10 +13,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
-import { UserServices } from "../../../shared/services/userServices/userServices";
-import { IBox } from "../models/box";
-import { BoxMutationServices } from "../Services/box.services";
+import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
+import { UserServices } from "../../../../shared/services/userServices/userServices";
+import { IBox } from "../../models/box";
+import { BoxMutationServices } from "../../Services/box.services";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -79,9 +79,8 @@ export const FormBoxComponent = () => {
   const [mutateFunction, { loading, error, data }] = useMutation(
     BoxMutationServices.CreateBox
   );
-console.log(data)
+  console.log(data);
   const onSubmit = handleSubmit((values) => {
-
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
