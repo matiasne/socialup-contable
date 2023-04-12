@@ -2,7 +2,7 @@ import { Label, Padding } from "@mui/icons-material";
 import { Box, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
-import "./formBusiness.css";
+import "./form-business.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { BusinessMutationServices } from "../../Services/business.services";

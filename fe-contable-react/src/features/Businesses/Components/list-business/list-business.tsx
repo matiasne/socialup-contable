@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IBusiness, IiBusiness } from "../../models/business";
-import ItemBusiness from "../ItemBusiness/itemBusiness";
+import ItemBusiness from "../Item-business/item-business";
 
 const business: IiBusiness[] = [
   {
