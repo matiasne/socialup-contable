@@ -13,6 +13,7 @@ import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/list-client/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
+import FormBusinessComponent from "./features/Businesses/Components/formBusiness";
 import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 
 export const AppRouter = () => {
@@ -31,6 +32,8 @@ export const AppRouter = () => {
       <Route path="/dialogs" element={<Dialog />} />
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
+      <Route path="/listbox" element={<ListBox />} />
+      <Route path="/business" element={<FormBusinessComponent />} />
     </Routes>
   );
 };
