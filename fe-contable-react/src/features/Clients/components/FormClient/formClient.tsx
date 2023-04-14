@@ -17,6 +17,9 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
+import { useMutation } from "@apollo/client";
+import { ClientServices } from "../../services/clientServices";
+
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
@@ -55,9 +58,24 @@ export function FormClient() {
     getValues,
     formState: { errors },
   } = useForm<IClient>();
+  const [mutateFunction, { loading, error, data }] = useMutation(
+    ClientServices.ClientMutationServices.createClient
+  );
   const onSubmit = handleSubmit((values) => {
-    formRef.current?.reset();
     alert(JSON.stringify(values));
+    mutateFunction({
+      variables: {
+        name: values.name,
+        surname: values.surname,
+        email: values.email,
+        business: values.idBusinnes,
+        documentNumber: values.documentNumber,
+        documentType: values.documentType,
+        postcode: values.postCode,
+        address: values.address,
+        phone: values.phone,
+      },
+    });
   });
   const [documentType, setDocumentType] = useState<number>(0);
 
