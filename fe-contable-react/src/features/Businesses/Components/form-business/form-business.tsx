@@ -5,7 +5,7 @@ import * as React from "react";
 import "./form-business.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { BusinessMutationServices } from "../../Services/business.services";
+import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
 
 interface FormValues {
   BusinessName: string;
