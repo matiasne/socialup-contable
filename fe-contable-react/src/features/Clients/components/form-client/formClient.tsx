@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import React, { useRef, useState } from "react";
 import Button from "@mui/material/Button";
+import { useForm } from "react-hook-form";
 import { numberPhone } from "./numberPhone";
 import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
 import { IClient } from "../../models/client";
@@ -15,7 +16,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
@@ -54,7 +55,7 @@ export function FormClient() {
     getValues,
     formState: { errors },
   } = useForm<IClient>();
-  const onSubmit = handleSubmit((values: any) => {
+  const onSubmit = handleSubmit((values) => {
     formRef.current?.reset();
     alert(JSON.stringify(values));
   });
