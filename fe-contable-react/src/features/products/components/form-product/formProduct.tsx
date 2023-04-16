@@ -2,8 +2,10 @@ import { useMutation } from "@apollo/client";
 import { Box, Button, Card, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../../../shared/services/userServices/userServices";
-import { IProduct } from "../../models/product.interface";
+
 import style from "./styleFormProduct.module.css";
+import { ProductService } from "../../productsService/productsService";
+import { IProduct } from "../../models/product";
 
 export const FormProductComponent = () => {
   const {
@@ -12,18 +14,19 @@ export const FormProductComponent = () => {
     formState: { errors },
   } = useForm<IProduct>();
   const [mutateFunction, { loading, error, data }] = useMutation(
-    UserServices.UserMutationServices.register
+    ProductService.ProductMutationServices.create
   );
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
-        name: values.name,
-        description: values.description,
-        code: values.code,
-        costPrice: values.costPrice,
-        salePrice: values.salePrice,
-        image: values.image,
+        business: "6439a6a77d50af9ec31665d6",
+        name: values.Name,
+        description: values.Description,
+        code: values.Code,
+        costPrice: values.CostPrice,
+        salePrice: values.SalePrice,
+        image: values.Image,
       },
     });
   });
@@ -49,11 +52,11 @@ export const FormProductComponent = () => {
               label="Name"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("name", {
+              {...register("Name", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.name?.type === "required" && {
+              {...(errors.Name?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -64,11 +67,11 @@ export const FormProductComponent = () => {
               label="Description"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("description", {
+              {...register("Description", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.description?.type === "required" && {
+              {...(errors.Description?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -79,11 +82,11 @@ export const FormProductComponent = () => {
               label="Code"
               sx={{ m: 1, width: "35ch" }}
               type="text"
-              {...register("code", {
+              {...register("Code", {
                 required: true,
                 minLength: 2,
               })}
-              {...(errors.code?.type === "required" && {
+              {...(errors.Code?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -94,11 +97,11 @@ export const FormProductComponent = () => {
               label="CostPrice"
               sx={{ m: 1, width: "35ch" }}
               type="price"
-              {...register("costPrice", {
+              {...register("CostPrice", {
                 required: true,
                 minLength: 1,
               })}
-              {...(errors.costPrice?.type === "required" && {
+              {...(errors.CostPrice?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -109,11 +112,11 @@ export const FormProductComponent = () => {
               label="SalePrice"
               sx={{ m: 1, width: "35ch" }}
               type="price"
-              {...register("salePrice", {
+              {...register("SalePrice", {
                 required: true,
                 minLength: 1,
               })}
-              {...(errors.salePrice?.type === "required" && {
+              {...(errors.SalePrice?.type === "required" && {
                 helperText: "Campo Obligatorio",
                 error: true,
               })}
@@ -133,3 +136,4 @@ export const FormProductComponent = () => {
     </Box>
   );
 };
+export default FormProductComponent;
