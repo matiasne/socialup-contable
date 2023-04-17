@@ -29,6 +29,7 @@ module.exports = {
       });
 
       return product.save().catch((error: any) => {
+        console.log(error)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         });
