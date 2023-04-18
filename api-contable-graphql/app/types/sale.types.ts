@@ -12,7 +12,7 @@ module.exports = gql`
     payments: [String]
     variations: [String]
     billingDate: String
-    status: [String]
+    status: String
     id: ID!
   }
 
@@ -31,7 +31,7 @@ module.exports = gql`
       payments: [String]
       variations: [String]
       billingDate: String
-      status: [String]
+      status: String
     ): Sale
     updateSale(
       _id: String!
@@ -42,7 +42,7 @@ module.exports = gql`
       payments: [String]
       variations: [String]
       billingDate: String
-      status: [String]
+      status: String
     ): String
     deleteString(_id: String!): String
   }
