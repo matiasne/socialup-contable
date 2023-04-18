@@ -85,6 +85,11 @@ module.exports = {
         actualBox: {
           name: box.name,
         },
+        total: args.total,
+        payments: args.payments,
+        variations: args.variations,
+        billingDate: new Date(),
+        status: args.status,
       });
       console.log(sale);
       return sale.save().catch((error: any) => {
