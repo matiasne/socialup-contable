@@ -1,15 +1,16 @@
 import React from "react";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
-import { IClient, IiClient } from "../../models/client";
+import { IClient } from "../../models/client";
 import ItemClient from "../ItemClient/itemClient";
 
-const clients: IiClient[] = [
+const clients: IClient[] = [
   {
     name: "Nombre",
     surname: "Apellido",
     phone: "Telelfono",
     image: "img",
     email: "Mail",
+    idBusinnes: "643d97dc359d19fa42bb5b73",
   },
   {
     name: "Nombre",
@@ -17,6 +18,7 @@ const clients: IiClient[] = [
     phone: "Telelfono",
     image: "img",
     email: "Mail",
+    idBusinnes: "",
   },
   {
     name: "Nombre",
@@ -24,6 +26,7 @@ const clients: IiClient[] = [
     phone: "Telelfono",
     image: "img",
     email: "Mail",
+    idBusinnes: "",
   },
   {
     name: "Nombre",
@@ -31,6 +34,7 @@ const clients: IiClient[] = [
     phone: "Telelfono",
     image: "img",
     email: "Mail",
+    idBusinnes: "",
   },
 ];
 

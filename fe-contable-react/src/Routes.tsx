@@ -15,12 +15,13 @@ import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/ListClient/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
+import App from "./App";
 
 export const AppRouter = () => {
   return (
     <Routes>
       <Route element={<ProtectedRoutes />}></Route>
-      <Route path="" element={<FormLogin />} />
+
       <Route path="*" element={<FormLogin />} />
       <Route path="/login" element={<FormLogin />} />
       <Route path="/register" element={<FormRegister />} />
