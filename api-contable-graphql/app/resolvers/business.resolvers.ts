@@ -38,6 +38,7 @@ module.exports = {
       });
 
       return business.save().catch((error) => {
+        console.log(error);
         throw new GraphQLError("Error creando el negocio.", {
           extensions: {
             code: "ERROR_CREATING_BUSINESS",

@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
   address: { type: String, required: false, unique: false, minlength: 2 },
   category: { type: String, required: false, unique: false, minlength: 2 },
   email: { type: String, required: false, unique: false, minlength: 2 },
-  image: { type: String, required: false, unique: false, minlength: 2 },
+  image: { type: String, required: false, unique: false },
   phone: { type: String, required: false, unique: false, minlength: 2 },
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   box: [{ type: mongoose.Schema.Types.ObjectId, ref: "Box" }],
