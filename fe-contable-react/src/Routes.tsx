@@ -12,12 +12,16 @@ import { Dialog } from "./shared/Components/modal/Dialogs";
 import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/list-client/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
+<<<<<<< HEAD
 import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 <<<<<<< HEAD
 import { FormProductComponent } from "./features/products/components/form-product/formProduct";
 =======
 import FormBusinessComponent from "./features/Businesses/Components/form-business/form-business";
 >>>>>>> da927040c9f57e215ec7ef4ba74ab2ef472c1df8
+=======
+import { ListSales } from "./features/Sales/list-sale/list-sale";
+>>>>>>> su#25
 
 export const AppRouter = () => {
   return (
@@ -36,7 +40,11 @@ export const AppRouter = () => {
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
       <Route path="/listbox" element={<ListBox />} />
+<<<<<<< HEAD
       <Route path="/business" element={<FormBusinessComponent />} />
+=======
+      <Route path="/listsale" element={<ListSales />} />
+>>>>>>> su#25
     </Routes>
   );
 };
