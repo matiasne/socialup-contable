@@ -13,6 +13,7 @@ import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/list-client/listClient";
 import { ListBox } from "./features/Boxes/Components/list-box/list-box";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 <<<<<<< HEAD
 import { FormProductComponent } from "./features/products/components/form-product/formProduct";
@@ -22,12 +23,15 @@ import FormBusinessComponent from "./features/Businesses/Components/form-busines
 =======
 import { ListSales } from "./features/Sales/list-sale/list-sale";
 >>>>>>> su#25
+=======
+import App from "./App";
+>>>>>>> origin/SU#36
 
 export const AppRouter = () => {
   return (
     <Routes>
       <Route element={<ProtectedRoutes />}></Route>
-      <Route path="" element={<FormLogin />} />
+
       <Route path="*" element={<FormLogin />} />
       <Route path="/login" element={<FormLogin />} />
       <Route path="/register" element={<FormRegister />} />
