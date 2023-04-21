@@ -145,7 +145,7 @@ export const FormRegister = () => {
                 error: true,
               })}
               {...(errors.Email?.type === "pattern" && {
-                helperText: "Ingrese un Email valido",
+                helperText: "Ingrese un email válido",
                 error: true,
               })}
             />
@@ -165,7 +165,7 @@ export const FormRegister = () => {
                 error: true,
               })}
               {...(errors.Password?.type === "minLength" && {
-                helperText: "La contraseña es demaciado corta",
+                helperText: "La contraseña es demasiado corta",
                 error: true,
               })}
               InputProps={{
