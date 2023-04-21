@@ -10,23 +10,22 @@ export const ListProduct = () => {
   const { error, data, loading } = useQuery(
     ProductService.ProductsQueryService.products
   );
-  if (error) console.log(error);
-  if (loading) console.log(loading);
-  if (data) {
-    if (data.findProduct) {
-      return (
+
+  return (
+    <>
+      {!loading && data.findProduct ? (
         <div>
           <ListItems
-            items={data.findProduct}
+            items={data.findProduct ? data.findProduct : []}
             renderItem={ItemProduct}
             handleItemClick={(item: IProduct) => {
               action(item);
             }}
           ></ListItems>
         </div>
-      );
-    }
-  }
-
-  return <></>;
+      ) : (
+        <>spinner</>
+      )}
+    </>
+  );
 };
