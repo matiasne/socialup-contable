@@ -1,5 +1,5 @@
 import { Label, Padding } from "@mui/icons-material";
-import { Box, Input, TextField } from "@mui/material";
+import { Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 import "./form-business.css";
@@ -10,7 +10,7 @@ import { BusinessMutationServices } from "../../Services/businessMutation/busine
 interface FormValues {
   BusinessName: string;
   Phone: string;
-  Mail: string;
+  Email: string;
   Address: string;
   BusinessCategory: string;
   Image: string;
@@ -56,32 +56,62 @@ const FormBusinessComponent: React.FC = () => {
   };
 
   return (
-    <Box>
-      <label htmlFor="image">UPLOAD IMAGE</label>
-      <Input type="file" id="image" onChange={handleImageChange} />
-      <br />
-      <img src={imageUrl} alt="" />
-      <br />
-      <TextField
-        label="Business Name"
-        variant="outlined"
-        {...register("BusinessName", { required: true })}
-      />
-      <TextField
-        label="Phone"
-        variant="outlined"
-        type="number"
-        {...register("Phone")}
-      />
-      <TextField label="Mail" variant="outlined" {...register("Mail")} />
-      <TextField label="Address" variant="outlined" {...register("Address")} />
-      <TextField
-        label="Business Category"
-        variant="outlined"
-        {...register("BusinessCategory")}
-      />
-
-      <button onClick={onSubmit} />
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <Card sx={{ pb: 1 }}>
+        <FormControl>
+          <label htmlFor="image">UPLOAD IMAGE</label>
+          <Input type="file" id="image" onChange={handleImageChange} />
+          <br />
+          <img src={imageUrl} alt="" />
+          <br />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            label="Business Name"
+            variant="outlined"
+            type="text"
+            {...register("BusinessName", { required: true })}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            label="Phone"
+            variant="outlined"
+            type="tel"
+            {...register("Phone")}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            label="Email"
+            variant="outlined"
+            type="email"
+            {...register("Email")}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            label="Address"
+            variant="outlined"
+            type="text"
+            {...register("Address")}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            label="Business Category"
+            variant="outlined"
+            type="text"
+            {...register("BusinessCategory")}
+          />
+          <Button onClick={onSubmit} variant="contained">
+            Submit
+          </Button>
+        </FormControl>
+      </Card>
     </Box>
   );
 };
