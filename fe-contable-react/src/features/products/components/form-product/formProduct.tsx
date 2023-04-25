@@ -11,13 +11,15 @@ export const FormProductComponent = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IProduct>();
   const [mutateFunction, { loading, error, data }] = useMutation(
-    ProductService.ProductMutationServices.create
+    ProductService.ProductMutationServices.AddProduct
   );
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
+    reset();
     mutateFunction({
       variables: {
         business: "6439a6a77d50af9ec31665d6",
@@ -128,7 +130,7 @@ export const FormProductComponent = () => {
               className={style.submit}
               variant="contained"
             >
-              Submit
+              Submit()
             </Button>
           </Box>
         </div>

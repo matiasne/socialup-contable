@@ -2,6 +2,6 @@ import { BusinessMutationServices } from "./businessMutation/businessMutation.se
 import { BusinessQueryServices } from "./businessQuery/businessQuery.service";
 
 export const BusinessServices = {
-  BusinessMutationServices,
   BusinessQueryServices,
+  BusinessMutationServices,
 };
