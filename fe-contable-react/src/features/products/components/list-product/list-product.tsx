@@ -1,40 +1,31 @@
-import React from "react";
+import { useQuery } from "@apollo/client";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IProduct } from "../../models/product.interface";
 import ItemProduct from "../item-product/itemProduct";
-
-const productos: IProduct[] = [
-  {
-    name: "Producto 1",
-    description: "Descripción del producto 1",
-    salePrice: 20,
-  },
-  {
-    name: "Producto 2",
-    description: "Descripción del producto 2",
-    salePrice: 20,
-  },
-  {
-    name: "Producto 3",
-    description: "Descripción del producto 3",
-    salePrice: 30,
-  },
-];
+import { ProductService } from "../../productsService/productsService";
 
 export const ListProduct = () => {
-  const action = (item: IProduct) => {
-    console.log(item);
-  };
+  // const [products, setProducts] = useState([]);
+  const action = (item: IProduct) => {};
+  const { error, data, loading } = useQuery(
+    ProductService.ProductsQueryService.products
+  );
 
   return (
-    <div>
-      <ListItems
-        items={productos}
-        renderItem={ItemProduct}
-        handleItemClick={(item: IProduct) => {
-          action(item);
-        }}
-      ></ListItems>
-    </div>
+    <>
+      {!loading && data.findProduct ? (
+        <div>
+          <ListItems
+            items={data.findProduct ? data.findProduct : []}
+            renderItem={ItemProduct}
+            handleItemClick={(item: IProduct) => {
+              action(item);
+            }}
+          ></ListItems>
+        </div>
+      ) : (
+        <>spinner</>
+      )}
+    </>
   );
 };

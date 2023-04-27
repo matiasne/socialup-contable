@@ -20,6 +20,8 @@ import { Card, CircularProgress } from "@mui/material";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import { useForm } from "react-hook-form";
+import ItemProduct from "../../features/products/components/item-product/itemProduct";
+import ItemClient from "../../features/Clients/components/item-client/itemClient";
 
 interface FormData {
   Email: string;
