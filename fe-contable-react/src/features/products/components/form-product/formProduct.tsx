@@ -6,6 +6,7 @@ import { UserServices } from "../../../../shared/services/userServices/userServi
 import style from "./styleFormProduct.module.css";
 import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
+import ItemProduct from "../item-product/itemProduct";
 
 export const FormProductComponent = () => {
   const {

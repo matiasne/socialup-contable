@@ -19,6 +19,7 @@ import {
 
 import { useMutation } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
+import ItemClient from "../item-client/itemClient";
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;

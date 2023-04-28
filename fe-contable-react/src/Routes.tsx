@@ -27,7 +27,7 @@ export const AppRouter = () => {
       <Route path="/dialogs" element={<Dialog />} />
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
-      <Route path="/listbox" element={<ListBox />} />
+      <Route path="/listBox" element={<ListBox />} />
     </Routes>
   );
 };

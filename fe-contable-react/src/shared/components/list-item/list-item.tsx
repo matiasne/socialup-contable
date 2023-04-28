@@ -8,7 +8,6 @@ interface IProps {
 }
 
 export const ListItems = ({ items, renderItem, handleItemClick }: IProps) => {
-  console.log(items);
   return (
     <div>
       <List
@@ -22,7 +21,7 @@ export const ListItems = ({ items, renderItem, handleItemClick }: IProps) => {
         {items.map((item: any, i) => {
           return (
             <>
-              <ListItem key={i} onClick={() => handleItemClick(item)}>
+              <ListItem key={item.id} onClick={() => handleItemClick(item)}>
                 {renderItem(item)}{" "}
               </ListItem>
               <Divider />
