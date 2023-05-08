@@ -13,9 +13,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
+
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { IBox } from "../models/box";
+import NavBarMenu from "../../../shared/Components/NavBar/NavBarMenu";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />

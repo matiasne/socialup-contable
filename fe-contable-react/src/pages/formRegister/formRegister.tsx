@@ -8,10 +8,10 @@ import React from "react";
 import Button from "@mui/material/Button";
 import style from "./styleFormRegister.module.css";
 import { Card } from "@mui/material";
-import NavBarMenu from "../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
+import NavBarMenu from "../../shared/Components/NavBar/NavBarMenu";
 
 interface FormData {
   Name: string;

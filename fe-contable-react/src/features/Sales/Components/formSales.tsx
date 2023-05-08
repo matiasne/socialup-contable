@@ -14,9 +14,9 @@ import {
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { ISale } from "../models/sale";
 import { useMutation } from "@apollo/client";
-import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
-import ConfirmationDialog from "../../../shared/Components/modal/ConfitmationDialog";
+
 import { useForm } from "react-hook-form";
+import NavBarMenu from "../../../shared/Components/NavBar/NavBarMenu";
 
 export const FormSalesComponent = () => {
   const {

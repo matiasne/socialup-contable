@@ -1,26 +1,36 @@
 import { gql } from "@apollo/client";
 
-interface Cliente {
-  id: string;
-  nombre: string;
-  apellido: string;
-  email: string;
-}
-
-interface QueryResult {
-  cliente: Cliente;
-}
-
+const OBTENER_CLIENTES = gql`
+  query Query {
+    findClient {
+      address
+      city
+      email
+      id
+      name
+      phone
+      surname
+    }
+  }
+`;
 const OBTENER_CLIENTE = gql`
-  query ExampleQuery($findOneClientId: ID!) {
+  query FindOneClient($findOneClientId: ID!) {
     findOneClient(id: $findOneClientId) {
       name
+      city
+      address
       email
       phone
+      surname
+      id
+      postCode
+      documentNumber
+      documentType
     }
   }
 `;
 
 export const QueryClientService = {
+  OBTENER_CLIENTES,
   OBTENER_CLIENTE,
 };

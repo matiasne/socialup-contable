@@ -4,18 +4,13 @@ import FormClient from "./features/Clients/components/FormClient/formClient";
 import { ListProduct } from "./features/products/components/list-product/list-product";
 import { BoxCreate } from "./pages/createBox/create-box.page";
 import { SaleCreate } from "./pages/createSale/create-sale.page";
-import { getSessionServices } from "./auth/services/session.service";
 import { FormProductComponent } from "./features/products/components/formProduct";
 import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
 import { FormLogin } from "./pages/formLogin/formLogin";
-import { FormProfile } from "./pages/formProfile/formProfile";
 import { FormRegister } from "./pages/formRegister/formRegister";
-import AvatarWithInput from "./shared/Components/avatar";
 import { Dialog } from "./shared/Components/modal/Dialogs";
-import ItemBox from "./features/Boxes/Components/item-box/item-box";
 import { ListClient } from "./features/Clients/components/ListClient/listClient";
-import { ListBox } from "./features/Boxes/Components/list-box/list-box";
-import App from "./App";
+import ItemClient from "./features/Clients/components/ItemClient/itemClient";
 
 export const AppRouter = () => {
   return (
@@ -30,8 +25,10 @@ export const AppRouter = () => {
       <Route path="/sale" element={<SaleCreate />} />
       <Route path="/products" element={<ListProduct />} />
       <Route path="/dialogs" element={<Dialog />} />
+      <Route path="/Clients/:id" element={<FormClient />} />
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
+      <Route path="/listclient" element={<ListClient />} />
     </Routes>
   );
 };
