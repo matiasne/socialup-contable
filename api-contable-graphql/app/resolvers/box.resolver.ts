@@ -1,6 +1,19 @@
 import { UserInputError } from "apollo-server-core";
 import Business from "../schema/business";
 import Box from "../schema/box";
+import path from "path";
+import * as fs from "fs";
+
+const fileRenamer = (filename: string): string => {
+  const queHoraEs = Date.now();
+  const regex = /[\s_-]/gi;
+  console.log(filename);
+  const fileTemp = filename.replace(regex, ".");
+  let arrTemp = [fileTemp.split(".")];
+  return `${arrTemp[0]
+    .slice(0, arrTemp[0].length - 1)
+    .join("_")}${queHoraEs}.${arrTemp[0].pop()}`;
+};
 
 module.exports = {
   Query: {
@@ -47,6 +60,24 @@ module.exports = {
       }
       return box;
     },
+    addBoxPhoto: async (root: any, args: any) => {
+      console.log(args);
+      const { ID, file } = args;
+      console.log("lalala1");
+      console.log(file);
+      console.log("lalala1.5");
+      const { createReadStream, filename, mimetype } = await file;
+      console.log(filename);
+      const stream = createReadStream;
+      const assetUniqName = fileRenamer(filename);
+      console.log("lalala");
+      const pathName = path.join(__dirname, `./upload/${assetUniqName}`);
+      console.log(pathName);
+      await stream.pipe(fs.createWriteStream(pathName));
+      const urlForArray = `http://localhost:4000/${assetUniqName}`;
+      return urlForArray;
+    },
+
     deleteBox: async (root: any, args: any) => {
       const { _id } = args;
       const box = await Box.findByIdAndDelete(_id);

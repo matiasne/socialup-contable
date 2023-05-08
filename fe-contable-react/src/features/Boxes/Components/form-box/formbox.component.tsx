@@ -77,22 +77,32 @@ export const FormBoxComponent = () => {
     formState: { errors },
   } = useForm<IBox>();
   const [mutateFunction, { loading, error, data }] = useMutation(
-    BoxMutationServices.CreateBox
+    BoxMutationServices.ImageBox
   );
-  console.log(data);
+  console.log("lalala");
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
+    console.log(values.Image)
+    fileUpload();
     mutateFunction({
       variables: {
-        idBusiness: values.idBusiness,
-        image: values.Image,
-        name: values.Name,
-        status: values.Status,
-        actualAmount: values.ActualAmount,
-        dailyAmount: values.DailyAmount,
+        addBoxPhotoId: "6421e0f35b7fc46f1e1a58e2",
+        file:values.Image,
       },
     });
   });
+
+  const [fileUpload] = useMutation(BoxMutationServices.ImageBox, {
+    onCompleted: (data) => console.log(data),
+});
+const handleFileChange = (e:any) => {
+  console.log("lalala2");
+  const file = e.target.files;
+  console.log (file)
+  if (!file) return;
+  fileUpload({ variables: { file } });
+};
+
   return (
     <div>
       <NavBarMenu></NavBarMenu>
@@ -108,6 +118,7 @@ export const FormBoxComponent = () => {
       >
         <Card sx={{ p: 1 }}>
           <div>
+            <input type="file" name="file"/>
             <Box>
               <Typography variant="h3" sx={{ textAlign: "center" }}>
                 Crear Caja
