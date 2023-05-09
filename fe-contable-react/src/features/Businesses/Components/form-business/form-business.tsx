@@ -54,6 +54,7 @@ const FormBusinessComponent: React.FC = () => {
       <Card sx={{ pb: 1 }}>
         <FormControl>
           <ProfileForm
+            avatarType="business"
             onChange={function (data: any): void {
               setValue("Image", data);
             }}

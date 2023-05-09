@@ -1,19 +1,44 @@
-import { ChangeEvent, useRef, useState } from "react";
-import { Avatar, Box, Button, Input } from "@mui/material";
+import { useRef, useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import AvatarEditor from "react-avatar-editor";
+import PersonIcon from "@mui/icons-material/Person";
+import BusinessIcon from "@mui/icons-material/Business";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 interface IProfileFormProps {
   onChange: (data: any) => void;
 }
 
-function ProfileForm({ onChange }: IProfileFormProps) {
-  const [image, setImage] = useState(null);
-  const inputFileRef = useRef<HTMLInputElement>(null);
+interface AvatarType {
+  user: "user";
+  business: "business";
+  product: "product";
+  box: "box";
+}
 
-  const handleImageChange = (event: any) => {
-    setImage(event.target.files[0]);
+function ProfileForm({
+  onChange,
+  avatarType,
+}: IProfileFormProps & { avatarType: AvatarType[keyof AvatarType] }) {
+  const [avatarSrc, setAvatarSrc] = useState<File | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const [editor, setEditor] = useState<AvatarEditor | null>(null);
+  const [open, setOpen] = useState(false);
+  const [scale, setScale] = useState(1);
+
+  const handleClick = (event: any) => {
+    setAvatarSrc(event.target.files[0]);
     onChange(event.target.files[0]);
+    setOpen(true);
   };
 
   const handleButtonClick = () => {
@@ -22,15 +47,37 @@ function ProfileForm({ onChange }: IProfileFormProps) {
     }
   };
 
-  ///////////////
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSave = () => {
+    if (editor) {
+      const canvas = editor.getImage();
+      canvas.toBlob((blob) => {
+        if (blob) {
+          setAvatarSrc(new File([blob], "avatar.png"));
+          setOpen(false);
+        }
+      }, "image/png");
+    }
+  };
+
+  const avatarIcons: Record<AvatarType[keyof AvatarType], JSX.Element> = {
+    user: <PersonIcon sx={{ color: "white", paddingTop: "20px" }} />,
+    business: <BusinessIcon sx={{ color: "white", paddingTop: "20px" }} />,
+    product: <LocalMallIcon sx={{ color: "white", paddingTop: "20px" }} />,
+    box: <CheckBoxIcon sx={{ color: "white", paddingTop: "20px" }} />,
+  };
 
   return (
     <>
       <Box sx={{ position: "relative", display: "inline-block" }}>
         <Avatar
-          onChange={handleButtonClick}
-          src={image ? URL.createObjectURL(image) : ""}
+          onClick={handleButtonClick}
+          src={avatarSrc ? URL.createObjectURL(avatarSrc) : ""}
           alt="Profile"
+          style={{ cursor: "pointer" }}
           sx={{
             m: 1,
             position: "relative",
@@ -41,27 +88,73 @@ function ProfileForm({ onChange }: IProfileFormProps) {
               opacity: 1,
             },
           }}
+          {...(avatarSrc ? { key: avatarSrc.name } : {})}
         >
-          <Input
-            type="file"
-            //accept="image/*"
-            onChange={handleImageChange}
-            style={{
-              opacity: 0,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 1,
-              cursor: "pointer",
-            }}
-            ref={inputFileRef}
-          />
-          <CameraAltIcon sx={{ color: "white", paddingTop: "20px" }} />
+          {avatarType && avatarIcons[avatarType]}
         </Avatar>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleClick}
+          style={{
+            opacity: 0,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+            cursor: "pointer",
+            ...(!avatarSrc && { display: "none" }),
+          }}
+          ref={inputFileRef}
+        />
+        <CameraAltIcon sx={{ color: "white", paddingTop: "20px" }} />
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <DialogContent>
+            {avatarSrc && (
+              <AvatarEditor
+                ref={(ref) => setEditor(ref)}
+                image={avatarSrc}
+                width={200}
+                height={200}
+                border={50}
+                borderRadius={100}
+                color={[255, 255, 255, 0.6]}
+                scale={scale}
+                rotate={0}
+              />
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+              <Box sx={{ mr: 1 }}>
+                <Button onClick={() => setScale(scale + 0.1)}>
+                  Aumentar zoom
+                </Button>
+              </Box>
+              <Box sx={{ mr: 2 }}>
+                <Button onClick={() => setScale(scale - 0.1)}>
+                  Disminuir zoom
+                </Button>
+              </Box>
+            </Box>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancelar</Button>
+            <Button onClick={handleSave}>Guardar</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </>
   );
