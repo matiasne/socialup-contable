@@ -7,6 +7,7 @@ import style from "./styleFormProduct.module.css";
 import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
 import ItemProduct from "../item-product/itemProduct";
+import { Refresh } from "@mui/icons-material";
 
 export const FormProductComponent = () => {
   const {
@@ -14,8 +15,8 @@ export const FormProductComponent = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IProduct>();
-  const [mutateFunction, { loading, error, data }] = useMutation(
-    ProductService.ProductMutationServices.create
+  const [mutateFunction] = useMutation(
+    ProductService.ProductMutationServices.AddProduct
   );
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));

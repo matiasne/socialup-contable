@@ -1,38 +1,97 @@
+import { useMutation, useQuery } from "@apollo/client";
+import { ProductService } from "../../productsService/productsService";
+import { MouseEventHandler, useEffect, useState } from "react";
 import {
-  ListItemText,
   ListItemAvatar,
   Avatar,
   ListItemSecondaryAction,
   IconButton,
+  ListItemText,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  DialogContentText,
+  Alert,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
-import { ProductService } from "../../productsService/productsService";
-import { useQuery } from "@apollo/client";
 
 function ItemProduct(props: IProduct) {
-  // const { loading, error, data } = useQuery(
-  //   ProductService.ProductsQueryService.products,
-  //   { variables: { findOneProductId: "643da4d87296b98e838979e6" } }
-  // );
+  console.log(props);
+  const [isEditing] = useState(false);
+  const { refetch } = useQuery(ProductService.ProductsQueryService.products);
+  const [MutationFunction] = useMutation(
+    ProductService.ProductMutationServices.DeleteProduct
+  );
+  const { error, data, loading } = useQuery(
+    ProductService.ProductsQueryService.products
+  );
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
+    MutationFunction({ variables: { id: props.id } })
+      .then(() => {
+        refetch();
+        setIsDeleteDialogOpen(false);
+        // alert(<Alert severity="success">Se elimino correctamente</Alert>);
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <>
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
-      <ListItemText
-        primary={props.name}
-        secondary={`Precio: ${props.name} Descripcion: ${props.name}`}
-      />
-      <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="editar">
-          <Edit />
-        </IconButton>
-        <IconButton edge="end" aria-label="eliminar">
-          <Delete />
-        </IconButton>
-      </ListItemSecondaryAction>
+      {isEditing ? (
+        <></>
+      ) : (
+        <>
+          <ListItemText
+            primary={props.name}
+            secondary={`Precio: ${props.salePrice} Descripcion: ${props.description}`}
+          />
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="editar">
+              <Edit />
+            </IconButton>
+            <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
+              <Delete />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </>
+      )}
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+      >
+        <DialogTitle>
+          ¿Está seguro que desea eliminar este producto?
+        </DialogTitle>
+        <DialogContent></DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => setIsDeleteDialogOpen(false)}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDeleteConfirmed}
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
