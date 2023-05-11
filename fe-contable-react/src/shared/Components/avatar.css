@@ -1,0 +1,18 @@
+.MuiDialog-paper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.MuiAvatarEditor-root {
+  margin-top: 2rem;
+}
+
+.MuiBox-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}

@@ -5,7 +5,8 @@ import * as React from "react";
 import "./form-business.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
+import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
 interface FormValues {
   BusinessName: string;
@@ -13,7 +14,7 @@ interface FormValues {
   Email: string;
   Address: string;
   BusinessCategory: string;
-  Image: string;
+  Image: any;
   touched: string;
 }
 
@@ -21,6 +22,7 @@ const FormBusinessComponent: React.FC = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -30,7 +32,7 @@ const FormBusinessComponent: React.FC = () => {
   console.log(data);
 
   const onSubmit = handleSubmit((values: any) => {
-    alert(JSON.stringify(values));
+    console.log(values);
     mutateFunction({
       variables: {
         user: "63e693ce447082f41bcc0c5f",
@@ -38,22 +40,6 @@ const FormBusinessComponent: React.FC = () => {
       },
     });
   });
-
-  const [imageUrl, setImageUrl] = React.useState<string | undefined>();
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = (event: ProgressEvent<FileReader>) => {
-        const imageUrl = event.target?.result;
-        setImageUrl(imageUrl?.toString());
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <Box
@@ -67,11 +53,12 @@ const FormBusinessComponent: React.FC = () => {
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-          <label htmlFor="image">UPLOAD IMAGE</label>
-          <Input type="file" id="image" onChange={handleImageChange} />
-          <br />
-          <img src={imageUrl} alt="" />
-          <br />
+          <ProfileForm
+            avatarType="business"
+            onChange={function (data: any): void {
+              setValue("Image", data);
+            }}
+          />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Name"
@@ -107,7 +94,11 @@ const FormBusinessComponent: React.FC = () => {
             type="text"
             {...register("BusinessCategory")}
           />
-          <Button onClick={onSubmit} variant="contained">
+          <Button
+            sx={{ m: 1, width: "43ch" }}
+            onClick={onSubmit}
+            variant="contained"
+          >
             Submit
           </Button>
         </FormControl>
