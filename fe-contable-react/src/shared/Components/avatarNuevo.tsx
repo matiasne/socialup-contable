@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  IconButton,
 } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import AvatarEditor from "react-avatar-editor";
@@ -13,6 +14,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 
 interface IProfileFormProps {
   onChange: (data: any) => void;
@@ -97,6 +100,7 @@ function ProfileForm({
           accept="image/*"
           onChange={handleClick}
           style={{
+            display: "none",
             opacity: 0,
             position: "absolute",
             top: 0,
@@ -136,17 +140,30 @@ function ProfileForm({
               />
             )}
           </DialogContent>
-          <DialogActions>
-            <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+          <DialogActions
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Box sx={{ mr: 1 }}>
-                <Button onClick={() => setScale(scale + 0.1)}>
-                  Aumentar zoom
-                </Button>
+                <ZoomInIcon
+                  onClick={() => setScale(scale + 0.1)}
+                  sx={{ color: "#757575", "&:hover": { color: "#9e9e9e" } }}
+                />
               </Box>
-              <Box sx={{ mr: 2 }}>
-                <Button onClick={() => setScale(scale - 0.1)}>
-                  Disminuir zoom
-                </Button>
+              <Box sx={{ mr: 0.2 }}>
+                <ZoomOutIcon
+                  onClick={() => setScale(scale - 0.1)}
+                  sx={{ color: "#757575", "&:hover": { color: "#9e9e9e" } }}
+                />
               </Box>
             </Box>
           </DialogActions>
