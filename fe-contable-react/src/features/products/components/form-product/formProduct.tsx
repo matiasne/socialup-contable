@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Box, Button, Card, FormControl, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import style from "./styleFormProduct.module.css";
 import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
