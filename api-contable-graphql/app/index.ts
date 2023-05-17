@@ -44,6 +44,7 @@ async function startApolloServer() {
   const server = new ApolloServer<any>({
     typeDefs: typesDefs,
     resolvers: resolvers,
+    csrfPrevention: false,
   });
 
   const { url } = await startStandaloneServer<any>(server, {
