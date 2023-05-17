@@ -7,7 +7,7 @@ export interface IUser {
   password: string;
   confirmPassword: string;
   role: string;
-  image: string;
+  image: any;
   address: string;
   gender: string;
   phone: string;
