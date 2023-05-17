@@ -5,8 +5,8 @@ import "./form-business.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 import { stringify } from "json5";
+import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
 
 interface FormValues {
   BusinessName: string;
@@ -17,7 +17,6 @@ interface FormValues {
   Image: any;
   touched: string;
 }
-
 
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<string>("");
@@ -39,12 +38,9 @@ const FormBusinessComponent: React.FC = () => {
       variables: {
         user: "63e693ce447082f41bcc0c5f",
         name: values.BusinessName,
-        image: imageBase64
+        image: imageBase64,
       },
     });
-
-
-
   });
 
   return (
@@ -59,14 +55,14 @@ const FormBusinessComponent: React.FC = () => {
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-        <ProfileForm
-          avatarType="business"
-          {...register('Image')}
-          onChange={(data: any) => {
-            console.log(data)
-           setImageBase64(data);
-          }}
-/>
+          <ProfileForm
+            avatarType="business"
+            {...register("Image")}
+            onChange={(data: any) => {
+              console.log(data);
+              setImageBase64(data);
+            }}
+          />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Name"
