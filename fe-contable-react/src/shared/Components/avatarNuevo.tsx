@@ -34,7 +34,6 @@ function ProfileForm({
   const [editor, setEditor] = useState<AvatarEditor | null>(null);
   const [open, setOpen] = useState(false);
   const [scale, setScale] = useState(1);
-
   const handleClick = (event: any) => {
     setAvatarSrc(event.target.files[0]);
     onChange(event.target.files[0]);
@@ -54,12 +53,25 @@ function ProfileForm({
   const handleSave = () => {
     if (editor) {
       const canvas = editor.getImage();
+
+      
       canvas.toBlob((blob) => {
-        if (blob) {
+        console.log(blob  )
+ 
+        
+        if (blob) {     
+          let reader= new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onload=()=>{
+              //aqui ya esta en base64
+              let base64=reader.result;
+              onChange(base64)
+         }     
           setAvatarSrc(new File([blob], "avatar.png"));
           setOpen(false);
         }
       }, "image/png");
+      
     }
   };
 
