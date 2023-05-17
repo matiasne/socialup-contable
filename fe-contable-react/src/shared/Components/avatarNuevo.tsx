@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  IconButton,
 } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import AvatarEditor from "react-avatar-editor";
@@ -16,6 +15,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 interface IProfileFormProps {
   onChange: (data: any) => void;
@@ -26,6 +26,7 @@ interface AvatarType {
   business: "business";
   product: "product";
   box: "box";
+  client: "client";
 }
 
 function ProfileForm({
@@ -71,6 +72,7 @@ function ProfileForm({
     business: <BusinessIcon sx={{ color: "white", paddingTop: "20px" }} />,
     product: <LocalMallIcon sx={{ color: "white", paddingTop: "20px" }} />,
     box: <CheckBoxIcon sx={{ color: "white", paddingTop: "20px" }} />,
+    client: <AssignmentIndIcon sx={{ color: "white", paddingTop: "20px" }} />,
   };
 
   return (

@@ -1,7 +1,7 @@
 export interface IClient {
   _id?: string;
   name: string;
-  image: string;
+  image: any;
   city?: string;
   address?: string;
   email: string;
