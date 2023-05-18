@@ -3,7 +3,7 @@ import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 import "./form-business.css";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, set } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
@@ -23,6 +23,7 @@ interface FormValues {
 
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
+  const[img,setImg]=React.useState('')
   const {
     register,
     handleSubmit,
@@ -33,6 +34,7 @@ const FormBusinessComponent: React.FC = () => {
   const [mutateFunction] = useMutation(
     BusinessMutationServices.AddBusiness
   );
+  
   function dataURLtoFile(dataurl:any, filename:any) {
  
     var arr = dataurl.split(','),
@@ -53,10 +55,13 @@ const FormBusinessComponent: React.FC = () => {
     }}
   )
   if(!loading&&data.findOneBusiness){
-    console.log(data.findOneBusiness)
-   let im= dataURLtoFile(data.findOneBusiness.image,'123')
+   
+    let im= dataURLtoFile(data.findOneBusiness.image,'123')
+    
+  
 
   }
+  
   const onSubmit = handleSubmit((values: any) => {
 
     mutateFunction({
@@ -69,7 +74,12 @@ const FormBusinessComponent: React.FC = () => {
 
   });
 
+  if(loading){
+    return <></>
+  }
+
   return (
+    
     <Box
       component="form"
       sx={{
@@ -82,11 +92,13 @@ const FormBusinessComponent: React.FC = () => {
       <Card sx={{ pb: 1 }}>
 
         <FormControl>
+          <Avatar src=""></Avatar>
         <ProfileForm
           avatarType="business"
           onChange={(data: any) => {
             console.log(data)
           }}
+          defaultImage={data.findOneBusiness.image}
 />
           <TextField
             sx={{ m: 1, width: "25ch" }}
@@ -130,6 +142,7 @@ const FormBusinessComponent: React.FC = () => {
           >
             Submit
           </Button>
+          
         </FormControl>
       </Card>
     </Box>

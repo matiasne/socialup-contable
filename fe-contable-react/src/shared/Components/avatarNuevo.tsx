@@ -17,6 +17,9 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 interface IProfileFormProps {
   onChange: (data: any) => void;
 }
+interface formValue{
+  defaultImage:string;
+}
 
 interface AvatarType {
   user: "user";
@@ -28,17 +31,23 @@ interface AvatarType {
 function ProfileForm({
   onChange,
   avatarType,
-}: IProfileFormProps & { avatarType: AvatarType[keyof AvatarType] }) {
-  const [avatarSrc, setAvatarSrc] = useState<File | null>(null);
+  defaultImage
+}: IProfileFormProps & { avatarType: AvatarType[keyof AvatarType] }& formValue) {
+  const [avatarSrc, setAvatarSrc] = useState<File|null>(null);
+  const [image,setImage]=useState("")
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [editor, setEditor] = useState<AvatarEditor | null>(null);
   const [open, setOpen] = useState(false);
   const [scale, setScale] = useState(1);
+  
   const handleClick = (event: any) => {
     setAvatarSrc(event.target.files[0]);
     onChange(event.target.files[0]);
     setOpen(true);
   };
+
+
+   
 
   const handleButtonClick = () => {
     if (inputFileRef.current) {
@@ -87,7 +96,7 @@ function ProfileForm({
       <Box sx={{ position: "relative", display: "inline-block" }}>
         <Avatar
           onClick={handleButtonClick}
-          src={avatarSrc ? URL.createObjectURL(avatarSrc) : ""}
+          src={avatarSrc && defaultImage != ""  ? URL.createObjectURL(avatarSrc) :defaultImage}
           alt="Profile"
           style={{ cursor: "pointer" }}
           sx={{
@@ -102,7 +111,7 @@ function ProfileForm({
           }}
           {...(avatarSrc ? { key: avatarSrc.name } : {})}
         >
-          {avatarType && avatarIcons[avatarType]}
+          {/* {avatarType && avatarIcons[avatarType]} */}
         </Avatar>
         <input
           type="file"
