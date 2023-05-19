@@ -1,12 +1,14 @@
-import { Box, Button, Card, Input, TextField } from "@mui/material";
+import { Label, Padding } from "@mui/icons-material";
+import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 import "./form-business.css";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation } from "@apollo/client";
+import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useMutation, useQuery } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { stringify } from "json5";
 import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
+import { BusinessQueryServices } from "../../Services/businessQuery/businessQuery.service";
 
 interface FormValues {
   BusinessName: string;
@@ -19,7 +21,8 @@ interface FormValues {
 }
 
 const FormBusinessComponent: React.FC = () => {
-  const [imageBase64, setImageBase64] = React.useState<string>("");
+  const [imageBase64, setImageBase64] = React.useState<any>(null);
+  const [img, setImg] = React.useState("");
   const {
     register,
     handleSubmit,
@@ -27,13 +30,34 @@ const FormBusinessComponent: React.FC = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const [mutateFunction, { loading, error, data }] = useMutation(
-    BusinessMutationServices.AddBusiness
+  const [mutateFunction] = useMutation(BusinessMutationServices.AddBusiness);
+
+  function dataURLtoFile(dataurl: any, filename: any) {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+  const { data, loading, error } = useQuery(
+    BusinessQueryServices.FindOneBusiness,
+    {
+      variables: {
+        findOneBusinessId: "64652186e5fdb4c0f9a501ff",
+      },
+    }
   );
+  if (!loading && data.findOneBusiness) {
+    let im = dataURLtoFile(data.findOneBusiness.image, "123");
+  }
 
   const onSubmit = handleSubmit((values: any) => {
-    console.log(values);
-    console.log(imageBase64);
     mutateFunction({
       variables: {
         user: "63e693ce447082f41bcc0c5f",
@@ -42,6 +66,10 @@ const FormBusinessComponent: React.FC = () => {
       },
     });
   });
+
+  if (loading) {
+    return <></>;
+  }
 
   return (
     <Box
@@ -57,11 +85,10 @@ const FormBusinessComponent: React.FC = () => {
         <FormControl>
           <ProfileForm
             avatarType="business"
-            {...register("Image")}
             onChange={(data: any) => {
               console.log(data);
-              setImageBase64(data);
             }}
+            defaultImage={data.findOneBusiness.image}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
