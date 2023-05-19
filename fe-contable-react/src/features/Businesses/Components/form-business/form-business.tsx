@@ -23,12 +23,6 @@ interface FormValues {
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<FormValues>();
 
   const [mutateFunction] = useMutation(BusinessMutationServices.AddBusiness);
 
@@ -45,6 +39,7 @@ const FormBusinessComponent: React.FC = () => {
 
     return new File([u8arr], filename, { type: mime });
   }
+
   const { data, loading, error } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
@@ -53,10 +48,27 @@ const FormBusinessComponent: React.FC = () => {
       },
     }
   );
-  if (!loading && data.findOneBusiness) {
-    let im = dataURLtoFile(data.findOneBusiness.image, "123");
-  }
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      BusinessName: "",
+      Phone: "",
+      Email: "",
+      Address: "",
+      BusinessCategory: "",
+      Image: "",
+      touched: "",
+    },
+  });
+
+  if (!loading && data.findOneBusiness) {
+    setValue("BusinessName", data.findOneBusiness.name);
+  }
   const onSubmit = handleSubmit((values: any) => {
     mutateFunction({
       variables: {
@@ -139,3 +151,6 @@ const FormBusinessComponent: React.FC = () => {
 };
 
 export default FormBusinessComponent;
+function async(): any {
+  throw new Error("Function not implemented.");
+}
