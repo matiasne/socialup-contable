@@ -51,6 +51,7 @@ export const FormProductComponent = () => {
             onChange={function (data: any): void {
               setValue("Image", data);
             }}
+            defaultImage={""}
           />
           <TextField
             label="Name"

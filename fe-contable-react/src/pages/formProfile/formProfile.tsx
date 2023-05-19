@@ -65,6 +65,7 @@ export const FormProfile = () => {
             onChange={function (data: any): void {
               setValue("image", data);
             }}
+            defaultImage={""}
           />
           <TextField
             label="Name"

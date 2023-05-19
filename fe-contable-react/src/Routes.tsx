@@ -12,6 +12,7 @@ import { BusinessCreate } from "./pages/createBusiness/create-business.page";
 import FormProductComponent from "./features/products/components/form-product/formProduct";
 import { Route, Routes } from "react-router";
 import { FormProfile } from "./pages/formProfile/formProfile";
+import { FormBoxComponent } from "./features/Boxes/Components/form-box/formbox.component";
 
 export const AppRouter = () => {
   return (
@@ -30,6 +31,7 @@ export const AppRouter = () => {
       <Route path="/product" element={<FormProductComponent />} />
       <Route path="/listBox" element={<ListBox />} />
       <Route path="/formProfile" element={<FormProfile />} />
+      <Route path="/formbox" element={<FormBoxComponent />} />
     </Routes>
   );
 };

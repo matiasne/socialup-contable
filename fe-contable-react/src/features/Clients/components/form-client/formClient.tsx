@@ -69,6 +69,7 @@ export function FormClient() {
             onChange={function (data: any): void {
               setValue("image", data);
             }}
+            defaultImage={""}
           />
           <TextField
             label="Name"

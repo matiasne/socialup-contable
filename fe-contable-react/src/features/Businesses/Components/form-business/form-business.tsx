@@ -49,7 +49,7 @@ const FormBusinessComponent: React.FC = () => {
     BusinessQueryServices.FindOneBusiness,
     {
       variables: {
-        findOneBusinessId: "64652186e5fdb4c0f9a501ff",
+        findOneBusinessId: "646765766426a20680e6d4c9",
       },
     }
   );
