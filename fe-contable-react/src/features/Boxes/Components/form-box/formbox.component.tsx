@@ -5,7 +5,6 @@ import {
   Card,
   FormControlLabel,
   Grid,
-  InputAdornment,
   styled,
   Switch,
   SwitchProps,
@@ -14,7 +13,6 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
-import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IBox } from "../../models/box";
 import { BoxMutationServices } from "../../Services/box.services";
 
@@ -79,16 +77,16 @@ export const FormBoxComponent = () => {
   const [mutateFunction, { loading, error, data }] = useMutation(
     BoxMutationServices.CreateBox
   );
-  console.log(data);
+
   const onSubmit = handleSubmit((values) => {
-    alert(JSON.stringify(values));
+    console.log(values);
     mutateFunction({
       variables: {
-        idBusiness: values.idBusiness,
+        business: "64496f4a8c56bb0968cd8cac",
         image: values.Image,
         name: values.Name,
         status: values.Status,
-        actualAmount: values.ActualAmount,
+        actualAmount: parseFloat(values.ActualAmount),
         dailyAmount: values.DailyAmount,
       },
     });
@@ -134,7 +132,23 @@ export const FormBoxComponent = () => {
               />
             </Box>
             <Box>
-              <TextField
+              <input
+                type="number"
+                step="0.01"
+                {...register("ActualAmount", {
+                  required: true,
+                  minLength: 2,
+                })}
+                {...(errors.ActualAmount?.type === "required" && {
+                  helperText: "Campo Obligatorio",
+                  error: true,
+                })}
+                {...(errors.ActualAmount?.type === "minLength" && {
+                  helperText: "El nombre es demaciado corto",
+                  error: true,
+                })}
+              />
+              {/* <TextField
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">$</InputAdornment>
@@ -154,7 +168,7 @@ export const FormBoxComponent = () => {
                   helperText: "El nombre es demaciado corto",
                   error: true,
                 })}
-              />
+              /> */}
             </Box>
             <Grid
               container
