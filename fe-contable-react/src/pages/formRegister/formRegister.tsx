@@ -76,12 +76,6 @@ export const FormRegister = () => {
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-          <ProfileForm
-            avatarType="user"
-            onChange={function (data: any): void {
-              setValue("Image", data);
-            }}
-          />
           <TextField
             label="Name"
             sx={{ m: 1, width: "25ch" }}

@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Card,
+  FormControl,
   FormControlLabel,
   Grid,
   InputAdornment,
@@ -13,10 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
-import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IBox } from "../../models/box";
 import { BoxMutationServices } from "../../Services/box.services";
+import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -82,110 +82,110 @@ export const FormBoxComponent = () => {
   console.log("lalala");
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
-    console.log(values.Image)
+    console.log(values.Image);
     fileUpload();
     mutateFunction({
       variables: {
         addBoxPhotoId: "6421e0f35b7fc46f1e1a58e2",
-        file:values.Image,
+        file: values.Image,
       },
     });
   });
 
   const [fileUpload] = useMutation(BoxMutationServices.ImageBox, {
     onCompleted: (data) => console.log(data),
-});
-const handleFileChange = (e:any) => {
-  console.log("lalala2");
-  const file = e.target.files;
-  console.log (file)
-  if (!file) return;
-  fileUpload({ variables: { file } });
-};
+  });
+  const handleFileChange = (e: any) => {
+    console.log("lalala2");
+    const file = e.target.files;
+    console.log(file);
+    if (!file) return;
+    fileUpload({ variables: { file } });
+  };
 
   return (
-    <div>
-      <NavBarMenu></NavBarMenu>
-      <Box
-        component="form"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "10vh",
-        }}
-        onSubmit={onSubmit}
-      >
-        <Card sx={{ p: 1 }}>
-          <div>
-            <input type="file" name="file"/>
-            <Box>
-              <Typography variant="h3" sx={{ textAlign: "center" }}>
-                Crear Caja
-              </Typography>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Name"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("Name", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.Name?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.Name?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-            </Box>
-            <Box>
-              <TextField
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-                label="Monto Inicial"
-                type="number"
-                {...register("ActualAmount", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.ActualAmount?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.ActualAmount?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-            </Box>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              sx={{ p: "3%" }}
-            >
-              <Button onClick={onSubmit} variant="contained">
-                Submit
-              </Button>
-            </Grid>
-            <Grid container justifyContent="center" alignItems="center">
-              <FormControlLabel
-                control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-                label="Open"
-              />
-            </Grid>
-          </div>
-        </Card>
-      </Box>
-    </div>
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "10vh",
+      }}
+      onSubmit={onSubmit}
+    >
+      <Card sx={{ p: 1 }}>
+        <FormControl>
+          <ProfileForm
+            avatarType="box"
+            onChange={(data: any) => {
+              console.log(data);
+            }}
+            defaultImage={""}
+          />
+          <Typography variant="h3" sx={{ textAlign: "center" }}>
+            Crear Caja
+          </Typography>
+          <TextField
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label="Name"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("Name", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.Name?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.Name?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
+          />
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
+            label="Monto inicial"
+            sx={{ m: 1, width: "25ch" }}
+            type="number"
+            {...register("ActualAmount", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.ActualAmount?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.ActualAmount?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
+          />
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ p: "3%" }}
+          >
+            <Button onClick={onSubmit} variant="contained">
+              Submit
+            </Button>
+          </Grid>
+          <Grid container justifyContent="center" alignItems="center">
+            <FormControlLabel
+              control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+              label="Open"
+            />
+          </Grid>
+        </FormControl>
+      </Card>
+    </Box>
   );
 };
