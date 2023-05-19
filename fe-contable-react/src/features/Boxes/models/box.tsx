@@ -1,7 +1,7 @@
 export interface IBox {
   _id: string;
-  business: string;
-  Image: string;
+  idBusiness: string;
+  Image: File;
   Name: string;
   Status: string;
   ActualAmount: string;

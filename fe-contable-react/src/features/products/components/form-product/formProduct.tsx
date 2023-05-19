@@ -1,24 +1,25 @@
 import { useMutation } from "@apollo/client";
-import { Box, Button, Card, TextField } from "@mui/material";
+import { Box, Button, Card, FormControl, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { UserServices } from "../../../../shared/services/userServices/userServices";
-
-import style from "./styleFormProduct.module.css";
 import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
-import ItemProduct from "../item-product/itemProduct";
+import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
 export const FormProductComponent = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IProduct>();
+
   const [mutateFunction, { loading, error, data }] = useMutation(
     ProductService.ProductMutationServices.create
   );
-  const onSubmit = handleSubmit((values) => {
-    alert(JSON.stringify(values));
+  console.log(data);
+
+  const onSubmit = handleSubmit((values: any) => {
+    console.log(values);
     mutateFunction({
       variables: {
         business: "6439a6a77d50af9ec31665d6",
@@ -37,102 +38,94 @@ export const FormProductComponent = () => {
       component="form"
       sx={{
         display: "flex",
-        flexWrap: "wrap",
-        mt: "5%",
-        p: "3%",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "10vh",
+        minHeight: "100vh",
       }}
       onSubmit={onSubmit}
     >
       <Card sx={{ pb: 1 }}>
-        <div>
-          <Box>
-            <TextField
-              label="Name"
-              sx={{ m: 1, width: "35ch" }}
-              type="text"
-              {...register("Name", {
-                required: true,
-                minLength: 2,
-              })}
-              {...(errors.Name?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Description"
-              sx={{ m: 1, width: "35ch" }}
-              type="text"
-              {...register("Description", {
-                required: true,
-                minLength: 2,
-              })}
-              {...(errors.Description?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Code"
-              sx={{ m: 1, width: "35ch" }}
-              type="text"
-              {...register("Code", {
-                required: true,
-                minLength: 2,
-              })}
-              {...(errors.Code?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="CostPrice"
-              sx={{ m: 1, width: "35ch" }}
-              type="price"
-              {...register("CostPrice", {
-                required: true,
-                minLength: 1,
-              })}
-              {...(errors.CostPrice?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="SalePrice"
-              sx={{ m: 1, width: "35ch" }}
-              type="price"
-              {...register("SalePrice", {
-                required: true,
-                minLength: 1,
-              })}
-              {...(errors.SalePrice?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <Button
-              onClick={onSubmit}
-              className={style.submit}
-              variant="contained"
-            >
-              Submit
-            </Button>
-          </Box>
-        </div>
+        <FormControl>
+          <ProfileForm
+            avatarType="product"
+            onChange={function (data: any): void {
+              setValue("Image", data);
+            }}
+            defaultImage={""}
+          />
+          <TextField
+            label="Name"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("Name", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.Name?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+          />
+          <TextField
+            label="Description"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("Description", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.Description?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+          />
+          <TextField
+            label="Code"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("Code", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.Code?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+          />
+          <TextField
+            label="CostPrice"
+            sx={{ m: 1, width: "25ch" }}
+            type="price"
+            {...register("CostPrice", {
+              required: true,
+              minLength: 1,
+            })}
+            {...(errors.CostPrice?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+          />
+          <TextField
+            label="SalePrice"
+            sx={{ m: 1, width: "25ch" }}
+            type="price"
+            {...register("SalePrice", {
+              required: true,
+              minLength: 1,
+            })}
+            {...(errors.SalePrice?.type === "required" && {
+              helperText: "Campo Obligatorio",
+              error: true,
+            })}
+          />
+          <Button
+            sx={{ m: 1, width: "43ch" }}
+            onClick={onSubmit}
+            variant="contained"
+          >
+            Submit
+          </Button>
+        </FormControl>
       </Card>
     </Box>
   );

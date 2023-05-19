@@ -1,6 +1,13 @@
 import { gql } from "apollo-server-express";
 
 module.exports = gql`
+  scalar File
+
+  type addBoxPhoto {
+    id: ID!
+    file: File
+  }
+
   type Box {
     business: Business
     name: String!
@@ -22,9 +29,9 @@ module.exports = gql`
       name: String!
       status: String
       actualAmount: Float
-      image: String
       dailyAmount: Float
     ): Box
+    addBoxPhoto(id: String!, file: File): String
     updateBox(
       _id: String!
       business: String

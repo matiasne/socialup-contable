@@ -22,6 +22,13 @@ const CreateBox = gql`
   }
 `;
 
+const ImageBox = gql`
+  mutation AddBoxPhoto($addBoxPhotoId: String!, $file: File!) {
+    addBoxPhoto(id: $addBoxPhotoId, file: $file)
+  }
+`;
+
 export const BoxMutationServices = {
   CreateBox,
+  ImageBox,
 };

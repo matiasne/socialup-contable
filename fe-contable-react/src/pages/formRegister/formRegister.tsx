@@ -7,11 +7,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import Button from "@mui/material/Button";
 import style from "./styleFormRegister.module.css";
-import { Card } from "@mui/material";
+import { Card, FormControl } from "@mui/material";
 import NavBarMenu from "../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
+import ProfileForm from "../../shared/Components/avatarNuevo";
 
 interface FormData {
   Name: string;
@@ -20,6 +21,7 @@ interface FormData {
   Email: string;
   Password: string;
   ConfirmPassword: string;
+  Image: any;
 }
 
 export const FormRegister = () => {
@@ -27,13 +29,17 @@ export const FormRegister = () => {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
+
   const [mutateFunction, { loading, error, data }] = useMutation(
     UserServices.UserMutationServices.register
   );
+  console.log(data);
 
   const onSubmit = handleSubmit((values) => {
+    console.log(values);
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
@@ -69,165 +75,151 @@ export const FormRegister = () => {
       onSubmit={onSubmit}
     >
       <Card sx={{ pb: 1 }}>
-        <div>
-          <NavBarMenu></NavBarMenu>
-          <Box>
-            <TextField
-              label="Name"
-              sx={{ m: 1, width: "25ch" }}
-              type="text"
-              {...register("Name", {
-                required: true,
-                minLength: 2,
-              })}
-              {...(errors.Name?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.Name?.type === "minLength" && {
-                helperText: "El nombre es demaciado corto",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Phone"
-              sx={{ m: 1, width: "25ch" }}
-              type="tel"
-              {...register("Phone", {
-                required: true,
+        <FormControl>
+          <TextField
+            label="Name"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("Name", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.Name?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.Name?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
+          />
+          <TextField
+            label="Phone"
+            sx={{ m: 1, width: "25ch" }}
+            type="tel"
+            {...register("Phone", {
+              required: true,
 
-                minLength: 2,
-              })}
-              {...(errors.Phone?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.Phone?.type === "minLenght" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Home address"
-              sx={{ m: 1, width: "25ch" }}
-              type="text"
-              {...register("HomeAddress", {
-                required: true,
+              minLength: 2,
+            })}
+            {...(errors.Phone?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.Phone?.type === "minLenght" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+          />
+          <TextField
+            label="Home address"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("HomeAddress", {
+              required: true,
 
-                minLength: 2,
-              })}
-              {...(errors.HomeAddress?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.HomeAddress?.type === "minLength" && {
-                helperText: "La direccion es demaciada corta",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              label="Email"
-              sx={{ m: 1, width: "25ch" }}
-              type="email"
-              {...register("Email", {
-                required: true,
-                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                minLength: 2,
-              })}
-              {...(errors.Email?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.Email?.type === "pattern" && {
-                helperText: "Ingrese un email válido",
-                error: true,
-              })}
-            />
-          </Box>
-          <Box>
-            <TextField
-              sx={{ m: 1, width: "25ch" }}
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              {...register("Password", {
-                required: true,
+              minLength: 2,
+            })}
+            {...(errors.HomeAddress?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.HomeAddress?.type === "minLength" && {
+              helperText: "La dirección es demasiado corta",
+              error: true,
+            })}
+          />
+          <TextField
+            label="Email"
+            sx={{ m: 1, width: "25ch" }}
+            type="email"
+            {...register("Email", {
+              required: true,
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              minLength: 2,
+            })}
+            {...(errors.Email?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.Email?.type === "pattern" && {
+              helperText: "Ingrese un email válido",
+              error: true,
+            })}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            {...register("Password", {
+              required: true,
 
-                minLength: 2,
-              })}
-              {...(errors.Password?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.Password?.type === "minLength" && {
-                helperText: "La contraseña es demasiado corta",
-                error: true,
-              })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
-          <Box>
-            <TextField
-              sx={{ m: 1, width: "25ch" }}
-              type={showPassword ? "text" : "password"}
-              label="Confirm Password"
-              {...register("ConfirmPassword", {
-                required: true,
-                minLength: 2,
-                validate: (value) => value === getValues("Password"),
-              })}
-              {...(errors.ConfirmPassword?.type === "required" && {
-                helperText: "Campo Obligatorio",
-                error: true,
-              })}
-              {...(errors.ConfirmPassword?.type === "validate" && {
-                helperText: "Las Contraseñas deben Coincidir",
-                error: true,
-              })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
-          <Box>
-            <Button
-              onClick={onSubmit}
-              className={style.submit}
-              variant="contained"
-            >
-              Submit
-            </Button>
-          </Box>
-        </div>
+              minLength: 2,
+            })}
+            {...(errors.Password?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.Password?.type === "minLength" && {
+              helperText: "La contraseña es demasiado corta",
+              error: true,
+            })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            sx={{ m: 1, width: "25ch" }}
+            type={showPassword ? "text" : "password"}
+            label="Confirm Password"
+            {...register("ConfirmPassword", {
+              required: true,
+              minLength: 2,
+              validate: (value) => value === getValues("Password"),
+            })}
+            {...(errors.ConfirmPassword?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.ConfirmPassword?.type === "validate" && {
+              helperText: "Las contraseñas deben coincidir",
+              error: true,
+            })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button
+            sx={{ m: 1, width: "43ch" }}
+            onClick={onSubmit}
+            className={style.submit}
+            variant="contained"
+          >
+            Submit
+          </Button>
+        </FormControl>
       </Card>
     </Box>
   );

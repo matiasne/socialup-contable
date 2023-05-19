@@ -1,12 +1,14 @@
 import { Label, Padding } from "@mui/icons-material";
-import { Box, Button, Card, Input, TextField } from "@mui/material";
+import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 import "./form-business.css";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation } from "@apollo/client";
-import { BusinessServices } from "../../services/businessServices";
-import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useMutation, useQuery } from "@apollo/client";
+import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import { stringify } from "json5";
+import { BusinessMutationServices } from "../../services/BusinessMutation/businessMutation.service";
+import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
 
 interface FormValues {
   BusinessName: string;
@@ -14,47 +16,72 @@ interface FormValues {
   Email: string;
   Address: string;
   BusinessCategory: string;
-  Image: string;
+  Image: any;
   touched: string;
 }
 
 const FormBusinessComponent: React.FC = () => {
+  const [imageBase64, setImageBase64] = React.useState<any>(null);
+  const [img, setImg] = React.useState("");
+
+  const [mutateFunction] = useMutation(BusinessMutationServices.AddBusiness);
+
+  function dataURLtoFile(dataurl: any, filename: any) {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  const { data, loading, error } = useQuery(
+    BusinessQueryServices.FindOneBusiness,
+    {
+      variables: {
+        findOneBusinessId: "646765766426a20680e6d4c9",
+      },
+    }
+  );
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      BusinessName: "",
+      Phone: "",
+      Email: "",
+      Address: "",
+      BusinessCategory: "",
+      Image: "",
+      touched: "",
+    },
+  });
 
-  const [mutateFunction, { loading, error, data }] = useMutation(
-    BusinessServices.BusinessMutationServices.AddBusiness
-  );
-  console.log(data);
-
+  if (!loading && data.findOneBusiness) {
+    setValue("BusinessName", data.findOneBusiness.name);
+  }
   const onSubmit = handleSubmit((values: any) => {
-    alert(JSON.stringify(values));
     mutateFunction({
       variables: {
         user: "63e693ce447082f41bcc0c5f",
-        name: "Harcode",
+        name: values.BusinessName,
+        image: imageBase64,
       },
     });
   });
 
-  const [imageUrl, setImageUrl] = React.useState<string | undefined>();
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = (event: ProgressEvent<FileReader>) => {
-        const imageUrl = event.target?.result;
-        setImageUrl(imageUrl?.toString());
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
+  if (loading) {
+    return <></>;
+  }
 
   return (
     <Box
@@ -68,11 +95,13 @@ const FormBusinessComponent: React.FC = () => {
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-          <label htmlFor="image">UPLOAD IMAGE</label>
-          <Input type="file" id="image" onChange={handleImageChange} />
-          <br />
-          <img src={imageUrl} alt="" />
-          <br />
+          <ProfileForm
+            avatarType="business"
+            onChange={(data: any) => {
+              console.log(data);
+            }}
+            defaultImage={data.findOneBusiness.image}
+          />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Name"
@@ -108,7 +137,11 @@ const FormBusinessComponent: React.FC = () => {
             type="text"
             {...register("BusinessCategory")}
           />
-          <Button onClick={onSubmit} variant="contained">
+          <Button
+            sx={{ m: 1, width: "43ch" }}
+            onClick={onSubmit}
+            variant="contained"
+          >
             Submit
           </Button>
         </FormControl>
@@ -118,3 +151,6 @@ const FormBusinessComponent: React.FC = () => {
 };
 
 export default FormBusinessComponent;
+function async(): any {
+  throw new Error("Function not implemented.");
+}

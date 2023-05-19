@@ -6,5 +6,5 @@ export interface IProduct {
   CostPrice: number;
   SalePrice: number;
   IdBusiness: string;
-  Image: string;
+  Image: any;
 }
