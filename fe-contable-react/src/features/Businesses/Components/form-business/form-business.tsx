@@ -5,6 +5,7 @@ import * as React from "react";
 import "./form-business.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
+import { BusinessServices } from "../../services/businessServices";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 
 interface FormValues {
@@ -25,7 +26,7 @@ const FormBusinessComponent: React.FC = () => {
   } = useForm<FormValues>();
 
   const [mutateFunction, { loading, error, data }] = useMutation(
-    BusinessMutationServices.AddBusiness
+    BusinessServices.BusinessMutationServices.AddBusiness
   );
   console.log(data);
 
