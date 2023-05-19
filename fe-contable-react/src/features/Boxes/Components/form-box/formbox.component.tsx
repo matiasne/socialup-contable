@@ -6,6 +6,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  InputAdornment,
   styled,
   Switch,
   SwitchProps,
