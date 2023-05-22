@@ -69,9 +69,6 @@ const FormBusinessComponent: React.FC = () => {
     }
   }
 
-  if (!loading && data.findOneBusiness) {
-    setValue("BusinessName", data.findOneBusiness.name);
-  }
   const onSubmit = handleSubmit((values: any) => {
     mutateFunction({
       variables: {
@@ -81,7 +78,7 @@ const FormBusinessComponent: React.FC = () => {
         address: values.Address,
         email: values.email,
         category: values.BusinessCategory,
-        image: values.Image,
+        image: values.Image ? values.Image : data.findOneBusiness.Image,
       },
     });
   });
