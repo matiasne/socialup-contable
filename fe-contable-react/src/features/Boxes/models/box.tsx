@@ -4,7 +4,7 @@ export interface IBox {
   Image: File;
   Name: string;
   Status: string;
-  ActualAmount: number;
+  ActualAmount: string;
   DailyAmount: number;
 }
 

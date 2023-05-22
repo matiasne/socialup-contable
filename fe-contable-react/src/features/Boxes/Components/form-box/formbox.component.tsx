@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
+import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IBox } from "../../models/box";
 import { BoxMutationServices } from "../../Services/box.services";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";

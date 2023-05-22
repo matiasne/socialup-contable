@@ -35,7 +35,7 @@ module.exports = {
         business: business,
         name: args.name,
         status: args.status,
-        actualAmount: args.actualAmount,
+        actualAmount: parseFloat(args.actualAmount),
         image: args.image,
         dailyAmount: args.dailyAmount,
       });
