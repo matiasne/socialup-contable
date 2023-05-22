@@ -6,10 +6,10 @@ import "./form-business.css";
 import { useForm, SubmitHandler, set } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import { stringify } from "json5";
-import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
-import { BusinessQueryServices } from "../../Services/businessQuery/businessQuery.service";
 import { useParams } from "react-router-dom";
+import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
+import { useEffect } from "react";
 
 interface FormValues {
   BusinessName: string;
@@ -47,7 +47,7 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-  const { data, loading, error } = useQuery(
+  const { data, loading, error,refetch } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
       variables: {
@@ -55,6 +55,16 @@ const FormBusinessComponent: React.FC = () => {
       },
     }
   );
+
+  useEffect( () => {
+    const fetchData=async ()=>{
+      (await refetch())
+
+    }
+fetchData()
+  },[()=>onSubmit]);
+    
+
   if (id) {
     if (!loading && data.findOneBusiness) {
       setValue("BusinessName", data.findOneBusiness.name);
@@ -73,7 +83,7 @@ const FormBusinessComponent: React.FC = () => {
     mutateFunction({
       variables: {
         id: id ? id : null,
-        user: "6438502e81216f94b566b3fd",
+        user: "63e693ce447082f41bcc0c5f",
         name: values.BusinessName,
         address: values.Address,
         email: values.email,
