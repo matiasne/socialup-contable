@@ -73,6 +73,7 @@ export const FormBoxComponent = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     getValues,
     formState: { errors },
   } = useForm<IBox>();
@@ -119,6 +120,7 @@ export const FormBoxComponent = () => {
           <ProfileForm
             avatarType="box"
             onChange={(data: any) => {
+              setValue("Image", data);
               console.log(data);
             }}
             defaultImage={""}

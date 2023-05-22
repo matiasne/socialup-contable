@@ -69,6 +69,7 @@ const FormBusinessComponent: React.FC = () => {
   if (!loading && data.findOneBusiness) {
     setValue("BusinessName", data.findOneBusiness.name);
   }
+
   const onSubmit = handleSubmit((values: any) => {
     mutateFunction({
       variables: {
