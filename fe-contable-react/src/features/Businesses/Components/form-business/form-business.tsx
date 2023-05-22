@@ -9,6 +9,7 @@ import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { stringify } from "json5";
 import { BusinessMutationServices } from "../../Services/businessMutation/businessMutation.service";
 import { BusinessQueryServices } from "../../Services/businessQuery/businessQuery.service";
+import { useParams } from "react-router-dom";
 
 interface FormValues {
   BusinessName: string;
@@ -23,32 +24,6 @@ interface FormValues {
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
-
-  const [mutateFunction] = useMutation(BusinessMutationServices.AddBusiness);
-
-  function dataURLtoFile(dataurl: any, filename: any) {
-    var arr = dataurl.split(","),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-  }
-
-  const { data, loading, error } = useQuery(
-    BusinessQueryServices.FindOneBusiness,
-    {
-      variables: {
-        findOneBusinessId: "646765766426a20680e6d4c9",
-      },
-    }
-  );
-
   const {
     register,
     handleSubmit,
@@ -57,14 +32,42 @@ const FormBusinessComponent: React.FC = () => {
   } = useForm<FormValues>({
     defaultValues: {
       BusinessName: "",
-      Phone: "",
-      Email: "",
       Address: "",
       BusinessCategory: "",
+      Email: "",
       Image: "",
+      Phone: "",
       touched: "",
     },
   });
+  const { id } = useParams();
+  const [mutateFunction] = useMutation(
+    id
+      ? BusinessMutationServices.UpdateBusiness
+      : BusinessMutationServices.AddBusiness
+  );
+
+  const { data, loading, error } = useQuery(
+    BusinessQueryServices.FindOneBusiness,
+    {
+      variables: {
+        findOneBusinessId: id ? id : null,
+      },
+    }
+  );
+  if (id) {
+    if (!loading && data.findOneBusiness) {
+      setValue("BusinessName", data.findOneBusiness.name);
+      setValue("Address", data.findOneBusiness.address);
+      setValue("Phone", data.findOneBusiness.phone);
+      setValue("BusinessCategory", data.findOneBusiness.category);
+      setValue("Email", data.findOneBusiness.email);
+    }
+
+    if (loading) {
+      return <></>;
+    }
+  }
 
   if (!loading && data.findOneBusiness) {
     setValue("BusinessName", data.findOneBusiness.name);
@@ -72,16 +75,16 @@ const FormBusinessComponent: React.FC = () => {
   const onSubmit = handleSubmit((values: any) => {
     mutateFunction({
       variables: {
-        user: "63e693ce447082f41bcc0c5f",
+        id: id ? id : null,
+        user: "6438502e81216f94b566b3fd",
         name: values.BusinessName,
-        image: imageBase64,
+        address: values.Address,
+        email: values.email,
+        category: values.BusinessCategory,
+        image: values.Image,
       },
     });
   });
-
-  if (loading) {
-    return <></>;
-  }
 
   return (
     <Box
@@ -98,9 +101,9 @@ const FormBusinessComponent: React.FC = () => {
           <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
-              console.log(data);
+              setValue("Image", data);
             }}
-            defaultImage={data.findOneBusiness.image}
+            defaultImage={id ? data.findOneBusiness.image : imageBase64}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
@@ -142,7 +145,7 @@ const FormBusinessComponent: React.FC = () => {
             onClick={onSubmit}
             variant="contained"
           >
-            Submit
+            {id ? "Editar" : "Crear"}
           </Button>
         </FormControl>
       </Card>
@@ -151,6 +154,3 @@ const FormBusinessComponent: React.FC = () => {
 };
 
 export default FormBusinessComponent;
-function async(): any {
-  throw new Error("Function not implemented.");
-}
