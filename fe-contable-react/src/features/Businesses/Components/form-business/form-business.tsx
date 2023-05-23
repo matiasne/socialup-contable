@@ -47,7 +47,9 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-  const { data, loading, error,refetch } = useQuery(
+  
+
+  const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
       variables: {
@@ -56,31 +58,27 @@ const FormBusinessComponent: React.FC = () => {
     }
   );
 
-  useEffect( () => {
-    const fetchData=async ()=>{
-      (await refetch())
-
-    }
-fetchData()
-  },[()=>onSubmit]);
-    
-
-  if (id) {
-    if (!loading && data.findOneBusiness) {
+  useEffect(()=>{
+    if (data) {
       setValue("BusinessName", data.findOneBusiness.name);
       setValue("Address", data.findOneBusiness.address);
       setValue("Phone", data.findOneBusiness.phone);
       setValue("BusinessCategory", data.findOneBusiness.category);
       setValue("Email", data.findOneBusiness.email);
-    }
+    } 
+   },[data])
 
-    if (loading) {
-      return <></>;
-    }
-  }
+  
+    
+ 
 
-  const onSubmit = handleSubmit((values: any) => {
-    mutateFunction({
+ if (loading) {
+  return <></>;
+}
+
+  const onSubmit = handleSubmit(async (values: any) => {
+   
+     mutateFunction({
       variables: {
         id: id ? id : null,
         user: "63e693ce447082f41bcc0c5f",
@@ -91,6 +89,7 @@ fetchData()
         image: values.Image ? values.Image : data.findOneBusiness.Image,
       },
     });
+    //await refetch()
   });
 
   return (
