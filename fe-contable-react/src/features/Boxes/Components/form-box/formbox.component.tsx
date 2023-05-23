@@ -83,7 +83,7 @@ export const FormBoxComponent = () => {
   );
   console.log("lalala");
   const onSubmit = handleSubmit((values) => {
-    alert(JSON.stringify(values));
+   
     console.log(values.Image);
     fileUpload();
     mutateFunction({
