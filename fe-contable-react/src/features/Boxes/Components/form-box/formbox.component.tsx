@@ -14,10 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
-import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IBox } from "../../models/box";
-
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -100,22 +97,25 @@ export const FormBoxComponent = () => {
       : BoxMutationServices.CreateBox
   );
    
-  const { data, loading } = useQuery(
+  const { data, loading, error } = useQuery(
+    
     BoxQueryServices.FindOnebox,
     {
       variables: {
-        findOneBox: id ? id : null,
+        findOneBoxId: id ? id : null,
       },
     }
   );
   
+    console.log(error)
+
   useEffect(()=>{
     console.log(data)
     if (data) {
       setValue("Name", data.findOne.name);
       setValue("Status", data.findOneBox.status);
       setValue("ActualAmount", data.findOneBox.ActualAmount);
-      setValue("DailyAmount", data.findOneBox.ActualAmount)
+      setValue("DailyAmount", data.findOneBox.DailyAmount)
     } 
    },[data])
 
@@ -128,17 +128,15 @@ export const FormBoxComponent = () => {
     mutateFunction({
      variables: {
        id: id ? id : null,
-       user: "63e693ce447082f41bcc0c5f",
-       name: values.name,
+       business: "6421e06b5b7fc46f1e1a58d6",
+       name: values.Name,
        status: values.status,
        ActualAmount: values.actualamount,
        DailyAmount: values.dailyamount,
-       image: values.Image ? values.Image : data.FindOnebox.Image,
+       image: values.Image ? values.Image : data.findOneBox.Image,
      },
    });
-   //await refetch()
  });
-
 
 
   return (
@@ -155,11 +153,10 @@ export const FormBoxComponent = () => {
       <Card sx={{ p: 1 }}>
         <FormControl>
           <ProfileForm
-            avatarType="box"
-            onChange={(data: any) => {
-              console.log(data);
+            avatarType="box"onChange={(data: any) => {
+              setValue("Image", data);
             }}
-            defaultImage={""}
+            defaultImage={id ? data.findOneBox.image : imageBase64}
           />
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             Crear Caja

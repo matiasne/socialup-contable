@@ -28,10 +28,10 @@ module.exports = gql`
       business: String!
       name: String!
       status: String
+      image: String
       actualAmount: Float
       dailyAmount: Float
     ): Box
-    addBoxPhoto(id: String!, file: File): String
     updateBox(
       _id: String!
       business: String

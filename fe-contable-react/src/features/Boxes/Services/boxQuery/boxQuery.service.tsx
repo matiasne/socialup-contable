@@ -10,10 +10,11 @@ query FindBox {
     dailyAmount
     id
   }
+}
 `;
 
 const FindOnebox = gql`
-query FindBox($findOneBoxId: ID!) {
+query FindOneBox($findOneBoxId: ID!) {
   findOneBox(id: $findOneBoxId) {
     name
     status
