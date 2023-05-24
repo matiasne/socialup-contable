@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
 import { useEffect } from "react";
+import { getSessionServices, setSessionService } from "../../../../auth/services/session.service";
 
 interface FormValues {
   BusinessName: string;
@@ -46,9 +47,8 @@ const FormBusinessComponent: React.FC = () => {
       ? BusinessMutationServices.UpdateBusiness
       : BusinessMutationServices.AddBusiness
   );
-
+const idUser = getSessionServices("user")
   
-
   const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
@@ -81,15 +81,18 @@ const FormBusinessComponent: React.FC = () => {
      mutateFunction({
       variables: {
         id: id ? id : null,
-        user: "63e693ce447082f41bcc0c5f",
+        user: idUser,
         name: values.BusinessName,
         address: values.Address,
         email: values.email,
         category: values.BusinessCategory,
         image: values.Image ? values.Image : data.findOneBusiness.Image,
       },
+      
     });
-    //await refetch()
+
+
+      
   });
 
   return (

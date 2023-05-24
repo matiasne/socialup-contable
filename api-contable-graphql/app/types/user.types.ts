@@ -21,6 +21,7 @@ module.exports = `#graphql
 
   type Token {
     value: String!
+    id: ID!
   }
 
   type Mutation {

@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { getSessionServices } from "../services/session.service";
 
 const useAuth = () => {
-  let token = getSessionServices();
+  let token = getSessionServices("token");
   if (token === "") {
     return "";
   } else {

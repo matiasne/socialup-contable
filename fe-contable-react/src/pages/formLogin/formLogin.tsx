@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
@@ -15,13 +12,11 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import style from "./styleFormLogin.module.css";
-import { ILoginUser } from "../../models/user";
 import { Card, CircularProgress } from "@mui/material";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import { useForm } from "react-hook-form";
-import ItemProduct from "../../features/products/components/item-product/itemProduct";
-import ItemClient from "../../features/Clients/components/item-client/itemClient";
+import { setSessionService } from "../../auth/services/session.service";
 
 interface FormData {
   Email: string;
@@ -52,6 +47,7 @@ export const FormLogin = () => {
   }
   if (data) {
     setSessionService("token", data.login.value);
+    setSessionService("user", data.login.id);
   }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -173,6 +169,3 @@ export const FormLogin = () => {
   );
 };
 
-function setSessionService(arg0: string, arg1: string) {
-  throw new Error("Function not implemented.");
-}

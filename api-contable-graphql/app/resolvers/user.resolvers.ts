@@ -64,6 +64,7 @@ module.exports = {
 
       return {
         value: jwt.sign(userForToken, "SOCIALUP"),
+        id: user._id,
       };
     },
   },
