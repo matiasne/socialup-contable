@@ -12,7 +12,7 @@ module.exports = `#graphql
   }
 
   type Query {
-    findBusiness: [Business],
+    findBusiness(user: String!): [Business],
     findOneBusiness(id: ID!): Business,
     
   }
