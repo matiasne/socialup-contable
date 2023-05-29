@@ -3,8 +3,8 @@ export interface IProduct {
   Name: string;
   Description: string;
   Code: string;
-  CostPrice: number;
-  SalePrice: number;
+  CostPrice: string;
+  SalePrice: string;
   IdBusiness: string;
   Image: any;
 }

@@ -5,6 +5,8 @@ const products = gql`
     findProduct {
       id
       name
+      description
+      salePrice
     }
   }
 `;

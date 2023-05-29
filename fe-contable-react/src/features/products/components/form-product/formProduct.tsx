@@ -3,7 +3,8 @@ import { Box, Button, Card, FormControl, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
-import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import ItemProduct from "../item-product/itemProduct";
+import { Refresh } from "@mui/icons-material";
 
 export const FormProductComponent = () => {
   const {
@@ -12,9 +13,8 @@ export const FormProductComponent = () => {
     setValue,
     formState: { errors },
   } = useForm<IProduct>();
-
-  const [mutateFunction, { loading, error, data }] = useMutation(
-    ProductService.ProductMutationServices.create
+  const [mutateFunction] = useMutation(
+    ProductService.ProductMutationServices.AddProduct
   );
   console.log(data);
 

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const create = gql`
+const AddProduct = gql`
   mutation CreateProduct(
     $business: String!
     $name: String!
@@ -23,6 +23,42 @@ const create = gql`
     }
   }
 `;
+
+const UpdateProduct = gql`
+  mutation UpdateProduct(
+    $name: String
+    $description: String
+    $codigo: String
+    $costPrice: String
+    $salePrice: String
+    $image: String
+  ) {
+    updateProduct(
+      name: $name
+      description: $description
+      codigo: $codigo
+      costPrice: $costPrice
+      salePrice: $salePrice
+      image: $image
+    ) {
+      codigo
+      costPrice
+      description
+      image
+      name
+      salePrice
+    }
+  }
+`;
+
+const DeleteProducts = gql`
+  mutation UpdateProduct($id: String!) {
+    deleteProduct(_id: $id)
+  }
+`;
+
 export const ProductMutationServices = {
-  create,
+  AddProduct,
+  UpdateProduct,
+  DeleteProducts,
 };

@@ -1,6 +1,6 @@
 import { ProtectedRoutes } from "./auth/guards/authProvider";
 import FormClient from "./features/Clients/components/form-client/formClient";
-import { ListProduct } from "./features/products/components/list-product/list-product";
+
 import { BoxCreate } from "./pages/createBox/create-box.page";
 import { SaleCreate } from "./pages/createSale/create-sale.page";
 import { FormForgotPassword } from "./pages/forgot-password/form-forgotpassword";
@@ -13,6 +13,7 @@ import FormProductComponent from "./features/products/components/form-product/fo
 import { Route, Routes } from "react-router";
 import { FormProfile } from "./pages/formProfile/formProfile";
 import { FormBoxComponent } from "./features/Boxes/Components/form-box/formbox.component";
+import { ListProduct } from "./features/products/components/list-product/list-product";
 
 export const AppRouter = () => {
   return (
@@ -25,7 +26,10 @@ export const AppRouter = () => {
       <Route path="/box/:id?" element={<BoxCreate />} />
       <Route path="/business/:id?" element={<BusinessCreate />} />
       <Route path="/sale" element={<SaleCreate />} />
-      <Route path="/products" element={<ListProduct />} />
+      <Route
+        path="/products"
+        element={<ListProduct name={""} description={""} salePrice={""} />}
+      />
       <Route path="/dialogs" element={<Dialog />} />
       <Route path="/Clients" element={<FormClient />} />
       <Route path="/product" element={<FormProductComponent />} />
