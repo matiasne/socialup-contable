@@ -1,4 +1,3 @@
-import { Label, Padding } from "@mui/icons-material";
 import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
@@ -9,8 +8,9 @@ import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useParams } from "react-router-dom";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getSessionServices, setSessionService } from "../../../../auth/services/session.service";
+
 
 interface FormValues {
   BusinessName: string;
@@ -22,9 +22,12 @@ interface FormValues {
   touched: string;
 }
 
+
+
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
+  
   const {
     register,
     handleSubmit,
@@ -47,16 +50,20 @@ const FormBusinessComponent: React.FC = () => {
       ? BusinessMutationServices.UpdateBusiness
       : BusinessMutationServices.AddBusiness
   );
+
 const idUser = getSessionServices("user")
-  
-  const { data, loading } = useQuery(
+const idBusiness = getSessionServices("business")
+      
+const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
       variables: {
-        findOneBusinessId: id ? id : null,
+        findOneBusinessId: idBusiness ? idBusiness : null,
       },
     }
   );
+  
+
 
   useEffect(()=>{
     if (data) {
@@ -65,20 +72,16 @@ const idUser = getSessionServices("user")
       setValue("Phone", data.findOneBusiness.phone);
       setValue("BusinessCategory", data.findOneBusiness.category);
       setValue("Email", data.findOneBusiness.email);
-    } 
+      setValue("Image", data.findOneBusiness.image);
+    }
    },[data])
-
-  
-    
- 
 
  if (loading) {
   return <></>;
 }
 
   const onSubmit = handleSubmit(async (values: any) => {
-   
-     mutateFunction({
+    const response = await mutateFunction({
       variables: {
         id: id ? id : null,
         user: idUser,
@@ -88,11 +91,8 @@ const idUser = getSessionServices("user")
         category: values.BusinessCategory,
         image: values.Image ? values.Image : data.findOneBusiness.Image,
       },
-      
     });
-
-
-      
+    setSessionService("business", response.data.addBusiness._id);
   });
 
   return (
