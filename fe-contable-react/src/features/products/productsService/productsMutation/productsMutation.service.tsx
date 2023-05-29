@@ -51,7 +51,7 @@ const UpdateProduct = gql`
   }
 `;
 
-const DeleteProduct = gql`
+const DeleteProducts = gql`
   mutation UpdateProduct($id: String!) {
     deleteProduct(_id: $id)
   }
@@ -60,5 +60,5 @@ const DeleteProduct = gql`
 export const ProductMutationServices = {
   AddProduct,
   UpdateProduct,
-  DeleteProduct,
+  DeleteProducts,
 };

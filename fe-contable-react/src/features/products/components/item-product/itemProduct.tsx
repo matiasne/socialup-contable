@@ -1,6 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { ProductService } from "../../productsService/productsService";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import {
   ListItemAvatar,
   Avatar,
@@ -9,26 +7,13 @@ import {
   ListItemText,
   Dialog,
   DialogTitle,
-  DialogContent,
   DialogActions,
   Button,
-  DialogContentText,
-  Alert,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
 
 function ItemProduct(props: IProduct) {
-  console.log(props);
-  const [isEditing] = useState(false);
-  const { refetch } = useQuery(ProductService.ProductsQueryService.products);
-  const [MutationFunction] = useMutation(
-    ProductService.ProductMutationServices.DeleteProduct
-  );
-  const { error, data, loading } = useQuery(
-    ProductService.ProductsQueryService.products
-  );
-
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
@@ -36,13 +21,7 @@ function ItemProduct(props: IProduct) {
   };
 
   const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
-    MutationFunction({ variables: { id: props.id } })
-      .then(() => {
-        refetch();
-        setIsDeleteDialogOpen(false);
-        // alert(<Alert severity="success">Se elimino correctamente</Alert>);
-      })
-      .catch((error) => console.error(error));
+    setIsDeleteDialogOpen(false);
   };
 
   return (
@@ -50,24 +29,20 @@ function ItemProduct(props: IProduct) {
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
-      {isEditing ? (
-        <></>
-      ) : (
-        <>
-          <ListItemText
-            primary={props.name}
-            secondary={`Precio: ${props.salePrice} Descripcion: ${props.description}`}
-          />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="editar">
-              <Edit />
-            </IconButton>
-            <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
-              <Delete />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </>
-      )}
+      <>
+        <ListItemText
+          primary={props.name}
+          secondary={`Precio: ${props.salePrice} Descripcion: ${props.description}`}
+        />
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="editar">
+            <Edit />
+          </IconButton>
+          <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
+            <Delete />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </>
       <Dialog
         open={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
@@ -75,7 +50,7 @@ function ItemProduct(props: IProduct) {
         <DialogTitle>
           ¿Está seguro que desea eliminar este producto?
         </DialogTitle>
-        <DialogContent></DialogContent>
+
         <DialogActions>
           <Button
             variant="contained"
