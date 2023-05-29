@@ -1,4 +1,3 @@
-import { Label, Padding } from "@mui/icons-material";
 import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import * as React from "react";
@@ -9,7 +8,9 @@ import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useParams } from "react-router-dom";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getSessionServices, setSessionService } from "../../../../auth/services/session.service";
+
 
 interface FormValues {
   BusinessName: string;
@@ -21,9 +22,12 @@ interface FormValues {
   touched: string;
 }
 
+
+
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
+  
   const {
     register,
     handleSubmit,
@@ -47,49 +51,49 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-  
-
-  const { data, loading } = useQuery(
+const idUser = getSessionServices("user")
+const idBusiness = getSessionServices("business")
+      console.log(idBusiness)
+const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
       variables: {
-        findOneBusinessId: id ? id : null,
+        findOneBusinessId: idBusiness ? idBusiness : null,
       },
     }
   );
+  
+
 
   useEffect(()=>{
     if (data) {
+      console.log(data)
       setValue("BusinessName", data.findOneBusiness.name);
       setValue("Address", data.findOneBusiness.address);
       setValue("Phone", data.findOneBusiness.phone);
       setValue("BusinessCategory", data.findOneBusiness.category);
       setValue("Email", data.findOneBusiness.email);
-    } 
+      setValue("Image", data.findOneBusiness.image);
+    }
    },[data])
-
-  
-    
- 
 
  if (loading) {
   return <></>;
 }
 
   const onSubmit = handleSubmit(async (values: any) => {
-   
-     mutateFunction({
+    const response = await mutateFunction({
       variables: {
         id: id ? id : null,
-        user: "63e693ce447082f41bcc0c5f",
+        user: idUser,
         name: values.BusinessName,
         address: values.Address,
         email: values.email,
         category: values.BusinessCategory,
-        image: values.Image ? values.Image : data.findOneBusiness.Image,
+        image: values.Image ? values.Image : data.findOneBusiness.image,
       },
     });
-    //await refetch()
+    setSessionService("business", response.data.addBusiness._id);
   });
 
   return (
@@ -107,9 +111,10 @@ const FormBusinessComponent: React.FC = () => {
           <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
+              console.log(data)
               setValue("Image", data);
             }}
-            defaultImage={id ? data.findOneBusiness.image : imageBase64}
+            defaultImage={idBusiness ? data.findOneBusiness.image : imageBase64}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}

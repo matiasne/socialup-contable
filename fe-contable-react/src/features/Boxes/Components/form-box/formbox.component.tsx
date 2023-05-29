@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   Box,
   Button,
@@ -14,11 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import NavBarMenu from "../../../../shared/NavBar/NavBarMenu";
-import { UserServices } from "../../../../shared/services/userServices/userServices";
 import { IBox } from "../../models/box";
-import { BoxMutationServices } from "../../Services/box.services";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
+import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -72,38 +73,71 @@ const IOSSwitch = styled((props: SwitchProps) => (
 }));
 
 export const FormBoxComponent = () => {
+  const [imageBase64, setImageBase64] = React.useState<any>(null);
+  const [img, setImg] = React.useState("");
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
-  } = useForm<IBox>();
-  const [mutateFunction, { loading, error, data }] = useMutation(
-    BoxMutationServices.ImageBox
+  } = useForm<IBox>({
+    defaultValues:{
+      Name: "",
+      Status: "",
+      ActualAmount: "",
+      DailyAmount: "",
+      Image: ""
+    }
+  });
+   const { id } = useParams();
+   const [mutateFunction] = useMutation(
+    id
+      ? BoxMutationServices.UpdateBox
+      : BoxMutationServices.CreateBox
   );
-  console.log("lalala");
-  const onSubmit = handleSubmit((values) => {
    
-    console.log(values.Image);
-    fileUpload();
-    mutateFunction({
+  const { data, loading, error } = useQuery(
+    
+    BoxQueryServices.FindOnebox,
+    {
       variables: {
-        addBoxPhotoId: "6421e0f35b7fc46f1e1a58e2",
-        file: values.Image,
+        findOneBoxId: id ? id : null,
       },
-    });
-  });
+    }
+  );
+  
+    console.log(error)
 
-  const [fileUpload] = useMutation(BoxMutationServices.ImageBox, {
-    onCompleted: (data) => console.log(data),
-  });
-  const handleFileChange = (e: any) => {
-    console.log("lalala2");
-    const file = e.target.files;
-    console.log(file);
-    if (!file) return;
-    fileUpload({ variables: { file } });
-  };
+  useEffect(()=>{
+    console.log(data)
+    if (data) {
+      setValue("Name", data.findOne.name);
+      setValue("Status", data.findOneBox.status);
+      setValue("ActualAmount", data.findOneBox.ActualAmount);
+      setValue("DailyAmount", data.findOneBox.DailyAmount)
+    } 
+   },[data])
+
+   if (loading) {
+    return <></>;
+  }
+
+  const onSubmit = handleSubmit(async (values: any) => {
+    console.log(values)
+    mutateFunction({
+     variables: {
+       id: id ? id : null,
+       business: "6421e06b5b7fc46f1e1a58d6",
+       name: values.Name,
+       status: values.status,
+       ActualAmount: values.actualamount,
+       DailyAmount: values.dailyamount,
+       image: values.Image ? values.Image : data.findOneBox.Image,
+     },
+   });
+ });
+
 
   return (
     <Box
@@ -119,11 +153,10 @@ export const FormBoxComponent = () => {
       <Card sx={{ p: 1 }}>
         <FormControl>
           <ProfileForm
-            avatarType="box"
-            onChange={(data: any) => {
-              console.log(data);
+            avatarType="box"onChange={(data: any) => {
+              setValue("Image", data);
             }}
-            defaultImage={""}
+            defaultImage={id ? data.findOneBox.image : imageBase64}
           />
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             Crear Caja
