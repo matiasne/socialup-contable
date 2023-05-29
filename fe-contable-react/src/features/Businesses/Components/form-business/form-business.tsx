@@ -53,7 +53,7 @@ const FormBusinessComponent: React.FC = () => {
 
 const idUser = getSessionServices("user")
 const idBusiness = getSessionServices("business")
-      
+      console.log(idBusiness)
 const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
     {
@@ -67,6 +67,7 @@ const { data, loading } = useQuery(
 
   useEffect(()=>{
     if (data) {
+      console.log(data)
       setValue("BusinessName", data.findOneBusiness.name);
       setValue("Address", data.findOneBusiness.address);
       setValue("Phone", data.findOneBusiness.phone);
@@ -89,7 +90,7 @@ const { data, loading } = useQuery(
         address: values.Address,
         email: values.email,
         category: values.BusinessCategory,
-        image: values.Image ? values.Image : data.findOneBusiness.Image,
+        image: values.Image ? values.Image : data.findOneBusiness.image,
       },
     });
     setSessionService("business", response.data.addBusiness._id);
@@ -110,9 +111,10 @@ const { data, loading } = useQuery(
           <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
+              console.log(data)
               setValue("Image", data);
             }}
-            defaultImage={id ? data.findOneBusiness.image : imageBase64}
+            defaultImage={idBusiness ? data.findOneBusiness.image : imageBase64}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
