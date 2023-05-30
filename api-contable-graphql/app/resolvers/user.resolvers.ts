@@ -71,16 +71,13 @@ module.exports = {
       if (!decodedToken || typeof decodedToken !== "object") {
         throw new GraphQLError("Invalid token");
       }
-
       const user = await User.findOne({
         email: decodedToken.email,
         password: decodedToken.password,
       });
-
       if (!user) {
         throw new GraphQLError("Invalid token or user not found");
       }
-
       return "SEEEE";
     },
   },
