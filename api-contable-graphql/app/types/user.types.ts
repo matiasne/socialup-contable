@@ -37,5 +37,6 @@ module.exports = `#graphql
       phone: String
     ): User
     login(email: String!, password: String!): Token
+    validateToken (token: String!): String
   }
 `;
