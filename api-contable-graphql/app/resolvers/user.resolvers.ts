@@ -37,7 +37,7 @@ module.exports = {
       });
 
       return await user.save().catch((error) => {
-        throw new GraphQLError("Error creando el usuario.", {
+        throw new GraphQLError("Error creando el usuario. " + error, {
           extensions: {
             code: "ERROR_CREATING_USER",
           },
@@ -49,8 +49,6 @@ module.exports = {
         email: args.email,
         password: args.password,
       });
-
-      console.log(user);
 
       if (!user) {
         throw new GraphQLError("wrong credentials");

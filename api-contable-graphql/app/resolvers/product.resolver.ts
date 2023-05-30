@@ -1,6 +1,7 @@
 import { UserInputError } from "apollo-server-core";
 import Business from "../schema/business";
 import Product from "../schema/product";
+import { GraphQLError } from "graphql/error/GraphQLError";
 
 module.exports = {
   Query: {
@@ -29,9 +30,10 @@ module.exports = {
       });
 
       return product.save().catch((error: any) => {
-        console.log(error)
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
+        throw new GraphQLError("Error creando el producto. " + error, {
+          extensions: {
+            code: "ERROR_CREATING_PRODUCT",
+          },
         });
       });
     },

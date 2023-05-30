@@ -93,8 +93,7 @@ module.exports = {
       });
       console.log(sale);
       return sale.save().catch((error: any) => {
-        console.log(error);
-        throw new GraphQLError("Error creando la venta.", {
+        throw new GraphQLError("Error creando la venta. " + error, {
           extensions: {
             code: "ERROR_CREATING_SALE",
           },

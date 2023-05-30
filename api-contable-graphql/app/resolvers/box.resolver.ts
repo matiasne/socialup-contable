@@ -29,7 +29,6 @@ module.exports = {
         image: args.image,
         dailyAmount: args.dailyAmount,
       });
-
       return box.save().catch((error: any) => {
         throw new UserInputError(error.message, {
           invalidArgs: args,
