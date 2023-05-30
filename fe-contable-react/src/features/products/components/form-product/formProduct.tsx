@@ -5,6 +5,7 @@ import { ProductService } from "../../productsService/productsService";
 import { IProduct } from "../../models/product";
 import ItemProduct from "../item-product/itemProduct";
 import { Refresh } from "@mui/icons-material";
+import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
 export const FormProductComponent = () => {
   const {
@@ -16,7 +17,6 @@ export const FormProductComponent = () => {
   const [mutateFunction] = useMutation(
     ProductService.ProductMutationServices.AddProduct
   );
-  console.log(data);
 
   const onSubmit = handleSubmit((values: any) => {
     console.log(values);
