@@ -7,7 +7,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import Button from "@mui/material/Button";
 import style from "./styleFormRegister.module.css";
-import { Card, FormControl } from "@mui/material";
+import { Card, FormControl, Typography } from "@mui/material";
 import NavBarMenu from "../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
@@ -39,8 +39,6 @@ export const FormRegister = () => {
   console.log(data);
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
-    alert(JSON.stringify(values));
     mutateFunction({
       variables: {
         name: values.Name,
@@ -51,6 +49,7 @@ export const FormRegister = () => {
         phone: values.Phone,
       },
     });
+    window.location.href = "/login";
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -75,6 +74,7 @@ export const FormRegister = () => {
       onSubmit={onSubmit}
     >
       <Card sx={{ pb: 1 }}>
+        <Typography variant="h1">Registro</Typography>
         <FormControl>
           <TextField
             label="Name"
