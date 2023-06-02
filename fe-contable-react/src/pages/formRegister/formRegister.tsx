@@ -6,13 +6,14 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import Button from "@mui/material/Button";
-import style from "./styleFormRegister.module.css";
+import style from "../../pages/formRegister/styleFormRegister.module.css";
 import { Card, FormControl } from "@mui/material";
 import NavBarMenu from "../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import ProfileForm from "../../shared/Components/avatarNuevo";
+import Alerta from "../../shared/Components/alert/alert";
 
 interface FormData {
   Name: string;
@@ -40,7 +41,7 @@ export const FormRegister = () => {
 
   const onSubmit = handleSubmit((values) => {
     console.log(values);
-    alert(JSON.stringify(values));
+    <Alerta Title={"Correcto"} Descriptions={"Ususaario creado correctamente"} Severity={"success"}></Alerta>
     mutateFunction({
       variables: {
         name: values.Name,
