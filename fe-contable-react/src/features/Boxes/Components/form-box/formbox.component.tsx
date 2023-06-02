@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -16,10 +17,12 @@ import {
 import { useForm } from "react-hook-form";
 import { IBox } from "../../models/box";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
+import { BoxServices } from "../../Services/boxServices";
+import { useNavigate } from 'react-router-dom';
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -75,6 +78,8 @@ const IOSSwitch = styled((props: SwitchProps) => (
 export const FormBoxComponent = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -89,7 +94,9 @@ export const FormBoxComponent = () => {
       DailyAmount: "",
       Image: ""
     }
-  });
+  }
+  );
+ 
    const { id } = useParams();
    const [mutateFunction] = useMutation(
     id
@@ -107,7 +114,7 @@ export const FormBoxComponent = () => {
     }
   );
   
-    console.log(error)
+  //   console.log(error)
 
   useEffect(()=>{
     console.log(data)
@@ -133,13 +140,21 @@ export const FormBoxComponent = () => {
        status: values.status,
        ActualAmount: values.actualamount,
        DailyAmount: values.dailyamount,
-       image: values.Image ? values.Image : data.findOneBox.Image,
+      //  image: values.Image ? values.Image : data.findOneBox.Image,
      },
    });
+   setShowAlert(true);
+   setTimeout(() => {
+    navigate('/ListBox');
+  }, 2000);
+  
  });
 
 
   return (
+   
+    <div>
+       {showAlert && <Alert severity="success" sx={{marginBottom:"50px"}}>Caja creada</Alert>}
     <Box
       component="form"
       sx={{
@@ -152,12 +167,12 @@ export const FormBoxComponent = () => {
     >
       <Card sx={{ p: 1 }}>
         <FormControl>
-          <ProfileForm
+          {/* <ProfileForm
             avatarType="box"onChange={(data: any) => {
               setValue("Image", data);
             }}
             defaultImage={id ? data.findOneBox.image : imageBase64}
-          />
+          /> */}
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             Crear Caja
           </Typography>
@@ -222,5 +237,6 @@ export const FormBoxComponent = () => {
         </FormControl>
       </Card>
     </Box>
+    </div>
   );
 };
