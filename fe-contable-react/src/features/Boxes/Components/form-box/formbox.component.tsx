@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import {
-  Alert,
   Box,
   Button,
   Card,
@@ -23,6 +22,7 @@ import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.serv
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
 import { useNavigate } from 'react-router-dom';
+import Alert from "../../../../shared/Components/alert/alert";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -154,7 +154,7 @@ export const FormBoxComponent = () => {
   return (
    
     <div>
-       {showAlert && <Alert severity="success" sx={{marginBottom:"50px"}}>Caja creada</Alert>}
+       {showAlert && <Alert Title={"Éxito"} Descriptions={"Caja creada"} Severity={"success"}></Alert>}
     <Box
       component="form"
       sx={{

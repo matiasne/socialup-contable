@@ -12,7 +12,8 @@ import {
   getSessionServices,
   setSessionService,
 } from "../../../../auth/services/session.service";
-import { BusinessMutationServices } from "../../services/BusinessMutation/businessMutation.service";
+import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+
 
 interface FormValues {
   BusinessName: string;
