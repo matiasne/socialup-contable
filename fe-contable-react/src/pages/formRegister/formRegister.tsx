@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import ProfileForm from "../../shared/Components/avatarNuevo";
+import Alerta from "../../shared/Components/alert/alert";
 
 interface FormData {
   Name: string;
