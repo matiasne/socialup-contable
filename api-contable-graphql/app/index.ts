@@ -7,6 +7,7 @@ import typesDefs from "./typeDefs";
 import resolvers from "./Resolvers";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { ApolloError } from "apollo-server-core";
+import { createServer } from "http";
 
 // console.log(process.env.DB_TDB +"://" + process.env.DB_USER +":" + process.env.DB_PWD +"@" + process.env.DB_HOST +":" + process.env.DB_PORT +"/" + process.env.DB_NAME);
 mongoose.set("strictQuery", true);
@@ -39,10 +40,10 @@ interface MyContext {
 }
 
 async function startApolloServer() {
-  const server = new ApolloServer<MyContext>({
+  const server = new ApolloServer<any>({
     typeDefs: typesDefs,
     resolvers: resolvers,
-    formatError: (error) => {
+    /*   formatError: (error) => {
       // Si el error es una instancia de ApolloError, se envía al cliente con el código de estado HTTP correcto
       if (error instanceof ApolloError) {
         return error;
@@ -55,25 +56,21 @@ async function startApolloServer() {
 
       // En otros casos, se responde con un error genérico (500)
       return new ApolloError("Internal server error", "INTERNAL_SERVER_ERROR");
-    },
+    },*/
   });
 
   const { url } = await startStandaloneServer<any>(server, {
     context: async ({ req, res }: { req: any; res: any }) => {
       if (req.body.query.match("login")) {
-        console.log("LOGIN");
-        return true;
+        return;
       }
 
       const token = req.headers.authorization || "";
 
-      const decodedToken = jwt.decode(token, "SOCIALUP");
-
-      console.log("Agregando", decodedToken);
-
-      if (!decodedToken) {
-        // throwing a `GraphQLError` here allows us to specify an HTTP status code,
-        // standard `Error`s will have a 500 status code by default
+      try {
+        const decodedToken = jwt.decode(token, "SOCIALUP");
+        return { user: decodedToken };
+      } catch (e) {
         throw new GraphQLError("User is not authenticated", {
           extensions: {
             code: "UNAUTHENTICATED",
@@ -81,8 +78,6 @@ async function startApolloServer() {
           },
         });
       }
-
-      return { decodedToken };
     },
   });
 
