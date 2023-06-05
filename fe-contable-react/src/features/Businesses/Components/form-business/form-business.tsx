@@ -51,7 +51,7 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-const idUser = getSessionServices("user")
+  
 const idBusiness = getSessionServices("business")
       console.log(idBusiness)
 const { data, loading } = useQuery(
@@ -85,7 +85,6 @@ const { data, loading } = useQuery(
     const response = await mutateFunction({
       variables: {
         id: id ? id : null,
-        user: idUser,
         name: values.BusinessName,
         address: values.Address,
         email: values.email,
