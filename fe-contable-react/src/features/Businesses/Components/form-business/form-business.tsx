@@ -6,10 +6,13 @@ import { useForm, SubmitHandler, set } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useParams } from "react-router-dom";
-import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
 import { useEffect, useState } from "react";
-import { getSessionServices, setSessionService } from "../../../../auth/services/session.service";
+import {
+  getSessionServices,
+  setSessionService,
+} from "../../../../auth/services/session.service";
+import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
 
 
 interface FormValues {
@@ -22,12 +25,10 @@ interface FormValues {
   touched: string;
 }
 
-
-
 const FormBusinessComponent: React.FC = () => {
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
-  
+
   const {
     register,
     handleSubmit,
@@ -51,6 +52,16 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
+  const idUser = getSessionServices("user");
+  const idBusiness = getSessionServices("business");
+  console.log(idBusiness);
+  const { data, loading } = useQuery(BusinessQueryServices.FindOneBusiness, {
+    variables: {
+      findOneBusinessId: idBusiness ? idBusiness : null,
+    },
+  });
+
+  useEffect(() => {
   
 const idBusiness = getSessionServices("business")
       console.log(idBusiness)
@@ -67,7 +78,7 @@ const { data, loading } = useQuery(
 
   useEffect(()=>{
     if (data) {
-      console.log(data)
+      console.log(data);
       setValue("BusinessName", data.findOneBusiness.name);
       setValue("Address", data.findOneBusiness.address);
       setValue("Phone", data.findOneBusiness.phone);
@@ -75,11 +86,11 @@ const { data, loading } = useQuery(
       setValue("Email", data.findOneBusiness.email);
       setValue("Image", data.findOneBusiness.image);
     }
-   },[data])
+  }, [data]);
 
- if (loading) {
-  return <></>;
-}
+  if (loading) {
+    return <></>;
+  }
 
   const onSubmit = handleSubmit(async (values: any) => {
     const response = await mutateFunction({
@@ -110,7 +121,7 @@ const { data, loading } = useQuery(
           <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
-              console.log(data)
+              console.log(data);
               setValue("Image", data);
             }}
             defaultImage={idBusiness ? data.findOneBusiness.image : imageBase64}
