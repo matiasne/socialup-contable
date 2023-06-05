@@ -5,7 +5,14 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 
 module.exports = {
   Query: {
-    findProduct: async () => {
+    users: (parent: any, args: any, contextValue: any) => {
+      // In this case, we'll pretend there is no data when
+      // we're not logged in. Another option would be to
+      // throw an error.
+      console.log(contextValue);
+    },
+    findProduct: async (context: any) => {
+      console.log("context", context);
       return await Product.find();
     },
     findOneProduct: async (root: any, args: any) => {

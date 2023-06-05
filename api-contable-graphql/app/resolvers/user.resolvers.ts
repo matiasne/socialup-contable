@@ -56,10 +56,9 @@ module.exports = {
 
       const userForToken = {
         email: user.email,
-        password: user.password,
         id: user._id,
       };
-
+      console.log(userForToken);
       return {
         value: jwt.sign(userForToken, "SOCIALUP"),
         id: user._id,
@@ -73,12 +72,12 @@ module.exports = {
       }
       const user = await User.findOne({
         email: decodedToken.email,
-        password: decodedToken.password,
+        id: decodedToken.id,
       });
       if (!user) {
         throw new GraphQLError("Invalid token or user not found");
       }
-      return "SEEEE";
+      return "Token Ok";
     },
   },
 };

@@ -13,6 +13,7 @@ module.exports = gql`
   }
 
   type Query {
+    users: String
     findProduct: [Product]
     findOneProduct(id: ID!): Product
   }
