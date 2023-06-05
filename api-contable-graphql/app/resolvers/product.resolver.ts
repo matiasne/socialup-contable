@@ -2,20 +2,15 @@ import { UserInputError } from "apollo-server-core";
 import Business from "../schema/business";
 import Product from "../schema/product";
 import { GraphQLError } from "graphql/error/GraphQLError";
+import client from "../schema/client";
 
 module.exports = {
   Query: {
-    users: (parent: any, args: any, contextValue: any) => {
-      // In this case, we'll pretend there is no data when
-      // we're not logged in. Another option would be to
-      // throw an error.
-      console.log(contextValue);
-    },
-    findProduct: async (context: any) => {
-      console.log("context", context);
+    findProduct: async (_: any, _args: any, context: any) => {
+      console.log(context);
       return await Product.find();
     },
-    findOneProduct: async (root: any, args: any) => {
+    findOneProduct: async (root: any, args: any, context: any) => {
       const idProduct = args.id;
       const product = await Product.findById(idProduct);
       return product;
