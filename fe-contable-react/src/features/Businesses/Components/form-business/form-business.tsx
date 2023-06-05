@@ -52,17 +52,8 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-  const idUser = getSessionServices("user");
-  const idBusiness = getSessionServices("business");
-  console.log(idBusiness);
-  const { data, loading } = useQuery(BusinessQueryServices.FindOneBusiness, {
-    variables: {
-      findOneBusinessId: idBusiness ? idBusiness : null,
-    },
-  });
 
-  useEffect(() => {
-  
+ 
 const idBusiness = getSessionServices("business")
       console.log(idBusiness)
 const { data, loading } = useQuery(
