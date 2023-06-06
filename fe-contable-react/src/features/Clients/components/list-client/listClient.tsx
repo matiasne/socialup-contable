@@ -1,57 +1,48 @@
-import React from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IClient } from "../../models/client";
+import { ClientServices } from "../../services/clientServices";
+import { useEffect, useState } from "react";
 import ItemClient from "../item-client/itemClient";
 
-const clients: IClient[] = [
-  {
-    name: "Nombre",
-    surname: "Apellido",
-    phone: "Telelfono",
-    image: "img",
-    email: "Mail",
-    idBusinnes: "",
-  },
-  {
-    name: "Nombre",
-    surname: "Apellido",
-    phone: "Telelfono",
-    image: "img",
-    email: "Mail",
-    idBusinnes: "",
-  },
-  {
-    name: "Nombre",
-    surname: "Apellido",
-    phone: "Telelfono",
-    image: "img",
-    email: "Mail",
-    idBusinnes: "",
-  },
-  {
-    name: "Nombre",
-    surname: "Apellido",
-    phone: "Telelfono",
-    image: "img",
-    email: "Mail",
-    idBusinnes: "",
-  },
-];
+export const ListClient = (props: IClient) => {
+  const { data, error, loading, refetch } = useQuery(
+    ClientServices.QueryClientService.clients
+  );
+  const [shouldRefetch, setShouldRefetch] = useState(false);
+  const [MutateFuncion] = useMutation(
+    ClientServices.ClientMutationServices.DeleteClient,
+    { mutation: ClientServices.ClientMutationServices.UpdateClient }
+  );
 
-export const ListClient = () => {
-  const action = (item: IClient) => {
-    console.log(item);
+  useEffect(() => {
+    if (shouldRefetch) {
+      refetch();
+      setShouldRefetch(false);
+    }
+  }, [shouldRefetch, refetch]);
+
+  const handleItemDelete = async (item: any) => {
+    await MutateFuncion({ variables: { id: item } });
   };
 
   return (
-    <div>
-      <ListItems
-        items={clients}
-        renderItem={ItemClient}
-        handleItemClick={(item: IClient) => {
-          action(item);
-        }}
-      ></ListItems>
-    </div>
+    <>
+      {!loading && data && data.findClient ? (
+        <div>
+          <ListItems
+            items={data.findClient}
+            renderItem={(item: IClient) => <ItemClient {...item} />}
+            handleItemClick={function (item: any): void {
+              console.log(item);
+              handleItemDelete(item.id);
+            }}
+          ></ListItems>
+        </div>
+      ) : (
+        <div>spinner</div>
+      )}
+    </>
   );
 };
+export default ListClient;

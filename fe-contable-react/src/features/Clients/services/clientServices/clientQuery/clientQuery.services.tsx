@@ -20,7 +20,16 @@ const OBTENER_CLIENTE = gql`
     }
   }
 `;
-
+const clients = gql`
+  query Query {
+    findClient {
+      name
+      address
+      email
+    }
+  }
+`;
 export const QueryClientService = {
   OBTENER_CLIENTE,
+  clients,
 };
