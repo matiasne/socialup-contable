@@ -61,6 +61,8 @@ export const FormLogin = () => {
     mutateFunction({
       variables: { email: values.Email, password: values.Password },
     });
+    window.location.href = "/listBusiness";
+    //data ? <Link href="/home"></Link> : loading;
   });
 
   return (
@@ -168,4 +170,3 @@ export const FormLogin = () => {
     </div>
   );
 };
-

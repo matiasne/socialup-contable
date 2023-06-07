@@ -24,7 +24,7 @@ const business: IiBusiness[] = [
   },
 ];
 
-export const ListClient = () => {
+export const ListBusiness = () => {
   const action = (item: IBusiness) => {
     console.log(item);
   };

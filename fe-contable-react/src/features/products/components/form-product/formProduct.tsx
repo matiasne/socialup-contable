@@ -6,6 +6,7 @@ import { IProduct } from "../../models/product";
 import ItemProduct from "../item-product/itemProduct";
 import { Refresh } from "@mui/icons-material";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import { Link } from "react-router-dom";
 
 export const FormProductComponent = () => {
   const {
@@ -31,6 +32,7 @@ export const FormProductComponent = () => {
         image: values.Image,
       },
     });
+    window.location.href = "/products";
   });
 
   return (

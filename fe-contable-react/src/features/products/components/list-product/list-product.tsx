@@ -5,7 +5,7 @@ import ItemProduct from "../item-product/itemProduct";
 import { ProductService } from "../../productsService/productsService";
 import { useEffect, useState } from "react";
 
-export const ListProduct = (props: IProduct) => {
+export const ListProduct = () => {
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );

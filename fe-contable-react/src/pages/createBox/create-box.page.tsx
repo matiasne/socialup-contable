@@ -3,4 +3,3 @@ import { FormBoxComponent } from "../../features/Boxes/Components/form-box/formb
 export const BoxCreate = () => {
   return <FormBoxComponent />;
 };
-hahshash;
