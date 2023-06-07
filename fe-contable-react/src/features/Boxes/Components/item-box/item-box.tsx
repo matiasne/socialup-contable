@@ -15,7 +15,7 @@ import { IBox } from "../../models/box";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+))(({ theme }: any) => ({
   width: 42,
   height: 26,
   padding: 0,
