@@ -21,9 +21,11 @@ import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+const Main = styled("main", {
+  shouldForwardProp: (prop: string) => prop !== "open",
+})<{
   open?: boolean;
-}>(({ theme, open }) => ({
+}>(({ theme, open }: any) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create("margin", {
@@ -45,8 +47,8 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
+  shouldForwardProp: (prop: string) => prop !== "open",
+})<AppBarProps>(({ theme, open }: any) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -61,7 +63,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+const DrawerHeader = styled("div")(({ theme }: any) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
@@ -115,13 +117,7 @@ export default function PersistentDrawerLeft() {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
+          <IconButton onClick={handleDrawerClose}></IconButton>
         </DrawerHeader>
         <Divider />
         <List>

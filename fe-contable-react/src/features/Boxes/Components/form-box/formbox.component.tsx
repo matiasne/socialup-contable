@@ -21,12 +21,12 @@ import { useParams } from "react-router-dom";
 import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Alert from "../../../../shared/Components/alert/alert";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+))(({ theme }: any) => ({
   width: 42,
   height: 26,
   padding: 0,
@@ -87,156 +87,152 @@ export const FormBoxComponent = () => {
     setValue,
     formState: { errors },
   } = useForm<IBox>({
-    defaultValues:{
+    defaultValues: {
       Name: "",
       Status: "",
       ActualAmount: "",
       DailyAmount: "",
-      Image: ""
-    }
-  }
+      Image: "",
+    },
+  });
+
+  const { id } = useParams();
+  const [mutateFunction] = useMutation(
+    id ? BoxMutationServices.UpdateBox : BoxMutationServices.CreateBox
   );
- 
-   const { id } = useParams();
-   const [mutateFunction] = useMutation(
-    id
-      ? BoxMutationServices.UpdateBox
-      : BoxMutationServices.CreateBox
-  );
-   
-  const { data, loading, error } = useQuery(
-    
-    BoxQueryServices.FindOnebox,
-    {
-      variables: {
-        findOneBoxId: id ? id : null,
-      },
-    }
-  );
-  
+
+  const { data, loading, error } = useQuery(BoxQueryServices.FindOnebox, {
+    variables: {
+      findOneBoxId: id ? id : null,
+    },
+  });
+
   //   console.log(error)
 
-  useEffect(()=>{
-    console.log(data)
+  useEffect(() => {
+    console.log(data);
     if (data) {
       setValue("Name", data.findOne.name);
       setValue("Status", data.findOneBox.status);
       setValue("ActualAmount", data.findOneBox.ActualAmount);
-      setValue("DailyAmount", data.findOneBox.DailyAmount)
-    } 
-   },[data])
+      setValue("DailyAmount", data.findOneBox.DailyAmount);
+    }
+  }, [data]);
 
-   if (loading) {
+  if (loading) {
     return <></>;
   }
 
   const onSubmit = handleSubmit(async (values: any) => {
-    console.log(values)
+    console.log(values);
     mutateFunction({
-     variables: {
-       id: id ? id : null,
-       business: "6421e06b5b7fc46f1e1a58d6",
-       name: values.Name,
-       status: values.status,
-       ActualAmount: values.actualamount,
-       DailyAmount: values.dailyamount,
-      //  image: values.Image ? values.Image : data.findOneBox.Image,
-     },
-   });
-   setShowAlert(true);
-   setTimeout(() => {
-    navigate('/ListBox');
-  }, 2000);
-  
- });
-
+      variables: {
+        id: id ? id : null,
+        business: "6421e06b5b7fc46f1e1a58d6",
+        name: values.Name,
+        status: values.status,
+        ActualAmount: values.actualamount,
+        DailyAmount: values.dailyamount,
+        //  image: values.Image ? values.Image : data.findOneBox.Image,
+      },
+    });
+    setShowAlert(true);
+    setTimeout(() => {
+      navigate("/ListBox");
+    }, 2000);
+  });
 
   return (
-   
     <div>
-       {showAlert && <Alert Title={"Éxito"} Descriptions={"Caja creada"} Severity={"success"}></Alert>}
-    <Box
-      component="form"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "10vh",
-      }}
-      onSubmit={onSubmit}
-    >
-      <Card sx={{ p: 1 }}>
-        <FormControl>
-          {/* <ProfileForm
+      {showAlert && (
+        <Alert
+          Title={"Éxito"}
+          Descriptions={"Caja creada"}
+          Severity={"success"}
+        ></Alert>
+      )}
+      <Box
+        component="form"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "10vh",
+        }}
+        onSubmit={onSubmit}
+      >
+        <Card sx={{ p: 1 }}>
+          <FormControl>
+            {/* <ProfileForm
             avatarType="box"onChange={(data: any) => {
               setValue("Image", data);
             }}
             defaultImage={id ? data.findOneBox.image : imageBase64}
           /> */}
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
-            Crear Caja
-          </Typography>
-          <TextField
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Name"
-            sx={{ m: 1, width: "25ch" }}
-            type="text"
-            {...register("Name", {
-              required: true,
-              minLength: 2,
-            })}
-            {...(errors.Name?.type === "required" && {
-              helperText: "Campo obligatorio",
-              error: true,
-            })}
-            {...(errors.Name?.type === "minLength" && {
-              helperText: "El nombre es demasiado corto",
-              error: true,
-            })}
-          />
-          <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
-              ),
-            }}
-            label="Monto inicial"
-            sx={{ m: 1, width: "25ch" }}
-            type="number"
-            {...register("ActualAmount", {
-              required: true,
-              minLength: 2,
-            })}
-            {...(errors.ActualAmount?.type === "required" && {
-              helperText: "Campo obligatorio",
-              error: true,
-            })}
-            {...(errors.ActualAmount?.type === "minLength" && {
-              helperText: "El nombre es demasiado corto",
-              error: true,
-            })}
-          />
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            sx={{ p: "3%" }}
-          >
-            <Button onClick={onSubmit} variant="contained">
-              Submit
-            </Button>
-          </Grid>
-          <Grid container justifyContent="center" alignItems="center">
-            <FormControlLabel
-              control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-              label="Open"
+            <Typography variant="h3" sx={{ textAlign: "center" }}>
+              Crear Caja
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label="Name"
+              sx={{ m: 1, width: "25ch" }}
+              type="text"
+              {...register("Name", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.Name?.type === "required" && {
+                helperText: "Campo obligatorio",
+                error: true,
+              })}
+              {...(errors.Name?.type === "minLength" && {
+                helperText: "El nombre es demasiado corto",
+                error: true,
+              })}
             />
-          </Grid>
-        </FormControl>
-      </Card>
-    </Box>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
+              label="Monto inicial"
+              sx={{ m: 1, width: "25ch" }}
+              type="number"
+              {...register("ActualAmount", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.ActualAmount?.type === "required" && {
+                helperText: "Campo obligatorio",
+                error: true,
+              })}
+              {...(errors.ActualAmount?.type === "minLength" && {
+                helperText: "El nombre es demasiado corto",
+                error: true,
+              })}
+            />
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{ p: "3%" }}
+            >
+              <Button onClick={onSubmit} variant="contained">
+                Submit
+              </Button>
+            </Grid>
+            <Grid container justifyContent="center" alignItems="center">
+              <FormControlLabel
+                control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+                label="Open"
+              />
+            </Grid>
+          </FormControl>
+        </Card>
+      </Box>
     </div>
   );
 };
