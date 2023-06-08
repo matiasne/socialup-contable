@@ -52,7 +52,7 @@ const FormBusinessComponent: React.FC = () => {
   );
 
 const idUser = getSessionServices("user")
-const idBusiness = getSessionServices("business")
+const idBusiness = "" //getSessionServices("business")
       console.log(idBusiness)
 const { data, loading } = useQuery(
     BusinessQueryServices.FindOneBusiness,
@@ -84,7 +84,7 @@ const { data, loading } = useQuery(
   const onSubmit = handleSubmit(async (values: any) => {
     const response = await mutateFunction({
       variables: {
-        id: id ? id : null,
+        id: id ? id : "647f7f8f512fbb2905d7f443",
         user: idUser,
         name: values.BusinessName,
         address: values.Address,

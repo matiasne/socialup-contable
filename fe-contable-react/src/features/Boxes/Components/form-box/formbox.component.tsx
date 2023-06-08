@@ -17,7 +17,7 @@ import {
 import { useForm } from "react-hook-form";
 import { IBox } from "../../models/box";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
@@ -80,6 +80,7 @@ export const FormBoxComponent = () => {
   const [img, setImg] = React.useState("");
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
@@ -104,7 +105,7 @@ export const FormBoxComponent = () => {
       : BoxMutationServices.CreateBox
   );
    
-  const { data, loading, error } = useQuery(
+  const { data, loading, error,  } = useQuery(
     
     BoxQueryServices.FindOnebox,
     {
@@ -135,7 +136,7 @@ export const FormBoxComponent = () => {
     mutateFunction({
      variables: {
        id: id ? id : null,
-       business: "6421e06b5b7fc46f1e1a58d6",
+       business: "647f81a3512fbb2905d7f447",
        name: values.Name,
        status: values.status,
        ActualAmount: values.actualamount,
@@ -144,9 +145,10 @@ export const FormBoxComponent = () => {
      },
    });
    setShowAlert(true);
+   formRef.current?.reset();
    setTimeout(() => {
-    navigate('/ListBox');
-  }, 2000);
+    setShowAlert(false);
+  }, 1000);
   
  });
 
@@ -164,6 +166,7 @@ export const FormBoxComponent = () => {
         minHeight: "10vh",
       }}
       onSubmit={onSubmit}
+      ref={formRef}
     >
       <Card sx={{ p: 1 }}>
         <FormControl>

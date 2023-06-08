@@ -45,7 +45,7 @@ const UpdateBox = gql`
 `;
 
 const DeleteBox = gql`
-  mutation DeleteBox($id: String!) {
+  mutation Mutation($id: String!) {
     deleteBox(_id: $id)
   }
 `;

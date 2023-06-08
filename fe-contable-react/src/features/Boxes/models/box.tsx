@@ -1,11 +1,11 @@
 export interface IBox {
-  _id: string;
-  idBusiness: string;
-  Image: string;
+  id:string;
+  Image?: string;
   Name: string;
   Status: string;
   ActualAmount: string;
   DailyAmount: string;
+  IdBusiness: string;
 }
 
 export type IitemBox = Pick<IBox, "Name" | "ActualAmount">;
