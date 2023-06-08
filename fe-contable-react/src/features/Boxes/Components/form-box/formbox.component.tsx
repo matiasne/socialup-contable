@@ -16,13 +16,14 @@ import {
 import { useForm } from "react-hook-form";
 import { IBox } from "../../models/box";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../../../shared/Components/alert/alert";
+
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -80,6 +81,7 @@ export const FormBoxComponent = () => {
   const [img, setImg] = React.useState("");
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
@@ -96,17 +98,24 @@ export const FormBoxComponent = () => {
     },
   });
 
-  const { id } = useParams();
-  const [mutateFunction] = useMutation(
-    id ? BoxMutationServices.UpdateBox : BoxMutationServices.CreateBox
+ 
+   const { id } = useParams();
+   const [mutateFunction] = useMutation(
+    id
+      ? BoxMutationServices.UpdateBox
+      : BoxMutationServices.CreateBox
   );
-
-  const { data, loading, error } = useQuery(BoxQueryServices.FindOnebox, {
-    variables: {
-      findOneBoxId: id ? id : null,
-    },
-  });
-
+   
+  const { data, loading, error,  } = useQuery(
+    
+    BoxQueryServices.FindOnebox,
+    {
+      variables: {
+        findOneBoxId: id ? id : null,
+      },
+    }
+  );
+  
   //   console.log(error)
 
   useEffect(() => {
@@ -126,44 +135,42 @@ export const FormBoxComponent = () => {
   const onSubmit = handleSubmit(async (values: any) => {
     console.log(values);
     mutateFunction({
-      variables: {
-        id: id ? id : null,
-        business: "6421e06b5b7fc46f1e1a58d6",
-        name: values.Name,
-        status: values.status,
-        ActualAmount: values.actualamount,
-        DailyAmount: values.dailyamount,
-        //  image: values.Image ? values.Image : data.findOneBox.Image,
-      },
-    });
-    setShowAlert(true);
-    setTimeout(() => {
-      navigate("/ListBox");
-    }, 2000);
-  });
+     variables: {
+       id: id ? id : null,
+       business: "647f81a3512fbb2905d7f447",
+       name: values.Name,
+       status: values.status,
+       ActualAmount: values.actualamount,
+       DailyAmount: values.dailyamount,
+      //  image: values.Image ? values.Image : data.findOneBox.Image,
+     },
+   });
+   setShowAlert(true);
+   formRef.current?.reset();
+   setTimeout(() => {
+    setShowAlert(false);
+  }, 1000);
+  
+ });
+
 
   return (
     <div>
-      {showAlert && (
-        <Alert
-          Title={"Éxito"}
-          Descriptions={"Caja creada"}
-          Severity={"success"}
-        ></Alert>
-      )}
-      <Box
-        component="form"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "10vh",
-        }}
-        onSubmit={onSubmit}
-      >
-        <Card sx={{ p: 1 }}>
-          <FormControl>
-            {/* <ProfileForm
+       {showAlert && <Alert Title={"Exitos"} Descriptions={"Caja Creada"} Severity={"success"}></Alert>}
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "10vh",
+      }}
+      onSubmit={onSubmit}
+      ref={formRef}
+    >
+      <Card sx={{ p: 1 }}>
+        <FormControl>
+          {/* <ProfileForm
             avatarType="box"onChange={(data: any) => {
               setValue("Image", data);
             }}

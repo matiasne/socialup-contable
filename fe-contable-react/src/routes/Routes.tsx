@@ -11,6 +11,8 @@ import { BusinessCreate } from "../pages/createBusiness/create-business.page";
 import FormProductComponent from "../features/products/components/form-product/formProduct";
 import { PrivateRoute } from "./PrivateRoutes";
 import { ListBusiness } from "../features/Businesses/Components/list-business/list-business";
+import { FormBoxComponent } from "../features/Boxes/Components/form-box/formbox.component";
+
 
 export const AppRouter = () => {
   return (
@@ -30,8 +32,9 @@ export const AppRouter = () => {
         <Route path="/product" element={<FormProductComponent />} />
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
-        <Route path="/listbox" element={<ListBox />} />
         <Route path="/listbusiness" element={<ListBusiness BusinessName={""} Phone={""} Mail={""} Address={""} BusinessCategory={""} Image={""} touched={""} />} />
+        <Route path="/box" element={<FormBoxComponent />} />
+        <Route path="/listbox" element={<ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />} />
       </Route>
     </Routes>
   );
