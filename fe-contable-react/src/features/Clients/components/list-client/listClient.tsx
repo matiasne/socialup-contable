@@ -10,10 +10,17 @@ export const ListClient = (props: IClient) => {
     ClientServices.QueryClientService.clients
   );
   const [shouldRefetch, setShouldRefetch] = useState(false);
-  const [MutateFuncion] = useMutation(
+
+  const [deleteClient] = useMutation(
     ClientServices.ClientMutationServices.DeleteClient,
-    { mutation: ClientServices.ClientMutationServices.UpdateClient }
+    {
+      refetchQueries: [ClientServices.QueryClientService.clients],
+    }
   );
+
+  const handleItemDelete = async (item: any) => {
+    await deleteClient({ variables: { id: item } });
+  };
 
   useEffect(() => {
     if (shouldRefetch) {
@@ -21,10 +28,6 @@ export const ListClient = (props: IClient) => {
       setShouldRefetch(false);
     }
   }, [shouldRefetch, refetch]);
-
-  const handleItemDelete = async (item: any) => {
-    await MutateFuncion({ variables: { id: item } });
-  };
 
   return (
     <>
@@ -45,4 +48,5 @@ export const ListClient = (props: IClient) => {
     </>
   );
 };
+
 export default ListClient;

@@ -32,9 +32,9 @@ export const AppRouter = () => {
         element={<ListProduct name={""} description={""} salePrice={""} />}
       />
       <Route path="/dialogs" element={<Dialog />} />
-      <Route path="/Clients" element={<FormClient />} />
+      <Route path="/Client" element={<FormClient />} />
       <Route
-        path="/Client"
+        path="/Clients"
         element={
           <ListClient name={""} image={undefined} email={""} idBusinnes={""} />
         }

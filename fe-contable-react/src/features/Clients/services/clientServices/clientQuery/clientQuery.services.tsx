@@ -26,6 +26,7 @@ const clients = gql`
       name
       address
       email
+      id
     }
   }
 `;
