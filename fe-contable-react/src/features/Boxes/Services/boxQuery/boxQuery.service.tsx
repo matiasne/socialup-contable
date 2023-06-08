@@ -1,17 +1,12 @@
 import { gql } from "@apollo/client";
 
-const Accountbox = gql`
-query FindBox {
+const Boxs = gql`
+query Query {
   findBox {
     name
-    status
-    actualAmount
-    image
-    dailyAmount
     id
   }
-}
-`;
+}`;
 
 const FindOnebox = gql`
 query FindOneBox($findOneBoxId: ID!) {
@@ -27,6 +22,6 @@ query FindOneBox($findOneBoxId: ID!) {
 
 
 export const BoxQueryServices = {
-    Accountbox,
+    Boxs,
     FindOnebox,
 };
