@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-const AccountBusiness = gql`
-  query FindBusiness {
-    findBusiness {
+const FindBusiness = gql`
+  query FindBusiness ($user: String!) {
+    findBusiness(user: $user) {
       name
       address
       category
@@ -13,6 +13,7 @@ const AccountBusiness = gql`
     }
   }
 `;
+
 
 const FindOneBusiness = gql`
   query FindOneBusiness($findOneBusinessId: ID!) {
@@ -45,7 +46,7 @@ const FindOneUser = gql`
 `;
 
 export const BusinessQueryServices = {
-  AccountBusiness,
+  FindBusiness,
   FindOneBusiness,
   FindOneUser,
 };

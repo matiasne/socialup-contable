@@ -10,6 +10,7 @@ import { ListBox } from "../features/Boxes/Components/list-box/list-box";
 import { BusinessCreate } from "../pages/createBusiness/create-business.page";
 import FormProductComponent from "../features/products/components/form-product/formProduct";
 import { PrivateRoute } from "./PrivateRoutes";
+import { ListBusiness } from "../features/Businesses/Components/list-business/list-business";
 
 export const AppRouter = () => {
   return (
@@ -30,6 +31,7 @@ export const AppRouter = () => {
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
         <Route path="/listbox" element={<ListBox />} />
+        <Route path="/listbusiness" element={<ListBusiness BusinessName={""} Phone={""} Mail={""} Address={""} BusinessCategory={""} Image={""} touched={""} />} />
       </Route>
     </Routes>
   );
