@@ -29,7 +29,7 @@ export const AppRouter = () => {
         <Route path="/product" element={<FormProductComponent />} />
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
-        <Route path="/listbox" element={<ListBox />} />
+        <Route path="/listbox" element={<ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />} />
       </Route>
     </Routes>
   );
