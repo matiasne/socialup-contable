@@ -2,7 +2,6 @@ import { UserInputError } from "apollo-server-core";
 import Business from "../schema/business";
 import Product from "../schema/product";
 import { GraphQLError } from "graphql/error/GraphQLError";
-import client from "../schema/client";
 
 module.exports = {
   Query: {

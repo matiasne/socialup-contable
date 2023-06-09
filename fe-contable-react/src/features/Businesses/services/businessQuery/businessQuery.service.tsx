@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const FindBusiness = gql`
-  query FindBusiness ($user: String!) {
-    findBusiness(user: $user) {
+  query FindBusiness  {
+    findBusiness {
       name
       address
       category

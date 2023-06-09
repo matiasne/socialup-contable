@@ -1,5 +1,5 @@
 export interface IBusiness {
-  BusinessName: string;
+  name: string;
   Phone: string;
   Mail: string;
   Address: string;
@@ -9,5 +9,5 @@ export interface IBusiness {
 }
 export type IiBusiness = Pick<
   IBusiness,
-  "BusinessName" | "Phone" | "Address" | "Mail"
+  "name" | "Phone" | "Address" | "Mail"
 >;

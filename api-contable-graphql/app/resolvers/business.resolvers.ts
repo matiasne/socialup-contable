@@ -7,10 +7,10 @@ import { UserInputError } from "apollo-server-core";
 
 module.exports = {
   Query: {
-    findBusiness: async (root: any, args: any, context: any) => {
-      console.log("user", context.user);
+    findBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
 
-      return await Business.find({ user: context.user });
+      return await Business.find();
     },
     findOneBusiness: async (root: any, args: any) => {
       const idBusiness = args.id;

@@ -7,15 +7,18 @@ import React, {
   ListItemText,
 } from "@mui/material";
 import { IBusiness } from "../../models/business";
+import { useQuery } from "@apollo/client";
+import { BusinessServices } from "../../services/businessServices";
 
 function ItemBusiness(props: IBusiness) {
+
   return (
     <>
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
       <ListItemText
-        primary={props.BusinessName}
+        primary={props.name}
         secondary={`email: ${props.Mail},phone: ${props.Phone}, address: ${props.Address}`}
       />
       <ListItemSecondaryAction>
