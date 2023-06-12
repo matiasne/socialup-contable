@@ -12,10 +12,7 @@ export const ListClient = (props: IClient) => {
   const [shouldRefetch, setShouldRefetch] = useState(false);
 
   const [deleteClient] = useMutation(
-    ClientServices.ClientMutationServices.DeleteClient,
-    {
-      refetchQueries: [ClientServices.QueryClientService.clients],
-    }
+    ClientServices.ClientMutationServices.DeleteClient
   );
 
   const handleItemDelete = async (item: any) => {
@@ -35,7 +32,9 @@ export const ListClient = (props: IClient) => {
         <div>
           <ListItems
             items={data.findClient}
-            renderItem={(item: IClient) => <ItemClient {...item} />}
+            renderItem={(item: IClient) => (
+              <ItemClient {...item} setShouldRefetch={setShouldRefetch} />
+            )}
             handleItemClick={function (item: any): void {
               console.log(item);
               handleItemDelete(item.id);

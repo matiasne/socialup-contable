@@ -1,4 +1,4 @@
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, Refresh } from "@mui/icons-material";
 import React, {
   Avatar,
   Button,
@@ -13,7 +13,9 @@ import React, {
 import { IClient } from "../../models/client";
 import { MouseEventHandler, useState } from "react";
 
-function ItemClient(props: IClient) {
+function ItemClient(
+  props: IClient & { setShouldRefetch: (value: boolean) => void }
+) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
@@ -22,6 +24,7 @@ function ItemClient(props: IClient) {
 
   const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(false);
+    props.setShouldRefetch(true);
   };
 
   return (
