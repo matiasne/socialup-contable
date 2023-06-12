@@ -5,13 +5,10 @@ import {
   ListItemSecondaryAction,
   IconButton,
   ListItemText,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  Button,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
+import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
 
 function ItemProduct(props: IProduct) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -43,30 +40,15 @@ function ItemProduct(props: IProduct) {
           </IconButton>
         </ListItemSecondaryAction>
       </>
-      <Dialog
-        open={isDeleteDialogOpen}
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
-      >
-        <DialogTitle>
-          ¿Está seguro que desea eliminar este producto?
-        </DialogTitle>
-
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => setIsDeleteDialogOpen(false)}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleDeleteConfirmed}
-          >
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onConfirm={handleDeleteConfirmed}
+        title="¿Está seguro que desea eliminar este producto?"
+        message="Se eliminara de forma permanente "
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+      />
     </>
   );
 }

@@ -14,6 +14,7 @@ import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import ProfileForm from "../../shared/Components/avatarNuevo";
 import Alerta from "../../shared/Components/alert/alert";
+import { useToast } from "../../shared/Components/toast/ToastProvider";
 
 interface FormData {
   Name: string;
@@ -26,6 +27,8 @@ interface FormData {
 }
 
 export const FormRegister = () => {
+  const { toastShow } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -40,6 +43,11 @@ export const FormRegister = () => {
   console.log(data);
 
   const onSubmit = handleSubmit((values) => {
+    console.log(values);
+    toastShow({
+      message: "Usuario Creado",
+      severity: "info",
+    });
     mutateFunction({
       variables: {
         name: values.Name,
@@ -50,7 +58,7 @@ export const FormRegister = () => {
         phone: values.Phone,
       },
     });
-    window.location.href = "/login";
+    // window.location.href = "/login";
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
