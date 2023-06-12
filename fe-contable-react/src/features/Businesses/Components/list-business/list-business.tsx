@@ -7,7 +7,7 @@ import ItemBusiness from "../Item-business/item-business";
 
 export const ListBusiness = (props: IBusiness) => {
   const { data, error, loading, refetch } = useQuery(
-    BusinessServices.BusinessQueryServices.FindBusiness
+    BusinessServices.BusinessQueryServices.FindUserBusiness
     );
    
     const [shouldRefetch, setShouldRefetch] = useState(false);

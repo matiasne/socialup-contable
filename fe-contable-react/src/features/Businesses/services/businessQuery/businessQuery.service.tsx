@@ -14,19 +14,18 @@ const FindBusiness = gql`
   }
 `;
 
-
-const FindOneBusiness = gql`
-  query FindOneBusiness($findOneBusinessId: ID!) {
-    findOneBusiness(id: $findOneBusinessId) {
-      name
-      address
-      category
-      email
-      image
-      phone
-      _id
-    }
+const FindUserBusiness = gql`
+query FindUserBusiness($findUserBusinessId: ID!) {
+  findUserBusiness(id: $findUserBusinessId) {
+    name
+    address
+    category
+     email
+     image
+     phone
+     _id
   }
+}
 `;
 
 const FindOneUser = gql`
@@ -47,6 +46,6 @@ const FindOneUser = gql`
 
 export const BusinessQueryServices = {
   FindBusiness,
-  FindOneBusiness,
+  FindUserBusiness,
   FindOneUser,
 };

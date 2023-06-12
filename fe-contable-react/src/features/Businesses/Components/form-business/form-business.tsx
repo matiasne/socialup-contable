@@ -56,7 +56,7 @@ const idUser = getSessionServices("user")
 const idBusiness = "" //getSessionServices("business")
       console.log(idBusiness)
 const { data, loading } = useQuery(
-    BusinessQueryServices.FindOneBusiness,
+    BusinessQueryServices.FindUserBusiness,
     {
       variables: {
         findOneBusinessId: idBusiness ? idBusiness : null,

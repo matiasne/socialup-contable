@@ -10,15 +10,18 @@ module.exports = {
     },
     findOneUser: async (root: any, args: any) => {
       const idUser = args.id;
-
       const user = await User.findById(idUser);
-
       return user;
+    },
+    findUserBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+      const business = await Business.find({ user: context.user.id });
+      return business;
     },
   },
   User: {
     business: async (user: any) => {
-      return await Business.find({ user: user._id });
+      return await Business.find();
     },
   },
   Mutation: {
