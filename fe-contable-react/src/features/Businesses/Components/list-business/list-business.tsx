@@ -7,7 +7,7 @@ import ItemBusiness from "../Item-business/item-business";
 
 export const ListBusiness = (props: IBusiness) => {
   const { data, error, loading, refetch } = useQuery(
-    BusinessServices.BusinessQueryServices.FindUserBusiness
+    BusinessServices.BusinessQueryServices.FindUserBusiness,({variables:{findUserBusinessId:"hola"}})
     );
    
     const [shouldRefetch, setShouldRefetch] = useState(false);
@@ -29,10 +29,10 @@ export const ListBusiness = (props: IBusiness) => {
 
   return (
     <>
-      {!loading &&data &&data.findBusiness?(
+      {!loading &&data &&data.findUserBusiness?(
         <div>
           <ListItems
-            items={data.findBusiness}
+            items={data.findUserBusiness}
             renderItem={(item: IBusiness) => <ItemBusiness {...item} />}        //{(ItemBusiness)}
             handleItemClick={function (item: any): void {
               handleItemDelete(item.id);

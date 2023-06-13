@@ -13,7 +13,7 @@ module.exports = `#graphql
 
   type Query {
     findBusiness: [Business],
-    findOneBusiness(id: ID!): Business,
+    findOneBusiness(id: ID): Business,
     
   }
 
