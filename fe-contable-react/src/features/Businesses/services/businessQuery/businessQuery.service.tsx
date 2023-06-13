@@ -15,7 +15,7 @@ const FindBusiness = gql`
 `;
 
 const FindUserBusiness = gql`
-query FindUserBusiness($findUserBusinessId: ID!) {
+query FindUserBusiness($findUserBusinessId: ID) {
   findUserBusiness(id: $findUserBusinessId) {
     name
     address

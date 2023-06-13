@@ -9,6 +9,9 @@ module.exports = `#graphql
     phone: String
     _id: ID!
     products: [Product]
+    client: [Client]
+    sale: [Sale]
+    box: [Box]
   }
 
   type Query {
