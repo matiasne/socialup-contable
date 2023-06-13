@@ -12,15 +12,19 @@ import FormProductComponent from "../features/products/components/form-product/f
 import { PrivateRoute } from "./PrivateRoutes";
 import { ListBusiness } from "../features/Businesses/Components/list-business/list-business";
 import { FormBoxComponent } from "../features/Boxes/Components/form-box/formbox.component";
-
+import ItemProduct from "../features/products/components/item-product/itemProduct";
 
 export const AppRouter = () => {
   return (
     <Routes>
       {/*Rutas Publicas🔓   👇👇👇*/}
       <Route path="/login" element={<FormLogin />} />
-      <Route path="/register" element={<FormRegister />} />
-
+      <Route path="/register" element={<FormRegister />} />{" "}
+      <Route
+        path="/products"
+        element={<ItemProduct name={""} description={""} salePrice={""} />}
+      />{" "}
+      <Route path="/product" element={<FormProductComponent />} />
       {/*Rutas privadas🔐   👇👇👇*/}
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/business" element={<BusinessCreate />} />
@@ -29,12 +33,31 @@ export const AppRouter = () => {
           path="/products"
           element={<ListProduct name={""} description={""} salePrice={""} />}
         />
-        <Route path="/product" element={<FormProductComponent />} />
+
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
         <Route path="/listbusiness" element={<ListBusiness name={""} Phone={""} Mail={""} Address={""} BusinessCategory={""} Image={""} touched={""} />} />
+        <Route
+          path="/listbusiness"
+          element={
+            <ListBusiness
+              name={""}
+              Phone={""}
+              Mail={""}
+              Address={""}
+              BusinessCategory={""}
+              Image={""}
+              touched={""}
+            />
+          }
+        />
         <Route path="/box" element={<FormBoxComponent />} />
-        <Route path="/listbox" element={<ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />} />
+        <Route
+          path="/listbox"
+          element={
+            <ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />
+          }
+        />
       </Route>
     </Routes>
   );

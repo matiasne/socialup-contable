@@ -64,6 +64,10 @@ async function startApolloServer() {
       if (req.body.query.match("login")) {
         return;
       }
+      if (req.body.query.match("CreateUser")) {
+        return;
+      
+      }
 
       const token = req.headers.authorization || "";
 
