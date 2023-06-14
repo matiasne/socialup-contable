@@ -36,15 +36,15 @@ export const AppRouter = () => {
 
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
-        <Route path="/listbusiness" element={<ListBusiness name={""} Phone={""} Mail={""} Address={""} BusinessCategory={""} Image={""} touched={""} />} />
+        <Route path="/listbusiness" element={<ListBusiness name={""} phone={""} email={""} address={""} BusinessCategory={""} Image={""} touched={""} />} />
         <Route
           path="/listbusiness"
           element={
             <ListBusiness
               name={""}
-              Phone={""}
-              Mail={""}
-              Address={""}
+              phone={""}
+              email={""}
+              address={""}
               BusinessCategory={""}
               Image={""}
               touched={""}

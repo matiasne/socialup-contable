@@ -19,7 +19,7 @@ function ItemBusiness(props: IBusiness) {
       </ListItemAvatar>
       <ListItemText
         primary={props.name}
-        secondary={`email: ${props.Mail},phone: ${props.Phone}, address: ${props.Address}`}
+        secondary={`email: ${props.email},phone: ${props.phone}, address: ${props.address}`}
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="editar">
