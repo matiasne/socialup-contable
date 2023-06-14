@@ -3,9 +3,9 @@ import { gql } from "apollo-server-express";
 module.exports = gql`
   type Sale {
     idBusiness: Business
-    actualBusiness: String
+    actualBusiness: [String]
     client: Client
-    actualClient: String
+    actualClient: [String]
     product: Product
     box: Box
     total: Float
