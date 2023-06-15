@@ -14,8 +14,13 @@ import { ListBusiness } from "../features/Businesses/Components/list-business/li
 import { FormBoxComponent } from "../features/Boxes/Components/form-box/formbox.component";
 import ItemProduct from "../features/products/components/item-product/itemProduct";
 import { DashboardBusiness } from "../features/Businesses/Components/dashboard-business/dashboard-business";
+import { getSessionBusiness, getSessionServices } from "../auth/services/authService";
 
 export const AppRouter = () => {
+
+  const session = getSessionServices();
+  const business = getSessionBusiness();
+  
   return (
     <Routes>
       {/*Rutas Publicas🔓   👇👇👇*/}
@@ -24,8 +29,7 @@ export const AppRouter = () => {
       
 
       {/*Rutas privadas🔐   👇👇👇*/}
-      <Route path="/" element={<PrivateRoute />}>
-      <Route path="/dashboard" element={<DashboardBusiness />} />
+      <Route path="/dashboard" element={session && business?<DashboardBusiness />:<ListBusiness name={""} phone={""} email={""} address={""} BusinessCategory={""} Image={""} touched={""} />} />
         <Route path="/business" element={<BusinessCreate />} />
         <Route path="/sale" element={<SaleCreate />} />
         <Route
@@ -36,20 +40,6 @@ export const AppRouter = () => {
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
         <Route path="/listbusiness" element={<ListBusiness name={""} phone={""} email={""} address={""} BusinessCategory={""} Image={""} touched={""} />} />
-        <Route
-          path="/listbusiness"
-          element={
-            <ListBusiness
-              name={""}
-              phone={""}
-              email={""}
-              address={""}
-              BusinessCategory={""}
-              Image={""}
-              touched={""}
-            />
-          }
-        />
         <Route path="/box" element={<FormBoxComponent />} />
         <Route
           path="/listbox"
@@ -57,7 +47,6 @@ export const AppRouter = () => {
             <ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />
           }
         />
-      </Route>
     </Routes>
   );
 };

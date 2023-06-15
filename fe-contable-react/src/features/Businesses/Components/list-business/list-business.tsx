@@ -11,18 +11,18 @@ export const ListBusiness = (props: IBusiness) => {
     BusinessServices.BusinessQueryServices.FindUserBusiness,
     );
   console.log(data)
-    const [shouldRefetch, setShouldRefetch] = useState(false);
+  //  const [shouldRefetch, setShouldRefetch] = useState(false);
 
-    const [MutateFuncion] = useMutation(
-      BusinessServices.BusinessMutationServices.DeleteBusiness
-    );
+   // const [MutateFuncion] = useMutation(
+  //    BusinessServices.BusinessMutationServices.DeleteBusiness
+   // );
 
     useEffect(() => {
-      if (shouldRefetch) {
+    //  if (shouldRefetch) {
         refetch();
-        setShouldRefetch(false);
-      }
-    }, [shouldRefetch, refetch]);
+    //    setShouldRefetch(false);
+    //  }
+    }, []);
 /*
 const handleItemDelete = async (item: any) => {
       await MutateFuncion({ variables: { id: item } });

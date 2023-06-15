@@ -7,10 +7,18 @@ export const getSessionServices = () => {
   const auth = JSON.parse(localStorage.getItem("token") || "");
 
   if (auth !== "") {
-    console.log(true);
     return true;
   } else {
-    console.log(false);
     return false;
   }
 };
+export const getSessionBusiness = () => {
+  const authBusiness = JSON.parse(localStorage.getItem("business") || "");
+
+  if (authBusiness !== "") {
+    return true;
+  } else {
+    return false;
+  }
+
+}

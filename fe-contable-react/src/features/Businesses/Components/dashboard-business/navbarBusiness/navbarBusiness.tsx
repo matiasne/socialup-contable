@@ -121,7 +121,7 @@ export const NavbarBusiness = () => {
             <Tooltip title="Editar Perfil">
               <IconButton
                 onClick={handleOpenUserMenu}
-                href="/businesss"
+                href="/business"
                 sx={{ p: 0 }}
               >
                 <Avatar alt="P" src="/static/images/avatar/2.jpg" />
