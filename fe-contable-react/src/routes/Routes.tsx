@@ -13,20 +13,19 @@ import { PrivateRoute } from "./PrivateRoutes";
 import { ListBusiness } from "../features/Businesses/Components/list-business/list-business";
 import { FormBoxComponent } from "../features/Boxes/Components/form-box/formbox.component";
 import ItemProduct from "../features/products/components/item-product/itemProduct";
+import { DashboardBusiness } from "../features/Businesses/Components/dashboard-business/dashboard-business";
 
 export const AppRouter = () => {
   return (
     <Routes>
       {/*Rutas Publicas🔓   👇👇👇*/}
       <Route path="/login" element={<FormLogin />} />
-      <Route path="/register" element={<FormRegister />} />{" "}
-      <Route
-        path="/products"
-        element={<ItemProduct name={""} description={""} salePrice={""} />}
-      />{" "}
-      <Route path="/product" element={<FormProductComponent />} />
+      <Route path="/register" element={<FormRegister />} />
+      
+
       {/*Rutas privadas🔐   👇👇👇*/}
       <Route path="/" element={<PrivateRoute />}>
+      <Route path="/dashboard" element={<DashboardBusiness />} />
         <Route path="/business" element={<BusinessCreate />} />
         <Route path="/sale" element={<SaleCreate />} />
         <Route
