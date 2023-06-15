@@ -10,6 +10,7 @@ import { ListBox } from "../features/Boxes/Components/list-box/list-box";
 import { BusinessCreate } from "../pages/createBusiness/create-business.page";
 import FormProductComponent from "../features/products/components/form-product/formProduct";
 import { PrivateRoute } from "./PrivateRoutes";
+import { DashboardBusiness } from "../features/Businesses/Components/dashboard-business/dashboard-business";
 
 export const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRouter = () => {
       {/*Rutas Publicas🔓   👇👇👇*/}
       <Route path="/login" element={<FormLogin />} />
       <Route path="/register" element={<FormRegister />} />
+      <Route path="/dashboard" element={<DashboardBusiness />} />
 
       {/*Rutas privadas🔐   👇👇👇*/}
       <Route path="/" element={<PrivateRoute />}>
