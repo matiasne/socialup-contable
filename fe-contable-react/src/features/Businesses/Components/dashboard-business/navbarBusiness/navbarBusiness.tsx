@@ -119,7 +119,11 @@ export const NavbarBusiness = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Editar Perfil">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                href="/businesss"
+                sx={{ p: 0 }}
+              >
                 <Avatar alt="P" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
