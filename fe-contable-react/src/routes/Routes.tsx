@@ -1,4 +1,4 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Navigate, Route, Router, Routes } from "react-router-dom";
 import FormClient from "../features/Clients/components/form-client/formClient";
 import { ListProduct } from "../features/products/components/list-product/list-product";
 import { BoxCreate } from "../pages/createBox/create-box.page";
@@ -14,39 +14,80 @@ import { ListBusiness } from "../features/Businesses/Components/list-business/li
 import { FormBoxComponent } from "../features/Boxes/Components/form-box/formbox.component";
 import ItemProduct from "../features/products/components/item-product/itemProduct";
 import { DashboardBusiness } from "../features/Businesses/Components/dashboard-business/dashboard-business";
-import { getSessionBusiness, getSessionServices } from "../auth/services/authService";
+import {
+  getSessionBusiness,
+  getSessionServices,
+} from "../auth/services/authService";
 
 export const AppRouter = () => {
-
   const session = getSessionServices();
   const business = getSessionBusiness();
-  
-  return (
-    <Routes>
-      {/*Rutas Publicas🔓   👇👇👇*/}
-      <Route path="/login" element={<FormLogin />} />
-      <Route path="/register" element={<FormRegister />} />
-      
 
-      {/*Rutas privadas🔐   👇👇👇*/}
-      <Route path="/dashboard" element={session && business?<DashboardBusiness />:<ListBusiness name={""} phone={""} email={""} address={""} BusinessCategory={""} Image={""} touched={""} />} />
-        <Route path="/business" element={<BusinessCreate />} />
-        <Route path="/sale" element={<SaleCreate />} />
+  if (session) {
+    if (business) {
+      return (
+        <Routes>
+          <Route path="/dashboard" element={<DashboardBusiness />} />
+          <Route path="/business" element={<BusinessCreate />} />
+          <Route path="/sale" element={<SaleCreate />} />
+          <Route
+            path="/products"
+            element={<ListProduct name={""} description={""} salePrice={""} />}
+          />
+          <Route path="/dialogs" element={<Dialog />} />
+          <Route path="/Clients" element={<FormClient />} />
+          <Route
+            path="/listbusiness"
+            element={
+              <ListBusiness
+                name={""}
+                phone={""}
+                email={""}
+                address={""}
+                BusinessCategory={""}
+                Image={""}
+                touched={""}
+              />
+            }
+          />
+          <Route path="/box" element={<FormBoxComponent />} />
+          <Route
+            path="/listbox"
+            element={
+              <ListBox
+                name={""}
+                status={""}
+                actualAmount={""}
+                dailyAmount={""}
+              />
+            }
+          />
+        </Routes>
+      );
+    } else {
+      return (
         <Route
-          path="/products"
-          element={<ListProduct name={""} description={""} salePrice={""} />}
-        />
-
-        <Route path="/dialogs" element={<Dialog />} />
-        <Route path="/Clients" element={<FormClient />} />
-        <Route path="/listbusiness" element={<ListBusiness name={""} phone={""} email={""} address={""} BusinessCategory={""} Image={""} touched={""} />} />
-        <Route path="/box" element={<FormBoxComponent />} />
-        <Route
-          path="/listbox"
+          path="/listbusiness"
           element={
-            <ListBox name={""} status={""} actualAmount={""} dailyAmount={""} />
+            <ListBusiness
+              name={""}
+              phone={""}
+              email={""}
+              address={""}
+              BusinessCategory={""}
+              Image={""}
+              touched={""}
+            />
           }
         />
-    </Routes>
-  );
+      );
+    }
+  } else {
+    return (
+      <Routes>
+        <Route path="/login" element={<FormLogin />} />
+        <Route path="/register" element={<FormRegister />} />
+      </Routes>
+    );
+  }
 };
