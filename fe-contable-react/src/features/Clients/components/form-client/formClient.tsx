@@ -14,7 +14,7 @@ interface CustomProps {
   name: string;
 }
 
-export function FormClient() {
+export default function FormClient() {
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -253,4 +253,3 @@ export function FormClient() {
     </Box>
   );
 }
-export default FormClient;

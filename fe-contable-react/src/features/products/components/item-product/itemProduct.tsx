@@ -50,7 +50,6 @@ function ItemProduct(props: IProduct) {
         <DialogTitle>
           ¿Está seguro que desea eliminar este producto?
         </DialogTitle>
-
         <DialogActions>
           <Button
             variant="contained"

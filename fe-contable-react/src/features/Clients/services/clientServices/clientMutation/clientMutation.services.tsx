@@ -32,6 +32,32 @@ const createClient = gql`
   }
 `;
 
+const UpdateClient = gql`
+  mutation UpdateClient($id: String!, $name: String!, $email: String!) {
+    updateClient(_id: $id, name: $name, email: $email) {
+      address
+      name
+      image
+      city
+      email
+      phone
+      postCode
+      documentType
+      documentNumber
+      surname
+      id
+    }
+  }
+`;
+
+const DeleteClient = gql`
+  mutation UpdateClient($id: String!) {
+    deleteClient(_id: $id)
+  }
+`;
+
 export const ClientMutationServices = {
   createClient,
+  UpdateClient,
+  DeleteClient,
 };
