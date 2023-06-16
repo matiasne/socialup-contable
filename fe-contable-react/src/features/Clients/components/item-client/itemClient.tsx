@@ -4,6 +4,7 @@ import React, {
   Button,
   Dialog,
   DialogActions,
+  DialogContent,
   DialogTitle,
   IconButton,
   ListItemAvatar,
@@ -12,6 +13,7 @@ import React, {
 } from "@mui/material";
 import { IClient } from "../../models/client";
 import { MouseEventHandler, useState } from "react";
+import FormClient from "../form-client/formClient";
 
 function ItemClient(
   props: IClient & { setShouldRefetch: (value: boolean) => void }
@@ -27,6 +29,15 @@ function ItemClient(
     props.setShouldRefetch(true);
   };
 
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  const [clientData, setClientData] = useState(null);
+
+  const handleEdit = (client: any) => {
+    setIsEditDialogOpen(true);
+    setClientData(client);
+  };
+
   return (
     <>
       <ListItemAvatar>
@@ -38,7 +49,7 @@ function ItemClient(
           secondary={`email: ${props.email}, phone: ${props.phone}`}
         />
         <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="editar">
+          <IconButton edge="end" aria-label="editar" onClick={handleEdit}>
             <Edit />
           </IconButton>
           <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
@@ -66,6 +77,15 @@ function ItemClient(
             Eliminar
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog
+        open={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+      >
+        <DialogTitle>Editar Cliente</DialogTitle>
+        <DialogContent>
+          <FormClient />
+        </DialogContent>
       </Dialog>
     </>
   );
