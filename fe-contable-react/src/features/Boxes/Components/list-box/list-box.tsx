@@ -1,36 +1,57 @@
+import { useMutation, useQuery } from "@apollo/client";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
-import { IBox, IitemBox } from "../../models/box";
+import { BoxServices } from "../../Services/boxServices";
 import ItemBox from "../item-box/item-box";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { Alert, Box, Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { IiBox } from "../../models/box.interface";
 
-const caja: IitemBox[] = [
-  {
-    Name: "Producto 1",
-    ActualAmount: "1",
-  },
-  {
-    Name: "Producto 2",
-    ActualAmount: "2",
-  },
-  {
-    Name: "Producto 3",
-    ActualAmount: "3",
-  },
-];
 
-export const ListBox = () => {
-  const action = (item: IBox) => {
-    console.log(item);
+export const ListBox = (props:IiBox) => {
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { data, error, loading, refetch } = useQuery(
+    BoxServices.BoxQueryServices.Boxs
+  );
+  const [MutateFuncion] = useMutation(
+    BoxServices.BoxMutationServices.DeleteBox
+    
+  );
+  
+  const handleItemDelete = async (item: any) => {
+    await MutateFuncion({ variables: { id: item } });
+    
   };
-
+  
+ 
+  console.log(data)
   return (
+    
+    <>
+   
+     {!loading && data && data.findBox ? (
+      
+      
     <div>
+       
       <ListItems
-        items={caja}
-        renderItem={ItemBox}
-        handleItemClick={(item: IBox) => {
-          action(item);
+        items={data.findBox}
+        renderItem={(item:IiBox)=> <ItemBox {...item}/>}
+        handleItemClick={function(item: any): void{
+          console.log(item);
+          handleItemDelete(item.id);
+        
         }}
       ></ListItems>
     </div>
+     ): (
+      <div>
+        spinner
+      </div>
+)}
+    </>
+    
   );
 };
+
+
+export default ListBox;

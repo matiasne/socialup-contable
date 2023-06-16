@@ -9,13 +9,22 @@ import {
   SwitchProps,
   Grid,
   FormControlLabel,
+  Dialog,
+  Button,
+  DialogActions,
+  DialogTitle,
+  Alert,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IBox } from "../../models/box";
+import { useState, MouseEventHandler } from "react";
+import { IiBox } from "../../models/box.interface";
+import { useQuery } from "@apollo/client";
+import { BoxServices } from "../../Services/boxServices";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+))(({ theme }: any) => ({
   width: 42,
   height: 26,
   padding: 0,
@@ -64,24 +73,67 @@ const IOSSwitch = styled((props: SwitchProps) => (
   },
 }));
 
-function ItemBox(props: IBox) {
+function ItemBox(props: IiBox) {
+ 
+  const { data, error, loading, refetch } = useQuery(
+    BoxServices.BoxQueryServices.Boxs
+  );
+  const [showAlert, setShowAlert] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
+    setIsDeleteDialogOpen(true);
+  };
+  const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
+    setIsDeleteDialogOpen(false);
+    setShowAlert(true);
+    setTimeout(() => {
+      refetch();
+    }, 1000);
+    
+  };
+ 
   return (
     <>
+      {showAlert && <Alert severity="success" sx={{marginBottom:"50px"}}>Eliminado</Alert>}
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
       <ListItemText
-        primary={props.Name}
-        secondary={`Importe actual: ${props.ActualAmount}`}
+        primary={`Nombre: ${props.name}`}
+        secondary={`Importe : ${props.actualAmount}`}
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="editar">
           <Edit />
         </IconButton>
-        <IconButton edge="end" aria-label="eliminar">
+        <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
           <Delete />
         </IconButton>
       </ListItemSecondaryAction>
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+      >
+        <DialogTitle>
+          ¿Está seguro que desea eliminar esta caja?
+        </DialogTitle>
+
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => setIsDeleteDialogOpen(false)}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDeleteConfirmed}
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Grid container justifyContent="center" alignItems="center">
         <FormControlLabel
           control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}

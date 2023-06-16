@@ -1,7 +1,7 @@
 module.exports = `#graphql
   type Business {
-    user: User!
-    name: String!
+    user: User
+    name: String
     address: String
     category: String
     email: String
@@ -9,11 +9,14 @@ module.exports = `#graphql
     phone: String
     _id: ID!
     products: [Product]
+    client: [Client]
+    sale: [Sale]
+    box: [Box]
   }
 
   type Query {
-    findBusiness(user: String!): [Business],
-    findOneBusiness(id: ID!): Business,
+    findBusiness: [Business],
+    findOneBusiness(id: ID, name: String): Business,
     
   }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -16,7 +16,7 @@ import { Card, CircularProgress } from "@mui/material";
 import { UserServices } from "../../shared/services/userServices/userServices";
 import { useMutation } from "@apollo/client/react";
 import { useForm } from "react-hook-form";
-import { setSessionService } from "../../auth/services/session.service";
+import { getSessionServices, setSessionService } from "../../auth/services/session.service";
 
 interface FormData {
   Email: string;
@@ -34,6 +34,25 @@ export const FormLogin = () => {
     UserServices.UserMutationServices.login
   );
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("http://localhost:4000/", {
+  //       headers: {
+  //         // Agrega aquí los headers que necesites enviar
+  //         Authorization: getSessionServices("token"),
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const data = await response.json();
+  //     // Hacer algo con los datos de la respuesta si es necesario
+  //   };
+
+  //   fetchData();
+  // }, []); // El segundo argumento [] significa que solo se ejecutará una vez al cargar la página
+
+
+
   if (loading)
     return (
       <div>
@@ -47,7 +66,6 @@ export const FormLogin = () => {
   }
   if (data) {
     setSessionService("token", data.login.value);
-    setSessionService("user", data.login.id);
   }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

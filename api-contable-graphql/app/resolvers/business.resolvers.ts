@@ -2,14 +2,17 @@ import Business from "../schema/business";
 import Product from "../schema/product";
 import Client from "../schema/client";
 import User from "../schema/user";
+import Sale from "../schema/sale";
+import Box from "../schema/box";
 import { GraphQLError } from "graphql";
 import { UserInputError } from "apollo-server-core";
 
 module.exports = {
   Query: {
-    findBusiness: async (root: any, args: any) => {
-      const user = args.user;
-      return await Business.find({ user: user });
+    findBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+
+      return await Business.find();
     },
     findOneBusiness: async (root: any, args: any) => {
       const idBusiness = args.id;
@@ -23,11 +26,19 @@ module.exports = {
     products: async (business: any) => {
       return await Product.find({ business: business._id });
     },
+    client: async (business: any) => {
+      return await Client.find({ business: business._id });
+    },
+    box: async (business: any) => {
+      return await Box.find({ business: business._id });
+    },
+    sale: async (business: any) => {
+      return await Sale.find({ business: business._id });
+    },
   },
   Mutation: {
     //create our mutation:
     addBusiness: async (root: any, args: any) => {
-      console.log(args._id);
       const user = await User.findById(args.user);
       const business = new Business({
         user: user,

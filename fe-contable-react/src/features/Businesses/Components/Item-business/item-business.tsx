@@ -9,22 +9,25 @@ import React, {
 import { IBusiness } from "../../models/business";
 
 function ItemBusiness(props: IBusiness) {
+
   return (
     <>
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
       <ListItemText
-        primary={props.BusinessName}
-        secondary={`email: ${props.Mail},phone: ${props.Phone}, address: ${props.Address}`}
+        primary={props.name}
+        secondary={`email: ${props.email},phone: ${props.phone}, address: ${props.address}`}
       />
       <ListItemSecondaryAction>
+
         <IconButton edge="end" aria-label="editar">
           <Edit />
         </IconButton>
         <IconButton edge="end" aria-label="eliminar">
           <Delete />
         </IconButton>
+
       </ListItemSecondaryAction>
     </>
   );

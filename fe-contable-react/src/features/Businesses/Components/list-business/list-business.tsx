@@ -1,43 +1,49 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
-import { IBusiness, IiBusiness } from "../../models/business";
+import { IBusiness} from "../../models/business";
+import { useMutation, useQuery } from "@apollo/client";
+import { BusinessServices } from "../../services/businessServices";
 import ItemBusiness from "../Item-business/item-business";
+import { setSessionService } from "../../../../auth/services/session.service";
 
-const business: IiBusiness[] = [
-  {
-    BusinessName: "nombre",
-    Mail: "mail",
-    Phone: "telefono",
-    Address: "direccion",
-  },
-  {
-    BusinessName: "nombre",
-    Mail: "mail",
-    Phone: "telefono",
-    Address: "direccion",
-  },
-  {
-    BusinessName: "nombre",
-    Mail: "mail",
-    Phone: "telefono",
-    Address: "direccion",
-  },
-];
+export const ListBusiness = (props: IBusiness) => {
+  const { data, error, loading, refetch } = useQuery(
+    BusinessServices.BusinessQueryServices.FindUserBusiness,
+    );
+  console.log(data)
+  //  const [shouldRefetch, setShouldRefetch] = useState(false);
 
-export const ListClient = () => {
-  const action = (item: IBusiness) => {
-    console.log(item);
-  };
+   // const [MutateFuncion] = useMutation(
+  //    BusinessServices.BusinessMutationServices.DeleteBusiness
+   // );
+
+    useEffect(() => {
+    //  if (shouldRefetch) {
+        refetch();
+    //    setShouldRefetch(false);
+    //  }
+    }, []);
+/*
+const handleItemDelete = async (item: any) => {
+      await MutateFuncion({ variables: { id: item } });
+    };
+*/
+const handleSelectBusiness = (item: any) => {
+      setSessionService("business", item._id)
+    };
 
   return (
-    <div>
-      <ListItems
-        items={business}
-        renderItem={ItemBusiness}
-        handleItemClick={(item: IBusiness) => {
-          action(item);
-        }}
-      ></ListItems>
-    </div>
+    <>
+      {!loading &&data &&data.findUserBusiness?(
+        <div>
+          <ListItems
+            items={data.findUserBusiness}
+            renderItem={(item: IBusiness) => <ItemBusiness {...item} />}
+            handleItemClick={handleSelectBusiness}
+          ></ListItems>
+        </div>) : (<div>spinner</div>)}
+  </>
   );
 };
+export default ListBusiness;
+

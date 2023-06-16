@@ -2,6 +2,7 @@ import User from "../schema/user";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
 import Business from "../schema/business";
+import Product from "../schema/product";
 
 module.exports = {
   Query: {
@@ -10,15 +11,23 @@ module.exports = {
     },
     findOneUser: async (root: any, args: any) => {
       const idUser = args.id;
-
       const user = await User.findById(idUser);
-
       return user;
+    },
+    findUserBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+      const business = await Business.find({ user: context.user.id });
+      return business;
     },
   },
   User: {
-    business: async (user: any) => {
-      return await Business.find({ user: user._id });
+    business: async (_: any, _args: any, context: any) => {
+      return await Business.find({ user: context.user.id });
+    },
+  },
+  Business: {
+    products: async (business: any) => {
+      return await Product.find({ business: business._id });
     },
   },
   Mutation: {
@@ -56,10 +65,9 @@ module.exports = {
 
       const userForToken = {
         email: user.email,
-        password: user.password,
         id: user._id,
       };
-
+      console.log(userForToken);
       return {
         value: jwt.sign(userForToken, "SOCIALUP"),
         id: user._id,
@@ -73,12 +81,12 @@ module.exports = {
       }
       const user = await User.findOne({
         email: decodedToken.email,
-        password: decodedToken.password,
+        id: decodedToken.id,
       });
       if (!user) {
         throw new GraphQLError("Invalid token or user not found");
       }
-      return "SEEEE";
+      return "Token Ok";
     },
   },
 };

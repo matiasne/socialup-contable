@@ -1,18 +1,13 @@
-//import { ApolloServer } from "apollo-server-express";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import jwt from "jwt-simple";
-//import { rule, shield, and, or, not } from "graphql-shield";
-
-//import express from "express";
-//import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
-//import http from "http";
-
 import mongoose from "mongoose";
 import "dotenv/config";
-
 import typesDefs from "./typeDefs";
 import resolvers from "./Resolvers";
+import { GraphQLError } from "graphql/error/GraphQLError";
+import { ApolloError } from "apollo-server-core";
+import { createServer } from "http";
 
 // console.log(process.env.DB_TDB +"://" + process.env.DB_USER +":" + process.env.DB_PWD +"@" + process.env.DB_HOST +":" + process.env.DB_PORT +"/" + process.env.DB_NAME);
 mongoose.set("strictQuery", true);
@@ -33,33 +28,60 @@ mongoose.connect(
   }
 );
 
+interface UserInterface {
+  id: string;
+  email: string;
+}
+
+interface MyContext {
+  // we'd define the properties a user should have
+  // in a separate user interface (e.g., email, id, url, etc.)
+  user: UserInterface;
+}
+
 async function startApolloServer() {
-  //  const app = express();
-  //  const httpServer = http.createServer(app);
-
-  //  dotenv.config({
-  //    path: path.resolve(__dirname, process.env.NODE_ENV + ".env")
-  //  });
-
   const server = new ApolloServer<any>({
     typeDefs: typesDefs,
     resolvers: resolvers,
-    csrfPrevention: false,
+    /*   formatError: (error) => {
+      // Si el error es una instancia de ApolloError, se envía al cliente con el código de estado HTTP correcto
+      if (error instanceof ApolloError) {
+        return error;
+      }
+
+      // Si el error es "Invalid token", se responde con un error de autenticación (401)
+      if (error.message === "Invalid token") {
+        return new ApolloError("Invalid token", "UNAUTHENTICATED");
+      }
+
+      // En otros casos, se responde con un error genérico (500)
+      return new ApolloError("Internal server error", "INTERNAL_SERVER_ERROR");
+    },*/
   });
 
   const { url } = await startStandaloneServer<any>(server, {
-    context: ({ req, res }): any => {
-      // Get the user token from the headers.
+    context: async ({ req, res }: { req: any; res: any }) => {
+      if (req.body.query.match("login")) {
+        return;
+      }
+      if (req.body.query.match("CreateUser")) {
+        return;
+      
+      }
+
       const token = req.headers.authorization || "";
-      //      if (!token) return { error: "Acceso denegado" };
-      //      try {
-      //        const verified = jwt.decode(token, process.env.SECRET || "");
-      //        console.log(verified);
-      //        return verified;
-      //      } catch (error) {
-      //        return error;
-      //        console.log(error);
-      //      }
+
+      try {
+        const decodedToken = jwt.decode(token, "SOCIALUP");
+        return { user: decodedToken };
+      } catch (e) {
+        throw new GraphQLError("User is not authenticated", {
+          extensions: {
+            code: "UNAUTHENTICATED",
+            http: { status: 401 },
+          },
+        });
+      }
     },
   });
 

@@ -16,17 +16,18 @@ import {
 import { useForm } from "react-hook-form";
 import { IBox } from "../../models/box";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BoxMutationServices } from "../../Services/boxMutation/boxMutation.service";
 import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Alert from "../../../../shared/Components/alert/alert";
+
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+))(({ theme }: any) => ({
   width: 42,
   height: 26,
   padding: 0,
@@ -80,6 +81,7 @@ export const FormBoxComponent = () => {
   const [img, setImg] = React.useState("");
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
@@ -87,15 +89,15 @@ export const FormBoxComponent = () => {
     setValue,
     formState: { errors },
   } = useForm<IBox>({
-    defaultValues:{
+    defaultValues: {
       Name: "",
       Status: "",
       ActualAmount: "",
       DailyAmount: "",
-      Image: ""
-    }
-  }
-  );
+      Image: "",
+    },
+  });
+
  
    const { id } = useParams();
    const [mutateFunction] = useMutation(
@@ -104,7 +106,7 @@ export const FormBoxComponent = () => {
       : BoxMutationServices.CreateBox
   );
    
-  const { data, loading, error } = useQuery(
+  const { data, loading, error,  } = useQuery(
     
     BoxQueryServices.FindOnebox,
     {
@@ -116,26 +118,26 @@ export const FormBoxComponent = () => {
   
   //   console.log(error)
 
-  useEffect(()=>{
-    console.log(data)
+  useEffect(() => {
+    console.log(data);
     if (data) {
       setValue("Name", data.findOne.name);
       setValue("Status", data.findOneBox.status);
       setValue("ActualAmount", data.findOneBox.ActualAmount);
-      setValue("DailyAmount", data.findOneBox.DailyAmount)
-    } 
-   },[data])
+      setValue("DailyAmount", data.findOneBox.DailyAmount);
+    }
+  }, [data]);
 
-   if (loading) {
+  if (loading) {
     return <></>;
   }
 
   const onSubmit = handleSubmit(async (values: any) => {
-    console.log(values)
+    console.log(values);
     mutateFunction({
      variables: {
        id: id ? id : null,
-       business: "6421e06b5b7fc46f1e1a58d6",
+       business: "647f81a3512fbb2905d7f447",
        name: values.Name,
        status: values.status,
        ActualAmount: values.actualamount,
@@ -144,17 +146,17 @@ export const FormBoxComponent = () => {
      },
    });
    setShowAlert(true);
+   formRef.current?.reset();
    setTimeout(() => {
-    navigate('/ListBox');
-  }, 2000);
+    setShowAlert(false);
+  }, 1000);
   
  });
 
 
   return (
-   
     <div>
-       {showAlert && <Alert Title={"Éxito"} Descriptions={"Caja creada"} Severity={"success"}></Alert>}
+       {showAlert && <Alert Title={"Exitos"} Descriptions={"Caja Creada"} Severity={"success"}></Alert>}
     <Box
       component="form"
       sx={{
@@ -164,6 +166,7 @@ export const FormBoxComponent = () => {
         minHeight: "10vh",
       }}
       onSubmit={onSubmit}
+      ref={formRef}
     >
       <Card sx={{ p: 1 }}>
         <FormControl>
@@ -173,70 +176,70 @@ export const FormBoxComponent = () => {
             }}
             defaultImage={id ? data.findOneBox.image : imageBase64}
           /> */}
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
-            Crear Caja
-          </Typography>
-          <TextField
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Name"
-            sx={{ m: 1, width: "25ch" }}
-            type="text"
-            {...register("Name", {
-              required: true,
-              minLength: 2,
-            })}
-            {...(errors.Name?.type === "required" && {
-              helperText: "Campo obligatorio",
-              error: true,
-            })}
-            {...(errors.Name?.type === "minLength" && {
-              helperText: "El nombre es demasiado corto",
-              error: true,
-            })}
-          />
-          <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
-              ),
-            }}
-            label="Monto inicial"
-            sx={{ m: 1, width: "25ch" }}
-            type="number"
-            {...register("ActualAmount", {
-              required: true,
-              minLength: 2,
-            })}
-            {...(errors.ActualAmount?.type === "required" && {
-              helperText: "Campo obligatorio",
-              error: true,
-            })}
-            {...(errors.ActualAmount?.type === "minLength" && {
-              helperText: "El nombre es demasiado corto",
-              error: true,
-            })}
-          />
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            sx={{ p: "3%" }}
-          >
-            <Button onClick={onSubmit} variant="contained">
-              Submit
-            </Button>
-          </Grid>
-          <Grid container justifyContent="center" alignItems="center">
-            <FormControlLabel
-              control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-              label="Open"
+            <Typography variant="h3" sx={{ textAlign: "center" }}>
+              Crear Caja
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label="Name"
+              sx={{ m: 1, width: "25ch" }}
+              type="text"
+              {...register("Name", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.Name?.type === "required" && {
+                helperText: "Campo obligatorio",
+                error: true,
+              })}
+              {...(errors.Name?.type === "minLength" && {
+                helperText: "El nombre es demasiado corto",
+                error: true,
+              })}
             />
-          </Grid>
-        </FormControl>
-      </Card>
-    </Box>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
+              label="Monto inicial"
+              sx={{ m: 1, width: "25ch" }}
+              type="number"
+              {...register("ActualAmount", {
+                required: true,
+                minLength: 2,
+              })}
+              {...(errors.ActualAmount?.type === "required" && {
+                helperText: "Campo obligatorio",
+                error: true,
+              })}
+              {...(errors.ActualAmount?.type === "minLength" && {
+                helperText: "El nombre es demasiado corto",
+                error: true,
+              })}
+            />
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{ p: "3%" }}
+            >
+              <Button onClick={onSubmit} variant="contained">
+                Submit
+              </Button>
+            </Grid>
+            <Grid container justifyContent="center" alignItems="center">
+              <FormControlLabel
+                control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+                label="Open"
+              />
+            </Grid>
+          </FormControl>
+        </Card>
+      </Box>
     </div>
   );
 };
