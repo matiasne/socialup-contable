@@ -20,10 +20,6 @@ export const AppRouter = () => {
       {/*Rutas Publicas🔓   👇👇👇*/}
       <Route path="/login" element={<FormLogin />} />
       <Route path="/register" element={<FormRegister />} />{" "}
-      <Route
-        path="/products"
-        element={<ItemProduct name={""} description={""} salePrice={""} />}
-      />{" "}
       <Route path="/product" element={<FormProductComponent />} />
       {/*Rutas privadas🔐   👇👇👇*/}
       <Route path="/" element={<PrivateRoute />}>
@@ -36,7 +32,20 @@ export const AppRouter = () => {
 
         <Route path="/dialogs" element={<Dialog />} />
         <Route path="/Clients" element={<FormClient />} />
-        <Route path="/listbusiness" element={<ListBusiness name={""} Phone={""} Mail={""} Address={""} BusinessCategory={""} Image={""} touched={""} />} />
+        <Route
+          path="/listbusiness"
+          element={
+            <ListBusiness
+              name={""}
+              Phone={""}
+              Mail={""}
+              Address={""}
+              BusinessCategory={""}
+              Image={""}
+              touched={""}
+            />
+          }
+        />
         <Route
           path="/listbusiness"
           element={
