@@ -44,10 +44,9 @@ function ItemProduct(props: IProduct) {
     toastShow({
       message: "El poducto ha sido eliminado correctamente",
       severity: "success",
+      duration: 5000,
     });
-    setTimeout(() => {
-      refetch();
-    }, 20);
+    refetch();
   };
   return (
     <Card sx={{ maxWidth: 400 }}>
