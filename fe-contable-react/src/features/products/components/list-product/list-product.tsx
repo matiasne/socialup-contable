@@ -12,13 +12,6 @@ export const ListProduct = (props: IProduct) => {
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
-  const [MutateFuncion] = useMutation(
-    ProductService.ProductMutationServices.DeleteProducts
-  );
-
-  const handleItemDelete = async (item: any) => {
-    await MutateFuncion({ variables: { id: item } });
-  };
 
   return (
     <>
@@ -28,7 +21,7 @@ export const ListProduct = (props: IProduct) => {
           renderItem={(item: IProduct) => <ItemProduct {...item} />}
           handleItemClick={function (item: any): void {
             console.log(item);
-            handleItemDelete(item.id);
+            //  handleItemDelete(item.id);
           }}
         ></ListItemsGrid>
       ) : (

@@ -21,7 +21,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
 import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ProductService } from "../../productsService/productsService";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
@@ -31,6 +31,14 @@ function ItemProduct(props: IProduct) {
   );
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const [MutateFuncion] = useMutation(
+    ProductService.ProductMutationServices.DeleteProducts
+  );
+
+  const handleEdit = async () => {
+    await MutateFuncion({ variables: { id: props.id } });
+  };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(true);
@@ -49,53 +57,55 @@ function ItemProduct(props: IProduct) {
     refetch();
   };
   return (
-    <Card sx={{ maxWidth: 400 }}>
-      <CardActionArea>
-        <CardMedia component="img" height="140" image="" alt="Product" />
-      </CardActionArea>
-      <CardContent>
-        <ListItemText primary={props.name} />
-        <ListItemText secondary={`Precio: ${props.salePrice}`} />{" "}
-        <ListItemText secondary={`Descripcion: ${props.description}`} />
-      </CardContent>
-      <CardActions>
-        <IconButton edge="end" aria-label="editar" size="medium">
-          <Edit />
-        </IconButton>
-        <IconButton
-          edge="end"
-          aria-label="eliminar"
-          onClick={handleDelete}
-          size="medium"
-        >
-          <Delete />
-        </IconButton>{" "}
-        <Dialog
-          open={isDeleteDialogOpen}
-          onClose={() => setIsDeleteDialogOpen(false)}
-        >
-          <DialogTitle>
-            ¿Está seguro que desea eliminar este producto?
-          </DialogTitle>
+    <>
+      <Card sx={{ maxWidth: 400 }}>
+        <CardActionArea>
+          <CardMedia component="img" height="140" image="" alt="Product" />
+        </CardActionArea>
+        <CardContent>
+          <ListItemText primary={props.name} />
+          <ListItemText secondary={`Precio: ${props.salePrice}`} />{" "}
+          <ListItemText secondary={`Descripcion: ${props.description}`} />
+        </CardContent>
+        <CardActions>
+          <IconButton aria-label="editar" size="medium" onClick={handleEdit}>
+            <Edit />
+          </IconButton>
+          <IconButton
+            aria-label="eliminar"
+            onClick={handleDelete}
+            size="medium"
+          >
+            <Delete />
+          </IconButton>{" "}
+        </CardActions>
+      </Card>
 
-          <DialogActions>
-            <Button
-              variant="contained"
-              onClick={() => setIsDeleteDialogOpen(false)}
-            >
-              Cancelar
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleDeleteConfirmed}
-            >
-              Eliminar
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </CardActions>
-    </Card>
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+      >
+        <DialogTitle>
+          ¿Está seguro que desea eliminar este producto?
+        </DialogTitle>
+
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => setIsDeleteDialogOpen(false)}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDeleteConfirmed}
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
