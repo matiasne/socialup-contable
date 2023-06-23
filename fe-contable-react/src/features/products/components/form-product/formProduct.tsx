@@ -6,17 +6,20 @@ import { IProduct } from "../../models/product";
 import ItemProduct from "../item-product/itemProduct";
 import { Refresh } from "@mui/icons-material";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
 export const FormProductComponent = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<IProduct>();
   const [mutateFunction] = useMutation(
     ProductService.ProductMutationServices.AddProduct
   );
+  const { toastShow } = useToast();
 
   const onSubmit = handleSubmit((values: any) => {
     console.log(values);
@@ -30,6 +33,12 @@ export const FormProductComponent = () => {
         salePrice: values.SalePrice,
         image: values.Image,
       },
+    });
+    reset();
+    toastShow({
+      message: "El producto se cargo correctamente",
+      severity: "success",
+      duration: 5000,
     });
   });
 
