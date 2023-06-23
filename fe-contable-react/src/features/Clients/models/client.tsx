@@ -11,4 +11,5 @@ export interface IClient {
   documentType?: string;
   documentNumber?: string;
   surname?: string;
+  setShouldRefetch?: any;
 }

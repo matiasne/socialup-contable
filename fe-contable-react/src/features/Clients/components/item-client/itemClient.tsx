@@ -1,4 +1,4 @@
-import { Delete, Edit, Refresh } from "@mui/icons-material";
+import { Delete, Edit, Refresh, RefreshOutlined } from "@mui/icons-material";
 import React, {
   Avatar,
   Button,
@@ -13,12 +13,18 @@ import React, {
 } from "@mui/material";
 import { IClient } from "../../models/client";
 import { MouseEventHandler, useState } from "react";
-import FormClient from "../form-client/formClient";
+import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
+import { useQuery } from "@apollo/client";
+import { ClientServices } from "../../services/clientServices";
 
-function ItemClient(
-  props: IClient & { setShouldRefetch: (value: boolean) => void }
-) {
+function ItemClient(props: IClient) {
+  const { data, error, loading, refetch } = useQuery(
+    ClientServices.QueryClientService.clients
+  );
+  const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [clientData, setClientData] = useState<IClient>();
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(true);
@@ -26,14 +32,13 @@ function ItemClient(
 
   const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(false);
-    props.setShouldRefetch(true);
+    setShowAlert(true);
+    setTimeout(() => {
+      refetch();
+    }, 1000);
   };
 
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-
-  const [clientData, setClientData] = useState(null);
-
-  const handleEdit = (client: any) => {
+  const handleEdit = (client: IClient) => {
     setIsEditDialogOpen(true);
     setClientData(client);
   };
@@ -49,7 +54,11 @@ function ItemClient(
           secondary={`email: ${props.email}, phone: ${props.phone}`}
         />
         <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="editar" onClick={handleEdit}>
+          <IconButton
+            edge="end"
+            aria-label="editar"
+            onClick={() => handleEdit(props)}
+          >
             <Edit />
           </IconButton>
           <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
@@ -57,36 +66,15 @@ function ItemClient(
           </IconButton>
         </ListItemSecondaryAction>
       </>
-      <Dialog
-        open={isDeleteDialogOpen}
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
-      >
-        <DialogTitle>¿Está seguro que desea eliminar este cliente?</DialogTitle>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => setIsDeleteDialogOpen(false)}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleDeleteConfirmed}
-          >
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        open={isEditDialogOpen}
-        onClose={() => setIsEditDialogOpen(false)}
-      >
-        <DialogTitle>Editar Cliente</DialogTitle>
-        <DialogContent>
-          <FormClient />
-        </DialogContent>
-      </Dialog>
+        onConfirm={handleDeleteConfirmed}
+        title="¿Está seguro que desea eliminar este producto?"
+        message="Se eliminara de forma permanente "
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+      />
     </>
   );
 }
