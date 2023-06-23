@@ -16,7 +16,20 @@ module.exports = {
     },
     findUserBusiness: async (_: any, _args: any, context: any) => {
       console.log("user", context.user.id);
-      const business = await Business.find({ user: context.user.id });
+      console.log(_args.pageCount);
+      console.log(_args.perPage);
+
+      const offset = (_args.pageCount - 1) * _args.perPage;
+
+      //console.log(pageCount, perPage);
+
+      const business = await Business.find({
+        user: context.user.id,
+        name: new RegExp(_args.searchWord, "i"),
+      })
+        .skip(offset)
+        .limit(_args.perPage)
+        .exec();
       return business;
     },
   },
