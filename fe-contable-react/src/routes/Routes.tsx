@@ -18,6 +18,7 @@ import {
   getSessionBusiness,
   getSessionServices,
 } from "../auth/services/authService";
+import ListClient from "../features/Clients/components/list-client/listClient";
 
 export const AppRouter = () => {
   const session = getSessionServices();
@@ -28,14 +29,24 @@ export const AppRouter = () => {
       return (
         <Routes>
           <Route path="/dashboard" element={<DashboardBusiness />} />
-          <Route path="/business" element={<BusinessCreate />} />
           <Route path="/sale" element={<SaleCreate />} />
+          <Route path="/Client" element={<FormClient />} />
           <Route
             path="/products"
             element={<ListProduct name={""} description={""} salePrice={""} />}
           />
           <Route path="/dialogs" element={<Dialog />} />
-          <Route path="/Clients" element={<FormClient />} />
+          <Route
+            path="/Clients"
+            element={
+              <ListClient
+                name={""}
+                image={undefined}
+                email={""}
+                idBusinnes={""}
+              />
+            }
+          />
           <Route
             path="/listbusiness"
             element={
@@ -66,20 +77,23 @@ export const AppRouter = () => {
       );
     } else {
       return (
-        <Route
-          path="/listbusiness"
-          element={
-            <ListBusiness
-              name={""}
-              phone={""}
-              email={""}
-              address={""}
-              BusinessCategory={""}
-              Image={""}
-              touched={""}
-            />
-          }
-        />
+        <Routes>
+          <Route
+            path="/listbusiness"
+            element={
+              <ListBusiness
+                name={""}
+                phone={""}
+                email={""}
+                address={""}
+                BusinessCategory={""}
+                Image={""}
+                touched={""}
+              />
+            }
+          />
+          <Route path="/business" element={<BusinessCreate />} />;
+        </Routes>
       );
     }
   } else {

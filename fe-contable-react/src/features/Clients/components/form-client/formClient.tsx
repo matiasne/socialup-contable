@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { IClient } from "../../models/client";
@@ -9,21 +9,39 @@ import { useMutation } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
-
-export default function FormClient() {
+export default function FormClient(props: any) {
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
-
+  console.log(props.client);
   const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<IClient>();
+  } = useForm<IClient>({
+    defaultValues: {
+      name: "",
+      image: "",
+      city: "",
+      address: "",
+      email: "",
+      phone: "",
+      idBusinnes: "",
+      postCode: "",
+      documentType: "",
+      documentNumber: "",
+      surname: "",
+    },
+  });
+  useEffect(() => {
+    if (props.client) {
+      if (props && props.client) {
+        setValue("name", props.client.name);
+        setValue("surname", props.client.surname);
+      }
+    }
+  }, [props.client]);
+
   const [mutateFunction, { loading, error, data }] = useMutation(
     ClientServices.ClientMutationServices.createClient
   );
