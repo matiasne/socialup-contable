@@ -27,7 +27,6 @@ export const AppRouter = () => {
     if (business) {
       return (
         <Routes>
-          <Route path="/dashboard" element={<DashboardBusiness />} />
           <Route path="/business" element={<BusinessCreate />} />
           <Route path="/sale" element={<SaleCreate />} />
           <Route
@@ -66,20 +65,23 @@ export const AppRouter = () => {
       );
     } else {
       return (
-        <Route
-          path="/listbusiness"
-          element={
-            <ListBusiness
-              name={""}
-              phone={""}
-              email={""}
-              address={""}
-              BusinessCategory={""}
-              Image={""}
-              touched={""}
-            />
-          }
-        />
+        <Routes>
+          <Route path="/dashboard" element={<DashboardBusiness />} />
+          <Route
+            path="/listbusiness"
+            element={
+              <ListBusiness
+                name={""}
+                phone={""}
+                email={""}
+                address={""}
+                BusinessCategory={""}
+                Image={""}
+                touched={""}
+              />
+            }
+          />
+        </Routes>
       );
     }
   } else {
