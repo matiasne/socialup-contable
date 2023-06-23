@@ -32,12 +32,12 @@ function ItemProduct(props: IProduct) {
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const [MutateFuncion] = useMutation(
+  const [MutateFuncioDelete] = useMutation(
     ProductService.ProductMutationServices.DeleteProducts
   );
 
   const handleEdit = async () => {
-    await MutateFuncion({ variables: { id: props.id } });
+    //await MutateFuncion({ variables: { id: props.id } });
   };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
@@ -46,9 +46,12 @@ function ItemProduct(props: IProduct) {
 
   const { toastShow } = useToast();
 
-  const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
+  const handleDeleteConfirmed: MouseEventHandler<
+    HTMLButtonElement
+  > = async () => {
     setIsDeleteDialogOpen(false);
     setShowAlert(true);
+    await MutateFuncioDelete({ variables: { id: props.id } });
     toastShow({
       message: "El poducto ha sido eliminado correctamente",
       severity: "success",
