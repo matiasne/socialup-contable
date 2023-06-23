@@ -11,7 +11,8 @@ export const ListBusiness = (props: IBusiness) => {
     BusinessServices.BusinessQueryServices.FindUserBusiness,{
       variables:{
         pageCount: 1,
-        perPage: 7,
+        perPage: 10,
+        searchWord: "pru"
       }
     }
     );

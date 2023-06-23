@@ -15,8 +15,8 @@ const FindBusiness = gql`
 `;
 
 const FindUserBusiness = gql`
-query FindUserBusiness($findUserBusinessId: ID, $pageCount: Int, $perPage: Int) {
-  findUserBusiness(id: $findUserBusinessId, pageCount: $pageCount, perPage: $perPage) {
+query FindUserBusiness($findUserBusinessId: ID, $pageCount: Int, $perPage: Int, $searchWord: String) {
+  findUserBusiness(id: $findUserBusinessId, pageCount: $pageCount, perPage: $perPage,searchWord: $searchWord) {
     name
     address
     category
