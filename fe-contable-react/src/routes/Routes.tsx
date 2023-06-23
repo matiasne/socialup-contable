@@ -35,6 +35,9 @@ export const AppRouter = () => {
             path="/products"
             element={<ListProduct name={""} description={""} salePrice={""} />}
           />
+          <Route path="/product"
+            element={<FormProductComponent />}
+          />
           <Route path="/dialogs" element={<Dialog />} />
           <Route
             path="/Clients"
