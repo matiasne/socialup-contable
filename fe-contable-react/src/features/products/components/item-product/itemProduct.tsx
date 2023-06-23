@@ -5,50 +5,106 @@ import {
   ListItemSecondaryAction,
   IconButton,
   ListItemText,
+  CardContent,
+  Typography,
+  Card,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  Box,
+  CardActionArea,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
 import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
+import { useMutation, useQuery } from "@apollo/client";
+import { ProductService } from "../../productsService/productsService";
+import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
 function ItemProduct(props: IProduct) {
+  const { data, error, loading, refetch } = useQuery(
+    ProductService.ProductsQueryService.products
+  );
+  const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const [MutateFuncion] = useMutation(
+    ProductService.ProductMutationServices.DeleteProducts
+  );
+
+  const handleEdit = async () => {
+    await MutateFuncion({ variables: { id: props.id } });
+  };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(true);
   };
 
+  const { toastShow } = useToast();
+
   const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(false);
+    setShowAlert(true);
+    toastShow({
+      message: "El poducto ha sido eliminado correctamente",
+      severity: "success",
+      duration: 5000,
+    });
+    refetch();
   };
-
   return (
     <>
-      <ListItemAvatar>
-        <Avatar />
-      </ListItemAvatar>
-      <>
-        <ListItemText
-          primary={props.name}
-          secondary={`Precio: ${props.salePrice} Descripcion: ${props.description}`}
-        />
-        <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="editar">
+      <Card sx={{ maxWidth: 400 }}>
+        <CardActionArea>
+          <CardMedia component="img" height="140" image="" alt="Product" />
+        </CardActionArea>
+        <CardContent>
+          <ListItemText primary={props.name} />
+          <ListItemText secondary={`Precio: ${props.salePrice}`} />{" "}
+          <ListItemText secondary={`Descripcion: ${props.description}`} />
+        </CardContent>
+        <CardActions>
+          <IconButton aria-label="editar" size="medium" onClick={handleEdit}>
             <Edit />
           </IconButton>
-          <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
+          <IconButton
+            aria-label="eliminar"
+            onClick={handleDelete}
+            size="medium"
+          >
             <Delete />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </>
-      <DeleteDialog
-        isOpen={isDeleteDialogOpen}
+          </IconButton>{" "}
+        </CardActions>
+      </Card>
+
+      <Dialog
+        open={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={handleDeleteConfirmed}
-        title="¿Está seguro que desea eliminar este producto?"
-        message="Se eliminara de forma permanente "
-        confirmText="Eliminar"
-        cancelText="Cancelar"
-      />
+      >
+        <DialogTitle>
+          ¿Está seguro que desea eliminar este producto?
+        </DialogTitle>
+
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => setIsDeleteDialogOpen(false)}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDeleteConfirmed}
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
