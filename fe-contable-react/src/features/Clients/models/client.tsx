@@ -1,5 +1,5 @@
 export interface IClient {
-  _id?: string;
+  id?: string;
   name: string;
   image: any;
   city?: string;
@@ -11,5 +11,4 @@ export interface IClient {
   documentType?: string;
   documentNumber?: string;
   surname?: string;
-  setShouldRefetch?: any;
 }

@@ -9,9 +9,14 @@ import { useMutation } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
-export default function FormClient(props: any) {
+type Props = {
+  client: IClient | undefined;
+};
+
+export default function FormClient(props: Props) {
+  const [isEditing, setIsEditing] = useState(false);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
-  console.log(props.client);
+
   const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
@@ -33,23 +38,59 @@ export default function FormClient(props: any) {
       surname: "",
     },
   });
+
   useEffect(() => {
-    if (props.client) {
-      if (props && props.client) {
-        setValue("name", props.client.name);
-        setValue("surname", props.client.surname);
-      }
+    if (props && props.client) {
+      setIsEditing(true);
+      setValue("name", props.client.name);
+      setValue("surname", props.client.surname);
+      setValue("city", props.client.city);
+      setValue("address", props.client.address);
+      setValue("email", props.client.email);
+      setValue("phone", props.client.phone);
+      setValue("postCode", props.client.postCode);
+      setValue("documentType", props.client.documentType);
+      setValue("documentNumber", props.client.documentNumber);
+      setValue("image", props.client.image);
     }
   }, [props.client]);
 
-  const [mutateFunction, { loading, error, data }] = useMutation(
+  const [createClient, { loading, error, data }] = useMutation(
     ClientServices.ClientMutationServices.createClient
   );
+  const [
+    updateClient,
+    { loading: updateLoading, error: updateError, data: updateData },
+  ] = useMutation(ClientServices.ClientMutationServices.UpdateClient);
+
   const onSubmit = handleSubmit((values) => {
     console.log(values);
     alert(JSON.stringify(values));
-    mutateFunction({
+    createClient({
       variables: {
+        name: values.name,
+        surname: values.surname,
+        email: values.email,
+        city: values.city,
+        business: values.idBusinnes,
+        documentNumber: values.documentNumber,
+        documentType: selectedDocumentType,
+        postCode: values.postCode,
+        address: values.address,
+        phone: values.phone,
+        image: values.image,
+      },
+    });
+  });
+  console.log(data);
+
+  const onUpdate = handleSubmit((values) => {
+    if (!props.client) return;
+    console.log(values);
+    alert(JSON.stringify(values));
+    updateClient({
+      variables: {
+        id: props.client.id,
         name: values.name,
         surname: values.surname,
         email: values.email,
@@ -257,14 +298,25 @@ export default function FormClient(props: any) {
             })}
           />
           <Box component="form" ref={formRef} /*onSubmit={handleSubmit(type)}*/>
-            <Button
-              sx={{ m: 1, width: "43ch" }}
-              type="submit"
-              onClick={onSubmit}
-              variant="contained"
-            >
-              Register
-            </Button>
+            {!isEditing ? (
+              <Button
+                sx={{ m: 1, width: "43ch" }}
+                type="submit"
+                onClick={onSubmit}
+                variant="contained"
+              >
+                Register
+              </Button>
+            ) : (
+              <Button
+                sx={{ m: 1, width: "43ch" }}
+                type="submit"
+                onClick={onUpdate}
+                variant="contained"
+              >
+                Guardar
+              </Button>
+            )}
           </Box>
         </FormControl>
       </Card>

@@ -23,7 +23,7 @@ module.exports = {
         name: args.name,
         image: args.image,
         city: args.city,
-        address: args.adress,
+        address: args.address,
         email: args.email,
         phone: args.phone,
         postCode: args.postCode,
