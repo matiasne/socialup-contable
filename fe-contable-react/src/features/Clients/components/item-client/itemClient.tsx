@@ -1,46 +1,65 @@
-import { Delete, Edit, Refresh, RefreshOutlined } from "@mui/icons-material";
-import React, {
+import { Delete, Edit } from "@mui/icons-material";
+import {
   Avatar,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   IconButton,
   ListItemAvatar,
-  ListItemSecondaryAction,
   ListItemText,
 } from "@mui/material";
 import { IClient } from "../../models/client";
 import { MouseEventHandler, useState } from "react";
 import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
+import FormClient from "../form-client/formClient";
+import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
-function ItemClient(props: IClient) {
+type Props = {
+  client: IClient;
+};
+
+function ItemClient(props: Props) {
   const { data, error, loading, refetch } = useQuery(
     ClientServices.QueryClientService.clients
   );
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [clientData, setClientData] = useState<IClient>();
+
+  const [DeleteClient] = useMutation(
+    ClientServices.ClientMutationServices.DeleteClient
+  );
+
+  const handleEdit = async () => {
+    setIsEditDialogOpen(true);
+  };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
+  const { toastShow } = useToast();
+
+  const handleDeleteConfirmed: MouseEventHandler<
+    HTMLButtonElement
+  > = async () => {
     setIsDeleteDialogOpen(false);
     setShowAlert(true);
-    setTimeout(() => {
-      refetch();
-    }, 1000);
+    console.log(props);
+    await DeleteClient({ variables: { id: props.client.id } });
+    toastShow({
+      message: "El cliente ha sido eliminado correctamente",
+      severity: "success",
+      duration: 5000,
+    });
+    refetch();
   };
 
-  const handleEdit = (client: IClient) => {
-    setIsEditDialogOpen(true);
-    setClientData(client);
+  const handleCloseEditDialog = async () => {
+    setIsEditDialogOpen(false);
   };
 
   return (
@@ -50,21 +69,15 @@ function ItemClient(props: IClient) {
       </ListItemAvatar>
       <>
         <ListItemText
-          primary={props.name}
-          secondary={`email: ${props.email}, phone: ${props.phone}`}
+          primary={props.client.name}
+          secondary={`email: ${props.client.email}, phone: ${props.client.phone}`}
         />
-        <ListItemSecondaryAction>
-          <IconButton
-            edge="end"
-            aria-label="editar"
-            onClick={() => handleEdit(props)}
-          >
-            <Edit />
-          </IconButton>
-          <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
-            <Delete />
-          </IconButton>
-        </ListItemSecondaryAction>
+        <IconButton edge="end" aria-label="editar" onClick={() => handleEdit()}>
+          <Edit />
+        </IconButton>
+        <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
+          <Delete />
+        </IconButton>
       </>
       <DeleteDialog
         isOpen={isDeleteDialogOpen}
@@ -75,6 +88,14 @@ function ItemClient(props: IClient) {
         confirmText="Eliminar"
         cancelText="Cancelar"
       />
+      <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
+        <DialogContent>
+          <FormClient client={props.client} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEditDialog}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

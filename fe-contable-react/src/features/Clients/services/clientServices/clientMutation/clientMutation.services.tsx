@@ -45,7 +45,7 @@ const UpdateClient = gql`
       documentType
       documentNumber
       surname
-      id
+      _id
     }
   }
 `;
