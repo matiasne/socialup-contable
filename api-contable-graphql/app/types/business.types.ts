@@ -15,8 +15,8 @@ module.exports = `#graphql
   }
 
   type Query {
-    findBusiness: [Business],
-    findOneBusiness(id: ID, name: String): Business,
+    findUserBusiness(id: ID, pageCount: Int, perPage: Int, searchWord: String): [Business],
+    findOneBusiness(_id: ID, user:String, name: String): Business,
     
   }
 

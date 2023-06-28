@@ -14,11 +14,6 @@ module.exports = {
       const user = await User.findById(idUser);
       return user;
     },
-    findUserBusiness: async (_: any, _args: any, context: any) => {
-      console.log("user", context.user.id);
-      const business = await Business.find({ user: context.user.id });
-      return business;
-    },
   },
   User: {
     business: async (_: any, _args: any, context: any) => {
