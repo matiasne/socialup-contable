@@ -12,7 +12,7 @@ module.exports = {
     findOneBusiness: async (_: any, _args: any, context: any) => {
       console.log("user: ", context.user.id);
       console.log("business: ", _args._id);
-      const business = await Business.findById({
+      const business = await Business.findOne({
         user: context.user.id,
         _id: _args._id,
       }).exec();
@@ -20,6 +20,7 @@ module.exports = {
     },
     findUserBusiness: async (_: any, _args: any, context: any) => {
       console.log("user", context.user.id);
+      console.log("argumentos", _args._id);
       const offset = (_args.pageCount - 1) * _args.perPage;
       const business = await Business.find({
         user: context.user.id,
