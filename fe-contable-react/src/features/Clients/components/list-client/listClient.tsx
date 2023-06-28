@@ -8,12 +8,13 @@ export const ListClient = (props: IClient) => {
   const { data, error, loading, refetch } = useQuery(
     ClientServices.QueryClientService.clients
   );
+  data && data.findUserBusiness? console.log(data.findUserBusiness[0].client):console.log('hola')
 
   return (
     <>
-      {!loading && data && data.findClient ? (
+      {!loading && data && data.findUserBusiness ? (
         <ListItems
-          items={data.findClient}
+          items={data.findUserBusiness[0].client}
           renderItem={(item: IClient) => <ItemClient client={item} />}
           handleItemClick={function (item: IClient): void {
             console.log(item);

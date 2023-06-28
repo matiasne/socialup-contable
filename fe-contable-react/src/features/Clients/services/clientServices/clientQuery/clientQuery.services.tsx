@@ -1,8 +1,9 @@
 import { gql } from "@apollo/client";
 
 const clients = gql`
-  query Query {
-    findClient {
+query Client {
+  findUserBusiness {
+    client {
       id
       name
       image
@@ -14,6 +15,7 @@ const clients = gql`
       documentType
       documentNumber
       surname
+      }
     }
   }
 `;
