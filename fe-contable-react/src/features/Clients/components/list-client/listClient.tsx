@@ -8,7 +8,6 @@ export const ListClient = (props: IClient) => {
   const { data, error, loading, refetch } = useQuery(
     ClientServices.QueryClientService.clients
   );
-  data && data.findUserBusiness? console.log(data.findUserBusiness[0].client):console.log('hola')
 
   return (
     <>

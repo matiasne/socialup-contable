@@ -2,11 +2,13 @@ import { gql } from "@apollo/client";
 
 const products = gql`
   query FindProduct {
-    findProduct {
+    findUserBusiness  {
+      products {
       id
       name
       description
       salePrice
+      }
     }
   }
 `;
