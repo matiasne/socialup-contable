@@ -15,9 +15,9 @@ export const ListProduct = (props: IProduct) => {
 
   return (
     <>
-      {!loading && data && data.findProduct ? (
+      {!loading && data && data.findUserBusiness ? (
         <ListItemsGrid
-          items={data.findProduct}
+          items={data.findUserBusiness[0].products}
           renderItem={(item: IProduct) => <ItemProduct {...item} />}
           handleItemClick={function (item: any): void {
             console.log(item);

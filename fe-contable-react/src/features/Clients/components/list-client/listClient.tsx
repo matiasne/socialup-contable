@@ -11,9 +11,9 @@ export const ListClient = (props: IClient) => {
 
   return (
     <>
-      {!loading && data && data.findClient ? (
+      {!loading && data && data.findUserBusiness ? (
         <ListItems
-          items={data.findClient}
+          items={data.findUserBusiness[0].client}
           renderItem={(item: IClient) => <ItemClient client={item} />}
           handleItemClick={function (item: IClient): void {
             console.log(item);
