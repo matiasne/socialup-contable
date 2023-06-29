@@ -9,16 +9,26 @@ import { UserInputError } from "apollo-server-core";
 
 module.exports = {
   Query: {
-    findBusiness: async (_: any, _args: any, context: any) => {
-      console.log("user", context.user.id);
-
-      return await Business.find();
+    findOneBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user: ", context.user.id);
+      console.log("business: ", _args._id);
+      const business = await Business.findOne({
+        user: context.user.id,
+        _id: _args._id,
+      }).exec();
+      return business;
     },
-    findOneBusiness: async (root: any, args: any) => {
-      const idBusiness = args.id;
-
-      const business = await Business.findById(idBusiness);
-
+    findUserBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+      console.log("argumentos", _args._id);
+      const offset = (_args.pageCount - 1) * _args.perPage;
+      const business = await Business.find({
+        user: context.user.id,
+        name: new RegExp(_args.searchWord, "i"),
+      })
+        .skip(offset)
+        .limit(_args.perPage)
+        .exec();
       return business;
     },
   },

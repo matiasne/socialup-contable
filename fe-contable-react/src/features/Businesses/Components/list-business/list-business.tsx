@@ -8,7 +8,13 @@ import { setSessionService } from "../../../../auth/services/session.service";
 
 export const ListBusiness = (props: IBusiness) => {
   const { data, error, loading, refetch } = useQuery(
-    BusinessServices.BusinessQueryServices.FindUserBusiness,
+    BusinessServices.BusinessQueryServices.FindUserBusiness,{
+      variables:{
+        pageCount: 1,
+        perPage: 10,
+        searchWord: "pru"
+      }
+    }
     );
   console.log(data)
   //  const [shouldRefetch, setShouldRefetch] = useState(false);

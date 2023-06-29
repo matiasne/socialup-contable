@@ -4,8 +4,11 @@ import Business from "../schema/business";
 
 module.exports = {
   Query: {
-    findClient: async () => {
-      return await Client.find();
+    findClient: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+      return await Client.find({
+        user: context.user.id,
+      });
     },
     findOneClient: async (root: any, args: any) => {
       const idClient = args.id;
