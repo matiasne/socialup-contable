@@ -11,12 +11,12 @@ import ProfileForm from "../../../../shared/Components/avatarNuevo";
 
 type Props = {
   client: IClient | undefined;
+  onClose?: () => void;
 };
 
 export default function FormClient(props: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
-
   const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
@@ -65,7 +65,6 @@ export default function FormClient(props: Props) {
 
   const onSubmit = handleSubmit((values) => {
     console.log(values);
-    alert(JSON.stringify(values));
     createClient({
       variables: {
         name: values.name,
@@ -87,7 +86,6 @@ export default function FormClient(props: Props) {
   const onUpdate = handleSubmit((values) => {
     if (!props.client) return;
     console.log(values);
-    alert(JSON.stringify(values));
     updateClient({
       variables: {
         id: props.client.id,
@@ -103,6 +101,7 @@ export default function FormClient(props: Props) {
         image: values.image,
       },
     });
+    if (props.onClose) props.onClose();
   });
   console.log(data);
 
@@ -187,7 +186,9 @@ export default function FormClient(props: Props) {
               type="text"
               label="documentType"
               sx={{ m: 1, width: "37.4ch" }}
-              value={selectedDocumentType}
+              defaultValue={
+                props.client ? props.client.documentType : selectedDocumentType
+              }
               onChange={handleInputChange}
             >
               <MenuItem value="cuit">CUIT</MenuItem>

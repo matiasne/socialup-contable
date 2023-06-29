@@ -90,7 +90,12 @@ function ItemClient(props: Props) {
       />
       <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
         <DialogContent>
-          <FormClient client={props.client} />
+          <FormClient
+            client={props.client}
+            onClose={() => {
+              setIsEditDialogOpen(false);
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEditDialog}>Cancel</Button>
