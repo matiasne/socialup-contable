@@ -18,26 +18,26 @@ module.exports = {
   },
   Mutation: {
     //create our mutation:
-    createClient: async (root: any, args: any) => {
-      const business = await Business.findById(args.business);
+    createClient: async (_: any, _args: any, context: any) => {
+      const business = await Business.findById(_args.business);
 
       const client = new Client({
         business: business,
-        name: args.name,
-        image: args.image,
-        city: args.city,
-        address: args.address,
-        email: args.email,
-        phone: args.phone,
-        postCode: args.postCode,
-        documentType: args.documentType,
-        documentNumber: args.documentNumber,
-        surname: args.surname,
+        name: _args.name,
+        image: _args.image,
+        city: _args.city,
+        address: _args.address,
+        email: _args.email,
+        phone: _args.phone,
+        postCode: _args.postCode,
+        documentType: _args.documentType,
+        documentNumber: _args.documentNumber,
+        surname: _args.surname,
       });
 
       return client.save().catch((error: any) => {
         throw new UserInputError(error.message, {
-          invalidArgs: args,
+          invalidArgs: _args,
         });
       });
     },
