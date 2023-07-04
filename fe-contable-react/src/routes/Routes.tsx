@@ -74,6 +74,7 @@ export const AppRouter = () => {
               />
             }
           />
+          <Route path="/business" element={<BusinessCreate />} />;
         </Routes>
       );
     } else {
