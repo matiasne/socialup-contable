@@ -5,7 +5,12 @@ export const setSessionService = (key: string, value: string) => {
 };
 
 export const getSessionServices = (key: string) => {
+  const auth = localStorage.getItem(key);
   console.log(key);
-  const auth = JSON.parse(localStorage.getItem(key) || "");
-  return auth;
+  if (auth && auth !== "") {
+    const parsedAuth = JSON.parse(auth);
+    return parsedAuth;
+  } else {
+    return null;
+  }
 };
