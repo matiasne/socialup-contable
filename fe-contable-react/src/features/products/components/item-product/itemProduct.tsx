@@ -17,6 +17,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { IProduct } from "../../models/product.interface";
@@ -24,20 +25,29 @@ import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
 import { useMutation, useQuery } from "@apollo/client";
 import { ProductService } from "../../productsService/productsService";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
+import FormClient from "../../../Clients/components/form-client/formClient";
+import FormProductComponent from "../form-product/formProduct";
 
-function ItemProduct(props: IProduct) {
+type Props = { products: IProduct };
+
+function ItemProduct(props: Props) {
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
+  const [isEditing, setIsEditing] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const [MutateFuncioDelete] = useMutation(
     ProductService.ProductMutationServices.DeleteProducts
   );
+  const [MutateFuncioUpdate] = useMutation(
+    ProductService.ProductMutationServices.UpdateProduct
+  );
 
   const handleEdit = async () => {
-    //await MutateFuncion({ variables: { id: props.id } });
+    setIsEditDialogOpen(true);
   };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
@@ -51,13 +61,22 @@ function ItemProduct(props: IProduct) {
   > = async () => {
     setIsDeleteDialogOpen(false);
     setShowAlert(true);
-    await MutateFuncioDelete({ variables: { id: props.id } });
+    await MutateFuncioDelete({ variables: { id: props.products.id } });
     toastShow({
       message: "El poducto ha sido eliminado correctamente",
       severity: "success",
       duration: 5000,
     });
     refetch();
+  };
+  const handleCloseEditDialog = async () => {
+    setIsEditDialogOpen(false);
+    await MutateFuncioUpdate({ variables: { Props: props.products.id } });
+    // toastShow({
+    //   message: "El producto ha sido actualizado correctamente",
+    //   severity: "success",
+    //   duration: 5000,
+    // });
   };
   return (
     <>
@@ -66,9 +85,13 @@ function ItemProduct(props: IProduct) {
           <CardMedia component="img" height="140" image="" alt="Product" />
         </CardActionArea>
         <CardContent>
-          <ListItemText primary={props.name} />
-          <ListItemText secondary={`Precio: ${props.salePrice}`} />{" "}
-          <ListItemText secondary={`Descripcion: ${props.description}`} />
+          <ListItemText primary={props.products.name} />
+          <ListItemText
+            secondary={`Precio: ${props.products.salePrice}`}
+          />{" "}
+          <ListItemText
+            secondary={`Descripcion: ${props.products.description}`}
+          />
         </CardContent>
         <CardActions>
           <IconButton aria-label="editar" size="medium" onClick={handleEdit}>
@@ -83,30 +106,29 @@ function ItemProduct(props: IProduct) {
           </IconButton>{" "}
         </CardActions>
       </Card>
-
-      <Dialog
-        open={isDeleteDialogOpen}
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
-      >
-        <DialogTitle>
-          ¿Está seguro que desea eliminar este producto?
-        </DialogTitle>
-
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => setIsDeleteDialogOpen(false)}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleDeleteConfirmed}
-          >
-            Eliminar
-          </Button>
+        onConfirm={handleDeleteConfirmed}
+        title="¿Está seguro que desea eliminar este producto?"
+        message="Se eliminara de forma permanente "
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+      />
+      <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
+        <DialogContent>
+          <FormProductComponent
+            products={props.products}
+            onAdd={handleCloseEditDialog}
+            onEdit={handleCloseEditDialog}
+          />
+        </DialogContent>
+        {/* <DialogActions>
+          <Button onClick={handleCloseEditDialog}>Guardar</Button>
         </DialogActions>
+        <DialogActions>
+          <Button onClick={handleCloseEditDialog}>Cancel</Button>
+        </DialogActions> */}
       </Dialog>
     </>
   );

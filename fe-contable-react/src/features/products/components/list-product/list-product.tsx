@@ -8,7 +8,6 @@ import { Grid } from "@mui/material";
 import { ListItemsGrid } from "../../../../shared/Components/listItemGrid/listItemGrid";
 
 export const ListProduct = (props: IProduct) => {
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
@@ -18,8 +17,8 @@ export const ListProduct = (props: IProduct) => {
       {!loading && data && data.findProduct ? (
         <ListItemsGrid
           items={data.findProduct}
-          renderItem={(item: IProduct) => <ItemProduct {...item} />}
-          handleItemClick={function (item: any): void {
+          renderItem={(item: IProduct) => <ItemProduct products={item} />}
+          handleItemClick={function (item: IProduct): void {
             console.log(item);
             //  handleItemDelete(item.id);
           }}

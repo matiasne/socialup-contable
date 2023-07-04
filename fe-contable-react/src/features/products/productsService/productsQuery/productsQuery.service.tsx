@@ -7,6 +7,8 @@ const products = gql`
       name
       description
       salePrice
+      costPrice
+      image
     }
   }
 `;
