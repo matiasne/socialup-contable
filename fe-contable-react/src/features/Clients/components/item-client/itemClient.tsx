@@ -65,7 +65,11 @@ function ItemClient(props: Props) {
   return (
     <>
       <ListItemAvatar>
-        <Avatar />
+        <Avatar
+          src={props.client.image}
+          alt={props.client.name}
+          variant="circular"
+        />
       </ListItemAvatar>
       <>
         <ListItemText
@@ -84,7 +88,7 @@ function ItemClient(props: Props) {
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDeleteConfirmed}
         title="¿Está seguro que desea eliminar este producto?"
-        message="Se eliminara de forma permanente "
+        message="Se eliminará de forma permanente "
         confirmText="Eliminar"
         cancelText="Cancelar"
       />
