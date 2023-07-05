@@ -8,6 +8,7 @@ import { Card, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
+import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
 type Props = {
   client: IClient | undefined;
@@ -82,7 +83,8 @@ export default function FormClient(props: Props) {
     });
   });
   console.log(data);
-
+  const { toastShow } = useToast();
+  const [showAlert, setShowAlert] = useState(false);
   const onUpdate = handleSubmit((values) => {
     if (!props.client) return;
     console.log(values);
@@ -102,6 +104,12 @@ export default function FormClient(props: Props) {
       },
     });
     if (props.onClose) props.onClose();
+    setShowAlert(true);
+    toastShow({
+      message: "El cliente ha sido editado correctamente",
+      severity: "success",
+      duration: 5000,
+    });
   });
   console.log(data);
 
@@ -131,7 +139,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Name"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("name", {
               required: true,
@@ -148,7 +156,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Surname"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("surname", {
               required: true,
@@ -165,7 +173,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Business"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("idBusinnes", {
               required: true,
@@ -185,7 +193,7 @@ export default function FormClient(props: Props) {
             <Select
               type="text"
               label="documentType"
-              sx={{ m: 1, width: "37.4ch" }}
+              sx={{ m: 1, width: "37.7ch" }}
               defaultValue={
                 props.client ? props.client.documentType : selectedDocumentType
               }
@@ -198,7 +206,7 @@ export default function FormClient(props: Props) {
           </FormControl>
           <TextField
             label="N°"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("documentNumber", {
               required: true,
@@ -215,7 +223,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Address"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("address", {
               required: true,
@@ -232,7 +240,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Email"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="email"
             {...register("email", {
               required: true,
@@ -249,7 +257,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Phone"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="phone"
             {...register("phone", {
               required: true,
@@ -266,7 +274,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="City"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("city", {
               required: true,
@@ -283,7 +291,7 @@ export default function FormClient(props: Props) {
           />
           <TextField
             label="Post Code"
-            sx={{ m: 1, width: "25ch" }}
+            sx={{ m: 1 }}
             type="text"
             {...register("postCode", {
               required: true,
@@ -298,7 +306,11 @@ export default function FormClient(props: Props) {
               error: true,
             })}
           />
-          <Box component="form" ref={formRef} /*onSubmit={handleSubmit(type)}*/>
+          <Box
+            component="form"
+            ref={formRef}
+            alignContent={"center"} /*onSubmit={handleSubmit(type)}*/
+          >
             {!isEditing ? (
               <Button
                 sx={{ m: 1, width: "43ch" }}

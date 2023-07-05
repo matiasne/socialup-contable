@@ -7,7 +7,6 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import AvatarEditor from "react-avatar-editor";
 import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -46,10 +45,16 @@ function ProfileForm({
   const [open, setOpen] = useState(false);
   const [scale, setScale] = useState(1);
 
-  const handleClick = (event: any) => {
-    setAvatarSrc(event.target.files[0]);
-    onChange(event.target.files[0]);
-    setOpen(true);
+  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      setAvatarSrc(file);
+      onChange(file);
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl); // Actualizar el estado 'image' con la URL de la imagen seleccionada
+      setOpen(true);
+    }
   };
 
   const handleButtonClick = () => {
@@ -94,19 +99,14 @@ function ProfileForm({
 
   return (
     <>
-      <Box sx={{ position: "relative", display: "inline-block" }}>
+      <Box>
         <Avatar
           onClick={handleButtonClick}
-          src={
-            avatarSrc && defaultImage != ""
-              ? URL.createObjectURL(avatarSrc)
-              : defaultImage
-          }
+          src={image || defaultImage}
           alt="Profile"
           style={{ cursor: "pointer" }}
           sx={{
             m: 1,
-            position: "relative",
             display: "inline-block",
             width: 64,
             height: 64,
@@ -138,7 +138,6 @@ function ProfileForm({
           }}
           ref={inputFileRef}
         />
-        <CameraAltIcon sx={{ color: "white", paddingTop: "20px" }} />
         <Dialog
           open={open}
           onClose={handleClose}
