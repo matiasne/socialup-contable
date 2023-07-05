@@ -3,19 +3,18 @@ export const setSessionService = (key: string, value: string) => {
 };
 
 export const getSessionServices = () => {
-  console.log("session");
-  const auth = JSON.parse(localStorage.getItem("token") || "");
+  const auth = localStorage.getItem("token");
 
-  if (auth !== "") {
+  console.log("auth");
+  if (auth && auth !== "") {
     return true;
   } else {
     return false;
   }
 };
 export const getSessionBusiness = () => {
-  const authBusiness = JSON.parse(localStorage.getItem("business") || "");
-
-  if (authBusiness !== "") {
+  const authBusiness = localStorage.getItem("business");
+  if (authBusiness && authBusiness !== "") {
     return true;
   } else {
     return false;
