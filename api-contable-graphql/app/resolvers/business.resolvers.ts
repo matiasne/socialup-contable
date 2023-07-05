@@ -48,16 +48,16 @@ module.exports = {
   },
   Mutation: {
     //create our mutation:
-    addBusiness: async (root: any, args: any) => {
-      const user = await User.findById(args.user);
+    addBusiness: async (_: any, _args: any, context: any) => {
+      const user = context.user.id;
       const business = new Business({
         user: user,
-        name: args.name,
-        address: args.address,
-        category: args.category,
-        email: args.email,
-        image: args.image,
-        phone: args.phone,
+        name: _args.name,
+        address: _args.address,
+        category: _args.category,
+        email: _args.email,
+        image: _args.image,
+        phone: _args.phone,
       });
 
       return business.save().catch((error) => {
@@ -68,20 +68,20 @@ module.exports = {
         });
       });
     },
-    updateBusiness: async (root: any, args: any) => {
-      const { _id, ...updates } = args;
+    updateBusiness: async (_: any, _args: any, context: any) => {
+      const { _id, ...updates } = _args;
       const business = await Business.findByIdAndUpdate(_id, updates, {
         new: true,
       });
       if (!business) {
         throw new UserInputError("Business not found", {
-          invalidArgs: args,
+          invalidArgs: _args,
         });
       }
       return business;
     },
-    deleteBusiness: async (root: any, args: any) => {
-      const idBusiness = args._id;
+    deleteBusiness: async (_: any, _args: any, context: any) => {
+      const idBusiness = _args._id;
       const business = await Business.findById(idBusiness);
       if (business) {
         await Product.deleteMany({ business: business._id });

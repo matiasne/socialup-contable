@@ -33,7 +33,15 @@ export const AppRouter = () => {
           <Route path="/Client" element={<FormClient client={undefined} />} />
           <Route
             path="/products"
-            element={<ListProduct name={""} description={""} salePrice={""} />}
+            element={
+              <ListProduct
+                name={""}
+                description={""}
+                salePrice={""}
+                code={""}
+                costPrice={""}
+              />
+            }
           />
           <Route path="/product" element={<FormProductComponent />} />
           <Route path="/dialogs" element={<Dialog />} />
@@ -74,6 +82,7 @@ export const AppRouter = () => {
               />
             }
           />
+          <Route path="/business" element={<BusinessCreate />} />;
         </Routes>
       );
     } else {

@@ -52,8 +52,8 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-const idUser = getSessionServices("user")
-const idBusiness = "" //getSessionServices("business")
+const idUser = getSessionServices("token")
+const idBusiness = getSessionServices("business")
       console.log(idBusiness)
 const { data, loading } = useQuery(
     BusinessQueryServices.FindUserBusiness,
@@ -69,12 +69,12 @@ const { data, loading } = useQuery(
   useEffect(()=>{
     if (data) {
       console.log(data);
-      setValue("BusinessName", data.findOneBusiness.name);
-      setValue("Address", data.findOneBusiness.address);
-      setValue("Phone", data.findOneBusiness.phone);
-      setValue("BusinessCategory", data.findOneBusiness.category);
-      setValue("Email", data.findOneBusiness.email);
-      setValue("Image", data.findOneBusiness.image);
+      setValue("BusinessName", data.findUserBusiness[0].name);
+      setValue("Address", data.findUserBusiness[0].address);
+      setValue("Phone", data.findUserBusiness[0].phone);
+      setValue("BusinessCategory", data.findUserBusiness[0].category);
+      setValue("Email", data.findUserBusiness[0].email);
+      setValue("Image", data.findUserBusiness[0].image);
     }
   }, [data]);
 
@@ -86,7 +86,7 @@ const { data, loading } = useQuery(
     const response = await mutateFunction({
       variables: {
         id: id ? id : "647f7f8f512fbb2905d7f443",
-        user: idUser,
+        //user: idUser,
         name: values.BusinessName,
         address: values.Address,
         email: values.email,
@@ -109,14 +109,14 @@ const { data, loading } = useQuery(
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-          <ProfileForm
+         {/* <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
               console.log(data);
               setValue("Image", data);
             }}
             defaultImage={idBusiness ? data.findOneBusiness.image : imageBase64}
-          />
+          /> */}
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Name"

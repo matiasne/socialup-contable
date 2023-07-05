@@ -12,7 +12,7 @@ export const ListBusiness = (props: IBusiness) => {
       variables:{
         pageCount: 1,
         perPage: 10,
-        searchWord: "pru"
+        searchWord: ""
       }
     }
     );

@@ -22,7 +22,7 @@ module.exports = `#graphql
 
   type Mutation {
     addBusiness(
-      user: String!
+      user: String
       name: String!
       address: String
       category: String
