@@ -8,7 +8,6 @@ import { Grid } from "@mui/material";
 import { ListItemsGrid } from "../../../../shared/Components/listItemGrid/listItemGrid";
 
 export const ListProduct = (props: IProduct) => {
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
