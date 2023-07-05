@@ -10,6 +10,7 @@ const products = gql`
       salePrice
       costPrice
       image
+      }
     }
   }
 `;
