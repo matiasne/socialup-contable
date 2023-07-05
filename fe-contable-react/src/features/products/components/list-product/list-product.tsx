@@ -3,9 +3,11 @@ import { ListItems } from "../../../../shared/Components/list-item/list-item";
 import { IProduct } from "../../models/product.interface";
 import ItemProduct from "../item-product/itemProduct";
 import { ProductService } from "../../productsService/productsService";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { SearchBar } from "../../../../shared/Components/search-bar/search-bar";
 
 export const ListProduct = (props: IProduct) => {
+  const [inputValue, setInputValue] = useState("");
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
@@ -29,6 +31,13 @@ export const ListProduct = (props: IProduct) => {
     <>
       {!loading && data && data.findProduct ? (
         <div>
+          <SearchBar
+            placeholder={"Buscar Productos"}
+            onChange={(data: string) => {
+              console.log(data);
+              return data;
+            }}
+          />
           <ListItems
             items={data.findProduct}
             renderItem={(item: IProduct) => <ItemProduct {...item} />}
