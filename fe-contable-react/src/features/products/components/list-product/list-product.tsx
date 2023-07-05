@@ -17,7 +17,7 @@ export const ListProduct = (props: IProduct) => {
       {!loading && data && data.findUserBusiness ? (
         <ListItemsGrid
           items={data.findUserBusiness[0].products}
-          renderItem={(item: IProduct) => <ItemProduct {...item} />}
+          renderItem={(item: IProduct) => <ItemProduct products={item} />}
           handleItemClick={function (item: any): void {
             console.log(item);
             //  handleItemDelete(item.id);

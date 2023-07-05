@@ -43,7 +43,16 @@ export const AppRouter = () => {
               />
             }
           />
-          <Route path="/product" element={<FormProductComponent />} />
+          <Route
+            path="/product"
+            element={
+              <FormProductComponent
+                products={undefined}
+                onEdit={() => {}}
+                onAdd={() => {}}
+              />
+            }
+          />
           <Route path="/dialogs" element={<Dialog />} />
           <Route
             path="/Clients"
