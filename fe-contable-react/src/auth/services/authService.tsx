@@ -3,9 +3,9 @@ export const setSessionService = (key: string, value: string) => {
 };
 
 export const getSessionServices = () => {
-  const auth = localStorage.getItem("token");
 
-  console.log("auth");
+  const auth = localStorage.getItem("token");
+  
   if (auth && auth !== "") {
     return true;
   } else {
