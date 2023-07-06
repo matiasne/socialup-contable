@@ -15,14 +15,17 @@ export const ListProduct = (props: IProduct) => {
   return (
     <>
       {!loading && data && data.findUserBusiness ? (
-        <ListItemsGrid
-          items={data.findUserBusiness[0].products}
-          renderItem={(item: IProduct) => <ItemProduct products={item} />}
-          handleItemClick={function (item: any): void {
-            console.log(item);
-            //  handleItemDelete(item.id);
-          }}
-        ></ListItemsGrid>
+        (console.log(data.findUserBusiness),
+        (
+          <ListItemsGrid
+            items={data.findUserBusiness[0].products}
+            renderItem={(item: IProduct) => <ItemProduct products={item} />}
+            handleItemClick={function (item: any): void {
+              console.log(item);
+              //  handleItemDelete(item.id);
+            }}
+          ></ListItemsGrid>
+        ))
       ) : (
         <div>spinner</div>
       )}
