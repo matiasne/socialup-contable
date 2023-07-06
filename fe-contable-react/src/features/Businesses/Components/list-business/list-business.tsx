@@ -16,7 +16,8 @@ export const ListBusiness = (props: IBusiness) => {
       }
     }
     );
-  console.log(data)
+  
+
   //  const [shouldRefetch, setShouldRefetch] = useState(false);
 
    // const [MutateFuncion] = useMutation(

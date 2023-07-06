@@ -7,6 +7,8 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
+  ApolloLink,  
+  
 } from "@apollo/client";
 import { getSessionServices } from "./auth/services/session.service";
 import { ToastProvider } from "./shared/Components/toast/ToastProvider";
@@ -19,14 +21,33 @@ const httpLink = createHttpLink({
   },
 });
 
+const errorLink = new ApolloLink((operation, forward) => {
+ forward(operation).subscribe({
+    next:(data:any)=>{
+    },
+    error:(err:any)=>{
+      if(err.response.status === 401){
+        localStorage.removeItem("token")
+        window.location.href = '/login';
+      }
+    }
+  })
+  return forward(operation).map(response => {
+     
+    return response;
+  });
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: ApolloLink.from( [errorLink,httpLink]),
   cache: new InMemoryCache(),
 });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+
 root.render(
   <ApolloProvider client={client}>
     <ToastProvider>
