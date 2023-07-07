@@ -61,7 +61,7 @@ export const AppRouter = () => {
                 name={""}
                 image={undefined}
                 email={""}
-                idBusinnes={""}
+                idBusiness={""}
               />
             }
           />

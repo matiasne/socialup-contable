@@ -65,11 +65,7 @@ function ItemClient(props: Props) {
   return (
     <>
       <ListItemAvatar>
-        <Avatar
-          src={props.client.image}
-          alt={props.client.name}
-          variant="circular"
-        />
+        <Avatar src={props.client.image} alt={props.client.name} />
       </ListItemAvatar>
       <>
         <ListItemText

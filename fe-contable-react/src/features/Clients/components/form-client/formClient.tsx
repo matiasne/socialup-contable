@@ -9,6 +9,8 @@ import { useMutation } from "@apollo/client";
 import { ClientServices } from "../../services/clientServices";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
+import { getSessionServices } from "../../../../auth/services/session.service";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   client: IClient | undefined;
@@ -16,6 +18,7 @@ type Props = {
 };
 
 export default function FormClient(props: Props) {
+  const [idBusiness, setIdBusiness] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -32,7 +35,7 @@ export default function FormClient(props: Props) {
       address: "",
       email: "",
       phone: "",
-      idBusinnes: "",
+      idBusiness: "",
       postCode: "",
       documentType: "",
       documentNumber: "",
@@ -64,15 +67,20 @@ export default function FormClient(props: Props) {
     { loading: updateLoading, error: updateError, data: updateData },
   ] = useMutation(ClientServices.ClientMutationServices.UpdateClient);
 
-  const onSubmit = handleSubmit((values) => {
+  useEffect(() => {
+    // getSessionBusiness();
+    setIdBusiness(getSessionServices("business"));
+  }, []);
+  const navigate = useNavigate();
+  const onSubmit = handleSubmit(async (values) => {
     console.log(values);
-    createClient({
+    await createClient({
       variables: {
         name: values.name,
         surname: values.surname,
         email: values.email,
         city: values.city,
-        business: values.idBusinnes,
+        business: idBusiness,
         documentNumber: values.documentNumber,
         documentType: selectedDocumentType,
         postCode: values.postCode,
@@ -81,20 +89,22 @@ export default function FormClient(props: Props) {
         image: values.image,
       },
     });
+    navigate("/Clients");
   });
   console.log(data);
   const { toastShow } = useToast();
   const [showAlert, setShowAlert] = useState(false);
-  const onUpdate = handleSubmit((values) => {
+  const onUpdate = handleSubmit(async (values) => {
     if (!props.client) return;
     console.log(values);
-    updateClient({
+    await updateClient({
       variables: {
-        id: props.client.id,
+        id: props.client?.id,
         name: values.name,
         surname: values.surname,
         email: values.email,
-        business: values.idBusinnes,
+        city: values.city,
+        business: idBusiness,
         documentNumber: values.documentNumber,
         documentType: selectedDocumentType,
         postcode: values.postCode,
@@ -122,6 +132,7 @@ export default function FormClient(props: Props) {
       component="form"
       sx={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
@@ -175,15 +186,15 @@ export default function FormClient(props: Props) {
             label="Business"
             sx={{ m: 1 }}
             type="text"
-            {...register("idBusinnes", {
+            {...register("idBusiness", {
               required: true,
               minLength: 2,
             })}
-            {...(errors.idBusinnes?.type === "required" && {
+            {...(errors.idBusiness?.type === "required" && {
               helperText: "Campo obligatorio",
               error: true,
             })}
-            {...(errors.idBusinnes?.type === "minLength" && {
+            {...(errors.idBusiness?.type === "minLength" && {
               helperText: "El nombre es demasiado corto",
               error: true,
             })}

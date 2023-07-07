@@ -52,7 +52,7 @@ function ProfileForm({
       setAvatarSrc(file);
       onChange(file);
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl); // Actualizar el estado 'image' con la URL de la imagen seleccionada
+      setImage(imageUrl);
       setOpen(true);
     }
   };
@@ -90,16 +90,22 @@ function ProfileForm({
   };
 
   const avatarIcons: Record<AvatarType[keyof AvatarType], JSX.Element> = {
-    user: <PersonIcon sx={{ color: "white", paddingTop: "20px" }} />,
-    business: <BusinessIcon sx={{ color: "white", paddingTop: "20px" }} />,
-    product: <LocalMallIcon sx={{ color: "white", paddingTop: "20px" }} />,
-    box: <CheckBoxIcon sx={{ color: "white", paddingTop: "20px" }} />,
-    client: <AssignmentIndIcon sx={{ color: "white", paddingTop: "20px" }} />,
+    user: <PersonIcon sx={{ color: "white" }} />,
+    business: <BusinessIcon sx={{ color: "white" }} />,
+    product: <LocalMallIcon sx={{ color: "white" }} />,
+    box: <CheckBoxIcon sx={{ color: "white" }} />,
+    client: <AssignmentIndIcon sx={{ color: "white" }} />,
   };
 
   return (
     <>
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Avatar
           onClick={handleButtonClick}
           src={image || defaultImage}
@@ -107,7 +113,6 @@ function ProfileForm({
           style={{ cursor: "pointer" }}
           sx={{
             m: 1,
-            display: "inline-block",
             width: 64,
             height: 64,
             "&:hover $editButton, &:focus-within $editButton": {
