@@ -182,23 +182,6 @@ export default function FormClient(props: Props) {
               error: true,
             })}
           />
-          <TextField
-            label="Business"
-            sx={{ m: 1 }}
-            type="text"
-            {...register("idBusiness", {
-              required: true,
-              minLength: 2,
-            })}
-            {...(errors.idBusiness?.type === "required" && {
-              helperText: "Campo obligatorio",
-              error: true,
-            })}
-            {...(errors.idBusiness?.type === "minLength" && {
-              helperText: "El nombre es demasiado corto",
-              error: true,
-            })}
-          />
           <FormControl {...register("documentType")}>
             <InputLabel>Document Type</InputLabel>
             <Select
