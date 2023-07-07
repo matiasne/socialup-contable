@@ -24,6 +24,11 @@ export const AppRouter = () => {
   const session = getSessionServices();
   const business = getSessionBusiness();
 
+  console.log ("session ", session)
+  console.log ("business ", business)
+
+
+
   if (session) {
     if (business) {
       return (
@@ -92,6 +97,7 @@ export const AppRouter = () => {
             }
           />
           <Route path="/business" element={<BusinessCreate />} />;
+          <Route path="/*" element={<Navigate to="/dashboard" />} />
         </Routes>
       );
     } else {
@@ -112,6 +118,7 @@ export const AppRouter = () => {
             }
           />
           <Route path="/business" element={<BusinessCreate />} />;
+          <Route path="/*" element={<Navigate to="/listbusiness" />} />
         </Routes>
       );
     }
@@ -120,6 +127,7 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/login" element={<FormLogin />} />
         <Route path="/register" element={<FormRegister />} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     );
   }

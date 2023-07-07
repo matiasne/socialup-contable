@@ -47,6 +47,7 @@ export default function FormProductComponent(props: Props) {
     setIdBusiness(getSessionServices("business"));
   }, []);
   const onSubmit = handleSubmit(async (values: any) => {
+    console.log(props.products?.id);
     try {
       if (props.products?.id) {
         await handleEditSubmit(values);
