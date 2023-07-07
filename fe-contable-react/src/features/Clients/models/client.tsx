@@ -6,7 +6,7 @@ export interface IClient {
   address?: string;
   email: string;
   phone?: string;
-  idBusinnes: string;
+  idBusiness: string;
   postCode?: string;
   documentType?: string;
   documentNumber?: string;
