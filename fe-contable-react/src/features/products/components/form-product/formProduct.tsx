@@ -7,6 +7,7 @@ import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 import { useEffect, useState } from "react";
 import { IProduct } from "../../models/product.interface";
 import { getSessionServices } from "../../../../auth/services/session.service";
+import { Refresh } from "@mui/icons-material";
 
 type Props = {
   products: IProduct | undefined;
@@ -122,7 +123,7 @@ export default function FormProductComponent(props: Props) {
             onChange={function (data: any): void {
               setValue("image", data);
             }}
-            defaultImage={""}
+            defaultImage={props.products?.image ? props.products.image : ""}
           />
           <TextField
             label="Name"
