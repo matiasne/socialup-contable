@@ -146,7 +146,7 @@ export default function FormClient(props: Props) {
             onChange={function (data: any): void {
               setValue("image", data);
             }}
-            defaultImage={""}
+            defaultImage={props.client?.image ? props.client.image : ""}
           />
           <TextField
             label="Name"

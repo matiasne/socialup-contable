@@ -33,13 +33,37 @@ const createClient = gql`
 `;
 
 const UpdateClient = gql`
-  mutation UpdateClient($id: String!, $name: String!, $email: String!) {
-    updateClient(_id: $id, name: $name, email: $email) {
-      address
+  mutation UpdateClient(
+    $id: String!
+    $name: String!
+    $email: String!
+    $image: String
+    $address: String
+    $city: String
+    $postCode: String
+    $phone: String
+    $documentType: String
+    $documentNumber: String
+    $surname: String
+  ) {
+    updateClient(
+      _id: $id
+      name: $name
+      email: $email
+      image: $image
+      address: $address
+      city: $city
+      postCode: $postCode
+      phone: $phone
+      documentType: $documentType
+      documentNumber: $documentNumber
+      surname: $surname
+    ) {
       name
       image
       city
       email
+      address
       phone
       postCode
       documentType

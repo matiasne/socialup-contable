@@ -59,15 +59,18 @@ function ItemClient(props: Props) {
   };
 
   const handleCloseEditDialog = async () => {
+    console.log(props);
     setIsEditDialogOpen(false);
   };
 
   return (
     <>
-      <ListItemAvatar>
-        <Avatar src={props.client.image} alt={props.client.name} />
-      </ListItemAvatar>
+      {" "}
       <>
+        <ListItemAvatar>
+          <Avatar src={props.client.image} alt={props.client.name} />
+        </ListItemAvatar>
+
         <ListItemText
           primary={props.client.name}
           secondary={`email: ${props.client.email}, phone: ${props.client.phone}`}
