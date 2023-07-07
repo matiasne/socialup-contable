@@ -23,7 +23,7 @@ import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../../../shared/Components/alert/alert";
-
+import { getSessionServices } from "../../../../auth/services/session.service";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -77,6 +77,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
 }));
 
 export const FormBoxComponent = () => {
+  const [idBusiness, setIdBusiness] = useState("");
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -92,32 +93,29 @@ export const FormBoxComponent = () => {
     defaultValues: {
       Name: "",
       Status: "",
-      ActualAmount: "",
-      DailyAmount: "",
+      ActualAmount: 0,
+      DailyAmount: 0,
       Image: "",
     },
   });
 
- 
-   const { id } = useParams();
-   const [mutateFunction] = useMutation(
-    id
-      ? BoxMutationServices.UpdateBox
-      : BoxMutationServices.CreateBox
+  const { id } = useParams();
+  const [mutateFunction] = useMutation(
+    id ? BoxMutationServices.UpdateBox : BoxMutationServices.CreateBox
   );
-   
-  const { data, loading, error,  } = useQuery(
-    
-    BoxQueryServices.FindOnebox,
-    {
-      variables: {
-        findOneBoxId: id ? id : null,
-      },
-    }
-  );
-  
+
+  const { data, loading, error } = useQuery(BoxQueryServices.FindOnebox, {
+    variables: {
+      findOneBoxId: id ? id : null,
+    },
+  });
+
   //   console.log(error)
 
+  useEffect(() => {
+    // getSessionBusiness();
+    setIdBusiness(getSessionServices("business"));
+  }, []);
   useEffect(() => {
     console.log(data);
     if (data) {
@@ -133,44 +131,47 @@ export const FormBoxComponent = () => {
   }
 
   const onSubmit = handleSubmit(async (values: any) => {
-    console.log(values);
     mutateFunction({
-     variables: {
-       id: id ? id : null,
-       business: "647f81a3512fbb2905d7f447",
-       name: values.Name,
-       status: values.status,
-       ActualAmount: values.actualamount,
-       DailyAmount: values.dailyamount,
-      //  image: values.Image ? values.Image : data.findOneBox.Image,
-     },
-   });
-   setShowAlert(true);
-   formRef.current?.reset();
-   setTimeout(() => {
-    setShowAlert(false);
-  }, 1000);
-  
- });
-
+      variables: {
+        id: id ? id : null,
+        business: idBusiness,
+        name: values.Name,
+        status: values.status,
+        ActualAmount: parseFloat(values.ActualAmount),
+        DailyAmount: parseFloat(values.dailyamount),
+        //  image: values.Image ? values.Image : data.findOneBox.Image,
+      },
+    });
+    setShowAlert(true);
+    formRef.current?.reset();
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 1000);
+  });
 
   return (
     <div>
-       {showAlert && <Alert Title={"Exitos"} Descriptions={"Caja Creada"} Severity={"success"}></Alert>}
-    <Box
-      component="form"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "10vh",
-      }}
-      onSubmit={onSubmit}
-      ref={formRef}
-    >
-      <Card sx={{ p: 1 }}>
-        <FormControl>
-          {/* <ProfileForm
+      {showAlert && (
+        <Alert
+          Title={"Exitos"}
+          Descriptions={"Caja Creada"}
+          Severity={"success"}
+        ></Alert>
+      )}
+      <Box
+        component="form"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "10vh",
+        }}
+        onSubmit={onSubmit}
+        ref={formRef}
+      >
+        <Card sx={{ p: 1 }}>
+          <FormControl>
+            {/* <ProfileForm
             avatarType="box"onChange={(data: any) => {
               setValue("Image", data);
             }}
@@ -200,25 +201,11 @@ export const FormBoxComponent = () => {
               })}
             />
             <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">$</InputAdornment>
-                ),
-              }}
               label="Monto inicial"
               sx={{ m: 1, width: "25ch" }}
-              type="number"
+              type="text"
               {...register("ActualAmount", {
                 required: true,
-                minLength: 2,
-              })}
-              {...(errors.ActualAmount?.type === "required" && {
-                helperText: "Campo obligatorio",
-                error: true,
-              })}
-              {...(errors.ActualAmount?.type === "minLength" && {
-                helperText: "El nombre es demasiado corto",
-                error: true,
               })}
             />
             <Grid

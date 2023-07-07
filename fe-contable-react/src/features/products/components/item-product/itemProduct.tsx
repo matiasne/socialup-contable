@@ -82,7 +82,13 @@ function ItemProduct(props: Props) {
     <>
       <Card sx={{ maxWidth: 400 }}>
         <CardActionArea>
-          <CardMedia component="img" height="140" image="" alt="Product" />
+          <CardMedia
+            component="img"
+            height="140"
+            width="160"
+            image={props.products.image}
+            alt="Product"
+          />
         </CardActionArea>
         <CardContent>
           <ListItemText primary={props.products.name} />
