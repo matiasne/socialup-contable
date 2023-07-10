@@ -17,6 +17,19 @@ module.exports = {
       }).exec();
       return business;
     },
+    listBusiness: async (_: any, _args: any, context: any) => {
+      console.log("user", context.user.id);
+      console.log("argumentos", _args._id);
+      const offset = (_args.pageCount - 1) * _args.perPage;
+      const business = await Business.find({
+        user: context.user.id,
+        name: new RegExp(_args.searchWord, "i"),
+      })
+        .skip(offset)
+        .limit(_args.perPage)
+        .exec();
+      return business;
+    },
     findUserBusiness: async (_: any, _args: any, context: any) => {
       console.log("user", context.user.id);
       console.log("argumentos", _args._id);
