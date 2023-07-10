@@ -1,7 +1,6 @@
 import Business from "../schema/business";
 import Product from "../schema/product";
 import Client from "../schema/client";
-import User from "../schema/user";
 import Sale from "../schema/sale";
 import Box from "../schema/box";
 import { GraphQLError } from "graphql";
@@ -24,6 +23,7 @@ module.exports = {
       const offset = (_args.pageCount - 1) * _args.perPage;
       const business = await Business.find({
         user: context.user.id,
+        _id: _args._id,
         name: new RegExp(_args.searchWord, "i"),
       })
         .skip(offset)

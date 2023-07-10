@@ -4,17 +4,17 @@ import Product from "../schema/product";
 import { GraphQLError } from "graphql/error/GraphQLError";
 
 module.exports = {
-  Query: {
-    findProduct: async (_: any, _args: any, context: any) => {
-      console.log(context);
-      return await Product.find();
-    },
-    findOneProduct: async (root: any, args: any, context: any) => {
-      const idProduct = args.id;
-      const product = await Product.findById(idProduct);
-      return product;
-    },
-  },
+  // Query: {
+  //   findProduct: async (_: any, _args: any, context: any) => {
+  //     console.log(context);
+  //     return await Product.find();
+  //   },
+  //   findOneProduct: async (root: any, args: any, context: any) => {
+  //     const idProduct = args.id;
+  //     const product = await Product.findById(idProduct);
+  //     return product;
+  //   },
+  // },
   Mutation: {
     //create our mutation:
     createProduct: async (root: any, args: any) => {
