@@ -11,9 +11,9 @@ import {
   DialogActions,
   DialogTitle,
 } from "@mui/material";
-import { IiBox } from "../../models/box.interface";
+import { IBox } from "../../models/box";
 
-export const ListBox = (props: IiBox) => {
+export const ListBox = (props: IBox) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data, error, loading, refetch } = useQuery(
     BoxServices.BoxQueryServices.Boxs
@@ -34,7 +34,7 @@ export const ListBox = (props: IiBox) => {
         <div>
           <ListItems
             items={data.findUserBusiness[0].box}
-            renderItem={(item: IiBox) => <ItemBox {...item} />}
+            renderItem={(item: IBox) => <ItemBox {...item} />}
             handleItemClick={function (item: any): void {
               console.log(item);
               handleItemDelete(item.id);

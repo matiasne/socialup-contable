@@ -3,8 +3,8 @@ export interface IBox {
   Image?: string;
   Name: string;
   Status: string;
-  ActualAmount: number;
-  DailyAmount: number;
+  ActualAmount: string;
+  DailyAmount: string;
   IdBusiness: string;
 }
 

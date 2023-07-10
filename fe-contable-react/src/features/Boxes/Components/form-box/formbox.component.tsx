@@ -93,8 +93,8 @@ export const FormBoxComponent = () => {
     defaultValues: {
       Name: "",
       Status: "",
-      ActualAmount: 0,
-      DailyAmount: 0,
+      ActualAmount: "",
+      DailyAmount: "",
       Image: "",
     },
   });
@@ -137,8 +137,8 @@ export const FormBoxComponent = () => {
         business: idBusiness,
         name: values.Name,
         status: values.status,
-        ActualAmount: parseFloat(values.ActualAmount),
-        DailyAmount: parseFloat(values.dailyamount),
+        ActualAmount: values.ActualAmount,
+        DailyAmount: values.dailyamoun,
         //  image: values.Image ? values.Image : data.findOneBox.Image,
       },
     });

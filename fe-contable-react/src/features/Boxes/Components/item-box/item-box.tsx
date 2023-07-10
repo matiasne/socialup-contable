@@ -18,7 +18,6 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import { IBox } from "../../models/box";
 import { useState, MouseEventHandler } from "react";
-import { IiBox } from "../../models/box.interface";
 import { useQuery } from "@apollo/client";
 import { BoxServices } from "../../Services/boxServices";
 
@@ -73,8 +72,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
   },
 }));
 
-function ItemBox(props: IiBox) {
- 
+function ItemBox(props: IBox) {
   const { data, error, loading, refetch } = useQuery(
     BoxServices.BoxQueryServices.Boxs
   );
@@ -89,18 +87,21 @@ function ItemBox(props: IiBox) {
     setTimeout(() => {
       refetch();
     }, 1000);
-    
   };
- 
+
   return (
     <>
-      {showAlert && <Alert severity="success" sx={{marginBottom:"50px"}}>Eliminado</Alert>}
+      {showAlert && (
+        <Alert severity="success" sx={{ marginBottom: "50px" }}>
+          Eliminado
+        </Alert>
+      )}
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
       <ListItemText
-        primary={`Nombre: ${props.name}`}
-        secondary={`Importe : ${props.actualAmount}`}
+        primary={`Nombre: ${props.Name}`}
+        secondary={`Importe : ${props.ActualAmount}`}
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="editar">
@@ -114,9 +115,7 @@ function ItemBox(props: IiBox) {
         open={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogTitle>
-          ¿Está seguro que desea eliminar esta caja?
-        </DialogTitle>
+        <DialogTitle>¿Está seguro que desea eliminar esta caja?</DialogTitle>
 
         <DialogActions>
           <Button
