@@ -6,23 +6,23 @@ import Client from "../schema/client";
 import { GraphQLError } from "graphql";
 
 module.exports = {
-  Query: {
-    findSale: async () => {
-      return await Sale.find();
-    },
-    findOneSale: async (root: any, args: any) => {
-      const idSale = args.id;
+  // Query: {
+  //   findSale: async () => {
+  //     return await Sale.find();
+  //   },
+  //   findOneSale: async (root: any, args: any) => {
+  //     const idSale = args.id;
 
-      const sale = await Sale.findById(Sale._id);
+  //     const sale = await Sale.findById(Sale._id);
 
-      return Sale;
-    },
-  },
-  Business: {
-    products: async (business: any) => {
-      return await Sale.find({ business: business._id });
-    },
-  },
+  //     return Sale;
+  //   },
+  // },
+  // Business: {
+  //   products: async (business: any) => {
+  //     return await Sale.find({ business: business._id });
+  //   },
+  // },
 
   Mutation: {
     //create our mutation:
