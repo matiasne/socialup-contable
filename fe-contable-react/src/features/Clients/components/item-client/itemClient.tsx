@@ -32,7 +32,7 @@ function ItemClient(props: Props) {
   const [DeleteClient] = useMutation(
     ClientServices.ClientMutationServices.DeleteClient
   );
-
+  refetch();
   const handleEdit = async () => {
     setIsEditDialogOpen(true);
   };
