@@ -9,11 +9,13 @@ export const ListClient = (props: IClient) => {
     ClientServices.QueryClientService.clients
   );
 
+  const clients = data?.findUserBusiness[0]?.client.slice(0, 10);
+
   return (
     <>
       {!loading && data && data.findUserBusiness ? (
         <ListItems
-          items={data.findUserBusiness[0].client}
+          items={clients}
           renderItem={(item: IClient) => <ItemClient client={item} />}
           handleItemClick={function (item: IClient): void {
             console.log(item);

@@ -59,16 +59,14 @@ export default function FormClient(props: Props) {
     }
   }, [props.client]);
 
-  const [createClient, { loading, error, data }] = useMutation(
+  const [createClient] = useMutation(
     ClientServices.ClientMutationServices.createClient
   );
-  const [
-    updateClient,
-    { loading: updateLoading, error: updateError, data: updateData },
-  ] = useMutation(ClientServices.ClientMutationServices.UpdateClient);
+  const [updateClient] = useMutation(
+    ClientServices.ClientMutationServices.UpdateClient
+  );
 
   useEffect(() => {
-    // getSessionBusiness();
     setIdBusiness(getSessionServices("business"));
   }, []);
   const navigate = useNavigate();
@@ -90,8 +88,13 @@ export default function FormClient(props: Props) {
       },
     });
     navigate("/Clients");
+    toastShow({
+      message: "El cliente ha sido creado correctamente",
+      severity: "success",
+      duration: 5000,
+    });
   });
-  console.log(data);
+
   const { toastShow } = useToast();
   const [showAlert, setShowAlert] = useState(false);
   const onUpdate = handleSubmit(async (values) => {
@@ -121,7 +124,6 @@ export default function FormClient(props: Props) {
       duration: 5000,
     });
   });
-  console.log(data);
 
   const handleInputChange = (event: any) => {
     setSelectedDocumentType(event.target.value);
@@ -137,7 +139,6 @@ export default function FormClient(props: Props) {
         alignItems: "center",
         minHeight: "100vh",
       }}
-      onSubmit={onSubmit}
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
