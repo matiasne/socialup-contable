@@ -1,12 +1,8 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import { useToast } from "./ToastProvider";
 import { useState } from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { Stack } from "@mui/material";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
