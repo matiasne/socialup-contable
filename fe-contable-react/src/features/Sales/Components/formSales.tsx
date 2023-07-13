@@ -9,16 +9,22 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
-
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { ISale } from "../models/sale";
 import { useMutation } from "@apollo/client";
 import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
-import ConfirmationDialog from "../../../shared/Components/modal/ConfitmationDialog";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import ListClient from "../../Clients/components/list-client/listClient";
 
 export const FormSalesComponent = () => {
+  const [isClientDialogOpen, setIsClientDialogOpen] = useState(false); // estado para controlar la apertura del diálogo de selección de cliente
+  const [selectedClient, setSelectedClient] = useState(null); // estado para almacenar el cliente seleccionado
   const {
     register,
     handleSubmit,
@@ -33,13 +39,27 @@ export const FormSalesComponent = () => {
     alert(JSON.stringify(values));
     mutateFunction({
       variables: {
-        client: values.client,
+        client: selectedClient, // utilizar el cliente seleccionado en lugar del TextField,
         product: values.item,
         total: values.total,
         variations: values.variations,
       },
     });
   });
+
+  const handleOpenClientDialog = () => {
+    setIsClientDialogOpen(true); // abrir el diálogo de selección de cliente
+  };
+
+  const handleCloseClientDialog = () => {
+    setIsClientDialogOpen(false); // cerrar el diálogo de selección de cliente
+  };
+
+  const handleSelectClient = (client: any) => {
+    setSelectedClient(client); // actualizar el cliente seleccionado
+    handleCloseClientDialog(); // cerrar el diálogo de selección de cliente
+  };
+
   return (
     <div>
       <NavBarMenu></NavBarMenu>
@@ -59,26 +79,13 @@ export const FormSalesComponent = () => {
               Venta
             </Typography>
             <Box>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Cleinte"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("client", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.client?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.client?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
+              <Button
+                sx={{ m: 1, width: "44ch" }}
+                onClick={handleOpenClientDialog}
+                variant="contained"
+              >
+                Elegir Cliente
+              </Button>
             </Box>
             <Box>
               <TextField
@@ -93,11 +100,11 @@ export const FormSalesComponent = () => {
                   minLength: 2,
                 })}
                 {...(errors.variations?.type === "required" && {
-                  helperText: "Campo Obligatorio",
+                  helperText: "Campo obligatorio",
                   error: true,
                 })}
                 {...(errors.variations?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
+                  helperText: "El nombre es demasiado corto",
                   error: true,
                 })}
               />
@@ -114,7 +121,6 @@ export const FormSalesComponent = () => {
                 <FormControlLabel value="male" control={<Radio />} label="$" />
               </RadioGroup>
             </Box>
-            <Box></Box>
             <Box>
               <TextField
                 InputProps={{
@@ -133,11 +139,11 @@ export const FormSalesComponent = () => {
                   minLength: 2,
                 })}
                 {...(errors.total?.type === "required" && {
-                  helperText: "Campo Obligatorio",
+                  helperText: "Campo obligatorio",
                   error: true,
                 })}
                 {...(errors.total?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
+                  helperText: "El nombre es demasiado corto",
                   error: true,
                 })}
               />
@@ -152,9 +158,15 @@ export const FormSalesComponent = () => {
                 Terminar Venta
               </Button>
             </Grid>
-            <Box></Box>
           </div>
         </Card>
+        <Dialog open={isClientDialogOpen} onClose={handleCloseClientDialog}>
+          <DialogTitle>Seleccionar Cliente</DialogTitle>
+          <DialogContent>{<ListClient />}</DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseClientDialog}>Cancelar</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </div>
   );

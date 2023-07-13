@@ -4,7 +4,7 @@ import { IClient } from "../../models/client";
 import { ClientServices } from "../../services/clientServices";
 import ItemClient from "../item-client/itemClient";
 
-export const ListClient = (props: IClient) => {
+export const ListClient = () => {
   const { data, error, loading, refetch } = useQuery(
     ClientServices.QueryClientService.clients
   );
@@ -17,8 +17,9 @@ export const ListClient = (props: IClient) => {
         <ListItems
           items={clients}
           renderItem={(item: IClient) => <ItemClient client={item} />}
-          handleItemClick={function (item: IClient): void {
+          handleItemClick={function (item: IClient): IClient {
             console.log(item);
+            return item;
             //handleItemDelete(item.id);
           }}
         ></ListItems>
