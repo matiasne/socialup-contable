@@ -16,11 +16,16 @@ import {
 } from "@mui/material";
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { ISale } from "../models/sale";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
 import { useForm } from "react-hook-form";
+import { ClientServices } from "../../Clients/services/clientServices";
+import { IClient } from "../../Clients/models/client";
+import SimpleDialogDemo from "../../../shared/Components/modal/DialogsSelect";
 import { useState } from "react";
-import ListClient from "../../Clients/components/list-client/listClient";
+
+
+
 
 export const FormSalesComponent = () => {
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false); // estado para controlar la apertura del diálogo de selección de cliente
@@ -31,10 +36,14 @@ export const FormSalesComponent = () => {
     getValues,
     formState: { errors },
   } = useForm<ISale>();
-  const [mutateFunction, { loading, error, data }] = useMutation(
+  const [mutateFunction] = useMutation(
     UserServices.UserMutationServices.register
   );
-
+  const { loading, error, data } = useQuery(ClientServices.QueryClientService.clients);
+  
+  const renderItem = (client: IClient) => {
+    return <span>{client.name}</span>;
+  };
   const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values));
     mutateFunction({
@@ -79,13 +88,7 @@ export const FormSalesComponent = () => {
               Venta
             </Typography>
             <Box>
-              <Button
-                sx={{ m: 1, width: "44ch" }}
-                onClick={handleOpenClientDialog}
-                variant="contained"
-              >
-                Elegir Cliente
-              </Button>
+            <SimpleDialogDemo></SimpleDialogDemo>
             </Box>
             <Box>
               <TextField
