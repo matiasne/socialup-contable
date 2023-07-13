@@ -74,27 +74,35 @@ const IOSSwitch = styled((props: SwitchProps) => (
 }));
 
 function ItemBox(props: IiBox) {
- 
   const { data, error, loading, refetch } = useQuery(
     BoxServices.BoxQueryServices.Boxs
   );
+
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const handleDelete: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(true);
   };
+
+  const handleEdit: MouseEventHandler<HTMLButtonElement> = () => {
+    console.log("edit")
+  };
+
   const handleDeleteConfirmed: MouseEventHandler<HTMLButtonElement> = () => {
     setIsDeleteDialogOpen(false);
     setShowAlert(true);
     setTimeout(() => {
       refetch();
     }, 1000);
-    
   };
- 
+
   return (
     <>
-      {showAlert && <Alert severity="success" sx={{marginBottom:"50px"}}>Eliminado</Alert>}
+      {showAlert && (
+        <Alert severity="success" sx={{ marginBottom: "150px" }}>
+          Eliminado
+        </Alert>
+      )}
       <ListItemAvatar>
         <Avatar />
       </ListItemAvatar>
@@ -103,7 +111,7 @@ function ItemBox(props: IiBox) {
         secondary={`Importe : ${props.actualAmount}`}
       />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="editar">
+        <IconButton edge="end" aria-label="editar" onClick={handleEdit}>
           <Edit />
         </IconButton>
         <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
@@ -114,9 +122,7 @@ function ItemBox(props: IiBox) {
         open={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
       >
-        <DialogTitle>
-          ¿Está seguro que desea eliminar esta caja?
-        </DialogTitle>
+        <DialogTitle>¿Está seguro que desea eliminar esta caja?</DialogTitle>
 
         <DialogActions>
           <Button

@@ -17,12 +17,10 @@ export const ListBox = (props:IiBox) => {
     
   );
   
-console.log (data)
-
-  const handleItemDelete = async (item: any) => {
-    await MutateFuncion({ variables: { id: item } });
+ // const handleItemDelete = async (item: any) => {
+ //   await MutateFuncion({ variables: { id: item } });
     
-  };
+  //};
   
  
 
@@ -39,9 +37,6 @@ console.log (data)
         items={data.findUserBusiness[0].box}
         renderItem={(item:IiBox)=> <ItemBox {...item}/>}
         handleItemClick={function(item: any): void{
-          console.log(item);
-          handleItemDelete(item.id);
-        
         }}
       ></ListItems>
     </div>

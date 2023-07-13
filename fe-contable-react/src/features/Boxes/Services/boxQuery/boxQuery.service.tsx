@@ -6,6 +6,8 @@ query FindBoxes {
     box {
       name
       id
+      status
+      actualAmount
     }
 }
 }`;

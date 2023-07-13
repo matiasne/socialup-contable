@@ -23,6 +23,7 @@ import { BoxQueryServices } from "../../Services/boxQuery/boxQuery.service";
 import { BoxServices } from "../../Services/boxServices";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../../../shared/Components/alert/alert";
+import { getSessionServices } from "../../../../auth/services/session.service";
 
 
 const IOSSwitch = styled((props: SwitchProps) => (
@@ -77,6 +78,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
 }));
 
 export const FormBoxComponent = () => {
+  const [idBusiness, setIdBusiness] = useState("");
   const [imageBase64, setImageBase64] = React.useState<any>(null);
   const [img, setImg] = React.useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -100,10 +102,10 @@ export const FormBoxComponent = () => {
 
  
    const { id } = useParams();
+   
    const [mutateFunction] = useMutation(
-    id
-      ? BoxMutationServices.UpdateBox
-      : BoxMutationServices.CreateBox
+
+       BoxMutationServices.CreateBox
   );
    
   const { data, loading, error,  } = useQuery(
@@ -119,7 +121,7 @@ export const FormBoxComponent = () => {
   //   console.log(error)
 
   useEffect(() => {
-    console.log(data);
+    setIdBusiness(getSessionServices("business"));
     if (data) {
       setValue("Name", data.findOne.name);
       setValue("Status", data.findOneBox.status);
@@ -134,14 +136,15 @@ export const FormBoxComponent = () => {
 
   const onSubmit = handleSubmit(async (values: any) => {
     console.log(values);
+    console.log("-------------");
     mutateFunction({
      variables: {
        id: id ? id : null,
-       business: "647f81a3512fbb2905d7f447",
+       business: idBusiness,
        name: values.Name,
-       status: values.status,
-       ActualAmount: values.actualamount,
-       DailyAmount: values.dailyamount,
+       //status: values.Status,
+       actualAmount: parseFloat(values.ActualAmount),
+       dailyAmount: parseFloat(values.DailyAmount),
       //  image: values.Image ? values.Image : data.findOneBox.Image,
      },
    });
@@ -149,7 +152,7 @@ export const FormBoxComponent = () => {
    formRef.current?.reset();
    setTimeout(() => {
     setShowAlert(false);
-  }, 1000);
+  }, 3000);
   
  });
 
@@ -165,7 +168,7 @@ export const FormBoxComponent = () => {
         alignItems: "center",
         minHeight: "10vh",
       }}
-      onSubmit={onSubmit}
+
       ref={formRef}
     >
       <Card sx={{ p: 1 }}>
