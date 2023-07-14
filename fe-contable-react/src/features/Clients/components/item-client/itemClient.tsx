@@ -19,6 +19,7 @@ import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
 type Props = {
   client: IClient;
+  buttonAction?: boolean;
 };
 
 function ItemClient(props: Props) {
@@ -75,12 +76,21 @@ function ItemClient(props: Props) {
           primary={props.client.name}
           secondary={`email: ${props.client.email}, phone: ${props.client.phone}`}
         />
-        <IconButton edge="end" aria-label="editar" onClick={() => handleEdit()}>
-          <Edit />
-        </IconButton>
-        <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
-          <Delete />
-        </IconButton>
+        {props.buttonAction == true ? (
+          <>
+            {" "}
+            <IconButton
+              edge="end"
+              aria-label="editar"
+              onClick={() => handleEdit()}
+            >
+              <Edit />
+            </IconButton>
+            <IconButton edge="end" aria-label="eliminar" onClick={handleDelete}>
+              <Delete />
+            </IconButton>
+          </>
+        ) : null}
       </>
       <DeleteDialog
         isOpen={isDeleteDialogOpen}

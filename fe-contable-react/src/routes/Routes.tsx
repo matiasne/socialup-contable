@@ -19,15 +19,14 @@ import {
 } from "../auth/services/authService";
 import ListClient from "../features/Clients/components/list-client/listClient";
 import { FormSalesComponent } from "../features/Sales/Components/formSales";
+import { Dialog } from "@mui/material";
 
 export const AppRouter = () => {
   const session = getSessionServices();
   const business = getSessionBusiness();
 
-  console.log ("session ", session)
-  console.log ("business ", business)
-
-
+  console.log("session ", session);
+  console.log("business ", business);
 
   if (session) {
     if (business) {
@@ -58,18 +57,7 @@ export const AppRouter = () => {
               />
             }
           />
-          <Route path="/dialogs" element={<Dialog />} />
-          <Route
-            path="/Clients"
-            element={
-              <ListClient
-                name={""}
-                image={undefined}
-                email={""}
-                idBusiness={""}
-              />
-            }
-          />
+          <Route path="/Clients" element={<ListClient />} />
           <Route
             path="/listbusiness"
             element={
