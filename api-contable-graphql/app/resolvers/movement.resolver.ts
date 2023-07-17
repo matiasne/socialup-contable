@@ -1,9 +1,17 @@
 import Business from "../schema/business";
+import Movement from "../schema/movement";
 import Product from "../schema/product";
-import Sale from "../schema/sale";
 import Box from "../schema/box";
 import Client from "../schema/client";
 import { GraphQLError } from "graphql";
+
+type ProductInSale = {
+  id: string;
+  name: string;
+  codigo: string;
+  costPrice: string;
+  salePrice: string;
+};
 
 module.exports = {
   // Query: {
@@ -26,37 +34,38 @@ module.exports = {
 
   Mutation: {
     //create our mutation:
-    addSale: async (root: any, args: any) => {
+    addMovement: async (root: any, args: any) => {
+      console.log("args: ", args);
       const client = await Client.findById(args.client);
-      const business = await Business.findById(args.business);
-
+      const business = await Business.findById(args.idbusiness);
+      //console.log("Business: ", business);
       if (!business) {
         return false;
       }
 
-      const product = await Promise.all(
-        args.product.map(async (productId: string) => {
-          return await Product.findById(productId);
-        })
-      );
+      let actualProducts: ProductInSale[] = [];
 
-      const actualProducts = await Promise.all(
-        args.product.map(async (productId: string) => {
+      if (args.productsIds) {
+        for await (let productId of args.productsIds) {
           let p = await Product.findById(productId);
-          const producto = {
+          const producto: ProductInSale = {
+            id: p._id,
             name: p.name,
             codigo: p.codigo,
             costPrice: p.costPrice,
             salePrice: p.salePrice,
-            image: p.image,
           };
-          return producto;
-        })
-      );
+          actualProducts.push(producto);
+        }
+      }
+
+      console.log("Product: ", actualProducts);
+
       const box = await Box.findById(args.box);
 
-      const sale = new Sale({
+      const movement = new Movement({
         idBusiness: business,
+        typeMovement: args.typeMovement,
         actualBusiness: {
           name: business.name,
           address: business.address,
@@ -79,11 +88,10 @@ module.exports = {
           documentNumber: client?.documentNumber,
           surname: client?.surname,
         },
-        product: product,
-        actualProduct: actualProducts,
+        products: actualProducts,
         box: box,
         actualBox: {
-          name: box.name,
+          name: box?.name,
         },
         total: args.total,
         payments: args.payments,
@@ -91,11 +99,12 @@ module.exports = {
         billingDate: new Date(),
         status: args.status,
       });
-      console.log(sale);
-      return sale.save().catch((error: any) => {
-        throw new GraphQLError("Error creando la venta. " + error, {
+      console.log(movement);
+      return movement.save().catch((error: any) => {
+        console.log(error);
+        throw new GraphQLError("Error creando el movimiento. " + error, {
           extensions: {
-            code: "ERROR_CREATING_SALE",
+            code: "ERROR_CREATING_MOVEMENT",
           },
         });
       });

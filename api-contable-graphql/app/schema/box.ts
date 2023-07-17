@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
   actualAmount: { type: String, required: false, unique: false, minlength: 2 },
   image: { type: String, required: false, unique: false, minlength: 3 },
   dailyAmount: { type: String, required: false, unique: false, minlength: 3 },
-  sale: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sale" }],
+  movement: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movement" }],
 });
 export default mongoose.model("Box", schema);

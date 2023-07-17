@@ -1,7 +1,7 @@
 import Business from "../schema/business";
 import Product from "../schema/product";
 import Client from "../schema/client";
-import Sale from "../schema/sale";
+import Movement from "../schema/movement";
 import Box from "../schema/box";
 import { GraphQLError } from "graphql";
 import { UserInputError } from "apollo-server-core";
@@ -51,8 +51,8 @@ module.exports = {
     box: async (business: any) => {
       return await Box.find({ business: business._id });
     },
-    sale: async (business: any) => {
-      return await Sale.find({ business: business._id });
+    movement: async (business: any) => {
+      return await Movement.find({ business: business._id });
     },
   },
 

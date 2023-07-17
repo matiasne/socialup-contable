@@ -10,6 +10,6 @@ const schema = new mongoose.Schema({
   phone: { type: String, required: false, unique: false, minlength: 2 },
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   box: [{ type: mongoose.Schema.Types.ObjectId, ref: "Box" }],
-  sale: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sale" }],
+  movement: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movement" }],
 });
 export default mongoose.model("Business", schema);

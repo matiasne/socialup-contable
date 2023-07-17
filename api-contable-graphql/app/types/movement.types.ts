@@ -1,14 +1,15 @@
 import { gql } from "apollo-server-express";
 
 module.exports = gql`
-  type Sale {
-    idBusiness: Business
+  type Movement {
+    typeMovement: String
+    idBusiness: Business!
     actualBusiness: [String]
     client: Client
     actualClient: [String]
-    product: Product
-    box: Box
-    total: Float
+    productsIds: [String]
+    box: Box!
+    total: Float!
     payments: [String]
     variations: [String]
     billingDate: String
@@ -17,24 +18,26 @@ module.exports = gql`
   }
 
   type Query {
-    findSale: [Sale]
-    findOneSale(id: ID!): Sale
+    findMovement: [Movement]
+    findOneMovement(id: ID!): Movement
   }
 
   type Mutation {
-    addSale(
-      business: String
+    addMovement(
+      typeMovement: String!
+      idbusiness: [String]
       client: String
-      product: [String]
-      box: String
+      productsIds: [String]
+      box: ID
       total: Float
       payments: [String]
       variations: [String]
       billingDate: String
       status: String
-    ): Sale
-    updateSale(
+    ): String
+    updateMovement(
       _id: String!
+      typeMovement: String
       business: String
       client: String
       product: [String]
@@ -44,6 +47,6 @@ module.exports = gql`
       billingDate: String
       status: String
     ): String
-    deleteString(_id: String!): String
+    deleteMovement(_id: String!): String
   }
 `;

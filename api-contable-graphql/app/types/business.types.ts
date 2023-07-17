@@ -10,7 +10,7 @@ module.exports = `#graphql
     _id: ID!
     products: [Product]
     client: [Client]
-    sale: [Sale]
+    movement: [Movement]
     box: [Box]
   }
 

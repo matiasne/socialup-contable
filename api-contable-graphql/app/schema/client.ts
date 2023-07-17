@@ -18,6 +18,6 @@ const schema = new mongoose.Schema({
     minlength: 3,
   },
   surname: { type: String, required: false, unique: false, minlength: 3 },
-  sale: { type: mongoose.Schema.Types.ObjectId, ref: "Sale" },
+  movement: { type: mongoose.Schema.Types.ObjectId, ref: "Movement" },
 });
 export default mongoose.model("Client", schema);

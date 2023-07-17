@@ -9,6 +9,5 @@ const schema = new mongoose.Schema({
   costPrice: { type: String, required: false, unique: false, minlength: 1 },
   salePrice: { type: String, required: false, unique: false, minlength: 1 },
   image: { type: String, required: false, unique: false, minlength: 3 },
-  sale: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sale" }]
 });
 export default mongoose.model("Product", schema);
