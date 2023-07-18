@@ -24,10 +24,8 @@ export const AppRouter = () => {
   const session = getSessionServices();
   const business = getSessionBusiness();
 
-  console.log ("session ", session)
-  console.log ("business ", business)
-
-
+  console.log("session ", session);
+  console.log("business ", business);
 
   if (session) {
     if (business) {
@@ -40,11 +38,9 @@ export const AppRouter = () => {
             path="/products"
             element={
               <ListProduct
-                name={""}
-                description={""}
-                salePrice={""}
-                code={""}
-                costPrice={""}
+                products={undefined}
+                onEdit={() => {}}
+                onAdd={() => {}}
               />
             }
           />

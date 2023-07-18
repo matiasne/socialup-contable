@@ -1,13 +1,12 @@
 import { useMutation } from "@apollo/client";
 import { Box, Button, Card, FormControl, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { ProductService } from "../../productsService/productsService";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 import { useEffect, useState } from "react";
 import { IProduct } from "../../models/product.interface";
 import { getSessionServices } from "../../../../auth/services/session.service";
-import { Refresh } from "@mui/icons-material";
 
 type Props = {
   products: IProduct | undefined;
@@ -18,6 +17,7 @@ type Props = {
 export default function FormProductComponent(props: Props) {
   const [idBusiness, setIdBusiness] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -86,6 +86,7 @@ export default function FormProductComponent(props: Props) {
     });
     props.onAdd();
     reset();
+    setValue("image", "");
   });
   const handleEditSubmit = handleSubmit(async (values: any) => {
     console.log(values);
