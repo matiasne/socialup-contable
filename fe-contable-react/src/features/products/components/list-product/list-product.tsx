@@ -9,8 +9,7 @@ import { SearchBar } from "../../../../shared/Components/search-bar/search-bar";
 export const ListProduct = (props: IProduct) => {
   const [inputValue, setInputValue] = useState("");
   const { data, error, loading, refetch } = useQuery(
-    ProductService.ProductsQueryService.products,
-    { variables: {} }
+    ProductService.ProductsQueryService.products
   );
   const [shouldRefetch, setShouldRefetch] = useState(false);
   const [MutateFuncion] = useMutation(
