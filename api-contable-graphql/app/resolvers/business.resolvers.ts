@@ -1,7 +1,6 @@
 import Business from "../schema/business";
 import Product from "../schema/product";
 import Client from "../schema/client";
-import User from "../schema/user";
 import Sale from "../schema/sale";
 import Box from "../schema/box";
 import { GraphQLError } from "graphql";
@@ -19,17 +18,27 @@ module.exports = {
       return business;
     },
     findUserBusiness: async (_: any, _args: any, context: any) => {
-      console.log("user", context.user.id);
-      console.log("argumentos", _args._id);
       const offset = (_args.pageCount - 1) * _args.perPage;
-      const business = await Business.find({
-        user: context.user.id,
-        name: new RegExp(_args.searchWord, "i"),
-      })
-        .skip(offset)
-        .limit(_args.perPage)
-        .exec();
-      return business;
+      if (_args._id) {
+        const business = await Business.find({
+          user: context.user.id,
+          _id: _args._id,
+          name: new RegExp(_args.searchWord, "i"),
+        })
+          .skip(offset)
+          .limit(_args.perPage)
+          .exec();
+        return business;
+      } else {
+        const business = await Business.find({
+          user: context.user.id,
+          name: new RegExp(_args.searchWord, "i"),
+        })
+          .skip(offset)
+          .limit(_args.perPage)
+          .exec();
+        return business;
+      }
     },
   },
   Business: {
@@ -46,6 +55,7 @@ module.exports = {
       return await Sale.find({ business: business._id });
     },
   },
+
   Mutation: {
     //create our mutation:
     addBusiness: async (_: any, _args: any, context: any) => {

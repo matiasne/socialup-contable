@@ -20,11 +20,11 @@ module.exports = {
       return await Business.find({ user: context.user.id });
     },
   },
-  Business: {
-    products: async (business: any) => {
-      return await Product.find({ business: business._id });
-    },
-  },
+  // Business: {
+  //   products: async (business: any) => {
+  //     return await Product.find({ business: business._id });
+  //   },
+  // },
   Mutation: {
     //create our mutation:
     createUser: async (root: any, args: any) => {

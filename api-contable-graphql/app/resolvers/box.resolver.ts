@@ -3,16 +3,16 @@ import Business from "../schema/business";
 import Box from "../schema/box";
 
 module.exports = {
-  Query: {
-    findBox: async () => {
-      return await Box.find();
-    },
-    findOneBox: async (root: any, args: any) => {
-      const idBox = args.id;
-      const box = await Box.findById(idBox);
-      return box;
-    },
-  },
+  // Query: {
+  //   findBox: async () => {
+  //     return await Box.find();
+  //   },
+  //   findOneBox: async (root: any, args: any) => {
+  //     const idBox = args.id;
+  //     const box = await Box.findById(idBox);
+  //     return box;
+  //   },
+  // },
   Mutation: {
     //create our mutation:
     createBox: async (root: any, args: any) => {

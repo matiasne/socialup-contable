@@ -10,13 +10,13 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-
 import { UserServices } from "../../../shared/services/userServices/userServices";
 import { ISale } from "../models/sale";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import NavBarMenu from "../../../shared/NavBar/NavBarMenu";
-import ConfirmationDialog from "../../../shared/Components/modal/ConfitmationDialog";
 import { useForm } from "react-hook-form";
+import { ClientServices } from "../../Clients/services/clientServices";
+import SimpleDialogDemo from "../../../shared/Components/modal/DialogsSelect";
 
 export const FormSalesComponent = () => {
   const {
@@ -25,8 +25,11 @@ export const FormSalesComponent = () => {
     getValues,
     formState: { errors },
   } = useForm<ISale>();
-  const [mutateFunction, { loading, error, data }] = useMutation(
+  const [mutateFunction] = useMutation(
     UserServices.UserMutationServices.register
+  );
+  const { loading, error, data } = useQuery(
+    ClientServices.QueryClientService.clients
   );
 
   const onSubmit = handleSubmit((values) => {
@@ -40,6 +43,7 @@ export const FormSalesComponent = () => {
       },
     });
   });
+
   return (
     <div>
       <NavBarMenu></NavBarMenu>
@@ -53,107 +57,76 @@ export const FormSalesComponent = () => {
         }}
         onSubmit={onSubmit}
       >
-        <Card sx={{ p: 1 }}>
-          <div>
-            <Typography variant="h3" sx={{ textAlign: "center" }}>
-              Venta
-            </Typography>
-            <Box>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Cleinte"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("client", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.client?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.client?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-            </Box>
-            <Box>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Variación"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("variations", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.variations?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.variations?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="porsent"
-                  control={<Radio />}
-                  label="%"
-                />
-                <FormControlLabel value="male" control={<Radio />} label="$" />
-              </RadioGroup>
-            </Box>
-            <Box></Box>
-            <Box>
-              <TextField
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label="Total"
-                sx={{ m: 1, width: "25ch" }}
-                type="text"
-                {...register("total", {
-                  required: true,
-                  minLength: 2,
-                })}
-                {...(errors.total?.type === "required" && {
-                  helperText: "Campo Obligatorio",
-                  error: true,
-                })}
-                {...(errors.total?.type === "minLength" && {
-                  helperText: "El nombre es demaciado corto",
-                  error: true,
-                })}
-              />
-            </Box>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              sx={{ p: "3%" }}
+        <Card sx={{ p: 1, minWidth: "20em", textAlign: "center" }}>
+          <Typography variant="h3" sx={{ textAlign: "center" }}>
+            Venta
+          </Typography>
+          <SimpleDialogDemo></SimpleDialogDemo>
+          <TextField
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label="Variación"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("variations", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.variations?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.variations?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
+          />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
             >
-              <Button onClick={onSubmit} variant="contained">
-                Terminar Venta
-              </Button>
-            </Grid>
-            <Box></Box>
-          </div>
+              <FormControlLabel value="porsent" control={<Radio />} label="%" />
+              <FormControlLabel value="male" control={<Radio />} label="$" />
+            </RadioGroup>
+          </Box>
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label="Total"
+            sx={{ m: 1, width: "25ch" }}
+            type="text"
+            {...register("total", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.total?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.total?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
+          />
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ p: "3%" }}
+          >
+            <Button onClick={onSubmit} variant="contained">
+              Terminar Venta
+            </Button>
+          </Grid>
         </Card>
       </Box>
     </div>

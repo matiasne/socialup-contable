@@ -4,19 +4,24 @@ import { IClient } from "../../models/client";
 import { ClientServices } from "../../services/clientServices";
 import ItemClient from "../item-client/itemClient";
 
-export const ListClient = (props: IClient) => {
+export const ListClient = () => {
   const { data, error, loading, refetch } = useQuery(
     ClientServices.QueryClientService.clients
   );
+
+  const clients = data?.findUserBusiness[0]?.client.slice(0, 10);
 
   return (
     <>
       {!loading && data && data.findUserBusiness ? (
         <ListItems
-          items={data.findUserBusiness[0].client}
-          renderItem={(item: IClient) => <ItemClient client={item} />}
-          handleItemClick={function (item: IClient): void {
+          items={clients}
+          renderItem={(item: IClient) => (
+            <ItemClient client={item} buttonAction={true} />
+          )}
+          handleItemClick={function (item: IClient): IClient {
             console.log(item);
+            return item;
             //handleItemDelete(item.id);
           }}
         ></ListItems>
