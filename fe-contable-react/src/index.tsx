@@ -20,23 +20,23 @@ const httpLink = createHttpLink({
   },
 });
 
-// const errorLink = new ApolloLink((operation, forward) => {
-//   forward(operation).subscribe({
-//     next: (data: any) => {},
-//     error: (err: any) => {
-//       if (err.response.status === 401) {
-//         localStorage.removeItem("token");
-//         window.location.href = "/login";
-//       }
-//     },
-//   });
-//   console.log(operation);
-
-//   return f
-// });
+const errorLink = new ApolloLink((operation, forward) => {
+  forward(operation).subscribe({
+    next: (data: any) => {},
+    error: (err: any) => {
+      if (err.response.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+    },
+  });
+  return forward(operation).map((response) => {
+    return response;
+  });
+});
 
 const client = new ApolloClient({
-  link: ApolloLink.from([httpLink]),
+  link: ApolloLink.from([httpLink, errorLink]),
   cache: new InMemoryCache(),
 });
 

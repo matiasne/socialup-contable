@@ -32,6 +32,7 @@ const UpdateProduct = gql`
     $codigo: String
     $costPrice: String
     $salePrice: String
+    $image: String
   ) {
     updateProduct(
       _id: $id
@@ -40,6 +41,7 @@ const UpdateProduct = gql`
       codigo: $codigo
       costPrice: $costPrice
       salePrice: $salePrice
+      image: $image
     ) {
       id
       salePrice
@@ -47,6 +49,7 @@ const UpdateProduct = gql`
       codigo
       description
       name
+      image
     }
   }
 `;

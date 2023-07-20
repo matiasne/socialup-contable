@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Box, Button, Card, FormControl, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { ProductService } from "../../productsService/productsService";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
@@ -17,6 +17,7 @@ type Props = {
 export default function FormProductComponent(props: Props) {
   const [idBusiness, setIdBusiness] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -85,6 +86,7 @@ export default function FormProductComponent(props: Props) {
     });
     props.onAdd();
     reset();
+    setValue("image", "");
   });
   const handleEditSubmit = handleSubmit(async (values: any) => {
     console.log(values);
@@ -122,7 +124,7 @@ export default function FormProductComponent(props: Props) {
             onChange={function (data: any): void {
               setValue("image", data);
             }}
-            defaultImage={""}
+            defaultImage={props.products?.image ? props.products.image : ""}
           />
           <TextField
             label="Name"

@@ -1,22 +1,13 @@
 import { MouseEventHandler, useState } from "react";
 import {
-  ListItemAvatar,
-  Avatar,
-  ListItemSecondaryAction,
   IconButton,
   ListItemText,
   CardContent,
-  Typography,
   Card,
   CardActions,
-  CardHeader,
   CardMedia,
-  Box,
   CardActionArea,
-  Button,
   Dialog,
-  DialogActions,
-  DialogTitle,
   DialogContent,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
@@ -25,12 +16,11 @@ import DeleteDialog from "../../../../shared/Components/dialog/deleteDialog";
 import { useMutation, useQuery } from "@apollo/client";
 import { ProductService } from "../../productsService/productsService";
 import { useToast } from "../../../../shared/Components/toast/ToastProvider";
-import FormClient from "../../../Clients/components/form-client/formClient";
 import FormProductComponent from "../form-product/formProduct";
 
 type Props = { products: IProduct };
 
-function ItemProduct(props: Props) {
+const ItemProduct = (props: Props) => {
   const { data, error, loading, refetch } = useQuery(
     ProductService.ProductsQueryService.products
   );
@@ -63,12 +53,13 @@ function ItemProduct(props: Props) {
     setShowAlert(true);
     await MutateFuncioDelete({ variables: { id: props.products.id } });
     toastShow({
-      message: "El poducto ha sido eliminado correctamente",
+      message: "El producto ha sido eliminado correctamente",
       severity: "success",
       duration: 5000,
     });
     refetch();
   };
+
   const handleCloseEditDialog = async () => {
     setIsEditDialogOpen(false);
     await MutateFuncioUpdate({ variables: { Props: props.products.id } });
@@ -78,40 +69,76 @@ function ItemProduct(props: Props) {
     //   duration: 5000,
     // });
   };
+
   return (
-    <>
-      <Card sx={{ maxWidth: 400 }}>
-        <CardActionArea>
-          <CardMedia component="img" height="140" image="" alt="Product" />
-        </CardActionArea>
-        <CardContent>
-          <ListItemText primary={props.products.name} />
-          <ListItemText
-            secondary={`Precio: ${props.products.salePrice}`}
-          />{" "}
-          <ListItemText
-            secondary={`Descripcion: ${props.products.description}`}
-          />
-        </CardContent>
-        <CardActions>
-          <IconButton aria-label="editar" size="medium" onClick={handleEdit}>
-            <Edit />
-          </IconButton>
-          <IconButton
-            aria-label="eliminar"
-            onClick={handleDelete}
-            size="medium"
-          >
-            <Delete />
-          </IconButton>{" "}
-        </CardActions>
+    <div style={{ padding: "8px", display: "inline-block" }}>
+      <Card
+        sx={{
+          maxWidth: 200,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "300px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Card>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              image={props.products.image}
+              alt="Product"
+              style={{
+                objectFit: "cover",
+                borderTopLeftRadius: "8px",
+                borderTopRightRadius: "8px",
+              }}
+            />
+          </CardActionArea>
+        </Card>
+        <Card>
+          <CardContent>
+            <ListItemText
+              primaryTypographyProps={{
+                variant: "h6",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+              primary={props.products.name}
+            />
+            <ListItemText
+              secondaryTypographyProps={{ textAlign: "left" }}
+              secondary={`Precio: ${props.products.salePrice}`}
+            />
+            <ListItemText
+              secondaryTypographyProps={{ textAlign: "left" }}
+              secondary={`Descripcion: ${props.products.description}`}
+            />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardActions sx={{ flexDirection: "row-reverse" }}>
+            <IconButton
+              aria-label="eliminar"
+              onClick={handleDelete}
+              size="medium"
+            >
+              <Delete />
+            </IconButton>
+            <IconButton aria-label="editar" size="medium" onClick={handleEdit}>
+              <Edit />
+            </IconButton>
+          </CardActions>
+        </Card>
       </Card>
       <DeleteDialog
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDeleteConfirmed}
         title="¿Está seguro que desea eliminar este producto?"
-        message="Se eliminara de forma permanente "
+        message="Se eliminará de forma permanente"
         confirmText="Eliminar"
         cancelText="Cancelar"
       />
@@ -123,15 +150,9 @@ function ItemProduct(props: Props) {
             onEdit={handleCloseEditDialog}
           />
         </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={handleCloseEditDialog}>Guardar</Button>
-        </DialogActions>
-        <DialogActions>
-          <Button onClick={handleCloseEditDialog}>Cancel</Button>
-        </DialogActions> */}
       </Dialog>
-    </>
+    </div>
   );
-}
+};
 
 export default ItemProduct;

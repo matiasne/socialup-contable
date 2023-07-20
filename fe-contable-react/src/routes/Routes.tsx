@@ -39,11 +39,9 @@ export const AppRouter = () => {
             path="/products"
             element={
               <ListProduct
-                name={""}
-                description={""}
-                salePrice={""}
-                code={""}
-                costPrice={""}
+                products={undefined}
+                onEdit={() => {}}
+                onAdd={() => {}}
               />
             }
           />

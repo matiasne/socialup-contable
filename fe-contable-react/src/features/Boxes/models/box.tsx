@@ -1,10 +1,10 @@
 export interface IBox {
-  id:string;
+  id: string;
   Image?: string;
   Name: string;
   Status: string;
-  ActualAmount: string;
-  DailyAmount: string;
+  ActualAmount: number;
+  DailyAmount: number;
   IdBusiness: string;
 }
 
