@@ -1,102 +1,76 @@
-import { Avatar, Box, Button, Card, Input, TextField } from "@mui/material";
+import { Box, Button, Card, Input, TextField, Typography } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import * as React from "react";
 import "./form-business.css";
 import { useForm, SubmitHandler, set } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import ProfileForm from "../../../../shared/Components/avatarNuevo";
 import { useParams } from "react-router-dom";
-import { BusinessQueryServices } from "../../services/businessQuery/businessQuery.service";
-import { useEffect, useState } from "react";
 import {
   getSessionServices,
   setSessionService,
 } from "../../../../auth/services/session.service";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+import { IBusiness } from "../../models/business";
+import { useToast } from "../../../../shared/Components/toast/ToastProvider";
 
 
-interface FormValues {
-  BusinessName: string;
-  Phone: string;
-  Email: string;
-  Address: string;
-  BusinessCategory: string;
-  Image: any;
-  touched: string;
-}
+type Props = {
+  business: IBusiness | undefined;
+  onClose?: () => void;
+};
+ 
 
-const FormBusinessComponent: React.FC = () => {
-  const [imageBase64, setImageBase64] = React.useState<any>(null);
-  const [img, setImg] = React.useState("");
-
-  const {
+export default function FormBusinessComponent (props: Props){
+const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<IBusiness>({
     defaultValues: {
-      BusinessName: "",
-      Address: "",
-      BusinessCategory: "",
-      Email: "",
-      Image: "",
-      Phone: "",
+      name: "",
+      address: "",
+      businessCategory: "",
+      email: "",
+      image: "",
+      phone: "",
       touched: "",
     },
   });
-  const { id } = useParams();
-  const [mutateFunction] = useMutation(
+const { id } = useParams();
+const [mutateFunction] = useMutation(
     id
       ? BusinessMutationServices.UpdateBusiness
       : BusinessMutationServices.AddBusiness
   );
 
-const idUser = getSessionServices("token")
 const idBusiness = getSessionServices("business")
       console.log(idBusiness)
-const { data, loading } = useQuery(
-    BusinessQueryServices.FindUserBusiness,
-    {
-      variables: {
-        findOneBusinessId: idBusiness ? idBusiness : null,
-      },
-    }
-  );
+
   
 
-
-  useEffect(()=>{
-    if (data) {
-      console.log(data);
-      setValue("BusinessName", data.findUserBusiness[0].name);
-      setValue("Address", data.findUserBusiness[0].address);
-      setValue("Phone", data.findUserBusiness[0].phone);
-      setValue("BusinessCategory", data.findUserBusiness[0].category);
-      setValue("Email", data.findUserBusiness[0].email);
-      setValue("Image", data.findUserBusiness[0].image);
-    }
-  }, [data]);
-
-  if (loading) {
-    return <></>;
-  }
 
   const onSubmit = handleSubmit(async (values: any) => {
     const response = await mutateFunction({
       variables: {
-        id: id ? id : "647f7f8f512fbb2905d7f443",
-        //user: idUser,
-        name: values.BusinessName,
-        address: values.Address,
+        name: values.name,
+        address: values.address,
         email: values.email,
-        category: values.BusinessCategory,
-        image: values.Image ? values.Image : data.findOneBusiness.image,
+        category: values.businessCategory,
+        image: values.image,
       },
     });
+    reset();
+    toastShow({
+      message: "La Empresa ha sido creado correctamente",
+      severity: "success",
+      duration: 5000,
+    });
+    
     setSessionService("business", response.data.addBusiness._id);
   });
-
+  const { toastShow } = useToast();
   return (
     <Box
       component="form"
@@ -108,49 +82,106 @@ const { data, loading } = useQuery(
       }}
     >
       <Card sx={{ pb: 1 }}>
+      <Typography variant="h3">
+        Crear Empresa
+      </Typography>
         <FormControl>
-         {/* <ProfileForm
+        <ProfileForm
             avatarType="business"
-            onChange={(data: any) => {
-              console.log(data);
-              setValue("Image", data);
+            onChange={function (data: any): void {
+              setValue("image", data);
             }}
-            defaultImage={idBusiness ? data.findOneBusiness.image : imageBase64}
-          /> */}
+            defaultImage={props.business?.image ? props.business.image : ""}
+          />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Name"
             variant="outlined"
             type="text"
-            {...register("BusinessName", { required: true })}
+            {...register("name", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.name?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.name?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Phone"
             variant="outlined"
             type="tel"
-            {...register("Phone")}
+             {...register("phone", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.phone?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.phone?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Email"
             variant="outlined"
             type="email"
-            {...register("Email")}
+             {...register("email", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.email?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.email?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Address"
             variant="outlined"
             type="text"
-            {...register("Address")}
+             {...register("address", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.address?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.address?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
           />
           <TextField
             sx={{ m: 1, width: "25ch" }}
             label="Business Category"
             variant="outlined"
             type="text"
-            {...register("BusinessCategory")}
+             {...register("businessCategory", {
+              required: true,
+              minLength: 2,
+            })}
+            {...(errors.businessCategory?.type === "required" && {
+              helperText: "Campo obligatorio",
+              error: true,
+            })}
+            {...(errors.businessCategory?.type === "minLength" && {
+              helperText: "El nombre es demasiado corto",
+              error: true,
+            })}
           />
           <Button
             sx={{ m: 1, width: "43ch" }}
@@ -165,4 +196,3 @@ const { data, loading } = useQuery(
   );
 };
 
-export default FormBusinessComponent;

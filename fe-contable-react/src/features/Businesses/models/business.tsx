@@ -3,8 +3,8 @@ export interface IBusiness {
   phone: string;
   email: string;
   address: string;
-  BusinessCategory: string;
-  Image: string;
+  businessCategory: string;
+  image: string;
   touched: string;
 }
 export type IiBusiness = Pick<
