@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ListItems } from "../../../../shared/Components/list-item/list-item";
-import { IBusiness} from "../../models/business";
+import { IBusiness } from "../../models/business";
 import { useMutation, useQuery } from "@apollo/client";
 import { BusinessServices } from "../../services/businessServices";
 import ItemBusiness from "../Item-business/item-business";
@@ -8,49 +8,57 @@ import { setSessionService } from "../../../../auth/services/session.service";
 
 export const ListBusiness = (props: IBusiness) => {
   const { data, error, loading, refetch } = useQuery(
-    BusinessServices.BusinessQueryServices.FindUserBusiness,{
-      variables:{
+    BusinessServices.BusinessQueryServices.FindUserBusiness,
+    {
+      variables: {
         pageCount: 1,
         perPage: 10,
-        searchWord: ""
-      }
+        searchWord: "",
+      },
     }
-    );
-  
+  );
 
   //  const [shouldRefetch, setShouldRefetch] = useState(false);
 
-   // const [MutateFuncion] = useMutation(
+  // const [MutateFuncion] = useMutation(
   //    BusinessServices.BusinessMutationServices.DeleteBusiness
-   // );
+  // );
 
-    useEffect(() => {
+  useEffect(() => {
     //  if (shouldRefetch) {
-        refetch();
+    refetch();
     //    setShouldRefetch(false);
     //  }
-    }, []);
-/*
+  }, []);
+  /*
 const handleItemDelete = async (item: any) => {
       await MutateFuncion({ variables: { id: item } });
     };
 */
-const handleSelectBusiness = (item: any) => {
-      setSessionService("business", item._id)
-    };
+  const handleSelectBusiness = (item: any) => {
+    setSessionService("business", item._id);
+  };
 
   return (
     <>
-      {!loading &&data &&data.findUserBusiness?(
+      {!loading && data && data.findUserBusiness ? (
         <div>
           <ListItems
             items={data.findUserBusiness}
-            renderItem={(item: IBusiness) => <ItemBusiness {...item} />}
-            handleItemClick={handleSelectBusiness}
+            renderItem={(item: IBusiness) => (
+              <ItemBusiness business={item} buttonAction={true} />
+            )}
+            handleItemClick={function (item: IBusiness): IBusiness {
+              handleSelectBusiness(item);
+              return item;
+              //handleItemDelete(item.id);
+            }}
           ></ListItems>
-        </div>) : (<div>spinner</div>)}
-  </>
+        </div>
+      ) : (
+        <div>spinner</div>
+      )}
+    </>
   );
 };
 export default ListBusiness;
-
