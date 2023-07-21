@@ -13,7 +13,12 @@ import {
   setSessionService,
 } from "../../../../auth/services/session.service";
 import { BusinessMutationServices } from "../../services/businessMutation/businessMutation.service";
+import { IBusiness } from "../../models/business";
 
+type Props = {
+  business: IBusiness | undefined;
+  onClose?: () => void;
+};
 
 interface FormValues {
   BusinessName: string;
@@ -52,21 +57,16 @@ const FormBusinessComponent: React.FC = () => {
       : BusinessMutationServices.AddBusiness
   );
 
-const idUser = getSessionServices("token")
-const idBusiness = getSessionServices("business")
-      console.log(idBusiness)
-const { data, loading } = useQuery(
-    BusinessQueryServices.FindUserBusiness,
-    {
-      variables: {
-        findOneBusinessId: idBusiness ? idBusiness : null,
-      },
-    }
-  );
-  
+  const idUser = getSessionServices("token");
+  const idBusiness = getSessionServices("business");
+  console.log(idBusiness);
+  const { data, loading } = useQuery(BusinessQueryServices.FindUserBusiness, {
+    variables: {
+      findOneBusinessId: idBusiness ? idBusiness : null,
+    },
+  });
 
-
-  useEffect(()=>{
+  useEffect(() => {
     if (data) {
       console.log(data);
       setValue("BusinessName", data.findUserBusiness[0].name);
@@ -109,7 +109,7 @@ const { data, loading } = useQuery(
     >
       <Card sx={{ pb: 1 }}>
         <FormControl>
-         {/* <ProfileForm
+          {/* <ProfileForm
             avatarType="business"
             onChange={(data: any) => {
               console.log(data);
