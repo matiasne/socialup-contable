@@ -70,7 +70,7 @@ function ItemBusiness(props: Props) {
       {" "}
       <>
         <ListItemAvatar>
-          <Avatar src={props.business.Image} alt={props.business.name} />
+          <Avatar src={props.business.image} alt={props.business.name} />
         </ListItemAvatar>
         <ListItemText
           primary={props.business.name}
