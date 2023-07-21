@@ -64,8 +64,8 @@ export const AppRouter = () => {
                 phone={""}
                 email={""}
                 address={""}
-                BusinessCategory={""}
-                Image={""}
+                businessCategory={""}
+                image={""}
                 touched={""}
               />
             }
@@ -97,8 +97,8 @@ export const AppRouter = () => {
                 phone={""}
                 email={""}
                 address={""}
-                BusinessCategory={""}
-                Image={""}
+                businessCategory={""}
+                image={""}
                 touched={""}
               />
             }
