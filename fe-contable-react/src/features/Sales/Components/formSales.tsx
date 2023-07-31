@@ -161,7 +161,6 @@ export const FormSalesComponent = () => {
             <Button onClick={handleOpenModal} variant="contained">
               Terminar Venta
             </Button>
-
             <Modal
               open={openModal}
               onClose={handleCloseModal}
