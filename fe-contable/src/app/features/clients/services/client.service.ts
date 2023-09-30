@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GLOBAL } from '../../../services/global';
-import { BaseCRUDService } from '../../../services/base-crud.service';
-import { HelperService } from '../../../services/helpers.service';
+import { GLOBAL } from '../../../shared/services/global';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
+import { HelperService } from '../../../shared/services/helpers.service';
 import { Client } from '../models/client';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
@@ -32,7 +32,6 @@ export class ClientService extends BaseCRUDService {
 
   add(client: Client): Observable<any> {
     delete client._id;
-
     let formData = this.helperService.toFormData(client);
     return this.post(this.url, formData);
   }

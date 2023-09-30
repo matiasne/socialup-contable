@@ -1,5 +1,8 @@
 "use strict";
 
+const box = require("../models/box");
+const BoxRepository = require("../repositories/box");
+const MovementRepository = require("../repositories/movement");
 var saleRepository = require("../repositories/sale");
 
 async function saveSale(req, res) {
@@ -8,20 +11,44 @@ async function saveSale(req, res) {
     let saleRepo = new saleRepository();
     let sale = await saleRepo.create(params);
     res.status(200).send({ sale: sale });
+    let movementRepo = new MovementRepository();
+    let boxRepository = new BoxRepository();
+    let box = await boxRepository.get(params.boxId);
+
+    for await (let element of sale.payments) {
+      let m = {
+        sale: sale._id,
+        box: box._id,
+        amount: sale.total,
+        type: element.type,
+        boxAmount: element.amount,
+      };
+      await movementRepo.create(m);
+      box.actualAmount = Number(box.actualAmount) + Number(element.amount);
+    }
+
+    await boxRepository.update(box._id, box);
   } catch (error) {
     res.status(400).send({ message: error });
   }
 }
 async function getSales(req, res) {
-  var idBusiness = req.params.idBusiness;
-  var pageCount = req.query.pageCount;
-  var perPage = req.query.perPage;
-  var searchWord = req.query.searchWord;
-  var orderBy = req.query.orderBy;
+  const idBusiness = req.params.idBusiness;
+  const {
+    pageCount,
+    orderBy,
+    perPage,
+    idClient,
+    dateFrom,
+    dateTo,
+    saleStatus,
+    paymentType,
+    box
+  } = req.query;
 
-  var offset = (pageCount - 1) * perPage;
+  const offset = (pageCount - 1) * perPage;
 
-  var limit = perPage;
+  const limit = perPage;
 
   let saleRepo = new saleRepository();
 
@@ -31,15 +58,36 @@ async function getSales(req, res) {
       offset,
       limit,
       orderBy,
-      searchWord
+      idClient,
+      dateFrom,
+      dateTo,
+      saleStatus,
+      paymentType,
+      box
     );
+
     res.status(200).send(data);
   } catch (error) {
+    console.log(error);
     res.status(400).send({ message: error });
   }
 }
 
+function getSale(req, res) {
+  const idSale = req.params._id;
+  let saleRepo = new saleRepository();
+
+  saleRepo
+    .get_sale(idSale)
+    .then((data) => {
+      res.status(200).send({ data });
+    })
+    .catch((err) => {
+      res.status(404).send({ message: "no se encontro venta" });
+    });
+}
 module.exports = {
   saveSale,
   getSales,
+  getSale,
 };

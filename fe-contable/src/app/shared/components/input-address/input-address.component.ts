@@ -25,7 +25,7 @@ export class InputAddressComponent implements ControlValueAccessor {
   field= "";
 
   set value(val: string){
-    console.log("!!!!")
+
     this.field = val
     this.onChange(val)
     this.onTouch(val)
@@ -101,9 +101,7 @@ export class InputAddressComponent implements ControlValueAccessor {
           (place.address_components[4] && place.address_components[2].short_name || '')
         ].join(' ');
       }
-      console.log(place.address_components)
 
-      console.log(address)
 
       this.value = address;
 

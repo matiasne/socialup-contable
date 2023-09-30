@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
-import { element } from 'protractor';
-import { async } from 'rxjs';
 import { Sale } from '../../models/sale';
-import { SaleProduct } from '../../models/sale-product';
-import { CurrentSaleService } from '../../services/current-sale.service';
-import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
 
 @Component({
   selector: 'socialup-item-sale',
@@ -14,16 +8,18 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 })
 export class ItemSaleComponent implements OnInit {
   @Input() sale: Sale;
-
+  public total = 0;
   constructor() {}
-  ngOnInit() {}
-  getTotalAmount() {
-    let total = 0;
-    this.sale.saleProducts.forEach((element) => {
-      total += Number(element.amount);
-    });
 
-    return total;
+  ngOnInit() {
+    this.getTotalAmount();
+  }
+
+  getTotalAmount() {
+    this.sale.item.forEach((element) => {
+      this.total += Number(element.amount);
+    });
+    return this.total;
   }
 
   ionViewWillEnter() {}

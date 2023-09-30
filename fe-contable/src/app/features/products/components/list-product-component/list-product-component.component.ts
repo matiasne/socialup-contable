@@ -12,9 +12,9 @@ import { Business } from 'src/app/features/business/models/business';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProductService } from '../../services/product.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 
@@ -30,9 +30,7 @@ export class ListProductComponentComponent implements OnInit {
   @Output() clickEditProduct = new EventEmitter<Product>();
 
   public products: Array<Product> = [];
-  private business: Business;
   public id: any;
-  private obsBusiness: any;
   public totalPages: number;
 
   constructor(
@@ -42,7 +40,6 @@ export class ListProductComponentComponent implements OnInit {
     public productService: ProductService,
     public businessService: BusinessService,
     public router: Router,
-    public toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +51,7 @@ export class ListProductComponentComponent implements OnInit {
       .getBusinessProduct(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
+
           this.products = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();

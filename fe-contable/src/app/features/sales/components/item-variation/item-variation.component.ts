@@ -12,6 +12,10 @@ import { FormSaleProductComponent } from '../form-sale-product/form-sale-product
 })
 export class ItemVariationComponent implements OnInit {
   @Input() saleVariation: Variation;
+
+  @Input() showDelete: boolean = false;
+  @Input() showEdit: boolean = false;
+
   public saleVariatio: Variation;
   public valueVariationView: number;
   public typeVariation;
@@ -42,7 +46,7 @@ export class ItemVariationComponent implements OnInit {
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           },
         },
         {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GLOBAL } from '../../../services/global';
-import { BaseCRUDService } from '../../../services/base-crud.service';
-import { HelperService } from '../../../services/helpers.service';
+import { GLOBAL } from '../../../shared/services/global';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
+import { HelperService } from '../../../shared/services/helpers.service';
 import { Product } from '../models/product';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
@@ -24,11 +24,12 @@ export class ProductService extends BaseCRUDService {
   get(id): Observable<any> {
     return super
       .get(this.url + '/' + id)
-      .pipe(map((item: any) => item.product));
+      .pipe(map((response: any) => response.product));
   }
 
   update(product: Product): Observable<any> {
     let formData = this.helperService.toFormData(product);
+
     return this.put(this.url + '/' + product._id, formData);
   }
 
@@ -39,6 +40,7 @@ export class ProductService extends BaseCRUDService {
   }
 
   _delete(id): Observable<any> {
+
     return this.delete(this.url + '/' + id);
   }
 }

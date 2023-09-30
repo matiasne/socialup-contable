@@ -3,8 +3,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Session } from 'protractor';
 import { Business } from 'src/app/features/business/models/business';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { UserService } from 'src/app/services/user.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { User } from 'src/app/models/user';
 import { ListBusinessComponent } from 'src/app/features/business/components/list-business/list-business.component';
 

@@ -9,7 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/features/products/models/product';
 import { ToastType } from 'src/app/models/toast.enum';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -22,7 +22,7 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 })
 export class FormProductComponent implements OnInit, AfterViewInit {
   @Input() productId: string = '';
-  private product: Product;
+  public product: Product;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public isEditing: boolean = false;
@@ -50,15 +50,14 @@ export class FormProductComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterContentInit() {
-    console.log(this.productId);
+
     if (this.productId != '') {
       this.isEditing = true;
       this.productService.get(this.productId).subscribe({
         next: (product: any) => {
-          console.log(product);
           this.product = product;
 
           this.buttonLabel = 'Guardar';
@@ -77,7 +76,7 @@ export class FormProductComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   changeImage(event: any) {
     this.formProduct.patchValue({
@@ -132,40 +131,16 @@ export class FormProductComponent implements OnInit, AfterViewInit {
       },
     });
   }
-  async doAlert() {
-    const alert = await this.alertController.create({
-      header: 'ELIMINAR PRODUCTO',
-      message: 'Desea eliminar este producto.No podra recuperarlo.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          id: 'cancel-button',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+
+  clickService() {
+
+    if (this.productId) {
+
+      this.productService._delete(this.productId).subscribe({
+        next: (data) => {
+
         },
-        {
-          text: 'Ok',
-          id: 'confirm-button',
-          handler: () => {
-            this.productService._delete(this.product._id).subscribe({
-              next: (data) => {
-                this.toastService.show(
-                  ToastType.warning,
-                  'Se ha eliminado el producto correctamente'
-                );
-                this.router.navigate(['/products']);
-              },
-              error: (err) => {
-                console.log(err);
-              },
-            });
-          },
-        },
-      ],
-    });
-    (await alert).present();
+      });
+    }
   }
 }

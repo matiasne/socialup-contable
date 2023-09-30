@@ -144,7 +144,19 @@ const routes: Routes = [
       import('./pages/create-sale/create-sale.module').then(
         (m) => m.CreateSalePageModule
       ),
+  },  {
+    path: 'list-box',
+    loadChildren: () => import('./pages/list-box/list-box.module').then( m => m.ListBoxPageModule)
   },
+  {
+    path: 'create-box',
+    loadChildren: () => import('./pages/create-box/create-box.module').then( m => m.CreateBoxPageModule)
+  },
+  {
+    path: 'edit-box',
+    loadChildren: () => import('./pages/edit-box/edit-box.module').then( m => m.EditBoxPageModule)
+  },
+
 ];
 
 @NgModule({

@@ -11,8 +11,8 @@ import { Business } from 'src/app/features/business/models/business';
 import { Client } from 'src/app/features/clients/models/client';
 import { BusinessService } from 'src/app/features/business/service/business.service';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { HelperService } from 'src/app/services/helpers.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
 import { SessionService } from 'src/app/auth/services/session.service';
 
@@ -52,7 +52,6 @@ export class ListClientComponent implements OnInit {
       .getBusinessClient(data.pageCount, data.perPage, data.searchWord)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.clients = response.data;
           this.listItems.totalPages = response.paging.totalPages;
           this.listItems.buttonController();

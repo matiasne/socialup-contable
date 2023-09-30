@@ -1,0 +1,24 @@
+<form class="form" [formGroup]="formBox" action="formBoxs">
+  <div class="image-avatar">
+    <app-image-upload [aspectRatio]="'1'" [croppedImage]="formBox.controls['image'].value"
+      (onSelectValue)="changeImage($event)">
+    </app-image-upload>
+  </div>
+  <ion-toggle color="success" [checked]="statusBox " slot="end" (ionChange)="openCloseBox($event)"></ion-toggle>
+  <ion-row>
+    <ion-item>
+      <ion-icon name="storefront-outline"></ion-icon>
+      <ion-label></ion-label>
+      <ion-input type="text" formControlName="name" placeholder="Nombre"></ion-input>
+    </ion-item>
+  </ion-row>
+  <ion-row>
+    <ion-item>
+      <ion-icon name="storefront-outline"></ion-icon>
+      <ion-label></ion-label>
+      <ion-input type="number" formControlName="actualAmount" placeholder="Monto Inicial"></ion-input>
+    </ion-item>
+  </ion-row>
+  <app-list-movement [idBox]="boxId"></app-list-movement>
+  <ion-button type="submit" expand="default" shape="round" (click)="submit()">{{buttonLabel}}</ion-button>
+</form>

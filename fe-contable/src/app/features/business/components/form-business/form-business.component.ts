@@ -5,7 +5,7 @@ import { Business } from 'src/app/features/business/models/business';
 import { ToastType } from 'src/app/models/toast.enum';
 import { User } from 'src/app/models/user';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 
 @Component({
@@ -15,22 +15,20 @@ import { SessionService } from 'src/app/auth/services/session.service';
 })
 export class FormBusinessComponent implements OnInit {
   @Input() businessId: string;
-  private business: Business;
+  public business: Business;
   @Input() user: User;
   @Output() handleSubmit = new EventEmitter<any>();
 
   public formBusiness: FormGroup;
   public isSubmitted = false;
   public isEditing: boolean = false;
-  public buttonLabel = 'Crear Empresa';
+  public buttonLabel = 'Crear empresa';
   public FormGroup: FormControl;
 
   constructor(
     public sessionService: SessionService,
     public businessService: BusinessService,
-    public toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router
+    public toastService: ToastService
   ) {
     this.business = new Business('', '', '', '', '', '', '', '');
 
@@ -60,12 +58,12 @@ export class FormBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.businessId);
     if (this.businessId) {
-      this.buttonLabel = 'Editar Empresa';
+      this.buttonLabel = 'Editar empresa';
       this.isEditing = true;
       this.businessService.get(this.businessId).subscribe({
-        next: (business) => {
+        next: (business: Business) => {
+          console.log(business);
           this.business = business;
 
           this.formBusiness.setValue({
@@ -88,7 +86,7 @@ export class FormBusinessComponent implements OnInit {
         this.business = data;
         this.toastService.show(
           ToastType.success,
-          'Se ha actualizaddo el prodcuto correctamente'
+          'Se ha actualizado el producto correctamente'
         );
         this.handleSubmit.emit(data);
       },
@@ -105,11 +103,11 @@ export class FormBusinessComponent implements OnInit {
       this.business.email = this.formBusiness.controls.email.value;
       this.business.phone = this.formBusiness.controls.phone.value;
       this.save();
-      this.formBusiness.reset();
+      //this.formBusiness.reset();
     } else {
       this.toastService.show(
         ToastType.error,
-        'Por Favor complete todo los campos'
+        'Por favor complete todos los campos'
       );
     }
   }
@@ -149,5 +147,12 @@ export class FormBusinessComponent implements OnInit {
     this.formBusiness.patchValue({
       image: event,
     });
+  }
+  clickService() {
+    if (this.businessId) {
+      this.businessService._delete(this.businessId).subscribe({
+        next: (data) => {},
+      });
+    }
   }
 }

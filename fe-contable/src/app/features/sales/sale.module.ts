@@ -20,6 +20,8 @@ import { ItemSaleComponent } from './components/item-sale/item-sale.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalSelectProductComponent } from './components/modal-select-product/modal-select-product.component';
 import { SelectClientComponent } from './components/select-client/select-client.component';
+import { ModalDetailComponent } from './components/modal-detail/modal-detail.component';
+import { BoxModule } from '../boxes/box.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ItemSaleComponent,
     ModalSelectProductComponent,
     SelectClientComponent,
+    ModalDetailComponent,
   ],
   imports: [
     FormsModule,
@@ -46,6 +49,7 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ClientsModule,
     SharedModule,
     ProductsModule,
+    BoxModule,
   ],
   exports: [
     FormSaleComponent,
@@ -60,6 +64,7 @@ import { SelectClientComponent } from './components/select-client/select-client.
     ModalFormSaleStatusComponent,
     ListSaleComponent,
     ItemSaleComponent,
+    ModalDetailComponent,
   ],
 })
 export class SalesModule {}

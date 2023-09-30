@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { SaleProduct } from '../../models/sale-product';
+import { SaleProduct } from '../../models/SaleProduct';
 import { Variation } from '../../models/variation';
 import { CurrentSaleService } from '../../services/current-sale.service';
 import { FormSaleProductComponent } from '../form-sale-product/form-sale-product.component';
@@ -14,6 +14,10 @@ export class ItemSaleProductComponent implements OnInit {
   @Input() saleProduct: SaleProduct;
   @Input() valor1: Number;
   @Input() saleVariation: Variation;
+
+  @Input() showDelete: boolean = false;
+  @Input() showEdit: boolean = false;
+
   public valueVariationView: number;
   public typeVariation;
   public title = 'Recargo';
@@ -44,7 +48,7 @@ export class ItemSaleProductComponent implements OnInit {
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+
           },
         },
         {

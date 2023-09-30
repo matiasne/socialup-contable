@@ -20,7 +20,7 @@ export class ListClientPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.listItems);
+
   }
 
   ngAfterViewInit() {}

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HelperService } from 'src/app/services/helpers.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Client } from '../../clients/models/client';
 import { Sale } from '../models/sale';
-import { SaleProduct } from '../models/sale-product';
-import { BaseCRUDService } from '../../../services/base-crud.service';
-import { Observable } from 'rxjs';
-import { GLOBAL } from 'src/app/services/global';
+import { SaleProduct } from '../models/SaleProduct';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
+import { GLOBAL } from 'src/app/shared/services/global';
 import { Variation, VariationType } from '../models/variation';
-import { element } from 'protractor';
 import { Status } from '../models/status';
 import { Payment } from '../models/payment';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { BusinessService } from '../../business/service/business.service';
 import { Business } from '../../business/models/business';
+import { Box } from '../../boxes/models/box';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentSaleService extends BaseCRUDService {
@@ -34,10 +35,12 @@ export class CurrentSaleService extends BaseCRUDService {
       this.currentSale = new Sale(business);
       this.currentBussines = business;
     });
+
+
   }
 
   addClient(client: Client) {
-    console.log(client);
+
     this.currentSale.client = client;
   }
   removeClient() {
@@ -45,7 +48,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   addSaleProduct(saleProduct: SaleProduct) {
-    this.currentSale.saleProducts.push(saleProduct);
+    this.currentSale.item.push(saleProduct);
 
     this.refreshTotal();
   }
@@ -54,6 +57,12 @@ export class CurrentSaleService extends BaseCRUDService {
     this.currentSale.variations.push(variation);
     this.refreshTotal();
   }
+
+  addBox(box: string) {
+    this.currentSale.boxId = box;
+
+  }
+
   deleteSaleVariation(variation: Variation) {
     this.currentSale.variations = this.currentSale.variations.filter(
       (item) => item !== variation
@@ -66,7 +75,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   deleteSaleProduct(saleProduct: SaleProduct) {
-    this.currentSale.saleProducts = this.currentSale.saleProducts.filter(
+    this.currentSale.item = this.currentSale.item.filter(
       (item) => item !== saleProduct
     );
     this.refreshTotal();
@@ -74,7 +83,7 @@ export class CurrentSaleService extends BaseCRUDService {
 
   async refreshTotal() {
     this.currentSale.total = 0;
-    for await (let product of this.currentSale.saleProducts) {
+    for await (let product of this.currentSale.item) {
       this.currentSale.total += product.subTotal;
     }
 
@@ -92,6 +101,7 @@ export class CurrentSaleService extends BaseCRUDService {
   }
 
   add(sale: Sale) {
+
     this.post(this.url, sale).subscribe({
       next: (data) => {
         this.reset();
@@ -124,5 +134,18 @@ export class CurrentSaleService extends BaseCRUDService {
 
   reset() {
     this.currentSale = new Sale(this.currentBussines);
+  }
+  setSelectedFilter(filter: any) {
+    console.log(filter)
+    localStorage.setItem("selectedFilter", JSON.stringify(filter))
+
+  }
+
+  getSelectedFilter() {
+    return JSON.parse(localStorage.getItem("selectedFilter"));
+  }
+
+  getSale(idSale: string): Observable<any> {
+    return super.get(this.url + '/' + idSale).pipe(map((resp: any) => resp.data));
   }
 }

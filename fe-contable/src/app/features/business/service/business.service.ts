@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GLOBAL } from '../../../services/global';
-import { Business } from '../models/business';
-import { BaseCRUDService } from '../../../services/base-crud.service';
-import { HelperService } from '../../../services/helpers.service';
+import { GLOBAL } from '../../../shared/services/global';
+import { Business, IBusinessDTO } from '../models/business';
+import { BaseCRUDService } from '../../../shared/services/base-crud.service';
+import { HelperService } from '../../../shared/services/helpers.service';
 import { SessionService } from 'src/app/auth/services/session.service';
 import { map } from 'rxjs/operators';
 
@@ -44,15 +44,17 @@ export class BusinessService extends BaseCRUDService {
     return this.SelectedBusiness.asObservable();
   }
 
-  get(id): Observable<any> {
-    return super
-      .get(this.url + '/' + id)
-      .pipe(map((item: any) => item.business));
+  get(id): Observable<Business> {
+    return super.get(this.url + '/' + id).pipe(
+      map((response: any) => {
+        return Business.adapt(response.data);
+      })
+    );
   }
 
-  update(business: Business): Observable<any> {
+  update(business: Business): Observable<Business> {
     let formData = this.helperService.toFormData(business);
-    return this.put(this.url + business._id, formData);
+    return this.put(this.url + '/' + business._id, formData);
   }
 
   getBusinessProduct(
@@ -77,9 +79,14 @@ export class BusinessService extends BaseCRUDService {
   getBusinessSales(
     pageCount = 1,
     perPage = 10,
-    searchWord = ''
+    idClient = '',
+    dateFrom = '',
+    dateTo = '',
+    paymentType = 'empty',
+    box = ''
   ): Observable<any> {
     let idBusiness = this.SelectedBusiness.value._id;
+
     return super.get(
       this.url +
         '/' +
@@ -88,8 +95,16 @@ export class BusinessService extends BaseCRUDService {
         pageCount +
         '&perPage=' +
         perPage +
-        '&searchWord=' +
-        searchWord
+        '&idClient=' +
+        idClient +
+        '&dateFrom=' +
+        dateFrom +
+        '&dateTo=' +
+        dateTo +
+        '&paymentType=' +
+        paymentType +
+        '&box=' +
+        box
     );
   }
 
@@ -104,6 +119,26 @@ export class BusinessService extends BaseCRUDService {
         '/' +
         idBusiness +
         '/clients?pageCount=' +
+        pageCount +
+        '&perPage=' +
+        perPage +
+        '&searchWord=' +
+        searchWord
+    );
+  }
+
+  getBusinessBox(
+    pageCount = 1,
+    perPage = 10,
+    searchWord = ''
+  ): Observable<any> {
+    let idBusiness = this.SelectedBusiness.value._id;
+
+    return super.get(
+      this.url +
+        '/' +
+        idBusiness +
+        '/box?pageCount=' +
         pageCount +
         '&perPage=' +
         perPage +

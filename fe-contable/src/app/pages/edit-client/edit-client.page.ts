@@ -6,8 +6,8 @@ import { BusinessService } from 'src/app/features/business/service/business.serv
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
 import { ToastType } from 'src/app/models/toast.enum';
-import { HelperService } from 'src/app/services/helpers.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-edit-client',
@@ -28,7 +28,7 @@ export class EditClientPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.activateRoute.snapshot.params.clientId);
+
     if (this.activateRoute.snapshot.params.clientId) {
       this.clientId = this.activateRoute.snapshot.params.clientId;
     }

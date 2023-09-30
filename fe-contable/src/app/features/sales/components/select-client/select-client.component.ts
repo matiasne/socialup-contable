@@ -7,8 +7,8 @@ import { ListClientComponent } from 'src/app/features/clients/components/list-cl
 import { ModalFormClientComponent } from 'src/app/features/clients/components/modal-form-client/modal-form-client.component';
 import { Client } from 'src/app/features/clients/models/client';
 import { ClientService } from 'src/app/features/clients/services/client.service';
-import { HelperService } from 'src/app/services/helpers.service';
-import { UserService } from 'src/app/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'socialup-select-client',
   templateUrl: './select-client.component.html',
@@ -30,7 +30,7 @@ export class SelectClientComponent implements OnInit {
   ngOnInit() {}
 
   handleClick(client) {
-    console.log(client);
+
     this.modalCtrl.dismiss(client, '', 'select');
   }
 
@@ -43,7 +43,7 @@ export class SelectClientComponent implements OnInit {
 
     // const { data, role } = await modal.onWillDismiss();
     const { data, role } = await modal.onWillDismiss();
-    console.log(data);
+
     if (data) {
       this.handleClick(data);
     }

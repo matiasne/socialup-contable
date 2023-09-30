@@ -8,7 +8,7 @@ export class Product {
     public salePrice: string,
     public idBusiness: string,
     public image: string
-  ) {}
+  ) { }
   public static adapt(item: any): Product {
     return new Product(
       item._id,

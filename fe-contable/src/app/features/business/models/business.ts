@@ -1,6 +1,17 @@
+export interface IBusinessDTO {
+  address: string;
+  category: string;
+  createdAt: string;
+  email: string;
+  image: string;
+  name: string;
+  phone: string;
+  updatedAt: string;
+  user: string;
+  _id: string;
+}
+
 export class Business {
-  business: any;
-  static _id: any;
   constructor(
     public _id: string,
     public name: string,
@@ -16,10 +27,10 @@ export class Business {
     return new Business(
       item._id,
       item.name,
-      item.email,
       item.image,
       item.category,
       item.address,
+      item.email,
       item.phone,
       item.idUser
     );

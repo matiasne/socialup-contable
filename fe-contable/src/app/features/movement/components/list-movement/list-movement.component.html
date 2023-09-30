@@ -1,0 +1,6 @@
+<ng-template #movementTemplate let-item="item">
+  <app-item-movement [showEditButton]="false" [movement]="item"></app-item-movement>
+</ng-template>
+
+<app-list-items #listItem [items]="movements" [hideSearchBar]="true" [itemTemplate]="movementTemplate"
+  [totalPages]="totalPages" (handleSearch)="refreshMovements($event)"></app-list-items>

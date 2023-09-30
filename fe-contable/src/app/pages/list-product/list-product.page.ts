@@ -8,8 +8,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BusinessService } from 'src/app/features/business/service/business.service';
-import { UserService } from 'src/app/services/user.service';
-import { HelperService } from 'src/app/services/helpers.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { HelperService } from 'src/app/shared/services/helpers.service';
 import { ProductService } from 'src/app/features/products/services/product.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { ListItemsComponent } from 'src/app/shared/components/list-items/list-items.component';
@@ -35,7 +35,7 @@ export class ListProductPage implements OnInit {
   ngOnInit() {}
 
   handleClickProduct(product) {
-    console.log('!!!!');
+
   }
 
   handleClickEditProduct(product) {
